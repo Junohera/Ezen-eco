@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,6 +8,18 @@
 <title>Insert title here</title>
 </head>
 <body>
-test
+    <ul>
+        <c:forEach var="b" items="${bundleList}" varStatus="status">
+            <li>
+                <ul>
+                    <c:forEach var="m" items="${b.musicList}" varStatus="status">
+                        <li>
+                            ${m}
+                        </li>
+                    </c:forEach>
+                </ul>
+            </li> 
+        </c:forEach>
+    </ul>
 </body>
 </html>
