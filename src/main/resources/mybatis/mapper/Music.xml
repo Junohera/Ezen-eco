@@ -3,12 +3,12 @@
 <mapper namespace="com.eco.dao.MusicDao">
 
 	<select id="listBundleForMain" resultType="com.eco.dto.Bundle">
-		select * from eco_bundle_master
+		select * from bundle_master
 	</select>
 
 	<select id="listByBundle" resultType="com.eco.dto.Music">
-		select bd.bdseq, m.* from eco_bundle_detail bd
-			left join eco_music m on m.mseq = bd.mseq
+		select bd.bdseq, m.* from bundle_detail bd
+			left join music m on m.mseq = bd.mseq
 		where bd.bmseq = #{param1}
 		order by bd.bdseq
 	</select>

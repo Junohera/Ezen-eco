@@ -1,66 +1,66 @@
 -- disconnect key
-alter table eco_user drop primary key cascade;
-alter table eco_admin drop primary key cascade;
-alter table eco_artist drop primary key cascade;
-alter table eco_album drop primary key cascade;
-alter table eco_bundle_master drop primary key cascade;
-alter table eco_music drop primary key cascade;
-alter table eco_theme drop primary key cascade;
-alter table eco_genre drop primary key cascade;
-alter table eco_qna drop primary key cascade;
+alter table member drop primary key cascade;
+alter table admin drop primary key cascade;
+alter table artist drop primary key cascade;
+alter table album drop primary key cascade;
+alter table bundle_master drop primary key cascade;
+alter table music drop primary key cascade;
+alter table theme drop primary key cascade;
+alter table genre drop primary key cascade;
+alter table qna drop primary key cascade;
 
 
 -- drop table
 
-drop table eco_notice purge;
-drop table eco_qReply purge;
-drop table eco_qna purge;
-drop table eco_music_like purge;
-drop table eco_album_like purge;
-drop table eco_artist_like purge;
-drop table eco_music_reply purge;
-drop table eco_music purge;
-drop table eco_album purge;
-drop table eco_artist purge;
-drop table eco_theme purge;
-drop table eco_genre purge;
-drop table eco_bundle_master purge;
-drop table eco_bundle_detail purge;
-drop table eco_admin purge;
-drop table eco_user purge;
+drop table notice purge;
+drop table qReply purge;
+drop table qna purge;
+drop table music_like purge;
+drop table album_like purge;
+drop table artist_like purge;
+drop table music_reply purge;
+drop table music purge;
+drop table album purge;
+drop table artist purge;
+drop table theme purge;
+drop table genre purge;
+drop table bundle_master purge;
+drop table bundle_detail purge;
+drop table admin purge;
+drop table member purge;
 
 -- drop sequence
-drop sequence eco_user_seq;
-drop sequence eco_admin_seq;
-drop sequence eco_music_seq;
-drop sequence eco_genre_seq;
-drop sequence eco_theme_seq;
-drop sequence eco_music_reply_seq;
-drop sequence eco_album_seq;
-drop sequence eco_artist_seq;
-drop sequence eco_qna_seq;
-drop sequence eco_notice_seq;
-drop sequence eco_qReply_seq;
-drop sequence eco_bundle_master_seq;
-drop sequence eco_bundle_detail_seq;
+drop sequence member_seq;
+drop sequence admin_seq;
+drop sequence music_seq;
+drop sequence genre_seq;
+drop sequence theme_seq;
+drop sequence music_reply_seq;
+drop sequence album_seq;
+drop sequence artist_seq;
+drop sequence qna_seq;
+drop sequence notice_seq;
+drop sequence qReply_seq;
+drop sequence bundle_master_seq;
+drop sequence bundle_detail_seq;
 
 -- create sequence
-create sequence eco_user_seq start with 1;
-create sequence eco_admin_seq start with 1;
-create sequence eco_music_seq start with 1;
-create sequence eco_genre_seq start with 1;
-create sequence eco_theme_seq start with 1;
-create sequence eco_music_reply_seq start with 1;
-create sequence eco_album_seq start with 1;
-create sequence eco_artist_seq start with 1;
-create sequence eco_qna_seq start with 1;
-create sequence eco_notice_seq start with 1;
-create sequence eco_qReply_seq start with 1;
-create sequence eco_bundle_master_seq start with 1;
-create sequence eco_bundle_detail_seq start with 1;
+create sequence member_seq start with 1;
+create sequence admin_seq start with 1;
+create sequence music_seq start with 1;
+create sequence genre_seq start with 1;
+create sequence theme_seq start with 1;
+create sequence music_reply_seq start with 1;
+create sequence album_seq start with 1;
+create sequence artist_seq start with 1;
+create sequence qna_seq start with 1;
+create sequence notice_seq start with 1;
+create sequence qReply_seq start with 1;
+create sequence bundle_master_seq start with 1;
+create sequence bundle_detail_seq start with 1;
 
 -- create table
-create table eco_user(
+create table member(
 	useq number(5) primary key,
 	email varchar2(50) unique not null,
 	pw varchar2(20) not null,
@@ -71,23 +71,23 @@ create table eco_user(
 	indate date default sysdate
 );
 
-create table eco_admin(
+create table admin(
 	aseq number(3) primary key,
 	id varchar2(20) not null,
 	pw varchar2(20) not null
 );
 
-create table eco_genre(
+create table genre(
 	gseq number(5) primary key,
 	genre varchar2(30) unique not null
 );
 
-create table eco_theme(
+create table theme(
 	tseq number(5) primary key,
 	theme varchar2(30) unique not null
 );
 
-create table eco_artist (
+create table artist (
 	atseq number(5) primary key,
 	name varchar2(30) not null,
 	groupyn varchar2(1) not null, -- Y: 그룹, N: 솔로
@@ -96,9 +96,9 @@ create table eco_artist (
 	description varchar2(1000)
 );
 
-create table eco_album (
+create table album (
 	abseq number(5) primary key,
-	atseq number(5) references eco_artist(atseq),
+	atseq number(5) references artist(atseq),
 	title varchar2(50) not null,
 	img varchar2(50),
 	content varchar2(1000),
@@ -106,11 +106,11 @@ create table eco_album (
 );
 
 -- TODO: 뮤직관련 화면별에서 사용할 VIEW 필요
-create table eco_music(
+create table music(
 	mseq number(5) primary key,
-	abseq number(5) references eco_album(abseq),
-	atseq number(5) references eco_artist(atseq),
-	gseq number(5) references eco_genre(gseq),
+	abseq number(5) references album(abseq),
+	atseq number(5) references artist(atseq),
+	gseq number(5) references genre(gseq),
 	title varchar2(30) not null,
 	content varchar2(1000), -- 가사
 	theme varchar2(50),
@@ -121,7 +121,7 @@ create table eco_music(
 
 -- 리스트 역할 마스터 테이블(유저번호 존재시 내 리스트, 유저번호 없을시 사이트내의 리스트)
 -- TODO: 재생목록같은경우에는 세션에서만 제공하기로? 팀회의시 의견물어보기
-create table eco_bundle_master (
+create table bundle_master (
 	bmseq number(5) primary key,
 	useq number(5), -- null: 관리자에서 추가한 리스트, 유저시퀀스: 유저의 개인 리스트
 	title varchar2(100), -- 그리움 가득한 밤 문득 생각나는 발라드
@@ -129,10 +129,10 @@ create table eco_bundle_master (
 	cdate date default sysdate
 );
 
-create table eco_bundle_detail(
+create table bundle_detail(
 	bdseq number(5) primary key,
-	bmseq number(5) references eco_bundle_master(bmseq),
-	mseq number(5) references eco_music(mseq)
+	bmseq number(5) references bundle_master(bmseq),
+	mseq number(5) references music(mseq)
 );
 
 /*
@@ -140,46 +140,46 @@ create table eco_bundle_detail(
 -- TODO: 순서 적용 필요(관리자에서 수정 추가시 드래그로 순서정리 가능하면)
 */
 
-create table eco_music_like(
-	useq number(5) references eco_user(useq),
-	mseq number(5) references eco_music(mseq)
+create table music_like(
+	useq number(5) references member(useq),
+	mseq number(5) references music(mseq)
 );
 
-create table eco_album_like(
-	useq number(5) references eco_user(useq),
-	abseq number(5) references eco_album(abseq)
+create table album_like(
+	useq number(5) references member(useq),
+	abseq number(5) references album(abseq)
 );
 
-create table eco_artist_like(
-	useq number(5) references eco_user(useq),
-	atseq number(5) references eco_artist(atseq)
+create table artist_like(
+	useq number(5) references member(useq),
+	atseq number(5) references artist(atseq)
 );
 
-create table eco_music_reply(
+create table music_reply(
 	rseq number(5) primary key,
-	mseq number(5) references eco_music(mseq),
-	useq number(5) references eco_user(useq),
+	mseq number(5) references music(mseq),
+	useq number(5) references member(useq),
 	content varchar2(1000) not null,
 	wdate date default  sysdate
 );
 
-create table eco_qna (
+create table qna (
 	qseq number(5) primary key,
-	useq number(5) references eco_user(useq),
+	useq number(5) references member(useq),
 	title varchar2(50) not null,
 	content varchar2(1000),
 	qna_date date default  sysdate
 );
 
-create table eco_qReply (
+create table qReply (
 	qrseq number(5) primary key,
-	qseq number(5) references eco_qna(qseq),
-	aseq number(5) references eco_admin(aseq),
+	qseq number(5) references qna(qseq),
+	aseq number(5) references admin(aseq),
 	content varchar2(1000),
 	qreply_date date default  sysdate
 );
 
-create table eco_notice (
+create table notice (
 	nseq number(5) primary key,
 	title varchar2(50) not null,
 	content varchar2(1000),
