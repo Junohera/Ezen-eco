@@ -13,5 +13,5 @@ insert into eco_music_like(mseq, useq) values(1, 1);
 insert into eco_music_reply(rseq, mseq, useq, content) values(eco_music_reply_seq.nextval, 1, 1, '개조아여');
 insert into eco_music_reply(rseq, mseq, useq, content) values(eco_music_reply_seq.nextval, 2, 1, '역시... 뒤집어 놓으다.. 음정, 박자.. 와...');
 insert into eco_qna(qseq, useq, title, content) values(eco_qna_seq.nextval, 1, '블루투스 연결은 어떻게 하나요?', '안녕하세요. 해당 웹을 10년간 이용해온 사용자인데요. 혹시 블루투스 연결은 안되나요?');
-insert into eco_qReply(qrseq, qseq, useq, content) values(eco_qReply_seq.nextval, 1, 1, '컴퓨터에 블루투스 장치가 연결되었는지 확인하여주시고, 연결되었음에도 들리지않는다면 해당 장치의 문제이므로 저희사이트와는 무관한 증상입니다.');
+insert into eco_qReply(qrseq, qseq, aseq, content) values(eco_qReply_seq.nextval, 1, 1, '컴퓨터에 블루투스 장치가 연결되었는지 확인하여주시고, 연결되었음에도 들리지않는다면 해당 장치의 문제이므로 저희사이트와는 무관한 증상입니다.');
 insert into eco_notice(nseq, title, content) values(eco_notice_seq.nextval, 'title', 'content');
