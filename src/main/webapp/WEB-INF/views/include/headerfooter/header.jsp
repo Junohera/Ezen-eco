@@ -16,7 +16,7 @@
     <div class="header">
         <a href="/"><div class="logo"></div></a>
         <ul class="headerText">
-        	<li><a class="headerFont" href="chart">둘러보기</a></li>
+        	<li><a class="headerFont" href="browse">둘러보기</a></li>
             <li><a class="headerFont"  href="storage">보관함</a></li>
             <li><a class="headerFont"  href="membership">이용권</a></li>
         </ul>

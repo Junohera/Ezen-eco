@@ -7,12 +7,13 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.context.Theme;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.eco.dto.Album;
+import com.eco.dto.Chart;
+import com.eco.dto.Genre;
 import com.eco.dto.MemberVO;
 import com.eco.dto.Music;
 import com.eco.service.MusicService;
@@ -24,26 +25,42 @@ public class MusicController {
 	@Autowired
 	MusicService ms;
 
-	@RequestMapping(value = "/chart", method = RequestMethod.GET)
-	public String chart(Model model, HttpServletRequest request
-			, @RequestParam(value = "tseq", required = false, defaultValue = "1") int tseq
+	@RequestMapping(value = "/browse", method = RequestMethod.GET)
+	public String browse(Model model, HttpServletRequest request
+			, @RequestParam(value = "selectedSeq", required = false, defaultValue = "1") int selectedSeq
+			, @RequestParam(value = "selectedType", required = false, defaultValue = "chart") String selectedType
 	) {
 		String returnPath = "redirect:/" + request.getHeader("Referer");
 		System.out.println("System.out.println(returnPath);");
 		System.out.println(returnPath);
-		model.addAttribute("tseq", tseq);
+		model.addAttribute("selectedType", selectedType);
+		model.addAttribute("selectedSeq", selectedSeq);
 
-		/** 테마 리스트 */
-		List<Theme> themeList = ms.themeList();
-		model.addAttribute("themeList", themeList);
+		
+		/** 차트 리스트 */
+		List<Chart> chartList = ms.chartList();
+		model.addAttribute("chartList", chartList);
+		
+		/** 장르 리스트 */
+		List<Genre> genreList = ms.genreList();
+		model.addAttribute("genreList", genreList);
 
 		// 뮤직차트
-		// 1. 선택된 테마의 시퀀스 추출  -> @RequestParam(value = "tseq", required = false, defaultValue = "1") int tseq
-		// 2. 테마시퀀스로 music_view 조회
-		List<Music> chartList = ms.musicListByTheme(tseq);
-		model.addAttribute("chartList", chartList);
+		// 1. 선택한 타입과 선택한 시퀀스값 추출
+			// @RequestParam(value = "selectedSeq", required = false, defaultValue = "1") int selectedSeq -> 선택안할경우 1
+			// @RequestParam(value = "selectedType", required = false, defaultValue = "chart") String selectedType -> 선택안할경우 차트
+			// 미선택시 차트의 1번으로 진행
 
-		return "music/chart";
+		// 2. 선택한 타입과 선택한 시퀀스값으로 music_view 조회
+		List<Music> musicList = null;
+		if ("chart".equals(selectedType)) {
+			musicList = ms.musicListByChart(selectedSeq);
+		} else if ("genre".equals(selectedType)){
+			musicList = ms.musicListByGenre(selectedSeq);
+		}
+		model.addAttribute("musicList", musicList);
+
+		return "music/browse";
 	}
 	
 	@RequestMapping(value = "/artistView", method = RequestMethod.GET)

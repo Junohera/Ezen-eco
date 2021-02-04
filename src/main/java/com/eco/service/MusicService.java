@@ -4,10 +4,11 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.context.Theme;
 
 import com.eco.dao.MusicDao;
 import com.eco.dto.Album;
+import com.eco.dto.Chart;
+import com.eco.dto.Genre;
 import com.eco.dto.Music;
 
 @Service
@@ -23,9 +24,25 @@ public class MusicService {
 	public List<Music> musicListByTheme(int tseq) {
 		return md.musicListByTheme(tseq);
 	}
+	
+	public List<Music> musicListByChart(int cseq) {
+		return md.musicListByChart(cseq);
+	}
 
-	public List<Theme> themeList() {
-		return md.themeList();
+	public List<Music> musicListByGenre(int gseq) {
+		return md.musicListByGenre(gseq);
+	}
+
+	public List<Music> musicListByAlbum(int abseq) {
+		return md.musicListByAlbum(abseq);
+	}
+
+	public List<Chart> chartList() {
+		return md.chartList();
+	}
+	
+	public List<Genre> genreList() {
+		return md.genreList();
 	}
 
 	public Music getMusic(int mseq) {
@@ -34,10 +51,6 @@ public class MusicService {
 
 	public Album getAlbum(int abseq) {
 		return md.getAlbum(abseq);
-	}
-
-	public List<Music> musicListByAlbum(int abseq) {
-		return md.musicListByAlbum(abseq);
 	}
 
 	public void likeArtist(int useq, int mseq) {
@@ -72,5 +85,6 @@ public class MusicService {
 	public void unbanMusic(int useq, int mseq) {
 		md.unbanMusic(useq, mseq);
 	}
+
 	
 }

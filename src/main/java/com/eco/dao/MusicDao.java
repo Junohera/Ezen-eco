@@ -7,6 +7,8 @@ import org.springframework.ui.context.Theme;
 
 import com.eco.dto.Album;
 import com.eco.dto.Artist;
+import com.eco.dto.Chart;
+import com.eco.dto.Genre;
 import com.eco.dto.Music;
 
 @Mapper
@@ -41,4 +43,12 @@ public interface MusicDao {
 	void banMusic(int useq, int mseq);
 	
 	void unbanMusic(int useq, int mseq);
+
+	List<Chart> chartList();
+
+	List<Genre> genreList();
+
+	List<Music> musicListByChart(int cseq);
+
+	List<Music> musicListByGenre(int gseq);
 }

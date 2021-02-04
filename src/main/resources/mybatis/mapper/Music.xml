@@ -14,8 +14,26 @@
 		order by mseq desc
 	</select>
 	
+	<select id="musicListByChart" resultType="com.eco.dto.Music">
+		select * from music_view where theme like '%'||#{param1}||'%'
+		order by mseq desc
+	</select>
+	
+	<select id="musicListByGenre" resultType="com.eco.dto.Music">
+		select * from music_view where theme like '%'||#{param1}||'%'
+		order by mseq desc
+	</select>
+	
 	<select id="themeList" resultType="com.eco.dto.Theme">
 		select * from theme order by tseq asc
+	</select>
+	
+	<select id="chartList" resultType="com.eco.dto.Chart">
+		select * from chart order by cseq asc
+	</select>
+	
+	<select id="genreList" resultType="com.eco.dto.Genre">
+		select * from genre order by gseq asc
 	</select>
 	
 	<select id="getMusic" resultType="com.eco.dto.Music">

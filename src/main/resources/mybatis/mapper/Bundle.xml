@@ -3,11 +3,10 @@
 <mapper namespace="com.eco.dao.BundleDao">
 
 	<select id="listBundleForMain" resultType="com.eco.dto.Bundle">
-		select * from bundle_master
+		select * from bundle_master where useq = 0
 	</select>
 	
-    <sql id="listBundleByUser">
-          
-    </sql>
-
+    <select id="listBundleByUser" resultType="com.eco.dto.Bundle">
+          select * from bundle_master where useq = #{param1}
+    </select>
 </mapper>
