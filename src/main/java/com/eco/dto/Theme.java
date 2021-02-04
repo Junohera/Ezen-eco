@@ -5,5 +5,6 @@ import lombok.Data;
 @Data
 public class Theme {
 	private int tseq;
-	private String theme;
+	private String title;
+	private String img;
 }
