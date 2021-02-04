@@ -26,8 +26,12 @@
     <hr>
     
     <br><br>
+    <h1>앨범 수록곡</h1>
     <c:forEach var="music" items="${musicList}" varStatus="status">
         ${music} 
+        <c:if test="${music.titleyn eq 'Y'}">
+            <span style="color:blue; font-weight: bold; background:red;">타이틀</span>
+        </c:if>
         <hr>
     </c:forEach>
 </body>
