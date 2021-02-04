@@ -62,7 +62,7 @@ create sequence bundle_detail_seq start with 1;
 -- create table
 create table member(
 	useq number(5) primary key,
-	email varchar2(50) unique not null,
+	id varchar2(50) unique not null,
 	pw varchar2(20) not null,
 	name varchar2(30) not null,
 	phone varchar2(13) unique not null,

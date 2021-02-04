@@ -1,5 +1,5 @@
 insert into admin(aseq, id, pw) values(admin_seq.nextval, 'admin', 'admin');
-insert into member(useq, email, pw, name, phone, gender) values(member_seq.nextval, 'selectjuno@gmail.com', '1234', 'juno', '010-2172-7798', 'M');
+insert into member(useq, id, pw, name, phone, gender) values(member_seq.nextval, 'selectjuno@gmail.com', '1234', 'juno', '010-2172-7798', 'M');
 insert into theme(tseq, theme) values(theme_seq.nextval, '시원한');
 insert into theme(tseq, theme) values(theme_seq.nextval, '감성적인');
 insert into theme(tseq, theme) values(theme_seq.nextval, '슬픈');
