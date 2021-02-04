@@ -8,7 +8,8 @@ import com.eco.dto.Bundle;
 
 @Mapper
 public interface BundleDao {
+	
 	List<Bundle> listBundleForMain();
 
-	List<Bundle> listBundleByUser(Integer useq);
+	List<Bundle> listBundleByUser(int useq);
 }

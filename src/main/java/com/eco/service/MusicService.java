@@ -17,14 +17,18 @@ public class MusicService {
 	@Autowired
 	MusicDao md;
 
-	public List<Music> listByBundle(int bmseq) {
-		return md.listByBundle(bmseq);
+	public List<Chart> chartList() {
+		return md.chartList();
 	}
 	
-	public List<Music> musicListByTheme(int tseq) {
-		return md.musicListByTheme(tseq);
+	public List<Genre> genreList() {
+		return md.genreList();
 	}
-	
+
+	public List<Music> musicListByAlbum(int abseq) {
+		return md.musicListByAlbum(abseq);
+	}
+
 	public List<Music> musicListByChart(int cseq) {
 		return md.musicListByChart(cseq);
 	}
@@ -32,17 +36,13 @@ public class MusicService {
 	public List<Music> musicListByGenre(int gseq) {
 		return md.musicListByGenre(gseq);
 	}
-
-	public List<Music> musicListByAlbum(int abseq) {
-		return md.musicListByAlbum(abseq);
-	}
-
-	public List<Chart> chartList() {
-		return md.chartList();
-	}
 	
-	public List<Genre> genreList() {
-		return md.genreList();
+	public List<Music> musicListByTheme(int tseq) {
+		return md.musicListByTheme(tseq);
+	}
+
+	public List<Music> musicListByBundle(int bmseq) {
+		return md.musicListByBundle(bmseq);
 	}
 
 	public Music getMusic(int mseq) {
@@ -62,7 +62,7 @@ public class MusicService {
 	}
 
 	public void likeMusic(int useq, int mseq) {
-		unbanMusic(useq, mseq); // music은 곡 무시하기가 있으므로 제거 후 좋아요등록
+		this.unbanMusic(useq, mseq); // music은 곡 무시하기가 있으므로 제거 후 좋아요등록
 		md.likeMusic(useq, mseq);
 	}
 	
@@ -79,12 +79,12 @@ public class MusicService {
 	}
 	
 	public void banMusic(int useq, int mseq) {
+		this.unlikeMusic(useq, mseq); // 곡을 무시할경우, 좋아요 취소
 		md.banMusic(useq, mseq);
 	}
 	
 	public void unbanMusic(int useq, int mseq) {
 		md.unbanMusic(useq, mseq);
 	}
-
 	
 }

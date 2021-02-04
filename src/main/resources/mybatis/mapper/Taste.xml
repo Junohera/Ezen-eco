@@ -1,41 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eco.dao.TasteDao">
-
-	<select id="listBundleForMain" resultType="com.eco.dto.Bundle">
-		select * from bundle_master
-	</select>
-
-	<select id="listByBundle" resultType="com.eco.dto.Music">
-		select bd.bdseq, m.* from bundle_detail bd
-			left join music m on m.mseq = bd.mseq
-		where bd.bmseq = #{param1}
-		order by bd.bdseq
-	</select>
-	
-	<select id="musicListByTheme" resultType="com.eco.dto.Music">
-		select * from music_view where theme like '%'||#{param1}||'%'
-		order by mseq desc
-	</select>
-	
-	<select id="themeList" resultType="com.eco.dto.Theme">
-		select * from theme order by tseq asc
-	</select>
-	
-	<select id="getMusic" resultType="com.eco.dto.Music">
-		select * from music_view where mseq = #{param1}
-	</select>
-	
-	<select id="getAlbum" resultType="com.eco.dto.Album">
-		select * from album_view where abseq = #{param1}
-	</select>
-	
-	<select id="getArtist" resultType="com.eco.dto.Artist">
-		select * from artist where atseq = #{param1}
-	</select>
-	
-	<select id="musicListByAlbum" resultType="com.eco.dto.Music">
-		select * from music_view where abseq = #{param1}
-	</select>
 	
 </mapper>

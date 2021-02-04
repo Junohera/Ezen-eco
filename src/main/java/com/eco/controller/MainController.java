@@ -29,7 +29,7 @@ public class MainController {
 		
 		List<Bundle> bundleList = bundleService.listBundle(0); // 메인에서 부를 번들은 유저없이 가므로 0을 보냄(참고로 시퀀스는 1부터)
 		for (Bundle b : bundleList) {
-			List<Music> musicList = musicService.listByBundle(b.getBmseq());
+			List<Music> musicList = musicService.musicListByBundle(b.getBmseq());
 			b.setMusicList(musicList);
 		}
 		model.addAttribute("bundleList", bundleList);

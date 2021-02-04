@@ -28,6 +28,13 @@
     #musicList a{
         color : lightslategray;
     }
+
+    /* 혜민씨 css at likemusic.jsp */
+    th{height:80; width:895px;}
+	th{padding-left:20px; text-align: left; white-space: nowrap; height: 39px; font-size: 13px; color: #a0a0a0;
+		font-weight: 400; border-top: 1px solid #ebebeb;  border-bottom: 1px solid #ebebeb;}
+	td{padding-left:20px; text-align: left; white-space: nowrap; height: 39px; font-size: 15px; color: #5D5D5D;
+		font-weight: 450; }
 </style>
 
 <%-- <h3>
@@ -73,36 +80,39 @@
     </c:choose>
 </h1>
 
-<div id="musicList">
-    <div class="head">
-        <ul>
-            <li>순위</li>
-            <li>곡/앨범</li>
-            <li>아티스트</li>
-            <li>듣기</li>
-            <li>재생목록</li>
-            <li>내 리스트</li>
-            <li>더보기</li>
-        </ul>
-    </div>
-    <div class="body">
-        <ul>
+<table>
+	<tr>
+		<th><input type="checkbox"></th>
+        <th>순위</th>
+        <th>곡/앨범</th>
+        <th>아티스트</th>
+        <th>듣기</th>
+        <th>재생목록</th>
+        <th>내 리스트</th>
+        <th>더보기</th>
+    </tr>
+    <c:choose>
+        <c:when test="${musicList.size() > 0}">
             <c:forEach var="music" items="${musicList}" varStatus="status">
-                <li>
-                    <ul>
-                        <li>${status.count}</li>
-                        <li>
-                            <a href="재생목록에 추가">${music.title}</a> / 
-                            <a href="albumView?abseq=${music.abseq}">${music.abtitle}</a>
-                        </li>
-                        <li>${music.name}</li>
-                        <li><a href="">듣기</a></li>
-                        <li><a href="">재생목록</li>
-                        <li><a href="">내 리스트</a></li>
-                        <li><a href="">더보기</a></li>
-                    </ul>
-                </li>
+                <tr>
+                    <td><input type="checkbox"></td>
+                    <td>${status.count}</td>
+                    <td>
+                        <a href="재생목록에 추가">${music.title}</a> / 
+                        <a href="albumView?abseq=${music.abseq}">${music.abtitle}</a>
+                    </td>
+                    <td>${music.name}</td>
+                    <td>듣기</td>
+                    <td>재생목록</td>
+                    <td>내 리스트</td>
+                    <td>더보기</td>
+                </tr>
             </c:forEach>
-        </ul>
-    </div>
-</div>
+        </c:when>
+        <c:otherwise>
+            <tr>
+                <td colspan="8" style="text-align: center;">곡이 없습니다.</td>
+            </tr>
+        </c:otherwise>
+    </c:choose>
+</table>

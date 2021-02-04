@@ -14,19 +14,27 @@ import com.eco.dto.Music;
 @Mapper
 public interface MusicDao {
 
-	List<Music> listByBundle(int bmseq);
+	List<Theme> themeList();
 	
+	List<Chart> chartList();
+
+	List<Genre> genreList();
+	
+	List<Music> musicListByAlbum(int abseq);
+
+	List<Music> musicListByChart(int cseq);
+
+	List<Music> musicListByGenre(int gseq);
+
 	List<Music> musicListByTheme(int tseq);
 
-	List<Theme> themeList();
+	List<Music> musicListByBundle(int bmseq);
 
 	Music getMusic(int mseq);
 
 	Album getAlbum(int abseq);
 	
 	Artist getArtist(int atseq);
-
-	List<Music> musicListByAlbum(int abseq);
 
 	void likeMusic(int useq, int mseq);
 
@@ -43,12 +51,4 @@ public interface MusicDao {
 	void banMusic(int useq, int mseq);
 	
 	void unbanMusic(int useq, int mseq);
-
-	List<Chart> chartList();
-
-	List<Genre> genreList();
-
-	List<Music> musicListByChart(int cseq);
-
-	List<Music> musicListByGenre(int gseq);
 }
