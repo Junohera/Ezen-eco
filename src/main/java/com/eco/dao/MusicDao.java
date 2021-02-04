@@ -7,20 +7,13 @@ import org.springframework.ui.context.Theme;
 
 import com.eco.dto.Album;
 import com.eco.dto.Artist;
-import com.eco.dto.Bundle;
 import com.eco.dto.Music;
 
 @Mapper
 public interface MusicDao {
 
-	List<Bundle> listBundleForMain();
-
-	List<Bundle> listBundleByUser(Integer useq);
-
 	List<Music> listByBundle(int bmseq);
 	
-	List<Music> test();
-
 	List<Music> musicListByTheme(int tseq);
 
 	List<Theme> themeList();
@@ -32,4 +25,20 @@ public interface MusicDao {
 	Artist getArtist(int atseq);
 
 	List<Music> musicListByAlbum(int abseq);
+
+	void likeMusic(int useq, int mseq);
+
+	void likeAlbum(int useq, int mseq);
+
+	void likeArtist(int useq, int mseq);
+
+	void unlikeArtist(int useq, int mseq);
+
+	void unlikeAlbum(int useq, int mseq);
+
+	void unlikeMusic(int useq, int mseq);
+
+	void banMusic(int useq, int mseq);
+	
+	void unbanMusic(int useq, int mseq);
 }
