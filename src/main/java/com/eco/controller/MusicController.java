@@ -27,8 +27,8 @@ public class MusicController {
 
 	@RequestMapping(value = "/browse", method = RequestMethod.GET)
 	public String browse(Model model, HttpServletRequest request
-			, @RequestParam(value = "selectedSeq", required = false, defaultValue = "1") int selectedSeq
 			, @RequestParam(value = "selectedType", required = false, defaultValue = "chart") String selectedType
+			, @RequestParam(value = "selectedSeq", required = false, defaultValue = "1") int selectedSeq
 	) {
 		String returnPath = "redirect:/" + request.getHeader("Referer");
 		System.out.println("System.out.println(returnPath);");

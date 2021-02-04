@@ -58,8 +58,7 @@
 </ul>
 
 <h1>
-<!-- 선택된 타입이 차트면 제목은 선택한 차트의 타이틀 -->
-<!-- 선택된 타입이 장르면 제목은 선택한 장르의 타이틀 -->
+<!-- 선택된 타입이 차트면 제목은 차트의 타이틀, 장르면 제목은 장르의 타이틀 (디폴트값이 chart, "1"이기 때문에 otherwise는 구문은 없음)-->
     <c:choose>
         <c:when test="${selectedType eq 'chart'}">
             <c:forEach var="chart" items="${chartList}" varStatus="status">
