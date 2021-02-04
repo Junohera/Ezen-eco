@@ -31,11 +31,11 @@
 		select * from music_view where abseq = #{param1}
 	</select>
 	<!-- 메인에서 번들마스터에 의한 곡목록  -->
-	<select id="musicListByBundleMaster" resultType="com.eco.dto.Music">
+	<select id="musicListByBundle" resultType="com.eco.dto.Music">
 		select bd.bdseq, m.* from bundle_detail bd
 			left join music_view m on m.mseq = bd.mseq
-		where bd.bmseq = 1
-		order by bd.bdseq;
+		where bd.bmseq = #{param1}
+		order by bd.bdseq
 	</select>
 <!-- 어떤것에 의한 곡목록 -->
 
