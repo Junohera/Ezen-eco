@@ -92,6 +92,7 @@ create table artist (
 	name varchar2(30) not null,
 	groupyn varchar2(1) not null, -- Y: 그룹, N: 솔로
 	gender varchar2(1) not null, -- M: 남성, F: 여성, A: 혼성
+	gseq number(5) references genre(gseq),
 	img varchar2(50),
 	description varchar2(1000)
 );

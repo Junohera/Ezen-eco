@@ -25,7 +25,7 @@ insert into theme(tseq, theme) values(theme_seq.nextval, '해외 일렉트로닉
 insert into theme(tseq, theme) values(theme_seq.nextval, 'CCM');
 insert into genre(gseq, genre) values(genre_seq.nextval, '댄스');
 insert into genre(gseq, genre) values(genre_seq.nextval, '발라드');
-insert into artist(atseq, name, groupyn, gender, img, description) values(artist_seq.nextval, 'Ed Sheeran', 'N', 'M', null, '아티스트 소개');
+insert into artist(atseq, name, groupyn, gender, gseq, img, description) values(artist_seq.nextval, 'Ed Sheeran', 'N', 'M', 1, null, '아티스트 소개');
 insert into artist_like(useq, atseq) values(1, 1);
 insert into album(abseq, atseq, title, img, content) values(album_seq.nextval, 1, 'First Album', null, '앨범소개');
 insert into album_like(useq, abseq) values(1, 1);
