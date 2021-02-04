@@ -79,12 +79,14 @@ create table admin(
 
 create table genre(
 	gseq number(5) primary key,
-	genre varchar2(30) unique not null
+	genre varchar2(30) unique not null,
+	img varchar2(50)
 );
 
 create table theme(
 	tseq number(5) primary key,
-	theme varchar2(30) unique not null
+	theme varchar2(30) unique not null,
+	img varchar2(50)
 );
 
 create table artist (
