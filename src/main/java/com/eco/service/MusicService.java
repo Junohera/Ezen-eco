@@ -5,8 +5,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.context.Theme;
 
 import com.eco.dao.MusicDao;
+import com.eco.dto.Album;
 import com.eco.dto.Bundle;
 import com.eco.dto.Music;
 
@@ -33,5 +35,25 @@ public class MusicService {
 	
 	public List<Music> test() {
 		return md.test();
+	}
+
+	public List<Music> musicListByTheme(int tseq) {
+		return md.musicListByTheme(tseq);
+	}
+
+	public List<Theme> themeList() {
+		return md.themeList();
+	}
+
+	public Music getMusic(int mseq) {
+		return md.getMusic(mseq);
+	}
+
+	public Album getAlbum(int abseq) {
+		return md.getAlbum(abseq);
+	}
+
+	public List<Music> musicListByAlbum(int abseq) {
+		return md.musicListByAlbum(abseq);
 	}
 }

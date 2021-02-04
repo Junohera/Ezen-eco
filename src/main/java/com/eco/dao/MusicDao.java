@@ -3,7 +3,10 @@ package com.eco.dao;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.ui.context.Theme;
 
+import com.eco.dto.Album;
+import com.eco.dto.Artist;
 import com.eco.dto.Bundle;
 import com.eco.dto.Music;
 
@@ -18,4 +21,15 @@ public interface MusicDao {
 	
 	List<Music> test();
 
+	List<Music> musicListByTheme(int tseq);
+
+	List<Theme> themeList();
+
+	Music getMusic(int mseq);
+
+	Album getAlbum(int abseq);
+	
+	Artist getArtist(int atseq);
+
+	List<Music> musicListByAlbum(int abseq);
 }
