@@ -8,13 +8,14 @@ alter table music drop primary key cascade;
 alter table theme drop primary key cascade;
 alter table genre drop primary key cascade;
 alter table qna drop primary key cascade;
-
+alter table taste drop primary key cascade;
 
 -- drop table
-
 drop table notice purge;
 drop table qReply purge;
 drop table qna purge;
+drop table taste purge;
+drop table music_ban purge;
 drop table music_like purge;
 drop table album_like purge;
 drop table artist_like purge;
@@ -32,6 +33,7 @@ drop table member purge;
 -- drop sequence
 drop sequence member_seq;
 drop sequence admin_seq;
+drop sequence taste_seq;
 drop sequence music_seq;
 drop sequence genre_seq;
 drop sequence theme_seq;
@@ -53,6 +55,7 @@ create sequence theme_seq start with 1;
 create sequence music_reply_seq start with 1;
 create sequence album_seq start with 1;
 create sequence artist_seq start with 1;
+create sequence taste_seq start with 1;
 create sequence qna_seq start with 1;
 create sequence notice_seq start with 1;
 create sequence qReply_seq start with 1;
@@ -79,12 +82,14 @@ create table admin(
 
 create table genre(
 	gseq number(5) primary key,
-	genre varchar2(30) unique not null
+	genre varchar2(30) unique not null,
+	img varchar2(50)
 );
 
 create table theme(
 	tseq number(5) primary key,
-	theme varchar2(30) unique not null
+	theme varchar2(30) unique not null,
+	img varchar2(50)
 );
 
 create table artist (
@@ -136,10 +141,23 @@ create table bundle_detail(
 	mseq number(5) references music(mseq)
 );
 
+create table taste(
+	taste_seq number(5) primary key,
+	useq number(5) references member(useq),
+	atseq number(5),
+	tseq number(5),
+	gseq number(5)
+);
+
 /*
 -- 리스트 안에 들어갈 곡정보포함
 -- TODO: 순서 적용 필요(관리자에서 수정 추가시 드래그로 순서정리 가능하면)
 */
+
+create table music_ban(
+	useq number(5) references member(useq),
+	mseq number(5) references music(mseq)
+);
 
 create table music_like(
 	useq number(5) references member(useq),
