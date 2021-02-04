@@ -281,10 +281,10 @@ create or replace view album_view -- 앨범
 as
 select 
     ab.abseq
-    , ab.title as abtitle
-    , ab.img as abimg
-    , ab.content as abcontent
-    , ab.pdate as pdate
+    , ab.title
+    , ab.img
+    , ab.content
+    , ab.pdate
     , at.atseq
     , at.name
     , at.groupyn
