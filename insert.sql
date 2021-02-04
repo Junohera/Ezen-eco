@@ -34,9 +34,17 @@ insert into music(mseq, abseq, atseq, gseq, title, content, theme, titleyn) valu
 insert into music_like(mseq, useq) values(1, 1);
 insert into music_reply(rseq, mseq, useq, content) values(music_reply_seq.nextval, 1, 1, '개조아여');
 insert into music_reply(rseq, mseq, useq, content) values(music_reply_seq.nextval, 2, 1, '역시... 뒤집어 놓으다.. 음정, 박자.. 와...');
-insert into bundle_master(bmseq, useq, title, useyn) values (bundle_master_seq.nextval, 1, '그리움 가득한 밤 문득 생각나는 발라드', 'Y');
+insert into bundle_master(bmseq, useq, title, useyn) values (bundle_master_seq.nextval, 0, '그리움 가득한 밤 문득 생각나는 발라드', 'Y');
+insert into bundle_master(bmseq, useq, title, useyn) values (bundle_master_seq.nextval, 1, '알람 대신 상쾌함 가득한 이 노래', 'Y');
+insert into bundle_master(bmseq, useq, title, useyn) values (bundle_master_seq.nextval, 2, '에너지 가득 귀에 꽂는 비타민 송', 'Y');
 insert into bundle_detail(bdseq, bmseq, mseq) values (bundle_detail_seq.nextval, 1, 1);
 insert into bundle_detail(bdseq, bmseq, mseq) values (bundle_detail_seq.nextval, 1, 2);
+
+insert into bundle_detail(bdseq, bmseq, mseq) values (bundle_detail_seq.nextval, 2, 1);
+insert into bundle_detail(bdseq, bmseq, mseq) values (bundle_detail_seq.nextval, 2, 2);
+
+insert into bundle_detail(bdseq, bmseq, mseq) values (bundle_detail_seq.nextval, 3, 1);
+insert into bundle_detail(bdseq, bmseq, mseq) values (bundle_detail_seq.nextval, 3, 2);
 insert into qna(qseq, useq, title, content) values(qna_seq.nextval, 1, '블루투스 연결은 어떻게 하나요?', '안녕하세요. 해당 웹을 10년간 이용해온 사용자인데요. 혹시 블루투스 연결은 안되나요?');
 insert into qReply(qrseq, qseq, aseq, content) values(qReply_seq.nextval, 1, 1, '컴퓨터에 블루투스 장치가 연결되었는지 확인하여주시고, 연결되었음에도 들리지않는다면 해당 장치의 문제이므로 저희사이트와는 무관한 증상입니다.');
 insert into notice(nseq, title, content) values(notice_seq.nextval, 'title', 'content');
