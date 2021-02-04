@@ -12,5 +12,6 @@ public class Bundle {
     private String title;
     private String useyn;
     private Timestamp cdate;
+
     private List<Music> musicList;
 }
