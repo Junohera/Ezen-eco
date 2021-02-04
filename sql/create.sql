@@ -90,7 +90,7 @@ create table admin(
 	pw varchar2(20) not null
 );
 
--- 그리움 가득한 밤 문득 생각나는 발라드, 알람 대신 상쾌함 가득한 이 노래, 에너지 가득 귀에 꽂는 비타민 송 ...
+-- 관리자가 곡 추가시 테마/태그를 추가하여 번들제작시 효율적으로 관리하기 위함
 create table theme(
 	tseq number(5) primary key,
 	title varchar2(30) unique not null,
@@ -134,7 +134,7 @@ create table music(
 	mseq number(5) primary key,
 	abseq number(5) references album(abseq),
 	atseq number(5) references artist(atseq),
-	theme varchar2(100), -- 테마(복수) 구분자: |
+	theme varchar2(1000), -- 테마/태그(복수) 구분자: |
 	chart varchar2(100), -- 차트(복수) 구분자: |
 	gseq number(5) references genre(gseq), -- 장르(단일)
 	title varchar2(30) not null,
@@ -228,7 +228,7 @@ create table notice (
 -- 테이블설명 
 comment on table member is '사용자';
 comment on table admin is '관리자';
-comment on table theme is '테마';
+comment on table theme is '테마/태그';
 comment on table chart is '차트';
 comment on table genre is '장르';
 comment on table artist is '아티스트';

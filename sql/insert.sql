@@ -9,6 +9,16 @@ insert into theme(tseq, title) values(theme_seq.nextval, '시원한');
 insert into theme(tseq, title) values(theme_seq.nextval, '감성적인');
 insert into theme(tseq, title) values(theme_seq.nextval, '슬픈');
 insert into theme(tseq, title) values(theme_seq.nextval, '기쁜');
+insert into theme(tseq, title) values(theme_seq.nextval, '술마실때');
+insert into theme(tseq, title) values(theme_seq.nextval, '퇴근길');
+insert into theme(tseq, title) values(theme_seq.nextval, '비');
+insert into theme(tseq, title) values(theme_seq.nextval, '눈');
+insert into theme(tseq, title) values(theme_seq.nextval, '운전');
+insert into theme(tseq, title) values(theme_seq.nextval, '새벽');
+insert into theme(tseq, title) values(theme_seq.nextval, '몽환');
+insert into theme(tseq, title) values(theme_seq.nextval, '눙물');
+insert into theme(tseq, title) values(theme_seq.nextval, 'ㅠㅠ');
+insert into theme(tseq, title) values(theme_seq.nextval, 'ㄱㅇㄷ');
 
 -- chart
 insert into chart(cseq, title, img) values(chart_seq.nextval, 'FLO 차트', null);
