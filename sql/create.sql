@@ -80,13 +80,13 @@ create table admin(
 create table genre(
 	gseq number(5) primary key,
 	genre varchar2(30) unique not null,
-	img varchar2(50)
+	img varchar2(100)
 );
 
 create table theme(
 	tseq number(5) primary key,
 	theme varchar2(30) unique not null,
-	img varchar2(50)
+	img varchar2(100)
 );
 
 create table artist (
@@ -95,7 +95,7 @@ create table artist (
 	groupyn varchar2(1) not null, -- Y: 그룹, N: 솔로
 	gender varchar2(1) not null, -- M: 남성, F: 여성, A: 혼성
 	gseq number(5) references genre(gseq),
-	img varchar2(50),
+	img varchar2(100),
 	description varchar2(1000)
 );
 
@@ -103,7 +103,7 @@ create table album (
 	abseq number(5) primary key,
 	atseq number(5) references artist(atseq),
 	title varchar2(50) not null,
-	img varchar2(50),
+	img varchar2(100),
 	content varchar2(1000),
 	pdate date default  sysdate
 );
