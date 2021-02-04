@@ -56,7 +56,7 @@ public class MusicController {
 		List<Music> musicListByAlbum = ms.musicListByAlbum(abseq);
 		System.out.println("musicListByAlbum #########################################");
 		System.out.println(musicListByAlbum);
-		model.addAttribute("musicListByAlbum", musicListByAlbum);
+		model.addAttribute("musicList", musicListByAlbum);
 		
 		return "music/albumView";
 	}

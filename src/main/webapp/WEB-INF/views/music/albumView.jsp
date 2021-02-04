@@ -22,5 +22,13 @@
 </head>
 <body>
     ${album}
+    
+    <hr>
+    
+    <br><br>
+    <c:forEach var="music" items="${musicList}" varStatus="status">
+        ${music} 
+        <hr>
+    </c:forEach>
 </body>
 </html>
