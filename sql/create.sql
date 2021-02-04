@@ -6,15 +6,21 @@ alter table album drop primary key cascade;
 alter table bundle_master drop primary key cascade;
 alter table music drop primary key cascade;
 alter table theme drop primary key cascade;
+alter table chart drop primary key cascade;
 alter table genre drop primary key cascade;
 alter table qna drop primary key cascade;
+alter table taste_master drop primary key cascade;
+alter table taste_detail drop primary key cascade;
+
 
 
 -- drop table
-
 drop table notice purge;
 drop table qReply purge;
 drop table qna purge;
+drop table taste_master purge;
+drop table taste_detail purge;
+drop table music_ban purge;
 drop table music_like purge;
 drop table album_like purge;
 drop table artist_like purge;
@@ -23,6 +29,7 @@ drop table music purge;
 drop table album purge;
 drop table artist purge;
 drop table theme purge;
+drop table chart purge;
 drop table genre purge;
 drop table bundle_master purge;
 drop table bundle_detail purge;
@@ -30,11 +37,14 @@ drop table admin purge;
 drop table member purge;
 
 -- drop sequence
+drop sequence taste_master_seq;
+drop sequence taste_detail_seq;
 drop sequence member_seq;
 drop sequence admin_seq;
 drop sequence music_seq;
-drop sequence genre_seq;
 drop sequence theme_seq;
+drop sequence chart_seq;
+drop sequence genre_seq;
 drop sequence music_reply_seq;
 drop sequence album_seq;
 drop sequence artist_seq;
@@ -48,11 +58,14 @@ drop sequence bundle_detail_seq;
 create sequence member_seq start with 1;
 create sequence admin_seq start with 1;
 create sequence music_seq start with 1;
-create sequence genre_seq start with 1;
 create sequence theme_seq start with 1;
+create sequence chart_seq start with 1;
+create sequence genre_seq start with 1;
 create sequence music_reply_seq start with 1;
 create sequence album_seq start with 1;
 create sequence artist_seq start with 1;
+create sequence taste_master_seq start with 1;
+create sequence taste_detail_seq start with 1;
 create sequence qna_seq start with 1;
 create sequence notice_seq start with 1;
 create sequence qReply_seq start with 1;
@@ -77,15 +90,24 @@ create table admin(
 	pw varchar2(20) not null
 );
 
-create table genre(
-	gseq number(5) primary key,
-	genre varchar2(30) unique not null,
-	img varchar2(100)
-);
-
+-- 그리움 가득한 밤 문득 생각나는 발라드, 알람 대신 상쾌함 가득한 이 노래, 에너지 가득 귀에 꽂는 비타민 송 ...
 create table theme(
 	tseq number(5) primary key,
 	theme varchar2(30) unique not null,
+	img varchar2(100)
+);
+
+--FLO 차트 지금 급상승 중 해외 소셜 차트 ...
+create table chart(
+	cseq number(5) primary key,
+	chart varchar2(30) unique not null,
+	img varchar2(100)
+);
+
+-- 국내 발라드 해외 팝 국내 댄스/일렉 국내 알앤비 국내 힙합 트로트 해외 알앤비 해외 힙합 OST/BGM 키즈 국내 인디 클래식 뉴에이지 국내 팝/어쿠스틱 해외 일렉트로닉 CCM 시원한 감성적인 슬픈 기쁜 댄스 발라드 ...
+create table genre(
+	gseq number(5) primary key,
+	genre varchar2(30) unique not null,
 	img varchar2(100)
 );
 
@@ -108,40 +130,49 @@ create table album (
 	pdate date default  sysdate
 );
 
--- TODO: 뮤직관련 화면별에서 사용할 VIEW 필요
 create table music(
 	mseq number(5) primary key,
 	abseq number(5) references album(abseq),
 	atseq number(5) references artist(atseq),
-	gseq number(5) references genre(gseq),
+	theme varchar2(100), -- 테마(복수) 구분자: |
+	chart varchar2(100), -- 차트(복수) 구분자: |
+	gseq number(5) references genre(gseq), -- 장르(단일)
 	title varchar2(30) not null,
 	content varchar2(1000), -- 가사
-	theme varchar2(50),
 	titleyn varchar2(1) -- Y: 타이틀, N: 일반
 );
 
--- TODO: 리스트에 들어갈 뷰필요(화면에서 요구하는정도만,, 대신 유저의 리스트일경우, 사이트의 리스트일경우 구분하여 조회)
-
--- 리스트 역할 마스터 테이블(유저번호 존재시 내 리스트, 유저번호 없을시 사이트내의 리스트)
--- TODO: 재생목록같은경우에는 세션에서만 제공하기로? 팀회의시 의견물어보기
+-- 사이트 또는 유저의 리스트
 create table bundle_master (
 	bmseq number(5) primary key,
 	useq number(5) not null, -- 0: 관리자에서 추가한 리스트, 유저시퀀스: 유저의 개인 리스트
-	title varchar2(100), -- 그리움 가득한 밤 문득 생각나는 발라드
+	title varchar2(100),
 	useyn varchar2(1) default 'Y', -- 사용여부 (사이트내의 리스트일 경우에만 핸들링)
 	cdate date default sysdate
 );
 
+-- 사이트 또는 유저의 리스트에 들어갈 곡
 create table bundle_detail(
 	bdseq number(5) primary key,
 	bmseq number(5) references bundle_master(bmseq),
 	mseq number(5) references music(mseq)
 );
 
-/*
--- 리스트 안에 들어갈 곡정보포함
--- TODO: 순서 적용 필요(관리자에서 수정 추가시 드래그로 순서정리 가능하면)
-*/
+-- 취향 마스터
+create table taste_master(
+	tstmseq number(5) primary key,
+	useq number(5) references member(useq), -- 유저
+	title varchar(50) not null, -- 취향 제목
+	cdate date default sysdate
+);
+
+-- 취향 디테일
+create table taste_detail(
+	tstdseq number(5) primary key,
+	atseq number(5), -- 아티스트(이 컬럼이 존재하면 나머지는 null이어야함.)
+	cseq number(5), -- 차트(이 컬럼이 존재하면 나머지는 null이어야함.)
+	gseq number(5) -- 장르(이 컬럼이 존재하면 나머지는 null이어야함.)
+);
 
 create table music_like(
 	useq number(5) references member(useq),
@@ -164,6 +195,11 @@ create table music_reply(
 	useq number(5) references member(useq),
 	content varchar2(1000) not null,
 	wdate date default  sysdate
+);
+
+create table music_ban(
+	useq number(5) references member(useq),
+	mseq number(5) references music(mseq)
 );
 
 create table qna (
@@ -189,8 +225,31 @@ create table notice (
 	notice_date date default  sysdate
 );
 
--- music view
-create or replace view music_view
+-- 테이블설명 
+comment on table member is '사용자';
+comment on table admin is '관리자';
+comment on table theme is '테마';
+comment on table chart is '차트';
+comment on table genre is '장르';
+comment on table artist is '아티스트';
+comment on table album is '앨범';
+comment on table music is '곡';
+comment on table bundle_master is '리스트 마스터';
+comment on table bundle_detail is '리스트 상세';
+comment on table taste_master is '취향 마스터';
+comment on table taste_detail is '취향 상세';
+comment on table music_like is '곡 좋아요';
+comment on table album_like is '앨범 좋아요';
+comment on table artist_like is '아티스트 좋아요';
+comment on table music_reply is '곡 댓글';
+comment on table music_ban is '곡 차단';
+comment on table qna is '질문';
+comment on table qReply is '답변';
+comment on table notice is '공지사항';
+
+-- 뷰 정의
+
+create or replace view music_view -- 뮤직
 as
 select 
     m.mseq
@@ -217,8 +276,7 @@ from music m
     left join artist at
     on at.atseq = m.atseq and at.atseq = ab.atseq;
 
--- album view
-create or replace view album_view
+create or replace view album_view -- 앨범
 as
 select 
     ab.abseq
