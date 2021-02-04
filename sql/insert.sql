@@ -5,33 +5,33 @@ insert into member(useq, id, pw, name, phone, gender) values(member_seq.nextval,
 insert into admin(aseq, id, pw) values(admin_seq.nextval, 'admin', 'admin');
 
 -- theme
-insert into theme(tseq, theme) values(theme_seq.nextval, '시원한');
-insert into theme(tseq, theme) values(theme_seq.nextval, '감성적인');
-insert into theme(tseq, theme) values(theme_seq.nextval, '슬픈');
-insert into theme(tseq, theme) values(theme_seq.nextval, '기쁜');
+insert into theme(tseq, title) values(theme_seq.nextval, '시원한');
+insert into theme(tseq, title) values(theme_seq.nextval, '감성적인');
+insert into theme(tseq, title) values(theme_seq.nextval, '슬픈');
+insert into theme(tseq, title) values(theme_seq.nextval, '기쁜');
 
 -- chart
-insert into chart(cseq, chart, img) values(chart_seq.nextval, 'FLO 차트', null);
-insert into chart(cseq, chart, img) values(chart_seq.nextval, '지금 급상승 중', null);
-insert into chart(cseq, chart, img) values(chart_seq.nextval, '해외 소셜 차트', null);
+insert into chart(cseq, title, img) values(chart_seq.nextval, 'FLO 차트', null);
+insert into chart(cseq, title, img) values(chart_seq.nextval, '지금 급상승 중', null);
+insert into chart(cseq, title, img) values(chart_seq.nextval, '해외 소셜 차트', null);
 
 -- genre
-insert into genre(gseq, genre, img) values(genre_seq.nextval, '국내 발라드', null);
-insert into genre(gseq, genre, img) values(genre_seq.nextval, '해외 팝', null);
-insert into genre(gseq, genre, img) values(genre_seq.nextval, '국내 댄스/일렉', null);
-insert into genre(gseq, genre, img) values(genre_seq.nextval, '국내 알앤비', null);
-insert into genre(gseq, genre, img) values(genre_seq.nextval, '국내 힙합', null);
-insert into genre(gseq, genre, img) values(genre_seq.nextval, '트로트', null);
-insert into genre(gseq, genre, img) values(genre_seq.nextval, '해외 알앤비', null);
-insert into genre(gseq, genre, img) values(genre_seq.nextval, '해외 힙합', null);
-insert into genre(gseq, genre, img) values(genre_seq.nextval, 'OST/BGM', null);
-insert into genre(gseq, genre, img) values(genre_seq.nextval, '키즈', null);
-insert into genre(gseq, genre, img) values(genre_seq.nextval, '국내 인디', null);
-insert into genre(gseq, genre, img) values(genre_seq.nextval, '클래식', null);
-insert into genre(gseq, genre, img) values(genre_seq.nextval, '뉴에이지', null);
-insert into genre(gseq, genre, img) values(genre_seq.nextval, '국내 팝/어쿠스틱', null);
-insert into genre(gseq, genre, img) values(genre_seq.nextval, '해외 일렉트로닉', null);
-insert into genre(gseq, genre, img) values(genre_seq.nextval, 'CCM', null);
+insert into genre(gseq, title, img) values(genre_seq.nextval, '국내 발라드', null);
+insert into genre(gseq, title, img) values(genre_seq.nextval, '해외 팝', null);
+insert into genre(gseq, title, img) values(genre_seq.nextval, '국내 댄스/일렉', null);
+insert into genre(gseq, title, img) values(genre_seq.nextval, '국내 알앤비', null);
+insert into genre(gseq, title, img) values(genre_seq.nextval, '국내 힙합', null);
+insert into genre(gseq, title, img) values(genre_seq.nextval, '트로트', null);
+insert into genre(gseq, title, img) values(genre_seq.nextval, '해외 알앤비', null);
+insert into genre(gseq, title, img) values(genre_seq.nextval, '해외 힙합', null);
+insert into genre(gseq, title, img) values(genre_seq.nextval, 'OST/BGM', null);
+insert into genre(gseq, title, img) values(genre_seq.nextval, '키즈', null);
+insert into genre(gseq, title, img) values(genre_seq.nextval, '국내 인디', null);
+insert into genre(gseq, title, img) values(genre_seq.nextval, '클래식', null);
+insert into genre(gseq, title, img) values(genre_seq.nextval, '뉴에이지', null);
+insert into genre(gseq, title, img) values(genre_seq.nextval, '국내 팝/어쿠스틱', null);
+insert into genre(gseq, title, img) values(genre_seq.nextval, '해외 일렉트로닉', null);
+insert into genre(gseq, title, img) values(genre_seq.nextval, 'CCM', null);
 
 -- artist
 insert into artist(atseq, name, groupyn, gender, gseq, img, description) values(artist_seq.nextval, 'Ed Sheeran', 'N', 'M', 1, null, '아티스트 소개');
@@ -39,12 +39,13 @@ insert into artist(atseq, name, groupyn, gender, gseq, img, description) values(
 insert into album(abseq, atseq, title, img, content) values(album_seq.nextval, 1, 'First Album', null, '앨범소개');
 -- music
 insert into music(mseq, abseq, atseq, theme, chart, gseq, title, content, titleyn) values(music_seq.nextval, 1, 1, '2|3', '1|2|3', 2, 'Lego House', '엄청난 첫번째노래 정보', 'Y');
-insert into music(mseq, abseq, atseq, theme, chart, gseq, title, content, titleyn) values(music_seq.nextval, 1, 1, '1|4', '1|2|3', 2, '엄청난 두번째노래 정보', 'N');
+insert into music(mseq, abseq, atseq, theme, chart, gseq, title, content, titleyn) values(music_seq.nextval, 1, 1, '1|4', '1|2|3', 2, 'One', '엄청난 두번째노래 정보', 'N');
 
 -- bundle_master
 insert into bundle_master(bmseq, useq, title, useyn) values (bundle_master_seq.nextval, 0, '그리움 가득한 밤 문득 생각나는 발라드', 'Y');
-insert into bundle_master(bmseq, useq, title, useyn) values (bundle_master_seq.nextval, 1, '알람 대신 상쾌함 가득한 이 노래', 'Y');
-insert into bundle_master(bmseq, useq, title, useyn) values (bundle_master_seq.nextval, 2, '에너지 가득 귀에 꽂는 비타민 송', 'Y');
+insert into bundle_master(bmseq, useq, title, useyn) values (bundle_master_seq.nextval, 0, '퇴근길에 신나는 노래', 'Y');
+insert into bundle_master(bmseq, useq, title, useyn) values (bundle_master_seq.nextval, 1, '나의 리스트 1', 'Y');
+insert into bundle_master(bmseq, useq, title, useyn) values (bundle_master_seq.nextval, 1, '나의 리스트 2', 'Y');
 
 -- bundle_detail
 insert into bundle_detail(bdseq, bmseq, mseq) values (bundle_detail_seq.nextval, 1, 1);
@@ -53,6 +54,8 @@ insert into bundle_detail(bdseq, bmseq, mseq) values (bundle_detail_seq.nextval,
 insert into bundle_detail(bdseq, bmseq, mseq) values (bundle_detail_seq.nextval, 2, 2);
 insert into bundle_detail(bdseq, bmseq, mseq) values (bundle_detail_seq.nextval, 3, 1);
 insert into bundle_detail(bdseq, bmseq, mseq) values (bundle_detail_seq.nextval, 3, 2);
+insert into bundle_detail(bdseq, bmseq, mseq) values (bundle_detail_seq.nextval, 4, 1);
+insert into bundle_detail(bdseq, bmseq, mseq) values (bundle_detail_seq.nextval, 4, 2);
 
 -- taste_master
 insert into taste_master(tstmseq, useq, title) values (taste_master_seq.nextval, 1, '첫번째 취향');

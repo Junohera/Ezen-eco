@@ -93,21 +93,21 @@ create table admin(
 -- 그리움 가득한 밤 문득 생각나는 발라드, 알람 대신 상쾌함 가득한 이 노래, 에너지 가득 귀에 꽂는 비타민 송 ...
 create table theme(
 	tseq number(5) primary key,
-	theme varchar2(30) unique not null,
+	title varchar2(30) unique not null,
 	img varchar2(100)
 );
 
 --FLO 차트 지금 급상승 중 해외 소셜 차트 ...
 create table chart(
 	cseq number(5) primary key,
-	chart varchar2(30) unique not null,
+	title varchar2(30) unique not null,
 	img varchar2(100)
 );
 
 -- 국내 발라드 해외 팝 국내 댄스/일렉 국내 알앤비 국내 힙합 트로트 해외 알앤비 해외 힙합 OST/BGM 키즈 국내 인디 클래식 뉴에이지 국내 팝/어쿠스틱 해외 일렉트로닉 CCM 시원한 감성적인 슬픈 기쁜 댄스 발라드 ...
 create table genre(
 	gseq number(5) primary key,
-	genre varchar2(30) unique not null,
+	title varchar2(30) unique not null,
 	img varchar2(100)
 );
 
@@ -255,9 +255,10 @@ select
     m.mseq
     , m.title
     , m.content
-    , m.gseq
-    , m.titleyn
     , m.theme
+	, m.chart
+	, m.gseq
+    , m.titleyn
     , ab.abseq
     , ab.title as abtitle
     , ab.img as abimg
@@ -291,7 +292,7 @@ select
     , at.gseq as atgseq
     , at.img as atimg
     , at.description
-	, g.genre as atgenre
+	, g.title as atgenre
 from album ab
     left join artist at
     	on at.atseq = ab.atseq

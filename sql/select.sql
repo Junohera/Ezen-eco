@@ -30,3 +30,5 @@ from music m
 select * from music_view where theme like '%1%';
 
 select * from album_view;
+
+select * from bundle_master;
