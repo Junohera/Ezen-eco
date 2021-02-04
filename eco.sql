@@ -186,3 +186,54 @@ create table notice (
 	content varchar2(1000),
 	notice_date date default  sysdate
 );
+
+-- music view
+create or replace view music_view
+as
+select 
+    m.mseq
+    , m.title
+    , m.content
+    , m.gseq
+    , m.titleyn
+    , m.theme
+    , ab.abseq
+    , ab.title as abtitle
+    , ab.img as abimg
+    , ab.content as abcontent
+    , ab.pdate as pdate
+    , at.atseq
+    , at.name
+    , at.groupyn
+    , at.gender
+    , at.gseq as atgseq
+    , at.img as atimg
+    , at.description
+from music m
+    left join album ab
+    on m.abseq = ab.abseq
+    left join artist at
+    on at.atseq = m.atseq and at.atseq = ab.atseq;
+
+-- album view
+create or replace view album_view
+as
+select 
+    ab.abseq
+    , ab.title as abtitle
+    , ab.img as abimg
+    , ab.content as abcontent
+    , ab.pdate as pdate
+    , at.atseq
+    , at.name
+    , at.groupyn
+    , at.gender
+    , at.gseq as atgseq
+    , at.img as atimg
+    , at.description
+	, g.genre as atgenre
+from album ab
+    left join artist at
+    	on at.atseq = ab.atseq
+	left join genre g
+		on g.gseq = at.gseq;
