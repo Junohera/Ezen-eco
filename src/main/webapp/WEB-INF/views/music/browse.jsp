@@ -58,20 +58,19 @@
 </ul>
 
 <h1>
+<!-- 선택된 타입이 차트면 제목은 선택한 차트의 타이틀 -->
+<!-- 선택된 타입이 장르면 제목은 선택한 장르의 타이틀 -->
     <c:choose>
-        <!-- 선택된 타입이 차트면 제목은 선택한 차트의 타이틀 -->
         <c:when test="${selectedType eq 'chart'}">
             <c:forEach var="chart" items="${chartList}" varStatus="status">
                 <c:if test="${chart.cseq == selectedSeq}">${chart.title}</c:if>
             </c:forEach>        
         </c:when>
-        <!-- 선택된 타입이 장르면 제목은 선택한 장르의 타이틀 -->
         <c:when test="${selectedType eq 'genre'}">
             <c:forEach var="genre" items="${genreList}" varStatus="status">
                 <c:if test="${genre.gseq == selectedSeq}">${genre.title}</c:if>
             </c:forEach>        
         </c:when>
-        <c:otherwise></c:otherwise>
     </c:choose>
 </h1>
 
