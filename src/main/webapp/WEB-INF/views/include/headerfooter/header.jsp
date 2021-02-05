@@ -10,10 +10,10 @@
 <title>Insert title here</title>
 <!-- fontawesome: image대신 아이콘을 활용할 수 있음. + 색깔변경 가능 -->
 <script src="https://kit.fontawesome.com/aeb6e503f2.js" crossorigin="anonymous"></script>
-<link rel="stylesheet" href="css/main.css">
-<script src="js/jquery-3.5.1-min.js"></script>
-<script src="js/member.js"></script>
-<script src="js/music.js"></script>
+<link rel="stylesheet" href="css/main.css?v=<%=System.currentTimeMillis() %>">
+<script src="js/jquery-3.5.1-min.js?v=<%=System.currentTimeMillis() %>"></script>
+<script src="js/member.js?v=<%=System.currentTimeMillis() %>"></script>
+<script src="js/music.js?v=<%=System.currentTimeMillis() %>"></script>
 
 </head>
 <body>
