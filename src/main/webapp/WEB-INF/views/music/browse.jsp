@@ -1,130 +1,40 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../include/headerfooter/header.jsp" %>
-<style>
-    article ul,article li {
-        list-style-type: none;
-        display: block;
-        padding: 0;
-    }
-    article li {
-        display: inline-block;
-    }
-    article a {
-        text-decoration: none;
-    }
 
-    #listBox {
-        position: relative;
-    }
+<script>
+    
+    $(function() {
 
-    #themeAndGenre li {
-        border-radius: 10px;
-        font-weight: bold;
-        height: 32px;
-        padding: 0 15px;
-        font-size: 14px;
-        line-height: 32px;
-        text-align: center;
-        border-radius: 16px;
-        border: 1px solid rgba(0,0,0,.2);
-        margin-bottom: 4px; 
-    }
-    #themeAndGenre li:not(.selected):hover {
-        border: 1px solid #311851;
-    }
+        // 더보기 기능 연동시작점
+        $("#listBox .moreDiv").on("click", function() {
+            var mseq = $(this).closest("tr").find("input[name='mseq']").val();      // 음악 시퀀스
+            var abseq = $(this).closest("tr").find("input[name='abseq']").val();    // 앨범 시퀀스
+            var atseq = $(this).closest("tr").find("input[name='atseq']").val();    // 아티스트 시퀀스
+            $music.method.more.on_musicMoreBox($(this), mseq, abseq, atseq);
+        });
 
-    #themeAndGenre li:not(.selected):hover a{
-        color: #311851;
-    }
+        // 체크박스(일괄처리) 클릭시
+        $("input:checkbox[name=allCheck]").on("click", function() {
+            // allCheck의 체크여부에 따라 모든 체크박스 on/off
+            var isAllCheck = $(this).is(":checked");
+            $("input:checkbox[name=mseq_checkbox]").each(function() {
+                this.checked = isAllCheck;
+            });
+        });
 
-    #themeAndGenre a {
-        color: #5D5D5D;
-    }
-    #themeAndGenre li.selected{
-        background: #311851;
-        border: 1px solid #311851;
-    }
-    #themeAndGenre .selected a{
-        color: white;
-    }
+        // 체크박스(단일처리) 클릭시
+        $("input:checkbox[name=mseq_checkbox]").on("click", function() {
+            var justTotalCount = $("input:checkbox[name=mseq_checkbox]").length;       // 전체개수
+            var checkedCount = $("input:checkbox[name=mseq_checkbox]:checked").length; // 선택개수
 
-    #musicList a{
-        color : lightslategray;
-    }
+            $("input[name=allCheck]:checkbox").prop("checked", (justTotalCount === checkedCount)); // 일괄처리버튼 적용
+        });
 
-    .waste {
-        width: 100%;
-        height: 42px;
-        position: relative;
-        margin-bottom: 16px;
-    }
+    });
+</script>
 
-    .waste .selectedTitle {
-        margin: 0;
-        height: 42px;
-        font-size: 22px;
-        color: #333;
-        font-weight: 700;
-        float: left;
-        line-height: 42px;
-    }
-
-    .waste img {
-        vertical-align: middle;
-        padding-bottom: 5px;
-    }
-
-    .waste .allListen {
-        float: right;
-        font-size: 13px;
-        color: #333;
-        height: 42px;
-        line-height: 42px;
-    }
-
-    .waste .allListen:hover {
-        color: #cb78ff;
-    }
-
-    #listBox a {
-        font-size:15px;color:#333333;font-weight: 100;
-    }
-
-    #listBox .justWrap{
-        position: relative;
-        padding-top: 12px;
-        padding-bottom: 12px;
-        padding-left: 20px;
-        width: 360px;
-        height: 60px;
-        overflow: hidden;
-    }
-
-    #listBox .justWrap .contentWrap{
-        position: relative;
-        height: 100%;
-    }
-
-    #listBox .justWrap .contentWrap > a{
-        position: absolute;
-        height: 22px;
-        left: 76px;
-        line-height: 22px;
-        display: inline-block;
-    }
-    #listBox .justWrap .contentWrap > a:nth-of-type(1){top:8px;}
-    #listBox .justWrap .contentWrap > a:nth-of-type(2){top:32px;font-size:13px;color:#969696;}
-
-    /* 혜민씨 css at likemusic.jsp */
-    th{height:80; width:895px;}
-	th{padding-left:20px; text-align: left; white-space: nowrap; height: 39px; font-size: 13px; color: #a0a0a0;
-		font-weight: 400; border-top: 1px solid #ebebeb;  border-bottom: 1px solid #ebebeb;}
-	td{padding-left:20px; text-align: left; white-space: nowrap; height: 39px; font-size: 15px; color: #5D5D5D;
-		font-weight: 450; }
-</style>
-
-<article>
+<article id="music_browse">
     <ul id="themeAndGenre">
         <!-- 차트 -->
         <c:forEach var="chart" items="${chartList}" varStatus="status">
@@ -159,7 +69,7 @@
         </h4>
     
         <!-- 전체듣기 -->
-        <a href="#" class="allListen iconButton" onclick="$music.allListen();">
+        <a href="#" class="allListen iconButton" onclick="$music.method.allListen();">
             <span style="font-size: 20px; color: #333333;position: absolute;top: -1px;right: 57px;"><i class="fas fa-greater-than"></i></span>
             전체듣기
         </a>
@@ -170,7 +80,7 @@
     
     <table id="listBox">
         <tr>
-            <th align="center"><input type="checkbox"></th>
+            <th align="center"><input type="checkbox" name="allCheck"></th>
             <th align="center">순위</th>
             <th>곡/앨범</th>
             <th>아티스트</th>
@@ -186,7 +96,7 @@
                         <input type="hidden" name="mseq" value="${music.mseq}">
                         <input type="hidden" name="abseq" value="${music.abseq}">
                         <input type="hidden" name="atseq" value="${music.atseq}">
-                        <td><input type="checkbox"></td>
+                        <td><input type="checkbox" name="mseq_checkbox" value="${music.mseq}"></td>
                         <td>${status.count}</td>
                         <td>
                             <div class="justWrap">
