@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,7 +14,7 @@ body{background:pink;}
 function resetPw(){
 	if(document.frm.pw==""){
 		alert("비밀번호를 입력하세요");
-		document.frm.pwd.focus();
+		document.frm.pw.focus();
 		return false;
 	}
 	if(document.frm.pw==document.frm.pwd_chk){
@@ -25,6 +27,17 @@ function resetPw(){
 </script>
 </head>
 <body>
+<c:if test="${message==1}">
+	<script>
+	alert("비밀번호를 입력하세요");
+	</script>
+</c:if>
+<c:if test="${message==2}">
+	<script>
+	alert("비밀번호가 일치하지 않습니다");
+	</script>
+</c:if>
+
 <h2>비밀번호 재설정</h2>
 <h4>아래에 비밀번호를 입력하여 비밀번호를 재설정 해주세요</h4>
 <form method="post" name="frm" action="resetPw">

@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>   
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,6 +12,16 @@ body{background:pink;}
 </style>
 </head>
 <body>
+<c:if test="${message==3}">
+	<script>
+	alert("이름이 일치하지 않습니다");
+	</script>
+</c:if>
+<c:if test="${message==4}">
+	<script>
+	alert("전화번호가 일치하지 않습니다");
+	</script>
+</c:if>
 <h2>Id 찾기</h2>
 <form method="post" name="frm" action="lookupNamePhone">
 <table align="center" bgcolor="black" cellspacing="1" width="400">
@@ -22,8 +34,7 @@ body{background:pink;}
 			<h3>전화번호 <input type="text" name="phone"  value="${phone}"></h3></td>
 	</tr>
 	<tr align="center" bgcolor="white" >
-		<td width="430"><h3>	<input type="submit" value="인증번호 전송"></h3>
-		${msg}</td>
+		<td width="430"><h3>	<input type="submit" value="인증번호 전송"></h3></td>
 	</tr>
 </table>
 </form>

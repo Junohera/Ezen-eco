@@ -30,31 +30,29 @@ public class MemberController {
 	@RequestMapping(value="/login", method=RequestMethod.POST)
 	public String login(@ModelAttribute("dto") @Valid MemberVO membervo, 
 			BindingResult result, Model model, HttpServletRequest request) {
+		MemberVO mvo = ms.getMember(membervo.getId());
 		if(result.getFieldError("id")!=null) {
 			model.addAttribute("message", result.getFieldError("id").getDefaultMessage());
 			return "member/login";
 		}else if(result.getFieldError("pw")!=null) {
 			model.addAttribute("message", result.getFieldError("pw").getDefaultMessage());
 			return "member/login";
-		}
-		
-		MemberVO mvo = ms.getMember(membervo.getId());
-		if(mvo!=null) {
-			if(mvo.getPw()!=null) {
-				if(mvo.getPw().equals(membervo.getPw())) {
+		}else if(mvo!=null) {	// 아이디가 입력된 경우
+			if(mvo.getPw()!=null) {	// 비밀번호가 입력된 경우
+				if(mvo.getPw().equals(membervo.getPw())) {	// 비밀번호가 일치하는 경우
 					HttpSession session = request.getSession();
 					session.setAttribute("loginUser", mvo);
 					return "redirect:/";
 				}else {
-					model.addAttribute("message", "입력한 비밀번호가 일치하지 않습니다");
+					model.addAttribute("message", "1");
 					return "member/login";
 				}
 			}else {
-				model.addAttribute("message", "비밀번호를 입력하세요");
+				model.addAttribute("message", "2");
 				return "member/login";
 			}
 		}else {
-			model.addAttribute("message", "ID를 입력하세요");
+			model.addAttribute("message", "3");
 			return "member/login";
 		}
 	}
@@ -125,15 +123,20 @@ public class MemberController {
 	}
 	
 	@RequestMapping("resetPw")
-	public String certificationNum(Model model, HttpServletRequest request,
-			@RequestParam("id") String id, @RequestParam("pw") String pw ) {
-		MemberVO mvo = new MemberVO();
-		mvo.setId(id);
-		mvo.setPw( pw );
-		ms.resetPw(mvo);
-		return "member/resetPwComplete";
+	public String certificationNum(@ModelAttribute("dto") @Valid MemberVO membervo,
+			BindingResult result, Model model, HttpServletRequest request,
+			@RequestParam("pwd_chk") String pwd_chk) {
+		
+		if(result.getFieldError("pw")!=null) {
+			model.addAttribute("message", "1"); //"비밀번호를 입력해주세요"
+			return "member/resetPassword";
+		}else if(!membervo.getPw().equals(pwd_chk)) {
+			model.addAttribute("message", "2"); // 비밀번호가 일치하지 않습니다
+			return "member/resetPassword";
+		}else {
+			return "member/resetPwComplete";
+		}
 	}
-	
 	
 	
 	
@@ -148,8 +151,8 @@ public class MemberController {
 		mvo.setId(id);
 		mvo.setName(name);
 		mvo.setPhone(phone);
+		model.addAttribute("member", mvo);
 		if(inputNum.equals("0000")) {
-			model.addAttribute("member", mvo);
 			return "member/viewId";
 		}else {
 			return "member/findId_CertificationNumber";
@@ -167,43 +170,51 @@ public class MemberController {
 		mvo.setName(name);
 		mvo.setPhone(phone);
 		model.addAttribute("member", mvo);
-		if(inputNum.equals("0000")) 
+		if(inputNum.equals("0000")) {
 			return "member/resetPassword";
-		else 
+		}else { 
 			return "member/findPw_CertificationNumber";
+		}
 	}
 	
 	//아이디 찾기_이름 전화번호 검색
 	@RequestMapping("lookupNamePhone")
-	public String lookupNamePhone(Model model, HttpServletRequest request,
-			@RequestParam("name") String name, @RequestParam("phone") String phone ) {
-		MemberVO mvo = ms.confirmNamePhone(name, phone);
-		if(mvo==null) {
-			model.addAttribute("msg", "이름과 전화번호가 일치하는 회원이 없습니다");
-			model.addAttribute("name", name);
-			model.addAttribute("phone", phone);
+	public String lookupNamePhone(@ModelAttribute("dto") @Valid MemberVO membervo,
+			BindingResult result, Model model, HttpServletRequest request) {		
+		
+		ms.confirmNamePhone(membervo);
+		if(result.getFieldError("name")!=null) {
+			model.addAttribute("message", "3"); //이름이 일치하지 않습니다
+			return "member/findIdForm";
+		}else if(result.getFieldError("phone")!=null) {
+			model.addAttribute("message", "4"); //전화번호가 일치하지 않습니다
+			model.addAttribute("name", request.getParameter("name"));
 			return "member/findIdForm";
 		}else {
-			model.addAttribute("member", mvo);
+			model.addAttribute("member", membervo);
 			return "member/findId_CertificationNumber";
 		}
-		
 	}
 	//비밀번호 찾기_아이디, 이름 전화번호 검색
 	@RequestMapping("lookupIdNamePhone")
-	public String lookupIdNamePhone(Model model, HttpServletRequest request,
-			@RequestParam("name") String name, @RequestParam("phone") String phone,
-			@RequestParam("id") String id) {
-		MemberVO mvo = ms.confirmIdNamePhone(id, name, phone);
-		if(mvo==null) {
-			model.addAttribute("msg", "이름과 전화번호가 일치하는 회원이 없습니다");
-			model.addAttribute("id", id);
-			model.addAttribute("name", name);
-			model.addAttribute("phone", phone);
-			return "member/findIdForm";
+	public String lookupIdNamePhone(@ModelAttribute("dto") @Valid MemberVO membervo,
+			BindingResult result, Model model, HttpServletRequest request) {
+		ms.confirmIdNamePhone(membervo);
+		if(result.getFieldError("id")!=null) {
+			model.addAttribute("message", "5"); //일치하는 아이디가 없습니다
+			return "member/findPwForm";
+		}else if(result.getFieldError("name")!=null) {
+			model.addAttribute("message", "6"); //이름이 일치하지 않습니다
+			model.addAttribute("id", request.getParameter("id"));
+			return "member/findPwForm";
+		}else if(result.getFieldError("phone")!=null) {
+			model.addAttribute("message", "7"); //전화번호가 일치하지 않습니다
+			model.addAttribute("id", request.getParameter("id"));
+			model.addAttribute("name", request.getParameter("name"));
+			return "member/findPwForm";
 		}else {
-			model.addAttribute("member", mvo);
-			return "member/findPw_CertificationNumber";
+			model.addAttribute("member", membervo);
+		return "member/findPw_CertificationNumber";
 		}
 	}
 	

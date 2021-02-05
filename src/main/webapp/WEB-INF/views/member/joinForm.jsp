@@ -6,16 +6,20 @@
 <form id="join" action="join" method="post" name="formm" >
 	<fieldset>
 		<legend>Basic Info</legend>
-		<label>User ID</label><input type="text" name="id" size="12" value="${dto.id}">
-		*(반드시 이메일 형식으로 작성해주세요)
+		<label>아이디</label><input type="text" name="id" size="12" value="${dto.id}">
+		
 		<input type="hidden" name="reid" value="${reid}">
 		    <input type="button" value="중복 체크" class="dup" onclick="idcheck()"><br>
-		    <label>Password</label><input type="password" name="pwd"><br> 
-		    <label>Retype Password</label><input type="password" name="pwdCheck"><br> 
-		    <label>Name</label><input type="text"  name="name"><br> 
-		    <label>E-Mail</label><input type="text"  name="email"><br>
+		    *(반드시 이메일 형식으로 작성해주세요)
+		    <br>
+		    <label>비밀번호</label><input type="password" name="pw"><br> 
+		    <label>비밀번호 확인</label><input type="password" name="pwCheck"><br> 
+		    <label>성함</label><input type="text"  name="name"><br> 
+		    <label>성별</label>
+			    <input type="radio" name="gender" value="1" checked> 남성 &nbsp; &nbsp; &nbsp;
+				<input type="radio" name="gender" value="2"> 여성<br>
+			<label>전화번호</label><input  type="text" name="phone"><br>
 		    <label>${message}</label><br>
-			<label>Phone Number</label><input  type="text" name="phone"><br>
 	</fieldset>
 	<div class="clear"></div>
 	<div id="buttons">

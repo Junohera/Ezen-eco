@@ -22,13 +22,10 @@ public class MemberService {
 	public void resetPw(MemberVO mvo) {
 		mdao.resetPw(mvo);
 	}
-	
-	
-	
-	public MemberVO confirmIdNamePhone(String id, String name, String phone) {
-		return mdao.confirmIdNamePhone( id, name,  phone);
+	public MemberVO confirmIdNamePhone(MemberVO membervo) {
+		return mdao.confirmIdNamePhone(membervo);
 	}
-	public MemberVO confirmNamePhone(String name, String phone) {
-		return mdao.confirmNamePhone( name,  phone); 
+	public MemberVO confirmNamePhone(MemberVO membervo) {
+		return mdao.confirmNamePhone(membervo); 
 	}
 }

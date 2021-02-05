@@ -21,7 +21,7 @@ body{background:pink;}
 			<input type="hidden" name="name" value="${member.name}"></td></tr>
 	<tr align="center" bgcolor="white" ><td width="430">
 			<h3>전화번호 : ${member.phone}</h3>
-			<input type="hidden" name="phone" value="${member.name}"></td></tr>
+			<input type="hidden" name="phone" value="${member.phone}"></td></tr>
 	<tr align="center" bgcolor="white" ><td width="430">
 		<h3>인증번호<input type="text" name="inputNum"  ></h3>
 		전송받은 번호를 입력하세요

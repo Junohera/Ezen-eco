@@ -12,37 +12,39 @@
 	#at-img{border-radius: 175px; overflow: hidden; border-radius: 175px;
 	 background-repeat: no-repeat; background-position: 50% 50%; background-size: cover;
 	 z-index: 3; position: relative; display: block; height: 100%; width: 100%;  border-radius: 6px;
-    background-size: cover;
-    background-repeat: no-repeat;}
-    #buttons{height: 32px; padding: 0 15px; font-size: 14px; line-height: 32px; text-align: center;
-		border-radius: 16px; border: 1px solid rgba(0,0,0,.2); vertical-align: top; font-size: 16px; border: 0;}
+    background-size: cover;   background-repeat: no-repeat;}
+	#buttons li{list-style-type: none;  display: block; background: black; border-radius: 10px; color:white;
+        display: inline-block; float:left; margin-left:10px; text-align:center;}
 </style>
 </head>
 <body>
 <div id="buttons">
-	<input type="button" value="mybundle">
-	<input type="button" value="mymusick">
-	<input type="button" value="myartist">
-	<input type="button" value="myalbum">
+	<ul>
+		<li><a href='storage'>mymusic</a></li>
+		<li><a href='likeartist'>myartist</a></li>
+		<li><a href='likealbum'>myalbum</a></li>
+	</ul>
 </div>
 <br><br><br>
 <div id="artist">
-	<ul>
-		<li>
-			<div id="at-img">
-				
-			</div>
-			<div id="at-info">
-				<dl>
-					<dd>atname</dd>
-					<dd>group</dd>
-					<dd>gender</dd>
-					<dd>genre</dd>
-				</dl>
-			</div>
-		</li>
-		<li>
-	</ul>
+		<c:forEach var="lml" items="${likemusiclist}" varStatus="status">
+			<ul>
+				<li>
+					<div id="at-img">
+						
+					</div>
+					<div id="at-info">
+						<dl>
+							<dd>atname</dd>
+							<dd>group</dd>
+							<dd>gender</dd>
+							<dd>genre</dd>
+						</dl>
+					</div>
+				</li>
+				<li>
+			</ul>
+		</c:forEach>
 </div>
 </body>
 </html>
