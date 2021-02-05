@@ -183,6 +183,9 @@
             <c:when test="${musicList.size() > 0}">
                 <c:forEach var="music" items="${musicList}" varStatus="status">
                     <tr height="84">
+                        <input type="hidden" name="mseq" value="${music.mseq}">
+                        <input type="hidden" name="abseq" value="${music.abseq}">
+                        <input type="hidden" name="atseq" value="${music.atseq}">
                         <td><input type="checkbox"></td>
                         <td>${status.count}</td>
                         <td>
@@ -211,9 +214,9 @@
                             </a>
                         </td>
                         <td style="text-align: center; padding: 0; margin: 0">
-                            <a href="#" class="iconButton" onclick="$music.on_musicMoreBox(this, ${music.mseq});">&nbsp;
+                            <div class="iconButton moreDiv">&nbsp;
                                 <span style="font-size: 20px; color: #333333;"><i class="fas fa-ellipsis-v"></i></span>
-                            </a>
+                            </div>
                         </td>
                     </tr>
                 </c:forEach>

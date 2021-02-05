@@ -1,28 +1,74 @@
-var modalFlag = {
-	musicMoreBoxSeq : 0,
+var musicMoreBoxParameter = {
+	mseq : 0,
+	abseq : 0,
+	atseq : 0,
 };
 
 var $music = (function() {
 
-	return {
-		on_musicMoreBox: function(el, mseq) {
-			var self = $(el);
-			
-			if (modalFlag.musicMoreBoxSeq !== mseq) {
-				var position = self.closest("td").offset();
-				$("#musicMoreBox").css({
-					left: position.left - 129,
-					top: position.top + 86,
-				});
+	function initFlag() {
+		musicMoreBoxParameter.mseq = 0;
+		musicMoreBoxParameter.abseq = 0;
+		musicMoreBoxParameter.atseq = 0;
+	};
 	
-				$("#musicMoreBox").show();
-			}
-		},
+	function applyFlag(mseq, abseq, atseq) {
+		musicMoreBoxParameter.mseq = mseq;
+		musicMoreBoxParameter.abseq = abseq;
+		musicMoreBoxParameter.atseq = atseq;
+	};
 
-		off_musicMoreBox: function() {
-			$("#musicMoreBox").hide();
-			modalFlag.musicMoreBoxSeq = 0;
-		},
+	function initAttr() {
+		$("#musicMoreBox .textBox").eq(0).find("a").attr("href", "#");
+		$("#musicMoreBox .textBox").eq(1).find("a").attr("href", "#");
+		$("#musicMoreBox .textBox").eq(2).find("a").attr("href", "#");
+		$("#musicMoreBox .textBox").eq(3).find("a").attr("href", "#");
+		$("#musicMoreBox .textBox").eq(4).find("a").attr("href", "#");
+	};
+
+	function applyAttr() {
+		$("#musicMoreBox .textBox").eq(0).find("a").attr("href", "musicView?mseq=" + musicMoreBoxParameter.mseq);
+		$("#musicMoreBox .textBox").eq(1).find("a").attr("href", "albumView?abseq=" + musicMoreBoxParameter.abseq);
+		$("#musicMoreBox .textBox").eq(2).find("a").attr("href", "artistView?atseq=" + musicMoreBoxParameter.atseq);
+		$("#musicMoreBox .textBox").eq(3).find("a").attr("href", "like?mseq=" + musicMoreBoxParameter.mseq);
+		$("#musicMoreBox .textBox").eq(4).find("a").attr("href", "ban?mseq=" + musicMoreBoxParameter.mseq);
+	};
+
+	var _off_musicMoreBox = function() {
+		$("#musicMoreBox").hide();
+		initFlag(); // 플래그 변수 값 초기화
+		initAttr(); // 팝업의 경로 속성 초기화
+		console.log('musicMoreBoxParameter =>', JSON.stringify(musicMoreBoxParameter, undefined, 2));
+	};
+
+	var _on_musicMoreBox = function(el, mseq, abseq, atseq) {
+
+		var self = $(el);
+		
+		if (musicMoreBoxParameter.mseq !== mseq) { // 최초 한번 클릭시
+			var position = self.closest("td").offset();
+			var scrollHeight = $(document).scrollTop();
+			$("#musicMoreBox").css({
+				left: position.left - 129,
+				top: position.top + 86 - scrollHeight,
+			});
+
+			applyFlag(mseq, abseq, atseq); // 읽어온 값으로 플래그값에 고유번호 저장
+			applyAttr();// 저장한 고유값으로 팝업 경로에 적용
+
+			$("#musicMoreBox").show();
+
+			console.log('musicMoreBoxParameter =>', JSON.stringify(musicMoreBoxParameter, undefined, 2));
+		} else { // 동일한 행의 더보기를 또 눌렀을 시
+			_off_musicMoreBox();
+		}
+	};
+
+
+	return {
+		on_musicMoreBox: _on_musicMoreBox,
+
+		off_musicMoreBox: _off_musicMoreBox,
 	}
 })();
 
@@ -56,4 +102,16 @@ $(function() {
 		$(this).find("a").css({color: "#333333"});
 	});
 
-})
+	$("#listBox .moreDiv").on("click", function() {
+		var mseq = $(this).closest("tr").find("input[name='mseq']").val();
+		var abseq = $(this).closest("tr").find("input[name='abseq']").val();
+		var atseq = $(this).closest("tr").find("input[name='atseq']").val();
+		$music.on_musicMoreBox($(this), mseq, abseq, atseq);
+	});
+
+});
+
+// 스크롤 
+$(window).on("scroll", function(){
+	$music.off_musicMoreBox();
+});
