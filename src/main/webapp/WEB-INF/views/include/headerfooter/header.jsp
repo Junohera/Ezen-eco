@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="css/main.css">
 <script src="js/jquery-3.5.1-min.js"></script>
 <script src="js/member.js"></script>
-<script src="js/music.js"></script>
+<script src="js/music.js?v=<%=System.currentTimeMillis() %>"></script>
 
 </head>
 <body>

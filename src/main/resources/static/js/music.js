@@ -1,23 +1,26 @@
+var modalFlag = {
+	musicMoreBoxSeq : 0,
+};
+
 var $music = (function() {
 	return {
-		showMusicMoreBox: function(el) {
+		on_musicMoreBox: function(el, mseq) {
 			var self = $(el);
-
-			var position = self.closest("tr").offset();
-			$("#musicMoreBox").css({
-				right: 0,
-				top: position.top * 1 + 40,
-			});
-			$("#musicMoreBox").show();
-			setTimeout(function() {
-				$("body").on("click", function(e) {
-					if (!$("#musicMoreBox").is(e.target) && $("#musicMoreBox").has(e.target).length === 0){
-						$("#musicMoreBox").hide();
-						$("body").off("click");
-					}
+			
+			if (modalFlag.musicMoreBoxSeq !== mseq) {
+				var position = self.offset();
+				$("#musicMoreBox").css({
+					left: position.left * 1 - 120,
+					top: position.top * 1 + 52,
 				});
-			}, 100);
+	
+				$("#musicMoreBox").show();
+			}
+		},
 
+		off_musicMoreBox: function() {
+			$("#musicMoreBox").hide();
+			modalFlag.musicMoreBoxSeq = 0;
 		},
 	}
 })();
