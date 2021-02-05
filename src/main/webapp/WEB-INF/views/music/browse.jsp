@@ -83,6 +83,10 @@
         line-height: 42px;
     }
 
+    .waste .allListen:hover {
+        color: #cb78ff;
+    }
+
     #listBox a {
         font-size:15px;color:#333333;font-weight: 100;
     }
@@ -155,7 +159,10 @@
         </h4>
     
         <!-- 전체듣기 -->
-        <a href="#" class="allListen" onclick="$music.allListen();"><img src="" alt="" width="23" height="23">전체듣기</a>
+        <a href="#" class="allListen iconButton" onclick="$music.allListen();">
+            <span style="font-size: 20px; color: #333333;position: absolute;top: -1px;right: 57px;"><i class="fas fa-greater-than"></i></span>
+            전체듣기
+        </a>
     </div>
     
     <div style="clear:both;"></div>
@@ -188,23 +195,23 @@
                             </div>
                         </td>
                         <td><a href="artistView?atseq=${music.atseq}">${music.name}</a></td>
-                        <td>
-                            <a href="#" class="iconButton">
+                        <td style="text-align: center; padding: 0; margin: 0">
+                            <a href="#" class="iconButton">&nbsp;
                                 <span style="font-size: 20px; color: #333333;"><i class="fas fa-play"></i></span>
                             </a>
                         </td>
-                        <td>
-                            <a href="#" class="iconButton">
+                        <td style="text-align: center; padding: 0; margin: 0">
+                            <a href="#" class="iconButton">&nbsp;
                                 <span style="font-size: 20px; color: #333333;"><i class="fas fa-outdent"></i></span>
                             </a>
                         </td>
-                        <td>
-                            <a href="#" class="iconButton">
+                        <td style="text-align: center; padding: 0; margin: 0">
+                            <a href="#" class="iconButton">&nbsp;
                                 <span style="font-size: 20px; color: #333333;"><i class="fas fa-folder-plus"></i></span>
                             </a>
                         </td>
-                        <td>
-                            <a href="#" class="iconButton" onclick="$music.on_musicMoreBox(this, ${music.mseq});">
+                        <td style="text-align: center; padding: 0; margin: 0">
+                            <a href="#" class="iconButton" onclick="$music.on_musicMoreBox(this, ${music.mseq});">&nbsp;
                                 <span style="font-size: 20px; color: #333333;"><i class="fas fa-ellipsis-v"></i></span>
                             </a>
                         </td>

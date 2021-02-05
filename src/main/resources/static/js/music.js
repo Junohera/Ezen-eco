@@ -3,6 +3,7 @@ var modalFlag = {
 };
 
 var $music = (function() {
+
 	return {
 		on_musicMoreBox: function(el, mseq) {
 			var self = $(el);
@@ -40,4 +41,19 @@ $(function() {
 			, opacity: 1
 		});
 	});
+
+	$("#musicMoreBox .textBox").mouseover(function() {
+		$(this).prev().find("span").css({color: "#ffffff"});
+		$(this).next().show();
+		$(this).parent().css({background: "#dedede"});
+		$(this).find("a").css({color: "#cb78ff"});
+	});
+
+	$("#musicMoreBox .textBox").mouseleave(function() {
+		$(this).prev().find("span").css({color: "#333333"});
+		$(this).next().hide();
+		$(this).parent().css({background: "#ffffff"});
+		$(this).find("a").css({color: "#333333"});
+	});
+
 })
