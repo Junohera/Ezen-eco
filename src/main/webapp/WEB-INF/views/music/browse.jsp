@@ -112,13 +112,6 @@
     #listBox .justWrap .contentWrap > a:nth-of-type(1){top:8px;}
     #listBox .justWrap .contentWrap > a:nth-of-type(2){top:32px;font-size:13px;color:#969696;}
 
-    i{
-        color: #333333;
-    }
-    i:hover{
-        color:#311851;
-    }
-
     /* 혜민씨 css at likemusic.jsp */
     th{height:80; width:895px;}
 	th{padding-left:20px; text-align: left; white-space: nowrap; height: 39px; font-size: 13px; color: #a0a0a0;
@@ -195,10 +188,26 @@
                             </div>
                         </td>
                         <td><a href="artistView?atseq=${music.atseq}">${music.name}</a></td>
-                        <td><a href="#" class="iconButton"><i class="fas fa-play"></i></a></td>
-                        <td>재생목록</td>
-                        <td>내 리스트</td>
-                        <td ><a href="#" onclick="$music.on_musicMoreBox(this, ${music.mseq});">더보기</a></td>
+                        <td>
+                            <a href="#" class="iconButton">
+                                <span style="font-size: 20px; color: #333333;"><i class="fas fa-play"></i></span>
+                            </a>
+                        </td>
+                        <td>
+                            <a href="#" class="iconButton">
+                                <span style="font-size: 20px; color: #333333;"><i class="fas fa-outdent"></i></span>
+                            </a>
+                        </td>
+                        <td>
+                            <a href="#" class="iconButton">
+                                <span style="font-size: 20px; color: #333333;"><i class="fas fa-folder-plus"></i></span>
+                            </a>
+                        </td>
+                        <td>
+                            <a href="#" class="iconButton" onclick="$music.on_musicMoreBox(this, ${music.mseq});">
+                                <span style="font-size: 20px; color: #333333;"><i class="fas fa-ellipsis-v"></i></span>
+                            </a>
+                        </td>
                     </tr>
                 </c:forEach>
             </c:when>
