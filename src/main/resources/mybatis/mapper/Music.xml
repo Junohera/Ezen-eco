@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eco.dao.MusicDao">
+
+<!-- Theme Chart Genre 단순목록 -->
+	<select id="themeList" resultType="com.eco.dto.Theme">
+		select * from theme order by tseq asc
+	</select>
+	<select id="chartList" resultType="com.eco.dto.Chart">
+		select * from chart order by cseq asc
+	</select>
+	<select id="genreList" resultType="com.eco.dto.Genre">
+		select * from genre order by gseq asc
+	</select>
+<!-- Theme Chart Genre 단순목록 -->
+
+<!-- 어떤것에 의한 곡목록 -->
+	<select id="musicListByTheme" resultType="com.eco.dto.Music">
+		select * from music_view where theme like '%'||#{param1}||'%'
+		order by mseq desc
+	</select>
+	<select id="musicListByChart" resultType="com.eco.dto.Music">
+		select * from music_view where chart like '%'||#{param1}||'%'
+		order by mseq desc
+	</select>
+	<select id="musicListByGenre" resultType="com.eco.dto.Music">
+		select * from music_view where gseq = #{param1}
+		order by mseq desc
+	</select>
+	<select id="musicListByAlbum" resultType="com.eco.dto.Music">
+		select * from music_view where abseq = #{param1}
+	</select>
+	<!-- 메인에서 번들마스터에 의한 곡목록  -->
+	<select id="musicListByBundle" resultType="com.eco.dto.Music">
+		select bd.bdseq, m.* from bundle_detail bd
+			left join music_view m on m.mseq = bd.mseq
+		where bd.bmseq = #{param1}
+		order by bd.bdseq
+	</select>
+<!-- 어떤것에 의한 곡목록 -->
+
+<!-- 단건 -->
+	<select id="getMusic" resultType="com.eco.dto.Music">
+		select * from music_view where mseq = #{param1}
+	</select>
+	<select id="getAlbum" resultType="com.eco.dto.Album">
+		select * from album_view where abseq = #{param1}
+	</select>
+	<select id="getArtist" resultType="com.eco.dto.Artist">
+		select * from artist where atseq = #{param1}
+	</select>
+<!-- 단건 -->
+
+<!-- 좋아요 -->
+	<insert id="likeMusic">
+		insert into music_like(useq, mseq) values(#{param1}, #{param2})
+	</insert>
+	<insert id="likeAlbum">
+		insert into album_like(useq, abseq) values(#{param1}, #{param2})
+	</insert>
+	<insert id="likeArtist">
+		insert into artist_like(useq, atseq) values(#{param1}, #{param2})
+	</insert>
+<!-- 좋아요 -->
+
+<!-- 좋아요 취소 -->
+	<delete id="unlikeMusic">
+		delete from music_like where useq = #{param1} and mseq = #{param2}
+	</delete>
+	<delete id="unlikeAlbum">
+		delete from album_like where useq = #{param1} and abseq = #{param2}
+	</delete>
+	<delete id="unlikeArtist">
+		delete from artist_like where useq = #{param1} and atseq = #{param2}
+	</delete>
+<!-- 좋아요 취소 -->
+
+<!-- 무시할래요 -->
+	<insert id="banMusic">
+		insert into music_ban (useq, mseq) values (#{param1}, #{param2})
+	</insert>
+<!-- 무시할래요 -->
+
+<!-- 무시안할래요 -->
+	<delete id="unbanMusic">
+		delete from music_ban where useq = #{param1} and mseq =#{param2}
+	</delete>
+<!-- 무시안할래요 -->
+
+
+    <sql id="musicListByBundle">
+          
+    </sql>
+
+</mapper>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eco.dao.BundleDao">
+
+    <!-- 관리자에 의한 번들(메인용) -->
+	<select id="listBundleForMain" resultType="com.eco.dto.Bundle">
+		select * from bundle_master where useq = 0
+	</select>
+
+    <!-- 사용자에 의한 번들(유저용) -->
+    <select id="listBundleByUser" resultType="com.eco.dto.Bundle">
+          select * from bundle_master where useq = #{param1}
+    </select>
+    
+</mapper>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.eco.dao.IMemberDao">
+	<select resultType="com.eco.dto.MemberVO" id="confirmNamePhone">
+	select * from member where name=#{name} and phone=#{phone}
+	 </select>
+
+	<select resultType="com.eco.dto.MemberVO" id="confirmIdNamePhone">
+	select * from member where id=#{id} and name=#{name} and phone=#{phone}
+	 </select>
+
+	<update id="resetPw" parameterType="com.eco.dto.MemberVO">
+	update member set pw=#{pw} where id=#{id}
+	 </update>
+	
+	<select resultType="com.eco.dto.MemberVO" id="getMember">
+	select * from member where id=#{param1} 
+	</select>
+
+	<insert id="insertMember" parameterType="com.eco.dto.MemberVO">
+	insert into member(useq, id, pw, name, phone, gender)
+	values(useq_seq.nextval,#{id},#{pw},#{name},#{phone},#{gender}) 
+	</insert>
+</mapper>
