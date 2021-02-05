@@ -127,7 +127,7 @@ create table album (
 	title varchar2(50) not null,
 	img varchar2(100),
 	content varchar2(1000),
-	pdate date default  sysdate
+	pdate date
 );
 
 create table music(
