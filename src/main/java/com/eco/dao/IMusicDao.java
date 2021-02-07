@@ -12,7 +12,7 @@ import com.eco.dto.Genre;
 import com.eco.dto.Music;
 
 @Mapper
-public interface MusicDao {
+public interface IMusicDao {
 
 	List<Theme> themeList();
 	

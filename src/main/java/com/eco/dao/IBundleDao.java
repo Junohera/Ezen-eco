@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import com.eco.dto.Bundle;
 
 @Mapper
-public interface BundleDao {
+public interface IBundleDao {
 	
 	List<Bundle> listBundleForMain();
 

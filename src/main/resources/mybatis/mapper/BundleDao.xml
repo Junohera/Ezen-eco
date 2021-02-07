@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.eco.dao.BundleDao">
+<mapper namespace="com.eco.dao.IBundleDao">
 
     <!-- 관리자에 의한 번들(메인용) -->
 	<select id="listBundleForMain" resultType="com.eco.dto.Bundle">

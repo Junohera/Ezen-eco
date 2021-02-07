@@ -6,14 +6,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.eco.dao.BundleDao;
+import com.eco.dao.IBundleDao;
 import com.eco.dto.Bundle;
 
 @Service
 public class BundleService {
 	
 	@Autowired
-	BundleDao bd;
+	IBundleDao bd;
 
 	
 	public List<Bundle> listBundle(int useq) {

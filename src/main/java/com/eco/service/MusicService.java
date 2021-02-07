@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.eco.dao.MusicDao;
+import com.eco.dao.IMusicDao;
 import com.eco.dto.Album;
 import com.eco.dto.Chart;
 import com.eco.dto.Genre;
@@ -15,7 +15,7 @@ import com.eco.dto.Music;
 public class MusicService {
 	
 	@Autowired
-	MusicDao md;
+	IMusicDao md;
 
 	public List<Chart> chartList() {
 		return md.chartList();
