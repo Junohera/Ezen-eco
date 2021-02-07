@@ -5,7 +5,23 @@ $music.data = {
 		mseq : 0,
 		abseq : 0,
 		atseq : 0,
-	}
+	},
+
+	playList : [
+		/* example
+		{
+			mseq : null,	곡 번호
+			title : null,	곡 제목
+			src : null,		곡 재생경로
+			
+			abseq : null,	앨범 번호
+			abimg : null,	앨범 재킷
+			
+			atseq : null,	아티스트 번호
+			name : null		아티스트 이름
+		}*/
+	],
+
 };
 
 $music.method = {

@@ -14,6 +14,7 @@ public class Music {
 	private String content;
 	private String theme;
 	private String titleyn;	
+	private String src;
 
 	private String abtitle;
 	private String abimg;

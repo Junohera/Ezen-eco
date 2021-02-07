@@ -134,12 +134,13 @@ create table music(
 	mseq number(5) primary key,
 	abseq number(5) references album(abseq),
 	atseq number(5) references artist(atseq),
-	theme varchar2(1000), -- 테마/태그(복수) 구분자: |
-	chart varchar2(100), -- 차트(복수) 구분자: |
-	gseq number(5) references genre(gseq), -- 장르(단일)
+	theme varchar2(1000), 					-- 테마/태그(복수) 구분자: |
+	chart varchar2(100), 					-- 차트(복수) 구분자: |
+	gseq number(5) references genre(gseq), 	-- 장르(단일)
 	title varchar2(30) not null,
-	content varchar2(1000), -- 가사
-	titleyn varchar2(1) -- Y: 타이틀, N: 일반
+	content varchar2(1000), 				-- 가사
+	titleyn varchar2(1), 					-- Y: 타이틀, N: 일반
+	src varchar2(200) 						-- 음악 재생경로
 );
 
 -- 사이트 또는 유저의 리스트
