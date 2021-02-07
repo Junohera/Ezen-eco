@@ -96,6 +96,7 @@
                         <input type="hidden" name="mseq" value="${music.mseq}">
                         <input type="hidden" name="abseq" value="${music.abseq}">
                         <input type="hidden" name="atseq" value="${music.atseq}">
+                        <input type="hidden" name="src" value="${music.src}">
                         <td><input type="checkbox" name="mseq_checkbox" value="${music.mseq}"></td>
                         <td>${status.count}</td>
                         <td>
