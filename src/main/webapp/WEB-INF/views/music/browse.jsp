@@ -6,12 +6,19 @@
     
     $(function() {
 
+        // 재생목록에 추가
+        $("#listBox .playListAdd").on("click", function() {
+            $music.method.musicList.playListAdd($(this));
+        })
+
+        // 듣기 기능 연동시작점
+        $("#listBox .listen").on("click", function() {
+            $music.method.musicList.listen($(this));
+        })
+
         // 더보기 기능 연동시작점
         $("#listBox .moreDiv").on("click", function() {
-            var mseq = $(this).closest("tr").find("input[name='mseq']").val();      // 음악 시퀀스
-            var abseq = $(this).closest("tr").find("input[name='abseq']").val();    // 앨범 시퀀스
-            var atseq = $(this).closest("tr").find("input[name='atseq']").val();    // 아티스트 시퀀스
-            $music.method.more.on_musicMoreBox($(this), mseq, abseq, atseq);
+            $music.method.more.on_musicMoreBox($(this));
         });
 
         // 체크박스(일괄처리) 클릭시
@@ -106,31 +113,35 @@
                             <div class="justWrap">
                                 <div class="contentWrap">
                                     <img src="" alt="" width="60" height="60">
-                                    <a href="재생목록에 추가">${music.title}</a>
+                                    <a href="musicView?mseq=${music.mseq}">${music.title}</a>
                                     <a href="albumView?abseq=${music.abseq}">${music.abtitle}</a>
                                 </div>
                             </div>
                         </td>
                         <td><a href="artistView?atseq=${music.atseq}">${music.name}</a></td>
+                        <!-- 듣기 -->
                         <td style="text-align: center; padding: 0; margin: 0">
-                            <a href="#" class="iconButton">&nbsp;
+                            <a class="iconButton listen">&nbsp;
                                 <span style="font-size: 20px; color: #333333;"><i class="fas fa-play"></i></span>
                             </a>
                         </td>
+                        <!-- 재생목록 -->
                         <td style="text-align: center; padding: 0; margin: 0">
-                            <a href="#" class="iconButton">&nbsp;
+                            <a class="iconButton playListAdd">&nbsp;
                                 <span style="font-size: 20px; color: #333333;"><i class="fas fa-outdent"></i></span>
                             </a>
                         </td>
+                        <!-- 내 리스트 -->
                         <td style="text-align: center; padding: 0; margin: 0">
                             <a href="#" class="iconButton">&nbsp;
                                 <span style="font-size: 20px; color: #333333;"><i class="fas fa-folder-plus"></i></span>
                             </a>
                         </td>
+                        <!-- 더보기 -->
                         <td style="text-align: center; padding: 0; margin: 0">
-                            <div class="iconButton moreDiv">&nbsp;
+                            <a class="iconButton moreDiv">&nbsp;
                                 <span style="font-size: 20px; color: #333333;"><i class="fas fa-ellipsis-v"></i></span>
-                            </div>
+                            </a>
                         </td>
                     </tr>
                 </c:forEach>

@@ -354,6 +354,7 @@
 }
 #listBox a {
     font-size:15px;color:#333333;font-weight: 100;
+    cursor: pointer;
 }
 #listBox .justWrap{
     position: relative;
