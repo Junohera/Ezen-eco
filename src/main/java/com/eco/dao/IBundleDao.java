@@ -12,4 +12,6 @@ public interface IBundleDao {
 	List<Bundle> listBundleForMain();
 
 	List<Bundle> listBundleByUser(int useq);
+
+	int addBundle(Bundle bundle);
 }

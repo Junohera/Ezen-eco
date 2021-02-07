@@ -4,7 +4,7 @@
     </div>
 
     <%-- 팝업류 include --%>
-    <%@ include file="../popup/popup.jsp" %>
+    <%@ include file="../popup/music.jsp" %>
 
 <footer>
     <ul class="ul1">

@@ -197,12 +197,12 @@
 /* </footer> */
 
 
-/*musicMoreBox 더보기 버튼*/
+/*musicMoreBox 더보기 버튼 팝업*/
 #musicMoreBox {
     position:fixed;
     z-index: 9999;
-    width: 200px;
-    height: 200px;
+    width: 160px;
+    height: 182px;
     border: 1px solid lightgray;
     box-sizing: border-box;
     box-shadow: 0px 0px 10px 5px lightgray;
@@ -210,7 +210,6 @@
     list-style: none;
     margin: 0;
     padding: 0;
-    padding-top:18px;
 }
 
 #musicMoreBox a {
@@ -219,7 +218,7 @@
 
 #musicMoreBox li {
     position: relative;
-    width:198px;
+    width:160px;
     height:36px;
     margin: 0;
     padding: 0;
@@ -275,7 +274,113 @@
     z-index: 9999;
 }
 
-/*musicMoreBox 더보기 버튼*/
+/*musicMoreBox 더보기 버튼 팝업*/
+
+/* listByCheckBox 체크누르면 나오는 팝업 */
+#listByCheckBox {
+    position:fixed;
+    z-index: 9999;
+    width: 340px;
+    height: 120px;
+    margin: 0;
+    padding: 0;
+    bottom: 195px;
+    left: calc(100vw - 50vw - 170px);
+    overflow: hidden;
+}
+
+#listByCheckBox > div:nth-of-type(2) {
+    position: relative;
+    margin: 0 auto;
+    padding: 0;
+    width: 340px;
+    height: 100px;
+    background: #3f3fff;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+#listByCheckBox > div:nth-of-type(2) > div{
+    position: relative;
+    margin: 0 auto;
+    width: 300px;
+    height: 100%;
+    padding-top: 12px;
+}
+
+#listByCheckBox a {
+    text-decoration: none;
+}
+
+#listByCheckBox li {
+    position: relative;
+    margin: 0;
+    padding: 0;
+    display: block;
+    overflow: hidden;
+}
+
+#listByCheckBox .iconList, #listByCheckBox .labelList {
+    display: flex;
+    justify-content: space-evenly;
+    margin: 0;
+    padding: 0;
+}
+
+#listByCheckBox .iconList ul {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    margin: 0;
+    padding: 0;
+}
+
+#listByCheckBox .iconList li {
+    display: inline-block;
+    width: 60px;
+    height: 50px;
+    margin: 0;
+    padding: 0;
+    background: #3f3fff;
+    color: white;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 30px;
+    font-weight: 100;
+    cursor: pointer;
+}
+
+#listByCheckBox .labelList {
+    color: white;
+    font-size: 12px;
+    text-align: center;
+    font-weight: 100;
+    letter-spacing: 0.5px;
+}
+
+#listByCheckBox .labelList li{
+    width: 60px;
+    cursor: pointer;
+}
+
+#listByCheckBox .count {
+    position: absolute;
+    z-index: 10;
+    width: 36px;
+    height: 36px;
+    border: 2px solid #3f3fff;
+    font-size: 16px;
+    font-weight: bold;
+    color: #3f3fff;
+    vertical-align: middle;
+    text-align: center;
+    border-radius: 21px;
+    top: 0px;
+    left: 12px;
+    background: #ffffff;
+    line-height: 36px;
+}
+/* listByCheckBox 체크누르면 나오는 팝업 */
 
 /* music.browse */
 #music_browse ul,article li {
@@ -350,7 +455,7 @@
     line-height: 42px;
 }
 .waste .allListen:hover {
-    color: #cb78ff;
+    color: #3f3fff;
 }
 #listBox a {
     font-size:15px;color:#333333;font-weight: 100;

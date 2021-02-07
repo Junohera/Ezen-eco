@@ -50,6 +50,19 @@ insert into album(abseq, atseq, title, img, content) values(album_seq.nextval, 1
 -- music
 insert into music(mseq, abseq, atseq, theme, chart, gseq, title, content, titleyn) values(music_seq.nextval, 1, 1, '2|3', '1|2|3', 2, 'Lego House', '엄청난 첫번째노래 정보', 'Y');
 insert into music(mseq, abseq, atseq, theme, chart, gseq, title, content, titleyn) values(music_seq.nextval, 1, 1, '1|4', '1|2|3', 2, 'One', '엄청난 두번째노래 정보', 'N');
+insert into music(mseq, abseq, atseq, theme, chart, gseq, title, content, titleyn) values(music_seq.nextval, 1, 1, '1|4', '1|2|3', 2, 'One', '엄청난 두번째노래 정보', 'N');
+insert into music(mseq, abseq, atseq, theme, chart, gseq, title, content, titleyn) values(music_seq.nextval, 1, 1, '1|4', '1|2|3', 2, 'One', '엄청난 두번째노래 정보', 'N');
+insert into music(mseq, abseq, atseq, theme, chart, gseq, title, content, titleyn) values(music_seq.nextval, 1, 1, '1|4', '1|2|3', 2, 'One', '엄청난 두번째노래 정보', 'N');
+insert into music(mseq, abseq, atseq, theme, chart, gseq, title, content, titleyn) values(music_seq.nextval, 1, 1, '1|4', '1|2|3', 2, 'One', '엄청난 두번째노래 정보', 'N');
+insert into music(mseq, abseq, atseq, theme, chart, gseq, title, content, titleyn) values(music_seq.nextval, 1, 1, '1|4', '1|2|3', 2, 'One', '엄청난 두번째노래 정보', 'N');
+insert into music(mseq, abseq, atseq, theme, chart, gseq, title, content, titleyn) values(music_seq.nextval, 1, 1, '1|4', '1|2|3', 2, 'One', '엄청난 두번째노래 정보', 'N');
+insert into music(mseq, abseq, atseq, theme, chart, gseq, title, content, titleyn) values(music_seq.nextval, 1, 1, '1|4', '1|2|3', 2, 'One', '엄청난 두번째노래 정보', 'N');
+insert into music(mseq, abseq, atseq, theme, chart, gseq, title, content, titleyn) values(music_seq.nextval, 1, 1, '1|4', '1|2|3', 2, 'One', '엄청난 두번째노래 정보', 'N');
+insert into music(mseq, abseq, atseq, theme, chart, gseq, title, content, titleyn) values(music_seq.nextval, 1, 1, '1|4', '1|2|3', 2, 'One', '엄청난 두번째노래 정보', 'N');
+insert into music(mseq, abseq, atseq, theme, chart, gseq, title, content, titleyn) values(music_seq.nextval, 1, 1, '1|4', '1|2|3', 2, 'One', '엄청난 두번째노래 정보', 'N');
+insert into music(mseq, abseq, atseq, theme, chart, gseq, title, content, titleyn) values(music_seq.nextval, 1, 1, '1|4', '1|2|3', 2, 'One', '엄청난 두번째노래 정보', 'N');
+insert into music(mseq, abseq, atseq, theme, chart, gseq, title, content, titleyn) values(music_seq.nextval, 1, 1, '1|4', '1|2|3', 2, 'One', '엄청난 두번째노래 정보', 'N');
+insert into music(mseq, abseq, atseq, theme, chart, gseq, title, content, titleyn) values(music_seq.nextval, 1, 1, '1|4', '1|2|3', 2, 'One', '엄청난 두번째노래 정보', 'N');
 
 -- bundle_master
 insert into bundle_master(bmseq, useq, title, useyn) values (bundle_master_seq.nextval, 0, '그리움 가득한 밤 문득 생각나는 발라드', 'Y');

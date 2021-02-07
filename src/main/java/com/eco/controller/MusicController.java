@@ -12,10 +12,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.eco.dto.Album;
+import com.eco.dto.Bundle;
 import com.eco.dto.Chart;
 import com.eco.dto.Genre;
 import com.eco.dto.MemberVO;
 import com.eco.dto.Music;
+import com.eco.service.BundleService;
 import com.eco.service.MusicService;
 
 @Controller
@@ -24,15 +26,28 @@ public class MusicController {
 	
 	@Autowired
 	MusicService ms;
+	
+	@Autowired
+	BundleService bundleService;
 
 	@RequestMapping(value = "/browse", method = RequestMethod.GET)
 	public String browse(Model model, HttpServletRequest request
 			, @RequestParam(value = "selectedType", required = false, defaultValue = "chart") String selectedType
 			, @RequestParam(value = "selectedSeq", required = false, defaultValue = "1") int selectedSeq
 	) {
-		String returnPath = "redirect:/" + request.getHeader("Referer");
-		System.out.println("System.out.println(returnPath);");
-		System.out.println(returnPath);
+		
+		MemberVO loginUser = (MemberVO) request.getSession().getAttribute("loginUser");
+		
+		if (loginUser != null) {
+			// bundle
+			List<Bundle> bundleList = bundleService.listBundle(loginUser.getUseq());
+			for (Bundle b : bundleList) {
+				List<Music> musicList = ms.musicListByBundle(b.getBmseq());
+				b.setMusicList(musicList);
+			}
+			model.addAttribute("bundleList", bundleList);
+		}
+		
 		model.addAttribute("selectedType", selectedType);
 		model.addAttribute("selectedSeq", selectedSeq);
 

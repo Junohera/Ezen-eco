@@ -1,12 +1,18 @@
 var $music = {};
 
+/**
+ * data
+ */
 $music.data = {
+
+	/* 더보기버튼 */
 	more : {
 		mseq : 0,
 		abseq : 0,
 		atseq : 0,
 	},
 
+	/* 재생목록 */
 	playList : {
 		/*	status에 들어갈 값
 			nothing // 재생목록에 아무것도없는 상태
@@ -35,30 +41,49 @@ $music.data = {
 		]
 	},
 
+	/* input:checkbox조작시 나타나는 팝업 */
+	listByCheck : {
+		count : 0,
+		items : [],
+	}
+
 };
 
+/**
+ * 
+ */
 $music.utilMethod = {
 	/* 목록중 선택한 음악 DOM으로부터 제이쿼리를 통해 필요한 값들을 객체로 반환 */
 	getHiddenData: function(self) {
 		return {
-			mseq : self.closest("tr").find("input[name=mseq]").val()
-			, abseq : self.closest("tr").find("input[name=abseq]").val()
-			, atseq : self.closest("tr").find("input[name=atseq]").val()
+			mseq : self.closest("tr").find("input[name=mseq]").val() * 1
+			, abseq : self.closest("tr").find("input[name=abseq]").val() * 1
+			, atseq : self.closest("tr").find("input[name=atseq]").val() * 1
 			, title : self.closest("tr").find("input[name=title]").val()
 			, src : self.closest("tr").find("input[name=src]").val()
 			, abimg : self.closest("tr").find("input[name=abimg]").val()
 			, name : self.closest("tr").find("input[name=name]").val()
-		}
+		};
+	},
+
+	/* 재생목록 비우기 */
+	playListClear: function() {
+		$music.data.playList.status = "nothing";
+		$music.data.playList.playingNumber = null;
+		$music.data.playList.items = [];
 	},
 }
 
+/**
+ * 함수
+ */
 $music.method = {
 	/* 듣기, 재생목록, 내리스트, 더보기 같은 아이콘의 hover기능 TODO: 모든 아이콘제어는 이걸로 하게되면 색깔 일괄변경 가능 */
 	iconHoverListen : (function() {
 		$(function() {
 			$(".iconButton").mouseover(function() {
 				$(this).find("span").css({
-					color:"#cb78ff"
+					color:"#3f3fff"
 					, opacity: 0.5
 				});
 			});
@@ -76,17 +101,25 @@ $music.method = {
 	moreHoverListen : (function() {
 		$(function() {
 			$("#musicMoreBox .textBox").mouseover(function() {
-				$(this).prev().find("span").css({color: "#ffffff"});
+				$(this).prev().find("span").css({color: "#3f3fff"});
 				$(this).next().show();
-				$(this).parent().css({background: "#dedede"});
-				$(this).find("a").css({color: "#cb78ff"});
+				// $(this).parent().css({background: "#dedede"});
+				// $(this).find("a").css({color: "#cb78ff"});
 			});
 	
 			$("#musicMoreBox .textBox").mouseleave(function() {
 				$(this).prev().find("span").css({color: "#333333"});
 				$(this).next().hide();
-				$(this).parent().css({background: "#ffffff"});
-				$(this).find("a").css({color: "#333333"});
+				// $(this).parent().css({background: "#ffffff"});
+				// $(this).find("a").css({color: "#333333"});
+			});
+
+			$("#musicMoreBox .close").mouseover(function() {
+				$(this).find("span").css({color: "#3f3fff"});
+			});
+
+			$("#musicMoreBox .close").mouseleave(function() {
+				$(this).find("span").css({color: "#333333"});
 			});
 		});
 	})(),
@@ -169,13 +202,99 @@ $music.method = {
 		}
 	})(),
 
-	/* 현재 뮤직리스트의 모든 곡을 재생목록에 추가 */
-	allListen : (function() {
-		
-	})(),
+	/* 음악목록 중 체크 누르면 나오는 팝업 on/off포함 */
+	listByCheck : (function() {
+		var off_listByCheck = function() {
+			$("#listByCheckBox").hide();
+
+			// 초기화
+			$music.data.listByCheck.items = [];
+			$music.data.listByCheck.count = 0;
+		};
 	
+		var on_listByCheck = function() {
+
+			var musicInfoList = [];
+			$("input:checkbox[name=mseq_checkbox]:checked").each(function(index, el) {
+				// tr>td>input:checkbox로 시작해 tr로 올라간다음 input:hidden들의 값을 추출
+				var music = $music.utilMethod.getHiddenData($(el));
+				musicInfoList.push(music);
+			});
+
+			// 갖고온 musicInfoList를 보관
+			$music.data.listByCheck.items = musicInfoList;
+			$music.data.listByCheck.count = musicInfoList.length;
+
+			// 띄워질 화면에 적용하고 show
+			$("#listByCheckBox").find(".count").text($music.data.listByCheck.count);
+			$("#listByCheckBox").show();
+		};
+
+		var uncheck = function() {
+			// 체크되어있는 값 풀리게 다시 클릭
+			$("input:checkbox[name=mseq_checkbox]:checked").each(function(index, el) {
+				$(el).trigger("click");
+			});
+		};
+
+		var listen = function() {
+			// 재생목록 초기화
+			$music.utilMethod.playListClear();
+
+			// 체크되어있는 값의 tr로 접근해 초기화된 재생목록에 담고 첫건 재생
+			$("input:checkbox[name=mseq_checkbox]:checked").each(function(index, el) {
+				$(el).closest("tr").find(".listen").trigger("click");
+			});
+
+			// 전부 체크해제
+			uncheck();
+		};
+
+		var playList = function() {
+			// 체크되어있는 값의 tr로 접근해 초기화된 재생목록에 담기
+			$("input:checkbox[name=mseq_checkbox]:checked").each(function(index, el) {
+				$(el).closest("tr").find(".playListAdd").trigger("click");
+			});
+
+			// 전부 체크해제
+			uncheck();
+		};
+
+		var myList = function() {
+
+		};
+
+	
+		return {
+			on_listByCheck: on_listByCheck 		// on
+			, off_listByCheck: off_listByCheck 	// off
+			, uncheck : uncheck					// 선택해제
+			, listen : listen					// 듣기
+			, playList : playList				// 재생목록
+			, myList : myList					// 내 리스트
+		};
+	})(),
+
 	/* 재생목록 기능들을 가진 객체 리턴 */
 	musicList : (function() {
+
+		// 중복제거 
+		function removeDuplicate() {
+			$music.data.playList.items = $music.data.playList.items.filter(function(item, index) {
+				return (
+					$music.data.playList.items.findIndex(function(findItem) {
+						return findItem.mseq === item.mseq;
+					}) === index
+				);
+			});
+		};
+
+		function alreadyMusic(music) {
+			return $music.data.playList.items.findIndex(function(item) {
+				return item.mseq === music.mseq;
+			}) > -1;
+		};
+
 		function getData() {
 			return {
 				status : $music.data.playList.status,
@@ -194,7 +313,7 @@ $music.method = {
 
 		var stop = function() {
 			$music.data.playList.status = "off"; // 상태 off로 변경
-			alert("노래를 중단합니다(미구현)");
+			console.log("노래를 중단합니다(미구현)");
 		};
 
 		var play = function(mseq) {
@@ -206,7 +325,7 @@ $music.method = {
 			$music.data.playList.status = "on"; 		// 상태 on으로 변경
 
 			// 전달받은 곡번호로 실행
-			alert(mseq + "번 노래로 실행합니다(미구현) \n[재생목록 중 "+ (now+1) +"번째 노래입니다.]");
+			console.log(mseq + "번 노래로 실행합니다(미구현) \n[재생목록 중 "+ (now+1) +"번째 노래입니다.]");
 		};
 
 		var next = function() {
@@ -246,7 +365,12 @@ $music.method = {
 			// 기존의 재생목록과 재생중인지 아닌지 상관없이 추가하고 바로 재생
 			var music = $music.utilMethod.getHiddenData(self);
 
-			add(music);
+			if (alreadyMusic(music)) {
+				console.log("\""+ music.name +"\"의 \"" + music.title + "\"는(은) 이미 존재하는 곡입니다.\n 새로 추가되지않고 바로 재생합니다");
+			} else {
+				add(music);
+			}
+			
 			play(music.mseq);
 		};
 
@@ -254,37 +378,136 @@ $music.method = {
 		var playListAdd = function(self) {
 			// tr로 올라가서 music정보 수집
 			var music = $music.utilMethod.getHiddenData(self);
-			
 			add(music);
-
-			if ("nothing" === getData().status) { // 재생목록이 비어있을때 추가한경우
-				play(music.mseq);
+			/*
+			if (alreadyMusic(music)) {
+				if (confirm("\""+ music.name +"\"의 \"" + music.title + "\"는(은) 이미 존재하는 곡입니다.\n 그래도 추가하시겠습니까?")) {
+					add(music);
+				} else {
+					// do nothing ...
+				}
+			} else {
+				add(music);
 			}
-			else if ("on" === getData().status) { // 재생목록에 곡이 있고, 재생중일때 추가한경우
-				// do nothing ...
-			}
-			else if ("off" === getData().status) { // 재생목록에 곡이 있지만, 재생중이 아닐때 추가한경우
-				// do nothing ...
-			}
+			*/
 		};
+		
+		// 전부 추가 - 목록위의 전제듣기 버튼을 누른 경우
+		var playListAddAll = function(musicTrList) {
+			$music.utilMethod.playListClear(); // 재생목록 비우기
 
-		// 여러곡 추가 - 목록의 checkBox를 누른후 재생목록담기를 누른경우
-		var playListAddChecked = function(self) {
-			alert("여러곡 추가 미구현");
-			// 음악목록중에 체크된 tr들을 선택
+			var musicDataList = [];
+			$(musicTrList).each(function(index, item){
+				var music = $music.utilMethod.getHiddenData($(item));
+				musicDataList.push(music);
+			});
 
-			// 걸러진 tr들을 반복하며 music정보를 수집하고 수집한 music으로 add를 실행
+			for(var i = 0; i < musicDataList.length; i++) {
+				var music = musicDataList[i];
+				add(music);
+			}
 
+			play(musicDataList[0].mseq);
 		};
 
 		return {
-			stop : stop,
-			play : play,
-			next : next,
-			prev : prev,
-			listen : listen,
-			playListAdd : playListAdd,
-			playListAddChecked : playListAddChecked,
+			stop : stop
+			, play : play
+			, next : next
+			, prev : prev
+			, listen : listen
+			, playListAdd : playListAdd
+			, playListAddAll : playListAddAll
 		};
 	})(),
 };
+
+/**
+ * event
+ */
+
+$(function() {
+
+	// 음악관련 어느곳에서 동일사용 (단, html구조와 music.js를 import해주어야 동작.)
+	(function all() {
+
+	/* <a class="allListen iconButton" id="playListAddAll" style="cursor: pointer;"> */
+		// 전체듣기	
+		$("#playListAddAll").on("click", function() {
+			var musicTrList = $("#listBox .musicTr");
+			$music.method.musicList.playListAddAll(musicTrList);
+		});
+	/* <a class="allListen iconButton" id="playListAddAll" style="cursor: pointer;"> */
+
+	/* <table id="listBox"> */
+
+		// 재생목록에 추가
+		$("#listBox .playListAdd").on("click", function() {
+			$music.method.musicList.playListAdd($(this));
+		});
+
+		// 듣기 기능 연동시작점
+		$("#listBox .listen").on("click", function() {
+			$music.method.musicList.listen($(this));
+		});
+
+		// 더보기 기능 연동시작점
+		$("#listBox .moreDiv").on("click", function() {
+			$music.method.more.on_musicMoreBox($(this));
+		});
+
+		// 체크박스(일괄처리) 클릭시
+		$("input:checkbox[name=allCheck]").on("click", function() {
+			// allCheck의 체크여부에 따라 모든 체크박스 on/off
+			var isAllCheck = $(this).is(":checked");
+			$("input:checkbox[name=mseq_checkbox]").each(function() {
+				this.checked = isAllCheck;
+			});
+
+			if ($("input:checkbox[name=mseq_checkbox]:checked").length > 0) { // 한개라도 선택된게 남아있다면
+				$music.method.listByCheck.on_listByCheck();
+			} else {
+				$music.method.listByCheck.off_listByCheck();
+			}
+		});
+
+		// 체크박스(단일처리) 클릭시
+		$("input:checkbox[name=mseq_checkbox]").on("click", function() {
+			var justTotalCount = $("input:checkbox[name=mseq_checkbox]").length;       // 전체개수
+			var checkedCount = $("input:checkbox[name=mseq_checkbox]:checked").length; // 선택개수
+
+			$("input[name=allCheck]:checkbox").prop("checked", (justTotalCount === checkedCount)); // 일괄처리버튼 적용
+
+			if ($("input:checkbox[name=mseq_checkbox]:checked").length > 0) { // 한개라도 선택된게 남아있다면
+				$music.method.listByCheck.on_listByCheck();
+			} else {
+				$music.method.listByCheck.off_listByCheck();
+			}
+		});
+	/* <table id="listBox"> */
+
+	/* <div id="listByCheckBox" style="display:none;"> */
+		// listByCheckBox의 버튼 이벤트 1. 선택해제
+		$("#listByCheckBox .uncheck").on("click", function() {
+			$music.method.listByCheck.uncheck();
+		});
+
+		// listByCheckBox의 버튼 이벤트 2. 듣기
+		$("#listByCheckBox .listen").on("click", function() {
+			$music.method.listByCheck.listen();
+		});
+
+		// listByCheckBox의 버튼 이벤트 3. 재생목록담기
+		$("#listByCheckBox .playList").on("click", function() {
+			$music.method.listByCheck.playList();
+		});
+
+		// listByCheckBox의 버튼 이벤트 4. 내 리스트
+		$("#listByCheckBox .myList").on("click", function() {
+			$music.method.listByCheck.myList();
+		});
+	/* <div id="listByCheckBox" style="display:none;"> */
+
+	})();
+	
+});

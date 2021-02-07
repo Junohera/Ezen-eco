@@ -2,44 +2,188 @@
     pageEncoding="UTF-8"%>
 <%@ include file="../include/headerfooter/header.jsp" %>
 
-<script>
-    
-    $(function() {
+<style>
+    #myListBox {
+        position: fixed;
+        z-index: 9999;
+        width: 530px;
+        height: 600px;
+        margin: 0;
+        bottom: 195px;
+        top: 100px;
+        left: calc(100vw - 50vw - 235px);
+        overflow: hidden;
+    }
 
-        // 재생목록에 추가
-        $("#listBox .playListAdd").on("click", function() {
-            $music.method.musicList.playListAdd($(this));
-        })
+    #myListBox > div:nth-of-type(2) {
+        position: relative;
+        margin: 0 auto;
+        width: 470px;
+        background: white;
+        min-height: 300px;
+        border-radius: 10px;
+        padding: 30px;
+    }
 
-        // 듣기 기능 연동시작점
-        $("#listBox .listen").on("click", function() {
-            $music.method.musicList.listen($(this));
-        })
+    #myListBox h2 {
+        font-size: 18px;
+        color: #333333;
+        width: 470px;
+        height: 22px;
+        line-height: 22px;
+    }
 
-        // 더보기 기능 연동시작점
-        $("#listBox .moreDiv").on("click", function() {
-            $music.method.more.on_musicMoreBox($(this));
-        });
+    #myListBox > div:nth-of-type(2) > div:nth-of-type(1){
+        width: 470px;
+        height: 100px;
+        position: relative;
+    }
 
-        // 체크박스(일괄처리) 클릭시
-        $("input:checkbox[name=allCheck]").on("click", function() {
-            // allCheck의 체크여부에 따라 모든 체크박스 on/off
-            var isAllCheck = $(this).is(":checked");
-            $("input:checkbox[name=mseq_checkbox]").each(function() {
-                this.checked = isAllCheck;
-            });
-        });
+    #myListBox > div:nth-of-type(2) > div:nth-of-type(1) * {
+        display: block;
+    }
 
-        // 체크박스(단일처리) 클릭시
-        $("input:checkbox[name=mseq_checkbox]").on("click", function() {
-            var justTotalCount = $("input:checkbox[name=mseq_checkbox]").length;       // 전체개수
-            var checkedCount = $("input:checkbox[name=mseq_checkbox]:checked").length; // 선택개수
+    #myListBox > div:nth-of-type(2) > div:nth-of-type(1) .textBox {
+        width: 470px;
+        height: 40px;
+        margin: 0 auto;
+        border: none;
+        border-bottom: 1px solid #333333;
+    }
 
-            $("input[name=allCheck]:checkbox").prop("checked", (justTotalCount === checkedCount)); // 일괄처리버튼 적용
-        });
+    #myListBox > div:nth-of-type(2) > div:nth-of-type(1) .inputText {
+        width: 450px;
+        height: 100%;
+        float: left;
+        margin-left: 10px;
+        margin-right: 2px;
+        font-size: 90%;
+        font-weight: 100;
+        border: none;
+        background: none;
+        outline: none;
+        color: #333333;
+    }
 
-    });
-</script>
+    #myListBox .close {
+        position: absolute;
+        right: 4px;
+        top: 10px;
+        font-size: 20px;
+        font-weight: 100;
+        cursor: pointer;
+    }
+
+    #myListBox .btn {
+        margin-top: 10px;
+        width: 50px;
+        color: #333333;
+        float: right;
+        font-size: 100%;
+        background: none;
+        border: none;
+        cursor: pointer;
+    }
+
+    #myListBox > div:nth-of-type(2) > div:nth-of-type(2) {
+        overflow-y: scroll;
+        height: 380px;
+    }
+
+    #myListBox > div:nth-of-type(2) > div:nth-of-type(2) .bundleList:first {
+        border-top: 1px solid #dddddd;
+    }
+
+    #myListBox > div:nth-of-type(2) > div:nth-of-type(2) .bundleList {
+        height: 66px;
+        overflow: hidden;
+        border-bottom: 1px solid #dddddd;
+        padding: 5px;
+        cursor: pointer;
+    }
+
+    #myListBox > div:nth-of-type(2) > div:nth-of-type(2) .bundleList *{
+        display: block;
+        position: relative;
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+    }
+
+    #myListBox > div:nth-of-type(2) > div:nth-of-type(2) .bundleList > ul {
+        width: 445px;
+        height: 78px;
+        padding-top: 3px;
+    }
+
+    #myListBox > div:nth-of-type(2) > div:nth-of-type(2) .bundleList > ul > li:nth-of-type(1) {
+        width: 60px;
+        height: 60px;
+        float: left;
+        background: #dddddd;
+        border-radius: 6px;
+        margin-right: 20px;
+        color: white;
+        font-size: 30px;
+        text-align: center;
+        vertical-align: middle;
+        overflow: hidden;
+        border: none;
+    }
+    #myListBox > div:nth-of-type(2) > div:nth-of-type(2) .bundleList > ul > li:nth-of-type(1) * {
+        width: 100%;
+        height: 100%;
+        display:block;
+        margin: 0;
+        padding: 0;
+    }
+
+    #myListBox > div:nth-of-type(2) > div:nth-of-type(2) .bundleList > ul > li:nth-of-type(1) span {
+        position: absolute;
+        top: 15px;
+        left: -1px;
+    }
+
+    #myListBox > div:nth-of-type(2) > div:nth-of-type(2) .bundleList > ul > li:nth-of-type(2) {
+        float: left;
+        width: 360px;
+        height: 60px;
+    }
+
+    #myListBox > div:nth-of-type(2) > div:nth-of-type(2) .bundleList > ul > li:nth-of-type(2) ul {
+        width: 100%;
+        height: 100%;
+        margin-top: 6px;
+    }
+
+    #myListBox > div:nth-of-type(2) > div:nth-of-type(2) .bundleList > ul > li:nth-of-type(2) ul li:nth-of-type(1){
+        font-size: 15px;
+        font-weight: 100;
+        color: #333333;
+        margin-bottom: 8px;
+    }
+
+    #myListBox > div:nth-of-type(2) > div:nth-of-type(2) .bundleList > ul > li:nth-of-type(2) ul li:nth-of-type(2){
+        font-size: 12px;
+        font-weight: 100;
+        color: #333333;
+    }
+
+    #myListBox > div:nth-of-type(2) > div:nth-of-type(1) input::placeholder {
+        color: lightgray;
+    }
+
+    #dim {
+        background-color: rgba(0, 0, 0, 0.5);
+        position: fixed;
+        z-index: 200;
+        width: 100%;
+        height: 100%;
+        transition: 0.2;
+        top: 0px;
+        left: 0px;
+    }
+</style>
 
 <article id="music_browse">
     <ul id="themeAndGenre">
@@ -76,8 +220,10 @@
         </h4>
     
         <!-- 전체듣기 -->
-        <a href="#" class="allListen iconButton" onclick="$music.method.allListen();">
-            <span style="font-size: 20px; color: #333333;position: absolute;top: -1px;right: 57px;"><i class="fas fa-greater-than"></i></span>
+        <a class="allListen iconButton" id="playListAddAll" style="cursor: pointer;">
+            <span style="font-weight: 100; font-size: 10px; color: #333333;">
+                <i class="fas fa-play"></i>
+            </span>
             전체듣기
         </a>
     </div>
@@ -99,7 +245,7 @@
         <c:choose>
             <c:when test="${musicList.size() > 0}">
                 <c:forEach var="music" items="${musicList}" varStatus="status">
-                    <tr height="84">
+                    <tr height="84" class="musicTr">
                         <input type="hidden" name="mseq" value="${music.mseq}">
                         <input type="hidden" name="abseq" value="${music.abseq}">
                         <input type="hidden" name="atseq" value="${music.atseq}">

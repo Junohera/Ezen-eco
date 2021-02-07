@@ -3,6 +3,8 @@ package com.eco.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,4 +28,10 @@ public class BundleService {
 		}
 		return result;
 	}
+
+
+	public int addBundle(Bundle bundle) {
+		return bd.addBundle(bundle);
+	}
+
 }
