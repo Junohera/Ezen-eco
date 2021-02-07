@@ -260,6 +260,7 @@ select
 	, m.chart
 	, m.gseq
     , m.titleyn
+	, m.src
     , ab.abseq
     , ab.title as abtitle
     , ab.img as abimg
