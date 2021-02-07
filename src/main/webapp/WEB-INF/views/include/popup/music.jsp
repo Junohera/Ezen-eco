@@ -68,7 +68,7 @@
     </div>
 
 <!-- 내 리스트 관련 상자 -->
-    <div id="myListBox">
+    <div id="myListBox" style="display: none;">
         <div class="close">
             <span style="color: white;">
                 <i class="fas fa-times"></i>
@@ -128,4 +128,4 @@
         </div>
     </div>
 
-    <div id="dim"></div>
+    <div id="dim" style="display: none;"></div>
