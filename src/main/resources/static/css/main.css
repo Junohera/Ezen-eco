@@ -620,6 +620,9 @@
 #listBox {
     position: relative;
 }
+#listBox a {
+    text-decoration: none;
+}
 #themeAndGenre li {
     border-radius: 10px;
     font-weight: bold;
@@ -707,9 +710,9 @@
 #listBox .justWrap .contentWrap > a:nth-of-type(1){top:8px;}
 #listBox .justWrap .contentWrap > a:nth-of-type(2){top:32px;font-size:13px;color:#969696;}
 
-#music_browse th{height:80; width:895px;}
-#music_browse th{padding-left:20px; text-align: left; white-space: nowrap; height: 39px; font-size: 13px; color: #a0a0a0;font-weight: 400; border-top: 1px solid #ebebeb;  border-bottom: 1px solid #ebebeb;}
-#music_browse td{padding-left:20px; text-align: left; white-space: nowrap; height: 39px; font-size: 15px; color: #5D5D5D;font-weight: 450; }
+#listBox th{height:80; width:895px;}
+#listBox th{padding-left:20px; text-align: left; white-space: nowrap; height: 39px; font-size: 13px; color: #a0a0a0;font-weight: 400; border-top: 1px solid #ebebeb;  border-bottom: 1px solid #ebebeb;}
+#listBox td{padding-left:20px; text-align: left; white-space: nowrap; height: 39px; font-size: 15px; color: #5D5D5D;font-weight: 450; }
 /* music.browse */
 
 /* dim처리용 */

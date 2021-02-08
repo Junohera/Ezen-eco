@@ -86,26 +86,47 @@ public class MusicController {
 		return "music/browse";
 	}
 	
+	@RequestMapping(value = "/albumView", method = RequestMethod.GET)
+	public String albumView(Model model, HttpServletRequest request
+			, @RequestParam("abseq") int abseq) {
+		Album album = ms.getAlbum(abseq);
+		List<Music> musicListByAlbum = ms.musicListByAlbum(abseq);
+		
+		MemberVO loginUser = (MemberVO) request.getSession().getAttribute("loginUser");
+		
+		if (loginUser != null) {
+			List<Bundle> bundleList = bundleService.listBundle(loginUser.getUseq());
+			for (Bundle b : bundleList) {
+				List<Music> musicListByBundle = ms.musicListByBundle(b.getBmseq());
+				b.setMusicList(musicListByBundle);
+			}
+			model.addAttribute("bundleList", bundleList);
+
+			// 로그인유저의 무시목록건 뺀 뮤직목록으로 
+			musicListByAlbum = ms.ignoreBanList(musicListByAlbum, loginUser.getUseq());
+
+			// 좋아요한 곡의 시퀀스 목록
+			model.addAttribute("likeMusicList", ms.likeMusicListByUseq(loginUser.getUseq()));
+			
+			// 좋아요한 앨범의 시퀀스 목록
+			model.addAttribute("likeAlbumList", ms.likeAlbumListByUseq(loginUser.getUseq()));
+		}
+		
+		
+		model.addAttribute("album", album);
+		
+		
+		model.addAttribute("musicList", musicListByAlbum);
+		
+		return "music/albumView";
+	}
+	
 	@RequestMapping(value = "/artistView", method = RequestMethod.GET)
 	public String artistView(Model model, HttpServletRequest request) {
 		return "music/artistView";
 	}
 
-	@RequestMapping(value = "/albumView", method = RequestMethod.GET)
-	public String albumView(Model model, HttpServletRequest request
-			, @RequestParam("abseq") int abseq) {
-		String returnPath = "redirect:/" + request.getHeader("Referer");
-		System.out.println("System.out.println(returnPath);");
-		System.out.println(returnPath);
-		
-		Album album = ms.getAlbum(abseq);
-		model.addAttribute("album", album);
-		
-		List<Music> musicListByAlbum = ms.musicListByAlbum(abseq);
-		model.addAttribute("musicList", musicListByAlbum);
-		
-		return "music/albumView";
-	}
+	
 	
 	@RequestMapping(value = "/musicView", method = RequestMethod.GET)
 	public String musicView(Model model, HttpServletRequest request) {
