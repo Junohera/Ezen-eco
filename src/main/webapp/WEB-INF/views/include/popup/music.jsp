@@ -83,21 +83,39 @@
             <h2>내 리스트에 담기</h2>
             
             <div>
-                <form action="addBundleMaster" method="POST" name="addBundleMaster">
-                    <div class="textBox">
-                        <input type="text" name="title" class="inputText" placeholder="내 리스트 이름을 입력해주세요">
-                    </div>
-                    <input class="btn" type="button" value="확인" style="color: #3f3fff;" onclick="$music.method.myList.addBundleMaster($(this));">
-                    <input class="btn" type="reset" value="취소">
-                    <a class="close" onclick="document.addBundleMaster.title.value='';">
-                        <span style="color: #333333;">
-                            <i class="fas fa-times"></i>
-                        </span>
-                    </a>
-                    <c:if test="${message}">
-                        <p>${message}</p>
-                    </c:if>
-                </form>
+                <div class="beforeForm" onclick="$(this).next().show();$(this).hide();">
+                    <ul>
+                        <li>
+                            <div>
+                                <span style="color: #3f3fff;">
+                                    <i class="fas fa-plus"></i>
+                                </span>
+                            </div>
+                        </li>
+                        <li>
+                            <div style="color: #3f3fff;">
+                                새로운 리스트 추가하기
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="form" style="display:none;">
+                    <form action="addBundleMaster" method="POST" name="addBundleMaster">
+                        <div class="textBox">
+                            <input type="text" name="title" class="inputText" placeholder="내 리스트 이름을 입력해주세요">
+                        </div>
+                        <input class="btn" type="button" value="확인" style="color: #3f3fff;" onclick="$music.method.myList.addBundleMaster($(this));$(this).closest('.form').hide();$(this).closest('.form').prev().show();">
+                        <input class="btn" type="reset" value="취소" onclick="$(this).closest('.form').hide();$(this).closest('.form').prev().show();">
+                        <a class="close" onclick="document.addBundleMaster.title.value='';">
+                            <span style="color: #333333;">
+                                <i class="fas fa-times"></i>
+                            </span>
+                        </a>
+                        <c:if test="${message}">
+                            <p>${message}</p>
+                        </c:if>
+                    </form>
+                </div>
             </div>
 
             <div id="myListBoxBundleBox">
@@ -115,7 +133,7 @@
                                             </span>
                                         </c:when>
                                         <c:otherwise>
-                                            <img src="">
+                                            <img src="${bundle.musicList.get(0).abimg}">
                                         </c:otherwise>
                                     </c:choose>
                                 </div>
