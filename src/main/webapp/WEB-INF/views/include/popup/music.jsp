@@ -25,12 +25,12 @@
         </li>
         <li>
             <div class="imgBox"><span style="font-size: 14px; color: #333333;"><i class="far fa-heart"></i></span></div>
-            <div class="textBox"><a href="#">좋아요</a></div>
+            <div class="textBox"><a>좋아요</a></div>
             <!-- <div class="checkImgBox"><span style="font-size: 14px; color: #cb78ff;"><i class="fas fa-check"></i></span></div> -->
         </li>
         <li>
             <div class="imgBox"><span style="font-size: 14px; color: #333333;"><i class="fas fa-ban"></i></span></div>
-            <div class="textBox"><a href="#">이 곡 안듣기</a></div>
+            <div class="textBox"><a>이 곡 안듣기</a></div>
             <!-- <div class="checkImgBox"><span style="font-size: 14px; color: #cb78ff;"><i class="fas fa-check"></i></span></div> -->
         </li>
     </ul>
@@ -68,8 +68,8 @@
     </div>
 
 <!-- 내 리스트 관련 상자 -->
-    <div id="myListBox" style="display: none;">
-        <div class="close">
+    <div id="myListBox" style="display:none;">
+        <div class="close" onclick="$music.method.myList.off();">
             <span style="color: white;">
                 <i class="fas fa-times"></i>
             </span>
@@ -78,13 +78,13 @@
             <h2>내 리스트에 담기</h2>
             
             <div>
-                <form action="addBundle" method="POST" name="addBundle">
+                <form action="addBundleMaster" method="POST" name="addBundleMaster">
                     <div class="textBox">
                         <input type="text" name="title" class="inputText" placeholder="내 리스트 이름을 입력해주세요">
                     </div>
-                    <input class="btn" type="submit" value="확인" style="color: #3f3fff;">
+                    <input class="btn" type="button" value="확인" style="color: #3f3fff;" onclick="$music.method.myList.addBundleMaster($(this));">
                     <input class="btn" type="reset" value="취소">
-                    <a class="close">
+                    <a class="close" onclick="document.addBundleMaster.title.value='';">
                         <span style="color: #333333;">
                             <i class="fas fa-times"></i>
                         </span>
@@ -95,9 +95,11 @@
                 </form>
             </div>
 
-            <div>
+            <div id="myListBoxBundleBox">
                 <c:forEach var="bundle" items="${bundleList}" varStatus="status">
                     <div class="bundleList">
+                        <input type="hidden" name="bmseq" value="${bundle.bmseq}">
+                        <input type="hidden" name="title" value="${bundle.title}">
                         <ul>
                             <li>
                                 <div>

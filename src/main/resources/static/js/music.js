@@ -45,6 +45,15 @@ $music.data = {
 	listByCheck : {
 		count : 0,
 		items : [],
+	},
+
+	/* myList에 들어가기전  */
+	myList : {
+		items : [
+			// {
+			// 	mseq: null,
+			// }
+		]
 	}
 
 };
@@ -71,6 +80,20 @@ $music.utilMethod = {
 		$music.data.playList.status = "nothing";
 		$music.data.playList.playingNumber = null;
 		$music.data.playList.items = [];
+	},
+
+	/* 로그인되어있으면 진행 안되어있으면 로그인창 */
+	loginCheck : function() {
+		if ($("body > input[name=useq]").val() === "") {
+			if (confirm("로그인이 필요한 서비스입니다.\n로그인 하시겠습니까?")) {
+				location.href="/loginForm";
+				return false;
+			} else {
+				return false;
+			}
+		} else {
+			return true;
+		}
 	},
 }
 
@@ -143,16 +166,16 @@ $music.method = {
 			$("#musicMoreBox .textBox").eq(0).find("a").attr("href", "#");
 			$("#musicMoreBox .textBox").eq(1).find("a").attr("href", "#");
 			$("#musicMoreBox .textBox").eq(2).find("a").attr("href", "#");
-			$("#musicMoreBox .textBox").eq(3).find("a").attr("href", "#");
-			$("#musicMoreBox .textBox").eq(4).find("a").attr("href", "#");
+			// $("#musicMoreBox .textBox").eq(3).find("a").attr("href", "#");
+			// $("#musicMoreBox .textBox").eq(4).find("a").attr("href", "#");
 		};
 	
 		function applyAttr() {
 			$("#musicMoreBox .textBox").eq(0).find("a").attr("href", "musicView?mseq=" + $music.data.more.mseq);
 			$("#musicMoreBox .textBox").eq(1).find("a").attr("href", "albumView?abseq=" + $music.data.more.abseq);
 			$("#musicMoreBox .textBox").eq(2).find("a").attr("href", "artistView?atseq=" + $music.data.more.atseq);
-			$("#musicMoreBox .textBox").eq(3).find("a").attr("href", "like?mseq=" + $music.data.more.mseq);
-			$("#musicMoreBox .textBox").eq(4).find("a").attr("href", "ban?mseq=" + $music.data.more.mseq);
+			$("#musicMoreBox .textBox").eq(3).find("a").attr("onclick", "$music.method.like(null, null, "+$music.data.more.mseq+");");
+			$("#musicMoreBox .textBox").eq(4).find("a").attr("onclick", "$music.method.ban("+$music.data.more.mseq+");");
 		};
 	
 		var off_musicMoreBox = function() {
@@ -260,18 +283,12 @@ $music.method = {
 			uncheck();
 		};
 
-		var myList = function() {
-
-		};
-
-	
 		return {
 			on_listByCheck: on_listByCheck 		// on
 			, off_listByCheck: off_listByCheck 	// off
 			, uncheck : uncheck					// 선택해제
 			, listen : listen					// 듣기
 			, playList : playList				// 재생목록
-			, myList : myList					// 내 리스트
 		};
 	})(),
 
@@ -420,6 +437,144 @@ $music.method = {
 			, playListAddAll : playListAddAll
 		};
 	})(),
+
+	/* 내 리스트 */
+	myList: (function() {
+		var on = function(el) {
+			if ($music.utilMethod.loginCheck()) {
+				// 선택자 있으면 단건, 없으면 여러건
+				if (el) {
+					var music = $music.utilMethod.getHiddenData(el);
+					$music.data.myList.items = [];
+					$music.data.myList.items.push(music);
+				}
+
+				$("#myListBox").show();
+				$("#dim").show();
+			}
+		};
+
+		var off = function() {
+			$("#myListBox").hide();
+			$("#dim").hide();
+		};
+
+		// 내리스트 띄우는건 동일하나, 체크박스를 통해 생성된 팝업에서 온경우
+		var on_listByCheckBox = function() {
+			var musicList = [];
+
+			$("input:checkbox[name=mseq_checkbox]:checked").each(function(index, el) {
+				var music = $music.utilMethod.getHiddenData($(el));
+				musicList.push(music);
+			});
+			$music.data.myList.items = musicList;
+			
+			on();
+		};
+
+		var addBundleMaster = function(el) {
+			var parameter = {
+				title: el.closest("form").find("input[name=title]").val()
+			};
+
+			if (parameter.title.length === 0) {
+				return alert("제목을 입력하세요");
+			}
+			$.ajax({
+				url: 'addBundleMaster',
+				type: 'post',
+				data: JSON.stringify(parameter),
+				contentType: 'application/json',
+				dataType: 'json'
+			  })
+			.done(function(response) {
+				// 성공 시 동작
+
+				var template = `
+					<div class="bundleList">
+						<input type="hidden" name="bmseq" value="${response.bmseq}">
+						<input type="hidden" name="title" value="${response.title}">
+						<ul>
+							<li><div><span style="color: white;"><i class="fas fa-music"></i></span></div></li>
+							<li><div><ul><li>${response.title}</li><li>0곡</li></ul></div></li>
+						</ul>
+					</div>
+				`;
+				$("#myListBoxBundleBox").prepend(template);
+			});
+		};
+
+		var addBundleDetail = function(bundleMaster) {
+			var bundleDetailList = [];
+			for (var i = 0; i < $music.data.myList.items.length; i++) {
+				var bundleDetail = {
+					bmseq: bundleMaster.bmseq
+					, mseq: $music.data.myList.items[i].mseq
+				}
+				bundleDetailList.push(bundleDetail);
+			}
+			$.ajax({
+				url: 'addBundleDetail',
+				type: 'post',
+				data: JSON.stringify(bundleDetailList),
+				contentType: 'application/json',
+				dataType: 'json'
+			  })
+			.always(function() {
+				location.reload();
+			})
+		};
+		
+		return {
+			on: on,
+			off: off,
+
+			on_listByCheckBox: on_listByCheckBox,
+			addBundleMaster: addBundleMaster,
+			addBundleDetail: addBundleDetail,
+		};
+	})(),
+
+	/* 무시하기 */
+	ban: function(mseq) {
+		if ($music.utilMethod.loginCheck()) {
+			console.log('mseq =>', JSON.stringify(mseq, undefined, 2));
+			$.ajax({
+				url: 'ban',
+				type: 'post',
+				data: JSON.stringify(mseq),
+				contentType: 'application/json',
+				dataType: 'json'
+			})
+			.always(function() {
+				location.reload();
+			});
+		}
+	},
+
+	/* 좋아요 */
+	like: function(atseq, abseq, mseq) {
+		if ($music.utilMethod.loginCheck()) {
+			console.log(" atseq : " + atseq);
+			console.log(" abseq : " + abseq);
+			console.log(" mseq : " + mseq);
+			var parameter = {
+				atseq : atseq,
+				abseq : abseq,
+				mseq : mseq,
+			};
+			$.ajax({
+				url: 'like',
+				type: 'post',
+				data: JSON.stringify(parameter),
+				contentType: 'application/json',
+				dataType: 'json'
+			})
+			.always(function() {
+				location.reload();
+			});
+		}
+	}
 };
 
 /**
@@ -440,6 +595,11 @@ $(function() {
 	/* <a class="allListen iconButton" id="playListAddAll" style="cursor: pointer;"> */
 
 	/* <table id="listBox"> */
+
+		// 내 리스트 추가
+		$("#listBox .myListAdd").on("click", function() {
+			$music.method.myList.on($(this));
+		});
 
 		// 재생목록에 추가
 		$("#listBox .playListAdd").on("click", function() {
@@ -504,9 +664,23 @@ $(function() {
 
 		// listByCheckBox의 버튼 이벤트 4. 내 리스트
 		$("#listByCheckBox .myList").on("click", function() {
-			$music.method.listByCheck.myList();
+			$music.method.myList.on_listByCheckBox();
+			$music.method.listByCheck.off_listByCheck();
 		});
 	/* <div id="listByCheckBox" style="display:none;"> */
+
+	/* <div id="myListBox" style="display:none;"> */
+	$(document).on("click", ".bundleList", function() {
+		var bundleMaster = {
+			bmseq : $(this).find("input[name=bmseq]").val()
+			, title : $(this).find("input[name=title]").val()
+		};
+
+		$music.method.myList.addBundleDetail(bundleMaster);
+	});
+
+	/* <div id="myListBox" style="display:none;"> */
+	
 
 	})();
 	

@@ -3,13 +3,12 @@ package com.eco.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.eco.dao.IBundleDao;
 import com.eco.dto.Bundle;
+import com.eco.dto.BundleDetailVO;
 
 @Service
 public class BundleService {
@@ -30,8 +29,12 @@ public class BundleService {
 	}
 
 
-	public int addBundle(Bundle bundle) {
-		return bd.addBundle(bundle);
+	public int addBundleMaster(Bundle bundle) {
+		return bd.addBundleMaster(bundle);
+	}
+
+	public int addBundleDetail(BundleDetailVO bundleDetail) {
+		return bd.addBundleDetail(bundleDetail);
 	}
 
 }

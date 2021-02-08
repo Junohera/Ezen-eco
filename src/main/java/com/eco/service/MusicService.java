@@ -1,6 +1,7 @@
 package com.eco.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -85,6 +86,22 @@ public class MusicService {
 	
 	public void unbanMusic(int useq, int mseq) {
 		md.unbanMusic(useq, mseq);
+	}
+
+	public List<Music> ignoreBanList(List<Music> musicList, int useq) {
+		// 유저의 ban 목록
+		List<Integer> banMseqList = md.banListByUseq(useq);
+		
+		// 원래목록에서 차단되지않은 목록만 저장하고 반환
+		musicList = musicList.stream().filter(music -> {
+			return !banMseqList.contains(music.getMseq());
+		}).collect(Collectors.toList());
+
+		return musicList;
+	}
+
+	public List<Integer> likeMusicListByUseq(int useq) {
+		return md.likeMusicListByUseq(useq);
 	}
 	
 }

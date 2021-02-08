@@ -61,6 +61,17 @@
 	<insert id="likeArtist">
 		insert into artist_like(useq, atseq) values(#{param1}, #{param2})
 	</insert>
+	
+	
+	<select id="likeMusicListByUseq" resultType="_int">
+		select mseq from music_like where useq = #{param1}
+	</select>
+	<select id="likeAlbumListByUseq" resultType="_int">
+		select abseq from album_like where useq = #{param1}
+	</select>
+	<select id="likeArtistListByUseq" resultType="_int">
+		select atseq from artist_like where useq = #{param1}
+	</select>
 <!-- 좋아요 -->
 
 <!-- 좋아요 취소 -->
@@ -79,6 +90,9 @@
 	<insert id="banMusic">
 		insert into music_ban (useq, mseq) values (#{param1}, #{param2})
 	</insert>
+	<select id="banListByUseq" resultType="_int">
+		select mseq from music_ban where useq = #{param1}
+	</select>
 <!-- 무시할래요 -->
 
 <!-- 무시안할래요 -->

@@ -40,3 +40,6 @@ select * from music_view where theme like '%'||3||'%'
 
 select * from BUNDLE_MASTER;
 select * from BUNDLE_DETAIL;
+
+select * from music_ban;
+

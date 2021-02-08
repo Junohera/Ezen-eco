@@ -10,9 +10,8 @@
         height: 600px;
         margin: 0;
         bottom: 195px;
-        top: 100px;
+        top: 140px;
         left: calc(100vw - 50vw - 235px);
-        overflow: hidden;
     }
 
     #myListBox > div:nth-of-type(2) {
@@ -72,6 +71,10 @@
         font-size: 20px;
         font-weight: 100;
         cursor: pointer;
+    }
+
+    #myListBox > .close {
+        top: -30px;
     }
 
     #myListBox .btn {
@@ -253,6 +256,19 @@
                         <input type="hidden" name="src" value="${music.src}">
                         <input type="hidden" name="abimg" value="${music.abimg}">
                         <input type="hidden" name="name" value="${music.name}">
+                        <c:forEach var="likeMseq" items="${likeMusicList}" varStatus="status">
+                            ${likeMseq} : ${music.mseq}
+                            <br>
+                            <c:choose>
+                                <c:when test="${likeMseq eq music.mseq}">
+                                    <script>
+                                        alert(0);
+                                        console.log("like music : " + "${music.mseq}");
+                                    </script>
+                                </c:when>
+                                <c:otherwise></c:otherwise>
+                            </c:choose>
+                        </c:forEach>
                         <td><input type="checkbox" name="mseq_checkbox" value="${music.mseq}"></td>
                         <td>${status.count}</td>
                         <td>
@@ -279,7 +295,7 @@
                         </td>
                         <!-- 내 리스트 -->
                         <td style="text-align: center; padding: 0; margin: 0">
-                            <a href="#" class="iconButton">&nbsp;
+                            <a class="iconButton myListAdd">&nbsp;
                                 <span style="font-size: 20px; color: #333333;"><i class="fas fa-folder-plus"></i></span>
                             </a>
                         </td>

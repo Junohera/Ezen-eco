@@ -27,6 +27,8 @@
 
 </head>
 <body>
+	<!-- 화면단 로그인 여부 체크용 -->
+	<input type="hidden" name="useq" value="${loginUser.useq}">
 	<header>
 		<div class="headerBox">
 			<div class="header">

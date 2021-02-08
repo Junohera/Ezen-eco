@@ -24,28 +24,28 @@
     </div>
     <div class="rotateButtonBox">
         <div class="rotateButtonAlign">
-        	<c:forEach items="${ThemaList }" begin="0" end="4">
+        	<c:forEach items="${bundleList}" begin="0" end="4">
            		<div class="rotateButton"></div>
            	</c:forEach>
         </div>
     </div>
     
 	 <c:forEach var="bundle" items="${bundleList}" varStatus="status">
-            <div>
-                ${status.count}번째 번들
-                ${bundle}
-                <hr>
-                <ul>
-                    <c:forEach var="music" items="${bundle.musicList}" varStatus="status">
-                        <li>
-                            ${status.count}번째 곡
-                            ${music} 
-                        </li>
-                        <hr>
-                    </c:forEach>
-                </ul>
-            </div>
-        </c:forEach>
+        <div>
+            ${status.count}번째 번들
+            ${bundle}
+            <hr>
+            <ul>
+                <c:forEach var="music" items="${bundle.musicList}" varStatus="status">
+                    <li>
+                        ${status.count}번째 곡
+                        ${music} 
+                    </li>
+                    <hr>
+                </c:forEach>
+            </ul>
+        </div>
+    </c:forEach>
 </div>
 
 <%@ include file="include/headerfooter/footer.jsp" %>

@@ -51,4 +51,14 @@ public interface IMusicDao {
 	void banMusic(int useq, int mseq);
 	
 	void unbanMusic(int useq, int mseq);
+
+	List<Integer> banListByUseq(int useq);
+
+	List<Integer> likeMusicListByUseq(int useq);
+	
+	List<Integer> likeAlbumListByUseq(int useq);
+	
+	List<Integer> likeArtistListByUseq(int useq);
+	
+	
 }
