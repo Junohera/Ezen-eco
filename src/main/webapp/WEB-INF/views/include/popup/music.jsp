@@ -29,6 +29,11 @@
             <!-- <div class="checkImgBox"><span style="font-size: 14px; color: #cb78ff;"><i class="fas fa-check"></i></span></div> -->
         </li>
         <li>
+            <div class="imgBox"><span style="font-size: 14px; color: red;"><i class="far fa-heart"></i></span></div>
+            <div class="textBox"><a>좋아요</a></div>
+            <!-- <div class="checkImgBox"><span style="font-size: 14px; color: #cb78ff;"><i class="fas fa-check"></i></span></div> -->
+        </li>
+        <li>
             <div class="imgBox"><span style="font-size: 14px; color: #333333;"><i class="fas fa-ban"></i></span></div>
             <div class="textBox"><a>이 곡 안듣기</a></div>
             <!-- <div class="checkImgBox"><span style="font-size: 14px; color: #cb78ff;"><i class="fas fa-check"></i></span></div> -->

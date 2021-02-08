@@ -138,6 +138,32 @@ public class MusicController {
 		}
 	}
 	
+	@RequestMapping(value = "/unlike", method = RequestMethod.POST)
+	public @ResponseBody boolean unlike(Model model, HttpServletRequest request
+			, @RequestBody Music music
+		) {
+		// 세션에서 유저값
+		MemberVO loginUser = (MemberVO) request.getSession().getAttribute("loginUser");
+		
+		if (loginUser == null) {
+
+			return false;
+		} else {
+			System.out.println("music #########################################");
+			System.out.println(music);
+			// 넘어온 값에 따라 like에 insert 다만, mseq일경우 ban에서 제거하고 insert
+			if (music.getAtseq() != 0) {
+				ms.unlikeArtist(loginUser.getUseq(), music.getAtseq());
+			} else if (music.getAbseq() != 0) {
+				ms.unlikeAlbum(loginUser.getUseq(), music.getAbseq());
+			} else if (music.getMseq() != 0) {
+				ms.unlikeMusic(loginUser.getUseq(), music.getMseq());
+			}
+
+			return true;
+		}
+	}
+	
 	@RequestMapping(value = "/ban", method = RequestMethod.POST)
 	public @ResponseBody boolean ban(Model model, HttpServletRequest request
 			, @RequestBody int mseq

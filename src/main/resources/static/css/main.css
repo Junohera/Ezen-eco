@@ -214,6 +214,7 @@
 
 #musicMoreBox a {
     text-decoration: none;
+    cursor: pointer;
 }
 
 #musicMoreBox li {

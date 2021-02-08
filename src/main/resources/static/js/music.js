@@ -124,14 +124,25 @@ $music.method = {
 	moreHoverListen : (function() {
 		$(function() {
 			$("#musicMoreBox .textBox").mouseover(function() {
-				$(this).prev().find("span").css({color: "#3f3fff"});
+				var index = $(this).closest("li").index();
+				if (index === 5) {
+
+				} else {
+					$(this).prev().find("span").css({color: "#3f3fff"});
+				}
+				
 				$(this).next().show();
 				// $(this).parent().css({background: "#dedede"});
 				// $(this).find("a").css({color: "#cb78ff"});
 			});
 	
 			$("#musicMoreBox .textBox").mouseleave(function() {
-				$(this).prev().find("span").css({color: "#333333"});
+				var index = $(this).closest("li").index();
+				if (index === 5) {
+				} else {
+					$(this).prev().find("span").css({color: "#333333"});
+				}
+				
 				$(this).next().hide();
 				// $(this).parent().css({background: "#ffffff"});
 				// $(this).find("a").css({color: "#333333"});
@@ -167,7 +178,7 @@ $music.method = {
 			$("#musicMoreBox .textBox").eq(1).find("a").attr("href", "#");
 			$("#musicMoreBox .textBox").eq(2).find("a").attr("href", "#");
 			// $("#musicMoreBox .textBox").eq(3).find("a").attr("href", "#");
-			// $("#musicMoreBox .textBox").eq(4).find("a").attr("href", "#");
+			// $("#musicMoreBox .textBox").eq(5).find("a").attr("href", "#");
 		};
 	
 		function applyAttr() {
@@ -175,7 +186,8 @@ $music.method = {
 			$("#musicMoreBox .textBox").eq(1).find("a").attr("href", "albumView?abseq=" + $music.data.more.abseq);
 			$("#musicMoreBox .textBox").eq(2).find("a").attr("href", "artistView?atseq=" + $music.data.more.atseq);
 			$("#musicMoreBox .textBox").eq(3).find("a").attr("onclick", "$music.method.like(null, null, "+$music.data.more.mseq+");");
-			$("#musicMoreBox .textBox").eq(4).find("a").attr("onclick", "$music.method.ban("+$music.data.more.mseq+");");
+			$("#musicMoreBox .textBox").eq(4).find("a").attr("onclick", "$music.method.unlike(null, null, "+$music.data.more.mseq+");");
+			$("#musicMoreBox .textBox").eq(5).find("a").attr("onclick", "$music.method.ban("+$music.data.more.mseq+");");
 		};
 	
 		var off_musicMoreBox = function() {
@@ -186,6 +198,13 @@ $music.method = {
 	
 		var on_musicMoreBox = function(self) {
 			var music = $music.utilMethod.getHiddenData(self);
+			if (self.closest("tr").find("input[name=likeyn]").length > 0) {
+				$("#musicMoreBox .textBox").eq(3).closest("li").hide();
+				$("#musicMoreBox .textBox").eq(4).closest("li").show();
+			} else {
+				$("#musicMoreBox .textBox").eq(3).closest("li").show();
+				$("#musicMoreBox .textBox").eq(4).closest("li").hide();
+			}
 
 			if ($music.data.more.mseq !== music.mseq) { // 최초 한번 클릭시
 
@@ -574,7 +593,31 @@ $music.method = {
 				location.reload();
 			});
 		}
-	}
+	},
+
+	/* 좋아요 취소 */
+	unlike: function(atseq, abseq, mseq) {
+		if ($music.utilMethod.loginCheck()) {
+			console.log(" atseq : " + atseq);
+			console.log(" abseq : " + abseq);
+			console.log(" mseq : " + mseq);
+			var parameter = {
+				atseq : atseq,
+				abseq : abseq,
+				mseq : mseq,
+			};
+			$.ajax({
+				url: 'unlike',
+				type: 'post',
+				data: JSON.stringify(parameter),
+				contentType: 'application/json',
+				dataType: 'json'
+			})
+			.always(function() {
+				location.reload();
+			});
+		}
+	},
 };
 
 /**

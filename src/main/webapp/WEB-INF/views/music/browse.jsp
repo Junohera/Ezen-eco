@@ -256,19 +256,14 @@
                         <input type="hidden" name="src" value="${music.src}">
                         <input type="hidden" name="abimg" value="${music.abimg}">
                         <input type="hidden" name="name" value="${music.name}">
-                        <c:forEach var="likeMseq" items="${likeMusicList}" varStatus="status">
-                            ${likeMseq} : ${music.mseq}
-                            <br>
-                            <c:choose>
-                                <c:when test="${likeMseq eq music.mseq}">
-                                    <script>
-                                        alert(0);
-                                        console.log("like music : " + "${music.mseq}");
-                                    </script>
-                                </c:when>
-                                <c:otherwise></c:otherwise>
-                            </c:choose>
+
+                        <!-- 좋아하는 음악 시퀀스 목록중 동일하면 isLike 출력 -->
+                        <c:forEach var="likeMseq" items="${likeMusicList}">
+                            <c:if test="${likeMseq eq music.mseq}">
+                                <input type="hidden" name="likeyn" value="y">
+                            </c:if>
                         </c:forEach>
+
                         <td><input type="checkbox" name="mseq_checkbox" value="${music.mseq}"></td>
                         <td>${status.count}</td>
                         <td>
