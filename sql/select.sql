@@ -43,3 +43,9 @@ select * from BUNDLE_DETAIL;
 
 select * from music_ban;
 
+
+select * from music;
+
+select * from album;
+
+update album set img = 'https://cdn.music-flo.com/image/v2/album/125/777/05/04/405777125_6010e16c_o.jpg?1611719022486/dims/resize/500x500/quality/90';
