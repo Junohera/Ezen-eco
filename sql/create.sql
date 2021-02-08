@@ -126,7 +126,7 @@ create table album (
 	atseq number(5) references artist(atseq),
 	title varchar2(50) not null,
 	img varchar2(200),
-	content varchar2(1000),
+	content varchar2(3000),
 	pdate date
 );
 
