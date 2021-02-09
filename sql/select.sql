@@ -62,3 +62,9 @@ order by cdate desc;
 
 -- 좋아요한 음악들을 유저별 생성시간별로 정렬하여 조회
 select * from music_like order by useq desc, cdate desc;
+
+update album set pdate = sysdate;
+
+select * from album_like;
+
+insert into ALBUM_LIKE(useq, abseq) values(1, 3);
