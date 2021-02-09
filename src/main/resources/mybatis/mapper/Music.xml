@@ -16,32 +16,32 @@
 	<select id="themeList" resultType="com.eco.dto.Theme">
 		select * from theme order by tseq asc
 	</select>
-	<select id="chartList" resultType="com.eco.dto.Chart">
+	<select id="chartList" resultType="com.eco.dto.ChartVO">
 		select * from chart order by cseq asc
 	</select>
-	<select id="genreList" resultType="com.eco.dto.Genre">
+	<select id="genreList" resultType="com.eco.dto.GenreVO">
 		select * from genre order by gseq asc
 	</select>
-<!-- Theme Chart Genre 단순목록 -->
+<!-- Theme ChartVO GenreVO 단순목록 -->
 
 <!-- 어떤것에 의한 곡목록 -->
-	<select id="musicListByTheme" resultType="com.eco.dto.Music">
+	<select id="musicListByTheme" resultType="com.eco.dto.MusicVO">
 		select * from music_view where theme like '%'||#{param1}||'%'
 		order by mseq desc
 	</select>
-	<select id="musicListByChart" resultType="com.eco.dto.Music">
+	<select id="musicListByChart" resultType="com.eco.dto.MusicVO">
 		select * from music_view where chart like '%'||#{param1}||'%'
 		order by mseq desc
 	</select>
-	<select id="musicListByGenre" resultType="com.eco.dto.Music">
+	<select id="musicListByGenre" resultType="com.eco.dto.MusicVO">
 		select * from music_view where gseq = #{param1}
 		order by mseq desc
 	</select>
-	<select id="musicListByAlbum" resultType="com.eco.dto.Music">
+	<select id="musicListByAlbum" resultType="com.eco.dto.MusicVO">
 		select * from music_view where abseq = #{param1}
 	</select>
 	<!-- 메인에서 번들마스터에 의한 곡목록  -->
-	<select id="musicListByBundle" resultType="com.eco.dto.Music">
+	<select id="musicListByBundle" resultType="com.eco.dto.MusicVO">
 		select bd.bdseq, m.* from bundle_detail bd
 			left join music_view m on m.mseq = bd.mseq
 		where bd.bmseq = #{param1}
@@ -49,14 +49,24 @@
 	</select>
 <!-- 어떤것에 의한 곡목록 -->
 
+<!-- 210208 추가 (Main 사용) -->
+	<select id="getNewList" resultType="com.eco.dto.MusicVO">
+		select * from music_view order by pdate desc
+	</select>
+	<!-- 임시 -->
+	<select id="getRecommendMusic" resultType="com.eco.dto.MusicVO">
+		select * from music_view order by pdate
+	</select>
+<!-- 210208 끝 -->
+
 <!-- 단건 -->
-	<select id="getMusic" resultType="com.eco.dto.Music">
+	<select id="getMusic" resultType="com.eco.dto.MusicVO">
 		select * from music_view where mseq = #{param1}
 	</select>
-	<select id="getAlbum" resultType="com.eco.dto.Album">
+	<select id="getAlbum" resultType="com.eco.dto.AlbumVO">
 		select * from album_view where abseq = #{param1}
 	</select>
-	<select id="getArtist" resultType="com.eco.dto.Artist">
+	<select id="getArtist" resultType="com.eco.dto.ArtistVO">
 		select * from artist where atseq = #{param1}
 	</select>
 <!-- 단건 -->

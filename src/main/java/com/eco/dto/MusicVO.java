@@ -1,26 +1,32 @@
 package com.eco.dto;
 
 import java.sql.Timestamp;
-import java.util.List;
 
 import lombok.Data;
 
 @Data
-public class Album {
+public class MusicVO {
+	private int mseq;
 	private int abseq;
 	private int atseq;
+	private int gseq;
 	private String title;
-	private String img;
 	private String content;
-	private Timestamp pdate;
+	private String theme;
+	private String titleyn;	
+	private String src;
 
+	private String abtitle;
+	private String abimg;
+	private String abcontent;
+	private Timestamp pdate;
 	private String name;
 	private String groupyn;
 	private String gender;
 	private int atgseq;
 	private String atimg;
-	private String atgenre;
 	private String description;
+	private String gtitle;
 	
 	private int useq;
 }

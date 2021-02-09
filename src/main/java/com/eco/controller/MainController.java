@@ -10,8 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.eco.dto.Bundle;
-import com.eco.dto.Music;
+import com.eco.dto.BundleVO;
+import com.eco.dto.MusicVO;
 import com.eco.service.BundleService;
 import com.eco.service.MusicService;
 
@@ -67,5 +67,6 @@ public class MainController {
 		return "index";
 	}
 	
+
 
 }

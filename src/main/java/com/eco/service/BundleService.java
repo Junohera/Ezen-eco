@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.eco.dao.IBundleDao;
-import com.eco.dto.Bundle;
+import com.eco.dto.BundleVO;
 import com.eco.dto.BundleDetailVO;
 
 @Service
@@ -17,8 +17,8 @@ public class BundleService {
 	IBundleDao bd;
 
 	
-	public List<Bundle> listBundle(int useq) {
-		List<Bundle> result = new ArrayList<Bundle>();
+	public List<BundleVO> listBundle(int useq) {
+		List<BundleVO> result = new ArrayList<BundleVO>();
 		
 		if (useq == 0) { // 시스템에서 생성한 리스트
 			result = bd.listBundleForMain();
@@ -29,7 +29,7 @@ public class BundleService {
 	}
 
 
-	public int addBundleMaster(Bundle bundle) {
+	public int addBundleMaster(BundleVO bundle) {
 		return bd.addBundleMaster(bundle);
 	}
 

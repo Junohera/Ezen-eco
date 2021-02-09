@@ -4,17 +4,17 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.eco.dto.Bundle;
+import com.eco.dto.BundleVO;
 import com.eco.dto.BundleDetailVO;
 
 @Mapper
 public interface IBundleDao {
 	
-	List<Bundle> listBundleForMain();
+	List<BundleVO> listBundleForMain();
 
-	List<Bundle> listBundleByUser(int useq);
+	List<BundleVO> listBundleByUser(int useq);
 
-	int addBundleMaster(Bundle bundle);
+	int addBundleMaster(BundleVO bundle);
 
 	int addBundleDetail(BundleDetailVO bundleDetail);
 }

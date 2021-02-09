@@ -5,7 +5,7 @@ import java.util.List;
 import lombok.Data;
 
 @Data
-public class Artist {
+public class ArtistVO {
 	private int atseq;
 	private String name;
 	private String groupyn;
@@ -16,7 +16,5 @@ public class Artist {
 
 	private String genre;
 
-	private List<Album> albumList;
-	
-	private int useq;
+	private List<AlbumVO> albumList;
 }

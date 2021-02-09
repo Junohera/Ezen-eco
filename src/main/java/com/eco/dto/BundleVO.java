@@ -9,7 +9,7 @@ import javax.validation.constraints.NotEmpty;
 import lombok.Data;
 
 @Data
-public class Bundle {
+public class BundleVO {
     private int bmseq;
     private int useq;
     @NotEmpty(message = "title is not empty")
@@ -18,5 +18,5 @@ public class Bundle {
     private String useyn;
     private Timestamp cdate;
 
-    private List<Music> musicList;
+    private List<MusicVO> musicList;
 }
