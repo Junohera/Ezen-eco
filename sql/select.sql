@@ -41,9 +41,11 @@ select * from music_view where theme like '%'||3||'%'
 select * from BUNDLE_MASTER;
 select * from BUNDLE_DETAIL;
 
-select * from music_ban;
-
-
-select * from music;
-
-select * from album;
+select 
+	at.*
+	, g.titl as gtitle
+from artist at
+	join genre g
+		on at.gseq = g.gseq;
+		
+select * from member

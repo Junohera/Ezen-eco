@@ -36,7 +36,7 @@ public class MusicController {
 	public String browse(Model model, HttpServletRequest request
 			, @RequestParam(value = "selectedType", required = false, defaultValue = "chart") String selectedType
 			, @RequestParam(value = "selectedSeq", required = false, defaultValue = "1") int selectedSeq
-	) {
+) {
 		
 		model.addAttribute("selectedType", selectedType);
 		model.addAttribute("selectedSeq", selectedSeq);
@@ -120,14 +120,14 @@ public class MusicController {
 		
 		return "music/albumView";
 	}
-	
+
 	@RequestMapping(value = "/artistView", method = RequestMethod.GET)
 	public String artistView(Model model, HttpServletRequest request) {
 		return "music/artistView";
 	}
+	
 
-	
-	
+
 	@RequestMapping(value = "/musicView", method = RequestMethod.GET)
 	public String musicView(Model model, HttpServletRequest request) {
 		return "music/musicView";

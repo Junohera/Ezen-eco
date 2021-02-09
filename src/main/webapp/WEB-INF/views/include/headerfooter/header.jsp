@@ -33,7 +33,7 @@
 		<div class="headerBox">
 			<div class="header">
 				<a href="/"><div class="logo"></div></a>
-				<ul class="headerText">
+				<ul class="headerTextL">
 					<li><a class="headerFont" href="browse">둘러보기</a></li>
 					<li><a class="headerFont"  href="storage">보관함</a></li>
 					<li><a class="headerFont"  href="membership">이용권</a></li>
@@ -44,7 +44,7 @@
 				</div>
 				<c:choose>
 					<c:when test="${empty loginUser}">
-					<ul class="headerText">
+						<ul class="headerTextR">
 						<li><a class="headerFont"  href="loginForm">로그인</a></li>
 						<li><a class="headerFont"  href="contract">회원가입</a></li>
 					</ul>	
@@ -64,4 +64,4 @@
 		</div>
 	</header>
 
-	<div class="viewBox">
+	<div id="viewBox">

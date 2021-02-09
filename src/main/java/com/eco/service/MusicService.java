@@ -18,6 +18,15 @@ public class MusicService {
 	@Autowired
 	IMusicDao md;
 
+	//추가된 부분 21.02.08
+	public List<Music> getNewList() {
+		return md.getNewList();
+	}
+	public List<Music> getRecommendMusic() {
+		return md.getRecommendMusic();
+	}
+	//추가된 부분 끝
+	
 	public List<Chart> chartList() {
 		return md.chartList();
 	}
@@ -87,7 +96,7 @@ public class MusicService {
 	public void unbanMusic(int useq, int mseq) {
 		md.unbanMusic(useq, mseq);
 	}
-
+	
 	public List<Music> ignoreBanList(List<Music> musicList, int useq) {
 		// 유저의 ban 목록
 		List<Integer> banMseqList = md.banListByUseq(useq);

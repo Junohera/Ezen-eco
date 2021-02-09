@@ -11,8 +11,8 @@ function move_Id(){
 
 function find_id_pw(){
 	var url = "findIdPw";
-	var opt = "toolbar=no, menubar=no, scrollbars=no, resizable=no, width=700, ";
-	opt = opt + "height=500, top=300, left=300";
+	var opt = "toolbar=no, menubar=no, scrollbars=no, resizable=no, width=800, ";
+	opt = opt + "height=700, top=300, left=300";
 	window.open(url, "Find Id/Pw", opt);
 }
 
@@ -115,15 +115,24 @@ function go_next(){
 	}
 }
 
-function idcheck(){
+function idCheck(){
+	var id = document.getElementById("id").value;
+	var checkId = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
+	var url = "idCheckForm";
+	
 	if(document.formm.id.value==""){
 		alert("아이디를 입력하세요");
 		formm.id.focus();
 		return;
 	}
-	var url = "idCheckForm";
+	if(checkId.test(id)==false){
+		
+		formm.id.focus(); 
+		return; 
+	}
+	
 	url += "?id=" + document.formm.id.value;
-	var pop = "toolbar=no, menubar=no, scrollbars=no, resizable=no, width=500, height=250";
+	var pop = "toolbar=no, menubar=no, scrollbars=no, resizable=no, width=500, height=350";
 	window.open(url, "IdCheck", pop);
 }
 

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.eco.dao.IAdminDao">
+	<select resultType="string" id="adminCheck">
+		select pw from admin where id=#{param1} 
+	</select>
+	
+	<select id="getAllCount" resultType="_int">
+		select count(*) from ${param1}  where ${param2} like '%'||#{param3}||'%'
+	</select>
+	
+	<select id="listMusic" resultType="com.eco.dto.Music"
+		parameterType="com.eco.dto.Paging">
+		select * from(
+		select * from(
+			select rownum as rn, b.* from ( (select * from music order by mseq desc) b )
+		) where rn &gt;= #{startNum}
+		) where rn &lt;= #{endNum}
+	</select>
+	
+	<select id="listMember" resultType="com.eco.dto.MemberVO">
+		select * from(
+		select * from(
+			select rownum as rn, m.* from 
+			( (select * from member where name like '%'||#{param2}||'%' order by indate desc) m )
+		) where rn &gt;= #{param1.startNum}
+		) where rn &lt;= #{param1.endNum}
+	</select>
+	
+	<select id="getMember" resultType="com.eco.dto.MemberVO">
+		select * from member where useq=#{param1}
+	</select>
+	
+</mapper>

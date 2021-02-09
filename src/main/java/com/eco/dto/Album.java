@@ -21,4 +21,6 @@ public class Album {
 	private String atimg;
 	private String atgenre;
 	private String description;
+	
+	private int useq;
 }

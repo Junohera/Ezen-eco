@@ -11,9 +11,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.eco.dto.Album;
+import com.eco.dto.Artist;
+import com.eco.dto.Bundle;
 import com.eco.dto.MemberVO;
 import com.eco.dto.Music;
-import com.eco.dto.MusicLike;
+import com.eco.service.BundleService;
+import com.eco.service.MusicService;
 import com.eco.service.MypageService;
 
 @Controller
@@ -21,23 +25,51 @@ public class MypageController {
 	
 	@Autowired
 	MypageService mps;
+	@Autowired
+	BundleService bundleService;
+	@Autowired
+	MusicService musicService;
 	
 	@RequestMapping(value = "mybundle", method = RequestMethod.GET)
 	public String mybundle(Model model, HttpServletRequest request) {
-		
-		return "mypage/mybundle";
-	}
-	
-	@RequestMapping(value = "likeArtist", method = RequestMethod.GET)
-	public String likeartist(Model model, HttpServletRequest request) {
-		
-		return "mypage/likeartist";
+		HttpSession session = request.getSession();
+		MemberVO mvo = (MemberVO) session.getAttribute("loginUser");
+		if( mvo==null )return "mypage/loginplz";
+		else{
+			List<Bundle> bundleList = bundleService.listBundle(mvo.getUseq());
+			for (Bundle b : bundleList) {
+				List<Music> musicList = musicService.musicListByBundle(b.getBmseq());
+				b.setMusicList(musicList);
+			}
+			model.addAttribute("bundleList", bundleList);
+			return "mypage/mybundle";
+		}
 	}
 	
 	@RequestMapping(value = "likealbum", method = RequestMethod.GET)
 	public String likealbum(Model model, HttpServletRequest request) {
-		
-		return "mypage/likealbum";
+		HttpSession session = request.getSession();
+		MemberVO mvo = (MemberVO) session.getAttribute("loginUser");
+		if( mvo==null )return "mypage/loginplz";
+		else{
+			List<Album> getAlbum = mps.getAlbum(mvo.getUseq());
+			System.out.println(getAlbum);
+			model.addAttribute("albumList", getAlbum);
+			return "mypage/likealbum";
+		}
+	}
+	
+	@RequestMapping(value = "likeartist", method = RequestMethod.GET)
+	public String likeartist(Model model, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		MemberVO mvo = (MemberVO) session.getAttribute("loginUser");
+		if( mvo==null )return "mypage/loginplz";
+		else{
+			List<Artist> getArtist = mps.getArtist(mvo.getUseq());
+			System.out.println(getArtist);
+			model.addAttribute("artistList", getArtist);
+			return "mypage/likeartist";
+		}
 	}
 	
 	@RequestMapping(value = "storage", method = RequestMethod.GET)
@@ -46,10 +78,9 @@ public class MypageController {
 		MemberVO mvo = (MemberVO) session.getAttribute("loginUser");
 		if( mvo==null )return "mypage/loginplz";
 		else{
-			Music ms = new Music();
-			List<Music> list = mps.getLikeMusic(mvo.getId(), ms.getMseq() );
-			
-			model.addAttribute("likemusiclist", list);
+			List<Music> musicList = mps.getMusic(mvo.getUseq());
+			System.out.println(musicList);
+			model.addAttribute("musicList", musicList);
 			return "mypage/likemusic";
 		}
 	}

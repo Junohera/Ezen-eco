@@ -94,27 +94,27 @@ public class MemberController {
 		MemberVO mvo = new MemberVO();
 		
 		if(result.getFieldError("id")!=null) {
-			model.addAttribute("message", result.getFieldError("id").getDefaultMessage());
+			model.addAttribute("message1", result.getFieldError("id").getDefaultMessage());
 			model.addAttribute("reid", request.getParameter("reid"));
 			return "member/joinForm";
-		}else if(result.getFieldError("pwd")!=null) {
-			model.addAttribute("message", result.getFieldError("pwd").getDefaultMessage());
+		}else if(result.getFieldError("pw")!=null) {
+			model.addAttribute("message2", "비밀번호를 입력하세요");
 			model.addAttribute("reid", request.getParameter("reid"));
 			return "member/joinForm";
 		}else if(result.getFieldError("name")!=null) {
-			model.addAttribute("message", result.getFieldError("name").getDefaultMessage());
+			model.addAttribute("message3", result.getFieldError("name").getDefaultMessage());
 			model.addAttribute("reid", request.getParameter("reid"));
 			return "member/joinForm";
-		}else if(result.getFieldError("email")!=null) {
-			model.addAttribute("message", result.getFieldError("email").getDefaultMessage());
+		}else if(result.getFieldError("phone")!=null) {
+			model.addAttribute("message4", result.getFieldError("phone").getDefaultMessage());
 			model.addAttribute("reid", request.getParameter("reid"));
 			return "member/joinForm";
 		}else if(!request.getParameter("reid").equals(membervo.getId())) {
-			model.addAttribute("message", "아이디 중복검사를 실행해주세요");
+			model.addAttribute("message5", "아이디 중복검사를 실행해주세요");
 			//model.addAttribute("reid", request.getParameter("reid"));
 			return "member/joinForm";
-		}else if(!request.getParameter("pwdCheck").equals(membervo.getPw())){
-			model.addAttribute("message", "입력하신 비밀번호가 일치하지 않습니다");
+		}else if(!request.getParameter("pwCheck").equals(membervo.getPw())){
+			model.addAttribute("message6", "입력하신 비밀번호가 일치하지 않습니다");
 			model.addAttribute("reid", request.getParameter("reid"));
 			return "member/joinForm";
 		}

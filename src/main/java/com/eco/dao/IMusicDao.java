@@ -14,6 +14,12 @@ import com.eco.dto.Music;
 @Mapper
 public interface IMusicDao {
 
+	//추가된 부분 21.02.08
+	List<Music> getNewList();
+	List<Music> getRecommendMusic();
+	//추가된 부분 끝
+	
+	
 	List<Theme> themeList();
 	
 	List<Chart> chartList();
@@ -51,6 +57,7 @@ public interface IMusicDao {
 	void banMusic(int useq, int mseq);
 	
 	void unbanMusic(int useq, int mseq);
+	
 
 	List<Integer> banListByUseq(int useq);
 
@@ -59,6 +66,5 @@ public interface IMusicDao {
 	List<Integer> likeAlbumListByUseq(int useq);
 	
 	List<Integer> likeArtistListByUseq(int useq);
-	
 	
 }

@@ -48,7 +48,7 @@
 
     <ul class="ul4">
         <li class="bold">(주)이젠아카데미</li>
-        <li class="bold">ALL RIGHTS RESERVED</li>
+        <li class="bold"><a href="admin" style="text-decoration:none">A</a>LL RIGHTS RESERVED</li>
         <li class="right">본 사이트는 Chrome 브라우저에서 사용 가능합니다.</li>
     </ul>
 </footer>

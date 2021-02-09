@@ -24,6 +24,12 @@ public class MainController {
 	@Autowired
 	MusicService musicService;
 	
+	
+	/*
+	 * @Autowired MainService mainService;
+	 */
+	// 추가된 부분 끝
+	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String main(Model model, HttpServletRequest request) {
 		
@@ -32,9 +38,34 @@ public class MainController {
 			List<Music> musicList = musicService.musicListByBundle(b.getBmseq());
 			b.setMusicList(musicList);
 		}
-		model.addAttribute("bundleList", bundleList);
+
+		// List<Theme> themeList = mu.themeList();
+		// List<Chart> chartList = mu.chartList();
+
+		// for (Music music : musicList) {
+		// 	String theme = music.getTheme(); // "1 | 2"
+		// 	String chart = music.get
+		// 	[]String themeList = theme.split("|"); // ["1", "2"]
+
+		// 	themeList.contains("");
+
+		// 	music.setThemeLabel(/*순회하면서 매치된 테마 명*/);
+		// }
 		
+		// 추가된 부분 21.02.08
+		List<Music> nmlist = musicService.getNewList();
+		List<Music> rmlist = musicService.getRecommendMusic();
+		/* List<Artist> alist = artistService.getRecommendList(); */
+	
+		model.addAttribute("newMusicList", nmlist);
+		model.addAttribute("recommendMusicList", rmlist);
+		/* model.addAttribute("recommendMusicArtist", alist); */
+		
+		// 추가된 부분 끝
+		
+		model.addAttribute("bundleList", bundleList);
 		return "index";
 	}
+	
 
 }

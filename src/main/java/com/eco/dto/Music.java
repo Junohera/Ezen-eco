@@ -26,4 +26,7 @@ public class Music {
 	private int atgseq;
 	private String atimg;
 	private String description;
+	private String gtitle;
+	
+	private int useq;
 }

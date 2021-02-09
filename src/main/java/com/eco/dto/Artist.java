@@ -17,4 +17,6 @@ public class Artist {
 	private String genre;
 
 	private List<Album> albumList;
+	
+	private int useq;
 }

@@ -23,6 +23,6 @@
 
 	<insert id="insertMember" parameterType="com.eco.dto.MemberVO">
 	insert into member(useq, id, pw, name, phone, gender)
-	values(useq_seq.nextval,#{id},#{pw},#{name},#{phone},#{gender}) 
+	values(member_seq.nextval,#{id},#{pw},#{name},#{phone},#{gender}) 
 	</insert>
 </mapper>

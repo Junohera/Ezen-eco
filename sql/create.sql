@@ -273,11 +273,14 @@ select
     , at.gseq as atgseq
     , at.img as atimg
     , at.description
+	, g.title as gtitle
 from music m
     left join album ab
     on m.abseq = ab.abseq
     left join artist at
-    on at.atseq = m.atseq and at.atseq = ab.atseq;
+    on at.atseq = m.atseq and at.atseq = ab.atseq
+	left join genre g
+	on g.gseq = at.gseq;
 
 create or replace view album_view -- 앨범
 as
@@ -300,3 +303,49 @@ from album ab
     	on at.atseq = ab.atseq
 	left join genre g
 		on g.gseq = at.gseq;
+
+create or replace view likemusic_view
+as
+select 
+    m.mseq
+    , m.title
+    , m.gseq
+    , ab.img
+    , at.atseq
+    , at.name
+    , ml.useq
+	from music_like ml, album ab, artist at, music m
+	where ab.atseq = at.atseq and m.mseq = ml.mseq;
+
+select * from likemusic_view;
+
+create or replace view likeartist_view
+as
+select 
+    at.atseq
+	, at.name
+	, at.groupyn
+	, at.gender
+	, at.gseq
+	, at.img
+	, al.useq
+	from artist at, artist_like al
+	where al.atseq = at.atseq;
+
+select * from likeartist_view;
+
+create or replace view likealbum_view
+as
+select 
+    ab.abseq
+    , ab.atseq
+    , ab.title
+    , ab.img
+	, ab.pdate
+	, at.name
+	, at.gseq
+	, abl.useq
+	from album ab, album_like abl, artist at
+	where abl.abseq = ab.abseq and ab.atseq = at.atseq;
+
+select * from likealbum_view;

@@ -133,3 +133,15 @@ insert into qReply(qrseq, qseq, aseq, content) values(qReply_seq.nextval, 1, 1, 
 
 -- notice
 insert into notice(nseq, title, content) values(notice_seq.nextval, 'title', 'content');
+
+
+insert into member(useq, id, pw, name, phone, gender) values(member_seq.nextval, 'selectjuno1@gmail.com', '1234', 'juno1', '010-2172-7791', 'M');
+insert into member(useq, id, pw, name, phone, gender) values(member_seq.nextval, 'selectjuno2@gmail.com', '1234', 'juno2', '010-2172-7792', 'M');
+insert into member(useq, id, pw, name, phone, gender) values(member_seq.nextval, 'selectjuno3@gmail.com', '1234', 'juno3', '010-2172-7793', 'M');
+insert into member(useq, id, pw, name, phone, gender) values(member_seq.nextval, 'selectjuno4@gmail.com', '1234', 'juno4', '010-2172-7794', 'M');
+insert into member(useq, id, pw, name, phone, gender) values(member_seq.nextval, 'selectjuno5@gmail.com', '1234', 'juno5', '010-2172-7795', 'M');
+insert into member(useq, id, pw, name, phone, gender) values(member_seq.nextval, 'selectjuno6@gmail.com', '1234', 'juno6', '010-2172-7796', 'M');
+insert into member(useq, id, pw, name, phone, gender) values(member_seq.nextval, 'selectjuno7@gmail.com', '1234', 'juno7', '010-2172-7797', 'M');
+insert into member(useq, id, pw, name, phone, gender) values(member_seq.nextval, 'selectjuno8@gmail.com', '1234', 'juno8', '010-2172-7788', 'M');
+insert into member(useq, id, pw, name, phone, gender) values(member_seq.nextval, 'selectjuno9@gmail.com', '1234', 'juno9', '010-2172-7799', 'M');
+insert into member(useq, id, pw, name, phone, gender) values(member_seq.nextval, 'selectjuno0@gmail.com', '1234', 'juno0', '010-2172-7790', 'M');
