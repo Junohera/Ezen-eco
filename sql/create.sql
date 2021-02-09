@@ -177,17 +177,20 @@ create table taste_detail(
 
 create table music_like(
 	useq number(5) references member(useq),
-	mseq number(5) references music(mseq)
+	mseq number(5) references music(mseq),
+	cdate date default sysdate
 );
 
 create table album_like(
 	useq number(5) references member(useq),
-	abseq number(5) references album(abseq)
+	abseq number(5) references album(abseq),
+	cdate date default sysdate
 );
 
 create table artist_like(
 	useq number(5) references member(useq),
-	atseq number(5) references artist(atseq)
+	atseq number(5) references artist(atseq),
+	cdate date default sysdate
 );
 
 create table music_reply(
@@ -347,5 +350,3 @@ select
 	, abl.useq
 	from album ab, album_like abl, artist at
 	where abl.abseq = ab.abseq and ab.atseq = at.atseq;
-
-select * from likealbum_view;
