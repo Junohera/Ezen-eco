@@ -27,14 +27,26 @@ public class MainController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String main(Model model, HttpServletRequest request) {
 		
-		List<BundleVO> bundleList = bundleService.listBundle(0); // 메인에서 부를 번들은 유저없이 가므로 0을 보냄(참고로 시퀀스는 1부터)
-		for (BundleVO b : bundleList) {
-			List<MusicVO> musicList = musicService.musicListByBundle(b.getBmseq());
+		List<Bundle> bundleList = bundleService.listBundle(0); // 메인에서 부를 번들은 유저없이 가므로 0을 보냄(참고로 시퀀스는 1부터)
+		for (Bundle b : bundleList) {
+			List<Music> musicList = musicService.musicListByBundle(b.getBmseq());
 			b.setMusicList(musicList);
 		}
-		model.addAttribute("bundleList", bundleList);
 		
+		// 추가된 부분 21.02.08
+		List<Music> nmlist = musicService.getNewList();
+		List<Music> rmlist = musicService.getRecommendMusic();
+		/* List<Artist> alist = artistService.getRecommendList(); */
+	
+		model.addAttribute("newMusicList", nmlist);
+		model.addAttribute("recommendMusicList", rmlist);
+		/* model.addAttribute("recommendMusicArtist", alist); */
+		
+		// 추가된 부분 끝
+		
+		model.addAttribute("bundleList", bundleList);
 		return "index";
 	}
+
 
 }

@@ -46,6 +46,13 @@ public class MusicService {
 		return md.musicListByBundle(bmseq);
 	}
 
+	public List<MusicVO> getNewList() {
+		return md.getNewList();
+	}
+	public List<MusicVO> getRecommendMusic() {
+		return md.getRecommendMusic();
+	}
+
 	public MusicVO getMusic(int mseq) {
 		return md.getMusic(mseq);
 	}

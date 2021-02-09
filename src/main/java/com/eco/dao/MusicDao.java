@@ -30,6 +30,10 @@ public interface MusicDao {
 
 	List<MusicVO> musicListByBundle(int bmseq);
 
+	List<MusicVO> getNewList();
+
+	List<MusicVO> getRecommendMusic();
+	
 	MusicVO getMusic(int mseq);
 
 	AlbumVO getAlbum(int abseq);
