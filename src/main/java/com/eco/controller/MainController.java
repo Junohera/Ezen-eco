@@ -39,7 +39,7 @@ public class MainController {
 			b.setMusicList(musicList);
 		}
 
-		// List<Theme> themeList = mu.themeList();
+		// List<ThemeVO> themeList = mu.themeList();
 		// List<Chart> chartList = mu.chartList();
 
 		// for (Music music : musicList) {

@@ -6,15 +6,15 @@
 
 <mapper namespace="com.eco.dao.IMypageDao">
 	
-	<select id="getMusic" resultType="com.eco.dto.Music">
+	<select id="getMusic" resultType="com.eco.dto.MusicVO">
 		select * from likemusic_view where useq=#{param1}
 	</select>
 
-	<select id="getArtist" resultType="com.eco.dto.Artist">
+	<select id="getArtist" resultType="com.eco.dto.ArtistVO">
 		select * from likeartist_view where useq=#{param1}
 	</select>
 	
-	<select id="getAlbum" resultType="com.eco.dto.Album">
+	<select id="getAlbum" resultType="com.eco.dto.AlbumVO">
 		select * from likealbum_view where useq=#{param1}
 	</select>
 

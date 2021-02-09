@@ -6,7 +6,7 @@
 	
 <mapper namespace="com.eco.dao.IAdminDao">
 
-	<select resultType="string" id="adminCheck">
+	<select id="adminCheck" resultType="string">
 		select pw from admin where id=#{param1} 
 	</select>
 	
@@ -14,7 +14,7 @@
 		select count(*) from ${param1}  where ${param2} like '%'||#{param3}||'%'
 	</select>
 	
-	<select id="listMusic" resultType="com.eco.dto.Music"
+	<select id="listMusic" resultType="com.eco.dto.MusicVO"
 		parameterType="com.eco.dto.Paging">
 		select * from(
 		select * from(

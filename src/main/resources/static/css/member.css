@@ -1,7 +1,5 @@
 @charset "UTF-8";
-    /* Login Css */
-    
-    form{position:absolute;left:650px;top:100px;margin:0 auto;width:600px;height:460px;border:1px solid black;background:none;padding:50px;padding-top:100px; z-index:20;};
+    #userLoginForm {position:absolute;left:650px;top:100px;margin:0 auto;width:600px;height:460px;border:1px solid black;background:none;padding:50px;padding-top:100px; z-index:20;};
    #inputInfo{align-content:center;width:100%;height:100%;border:3px dotted red;z-index:3;}
     .textbox{position:relative;margin-left:auto;margin-right:auto;color:black; border:0px; border-bottom:2px silver;font-size:18px;height:50px;font-weight:bold;}
     input::placeholder{color: silver;}
@@ -9,10 +7,10 @@
     #login{width:420px;height:70px;margin-top:30px;border:none;background:#C9C6F7;border-radius:10px;font-size:140%;color:white;font-weight:bold;}
     .btn{position:relative;width:207px;height:50px;margin-top:20px }
     
-/* joinForm 시작 */
-form#join{position:relative;margin:0 auto;width:600px;height:630px;border:3px solid silver;background:none;padding:50px;padding-top:100px; z-index:20;}
+/* #joinuserLoginForm  시작 */
+#userLoginForm #join{position:relative;margin:0 auto;width:600px;height:630px;border:3px solid silver;background:none;padding:50px;padding-top:100px; z-index:20;}
 #inputInfo{align-content:center;width:100%;height:100%;z-index:3;}
  #recheck{position:relative;width:100px;height:18px;line-height:18px;margin-left:30px;border:none;background:#C9C6F7;font-size:95%;color:black;font-weight:bold;}
  .join_textbox{position:relative;color:black; border:0px;margin-bottom:5px; border-bottom:2px silver;font-size:18px;height:50px;font-weight:bold;}
  #join_buttons{position:relative;width:397px;height:60px;}
- /* joinForm 끝 */
+ /* #joinuserLoginForm  끝 */
