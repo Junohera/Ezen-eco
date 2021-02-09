@@ -113,9 +113,4 @@
 	</delete>
 <!-- 무시안할래요 -->
 
-
-    <sql id="musicListByBundle">
-          
-    </sql>
-
 </mapper>

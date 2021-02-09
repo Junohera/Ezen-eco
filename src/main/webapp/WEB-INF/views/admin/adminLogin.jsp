@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="css/Admin.css">
+<link rel="stylesheet" href="css/admin.css">
 </head>
 <form method="post" action="adminLogin" name="adminLogin">
 		<div id="inputLogo">

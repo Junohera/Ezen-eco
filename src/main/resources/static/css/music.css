@@ -1,0 +1,519 @@
+@charset "UTF-8";
+
+/*musicMoreBox 더보기 버튼 팝업*/
+#musicMoreBox {
+    position:fixed;
+    z-index: 9999;
+    width: 160px;
+    height: 182px;
+    border: 1px solid lightgray;
+    box-sizing: border-box;
+    box-shadow: 0px 0px 10px 5px lightgray;
+    background: white;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+#musicMoreBox a {
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#musicMoreBox li {
+    position: relative;
+    width:160px;
+    height:36px;
+    margin: 0;
+    padding: 0;
+    display: block;
+    overflow: hidden;
+}
+
+#musicMoreBox .imgBox {
+    position: absolute;
+    top: 7px;
+    left: 12px;
+    width: 23px;
+    height: 23px;
+    text-align: center;
+}
+
+#musicMoreBox .checkImgBox {
+    position: absolute;
+    top: 5px;
+    right: 30px;
+    width: 23px;
+    height: 23px;
+    text-align: center;
+    display: none;
+}
+
+#musicMoreBox .textBox {
+    position: absolute;
+    top:8px;
+    left:31px;
+    height: 23px;
+    line-height: 23px;
+}
+
+#musicMoreBox .textBox a{
+    display: block;
+    position: relative;
+    padding-left: 17px;
+    font-size: 14px;
+    text-align: left;
+    color: #353535;
+}
+
+#musicMoreBox .close {
+    cursor: pointer;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    width: 23px;
+    height: 23px;
+    text-align: center;
+    line-height: 23px;
+    z-index: 9999;
+}
+
+/*musicMoreBox 더보기 버튼 팝업*/
+
+/* listByCheckBox 체크누르면 나오는 팝업 */
+#listByCheckBox {
+    position:fixed;
+    z-index: 9999;
+    width: 340px;
+    height: 120px;
+    margin: 0;
+    padding: 0;
+    bottom: 195px;
+    left: calc(100vw - 50vw - 170px);
+    overflow: hidden;
+}
+
+#listByCheckBox > div:nth-of-type(2) {
+    position: relative;
+    margin: 0 auto;
+    padding: 0;
+    width: 340px;
+    height: 100px;
+    background: #3f3fff;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+#listByCheckBox > div:nth-of-type(2) > div{
+    position: relative;
+    margin: 0 auto;
+    width: 300px;
+    height: 100%;
+    padding-top: 12px;
+}
+
+#listByCheckBox a {
+    text-decoration: none;
+}
+
+#listByCheckBox li {
+    position: relative;
+    margin: 0;
+    padding: 0;
+    display: block;
+    overflow: hidden;
+}
+
+#listByCheckBox .iconList, #listByCheckBox .labelList {
+    display: flex;
+    justify-content: space-evenly;
+    margin: 0;
+    padding: 0;
+}
+
+#listByCheckBox .iconList ul {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    margin: 0;
+    padding: 0;
+}
+
+#listByCheckBox .iconList li {
+    display: inline-block;
+    width: 60px;
+    height: 50px;
+    margin: 0;
+    padding: 0;
+    background: #3f3fff;
+    color: white;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 30px;
+    font-weight: 100;
+    cursor: pointer;
+}
+
+#listByCheckBox .labelList {
+    color: white;
+    font-size: 12px;
+    text-align: center;
+    font-weight: 100;
+    letter-spacing: 0.5px;
+}
+
+#listByCheckBox .labelList li{
+    width: 60px;
+    cursor: pointer;
+}
+
+#listByCheckBox .count {
+    position: absolute;
+    z-index: 10;
+    width: 36px;
+    height: 36px;
+    border: 2px solid #3f3fff;
+    font-size: 16px;
+    font-weight: bold;
+    color: #3f3fff;
+    vertical-align: middle;
+    text-align: center;
+    border-radius: 21px;
+    top: 0px;
+    left: 12px;
+    background: #ffffff;
+    line-height: 36px;
+}
+/* listByCheckBox 체크누르면 나오는 팝업 */
+
+/* 나의 리스트 팝업 */
+#myListBox {
+    position: fixed;
+    z-index: 9999;
+    width: 530px;
+    height: 600px;
+    margin: 0;
+    bottom: 195px;
+    top: 140px;
+    left: calc(100vw - 50vw - 235px);
+}
+
+#myListBox > div:nth-of-type(2) {
+    position: relative;
+    margin: 0 auto;
+    width: 470px;
+    background: white;
+    min-height: 300px;
+    border-radius: 10px;
+    padding: 30px;
+}
+
+#myListBox h2 {
+    font-size: 18px;
+    color: #333333;
+    width: 470px;
+    height: 22px;
+    line-height: 22px;
+}
+
+#myListBox > div:nth-of-type(2) > div:nth-of-type(1){
+    width: 470px;
+    height: 78px;
+    position: relative;
+}
+
+#myListBox > div:nth-of-type(2) > div:nth-of-type(1) * {
+    display: block;
+}
+
+#myListBox > div:nth-of-type(2) > div:nth-of-type(1) .textBox {
+    width: 470px;
+    height: 40px;
+    margin: 0 auto;
+    border: none;
+    border-bottom: 1px solid #333333;
+}
+
+#myListBox > div:nth-of-type(2) > div:nth-of-type(1) .inputText {
+    width: 450px;
+    height: 100%;
+    float: left;
+    margin-left: 10px;
+    margin-right: 2px;
+    font-size: 90%;
+    font-weight: 100;
+    border: none;
+    background: none;
+    outline: none;
+    color: #333333;
+}
+
+#myListBox .close {
+    position: absolute;
+    right: 4px;
+    top: 10px;
+    font-size: 20px;
+    font-weight: 100;
+    cursor: pointer;
+}
+
+#myListBox > .close {
+    top: -30px;
+}
+
+#myListBox .btn {
+    margin-top: 10px;
+    width: 50px;
+    color: #333333;
+    float: right;
+    font-size: 100%;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+#myListBox > div:nth-of-type(2) > div:nth-of-type(2) {
+    overflow-y: scroll;
+    height: 380px;
+}
+
+#myListBox > div:nth-of-type(2) > div:nth-of-type(2) .bundleList:first {
+    border-top: 1px solid #dddddd;
+}
+
+#myListBox > div:nth-of-type(2) > div:nth-of-type(2) .bundleList {
+    height: 66px;
+    overflow: hidden;
+    border-bottom: 1px solid #dddddd;
+    padding: 5px;
+    cursor: pointer;
+}
+
+#myListBox > div:nth-of-type(2) > div:nth-of-type(2) .bundleList *{
+    display: block;
+    position: relative;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+#myListBox > div:nth-of-type(2) > div:nth-of-type(2) .bundleList > ul {
+    width: 445px;
+    height: 78px;
+    padding-top: 3px;
+}
+
+#myListBox > div:nth-of-type(2) > div:nth-of-type(2) .bundleList > ul > li:nth-of-type(1) {
+    width: 60px;
+    height: 60px;
+    float: left;
+    background: #dddddd;
+    border-radius: 6px;
+    margin-right: 20px;
+    color: white;
+    font-size: 30px;
+    text-align: center;
+    vertical-align: middle;
+    overflow: hidden;
+    border: none;
+}
+#myListBox > div:nth-of-type(2) > div:nth-of-type(2) .bundleList > ul > li:nth-of-type(1) * {
+    width: 100%;
+    height: 100%;
+    display:block;
+    margin: 0;
+    padding: 0;
+}
+
+#myListBox > div:nth-of-type(2) > div:nth-of-type(2) .bundleList > ul > li:nth-of-type(1) span {
+    position: absolute;
+    top: 15px;
+    left: -1px;
+}
+
+#myListBox > div:nth-of-type(2) > div:nth-of-type(2) .bundleList > ul > li:nth-of-type(2) {
+    float: left;
+    width: 360px;
+    height: 60px;
+}
+
+#myListBox > div:nth-of-type(2) > div:nth-of-type(2) .bundleList > ul > li:nth-of-type(2) ul {
+    width: 100%;
+    height: 100%;
+    margin-top: 6px;
+}
+
+#myListBox > div:nth-of-type(2) > div:nth-of-type(2) .bundleList > ul > li:nth-of-type(2) ul li:nth-of-type(1){
+    font-size: 15px;
+    font-weight: 100;
+    color: #333333;
+    margin-bottom: 8px;
+}
+
+#myListBox > div:nth-of-type(2) > div:nth-of-type(2) .bundleList > ul > li:nth-of-type(2) ul li:nth-of-type(2){
+    font-size: 12px;
+    font-weight: 100;
+    color: #333333;
+}
+
+#myListBox > div:nth-of-type(2) > div:nth-of-type(1) input::placeholder {
+    color: lightgray;
+}
+
+#myListBox .beforeForm * {
+    display:block;
+    margin: 0;
+    padding: 0;
+}
+
+#myListBox .beforeForm {
+    height: 66px;
+    border-bottom: 1px solid #dddddd;
+    padding: 5px;
+    cursor: pointer;
+}
+#myListBox .beforeForm ul {
+    width: 100%;
+    height: 100%;
+}
+
+#myListBox .beforeForm ul li:nth-of-type(1) {
+    width: 60px;
+    height: 60px;
+    float: left;
+    background: #dddddd;
+    border-radius: 6px;
+    margin-right: 20px;
+    color: white;
+    font-size: 30px;
+    text-align: center;
+    vertical-align: middle;
+    overflow: hidden;
+    border: none;
+}
+
+#myListBox .beforeForm ul li:nth-of-type(1) > div{
+    position: relative;
+    top: 15px;
+    font-size: 30px;
+    font-weight: 100;
+    left: 1px;
+}
+
+#myListBox .beforeForm ul li:nth-of-type(2) {
+    float: left;
+    width: 360px;
+    height: 60px;
+    line-height: 60px;
+}
+/* 나의 리스트 팝업 */
+
+/* music.browse */
+#music_browse ul,article li {
+    list-style-type: none;
+    display: block;
+    padding: 0;
+}
+#music_browse li {
+    display: inline-block;
+}
+#music_browse a {
+    text-decoration: none;
+}
+#listBox {
+    position: relative;
+}
+#listBox a {
+    text-decoration: none;
+}
+#themeAndGenre li {
+    border-radius: 10px;
+    font-weight: bold;
+    height: 32px;
+    padding: 0 15px;
+    font-size: 14px;
+    line-height: 32px;
+    text-align: center;
+    border-radius: 16px;
+    border: 1px solid rgba(0,0,0,.2);
+    margin-bottom: 4px; 
+}
+#themeAndGenre li:not(.selected):hover {
+    border: 1px solid #311851;
+}
+#themeAndGenre li:not(.selected):hover a{
+    color: #311851;
+}
+#themeAndGenre a {
+    color: #5D5D5D;
+}
+#themeAndGenre li.selected{
+    background: #311851;
+    border: 1px solid #311851;
+}
+#themeAndGenre .selected a{
+    color: white;
+}
+#musicList a{
+    color : lightslategray;
+}
+.waste {
+    width: 100%;
+    height: 42px;
+    position: relative;
+    margin-bottom: 16px;
+}
+.waste .selectedTitle {
+    margin: 0;
+    height: 42px;
+    font-size: 22px;
+    color: #333;
+    font-weight: 700;
+    float: left;
+    line-height: 42px;
+}
+.waste img {
+    vertical-align: middle;
+    padding-bottom: 5px;
+}
+.waste .allListen {
+    float: right;
+    font-size: 13px;
+    color: #333;
+    height: 42px;
+    line-height: 42px;
+}
+.waste .allListen:hover {
+    color: #3f3fff;
+}
+#listBox a {
+    font-size:15px;color:#333333;font-weight: 100;
+    cursor: pointer;
+}
+#listBox .justWrap{
+    position: relative;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    padding-left: 20px;
+    width: 360px;
+    height: 60px;
+    overflow: hidden;
+}
+#listBox .justWrap .contentWrap{
+    position: relative;
+    height: 100%;
+}
+#listBox .justWrap .contentWrap > a{
+    position: absolute;
+    height: 22px;
+    left: 76px;
+    line-height: 22px;
+    display: inline-block;
+}
+#listBox .justWrap .contentWrap > a:nth-of-type(1){top:8px;}
+#listBox .justWrap .contentWrap > a:nth-of-type(2){top:32px;font-size:13px;color:#969696;}
+
+#listBox th{height:80; width:895px;}
+#listBox th{padding-left:20px; text-align: left; white-space: nowrap; height: 39px; font-size: 13px; color: #a0a0a0;font-weight: 400; border-top: 1px solid #ebebeb;  border-bottom: 1px solid #ebebeb;}
+#listBox td{padding-left:20px; text-align: left; white-space: nowrap; height: 39px; font-size: 15px; color: #5D5D5D;font-weight: 450; }
+/* music.browse */

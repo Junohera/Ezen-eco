@@ -11,11 +11,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.eco.dto.Album;
-import com.eco.dto.Artist;
-import com.eco.dto.Bundle;
+import com.eco.dto.AlbumVO;
+import com.eco.dto.ArtistVO;
+import com.eco.dto.BundleVO;
 import com.eco.dto.MemberVO;
-import com.eco.dto.Music;
+import com.eco.dto.MusicVO;
 import com.eco.service.BundleService;
 import com.eco.service.MusicService;
 import com.eco.service.MypageService;
@@ -36,9 +36,9 @@ public class MypageController {
 		MemberVO mvo = (MemberVO) session.getAttribute("loginUser");
 		if( mvo==null )return "mypage/loginplz";
 		else{
-			List<Bundle> bundleList = bundleService.listBundle(mvo.getUseq());
-			for (Bundle b : bundleList) {
-				List<Music> musicList = musicService.musicListByBundle(b.getBmseq());
+			List<BundleVO> bundleList = bundleService.listBundle(mvo.getUseq());
+			for (BundleVO b : bundleList) {
+				List<MusicVO> musicList = musicService.musicListByBundle(b.getBmseq());
 				b.setMusicList(musicList);
 			}
 			model.addAttribute("bundleList", bundleList);
@@ -52,7 +52,7 @@ public class MypageController {
 		MemberVO mvo = (MemberVO) session.getAttribute("loginUser");
 		if( mvo==null )return "mypage/loginplz";
 		else{
-			List<Album> getAlbum = mps.getAlbum(mvo.getUseq());
+			List<AlbumVO> getAlbum = mps.getAlbum(mvo.getUseq());
 			System.out.println(getAlbum);
 			model.addAttribute("albumList", getAlbum);
 			return "mypage/likealbum";
@@ -65,7 +65,7 @@ public class MypageController {
 		MemberVO mvo = (MemberVO) session.getAttribute("loginUser");
 		if( mvo==null )return "mypage/loginplz";
 		else{
-			List<Artist> getArtist = mps.getArtist(mvo.getUseq());
+			List<ArtistVO> getArtist = mps.getArtist(mvo.getUseq());
 			System.out.println(getArtist);
 			model.addAttribute("artistList", getArtist);
 			return "mypage/likeartist";
@@ -78,7 +78,7 @@ public class MypageController {
 		MemberVO mvo = (MemberVO) session.getAttribute("loginUser");
 		if( mvo==null )return "mypage/loginplz";
 		else{
-			List<Music> musicList = mps.getMusic(mvo.getUseq());
+			List<MusicVO> musicList = mps.getMusic(mvo.getUseq());
 			System.out.println(musicList);
 			model.addAttribute("musicList", musicList);
 			return "mypage/likemusic";

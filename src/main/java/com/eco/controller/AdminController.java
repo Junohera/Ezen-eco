@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.eco.dto.MemberVO;
-import com.eco.dto.Music;
+import com.eco.dto.MusicVO;
 import com.eco.dto.Paging;
 import com.eco.service.AdminService;
 import com.eco.service.MemberService;
@@ -135,7 +135,7 @@ public class AdminController {
 			int count = as.getMusicCount("music", "title", key);
 			paging.setTotalCount(count);
 			paging.paging();
-			List<Music> musicList = as.listMusic(paging, key);
+			List<MusicVO> musicList = as.listMusic(paging, key);
 			mav.addObject("paging", paging);
 			mav.addObject("key", key);
 			mav.addObject("musicList", musicList);

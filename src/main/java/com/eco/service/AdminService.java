@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.eco.dao.IAdminDao;
 import com.eco.dto.MemberVO;
-import com.eco.dto.Music;
+import com.eco.dto.MusicVO;
 import com.eco.dto.Paging;
 
 @Service
@@ -28,8 +28,8 @@ public class AdminService {
 	}
 	
 	
-	public List<Music> listMusic(Paging paging, String key){
-		List<Music> list = adao.listMusic(paging, key);
+	public List<MusicVO> listMusic(Paging paging, String key){
+		List<MusicVO> list = adao.listMusic(paging, key);
 		return list;
 	}
 	

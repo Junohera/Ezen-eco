@@ -14,13 +14,11 @@ import com.eco.dto.ThemeVO;
 @Mapper
 public interface IMusicDao {
 
-	//추가된 부분 21.02.08
-	List<Music> getNewList();
-	List<Music> getRecommendMusic();
-	//추가된 부분 끝
+	List<MusicVO> getNewList();
 	
+	List<MusicVO> getRecommendMusic();
 	
-	List<Theme> themeList();
+	List<ThemeVO> themeList();
 	
 	List<ChartVO> chartList();
 

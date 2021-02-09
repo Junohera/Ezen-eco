@@ -18,16 +18,7 @@ public class MusicService {
 	@Autowired
 	IMusicDao md;
 
-	//추가된 부분 21.02.08
-	public List<Music> getNewList() {
-		return md.getNewList();
-	}
-	public List<Music> getRecommendMusic() {
-		return md.getRecommendMusic();
-	}
-	//추가된 부분 끝
-	
-	public List<Chart> chartList() {
+	public List<ChartVO> chartList() {
 		return md.chartList();
 	}
 	

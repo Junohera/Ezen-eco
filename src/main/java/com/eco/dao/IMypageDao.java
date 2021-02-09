@@ -4,13 +4,13 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.eco.dto.Album;
-import com.eco.dto.Artist;
-import com.eco.dto.Music;
+import com.eco.dto.AlbumVO;
+import com.eco.dto.ArtistVO;
+import com.eco.dto.MusicVO;
 
 @Mapper
 public interface IMypageDao {
-	public List<Music> getMusic(int useq);
-	public List<Artist> getArtist(int useq);
-	public List<Album> getAlbum(int useq);
+	public List<MusicVO> getMusic(int useq);
+	public List<ArtistVO> getArtist(int useq);
+	public List<AlbumVO> getAlbum(int useq);
 }
