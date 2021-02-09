@@ -577,6 +577,9 @@ $music.method = {
 			console.log(" atseq : " + atseq);
 			console.log(" abseq : " + abseq);
 			console.log(" mseq : " + mseq);
+			var atseq = atseq && atseq * 1;
+			var abseq = abseq && abseq * 1;
+			var mseq = mseq && mseq * 1;
 			var parameter = {
 				atseq : atseq,
 				abseq : abseq,
@@ -601,6 +604,9 @@ $music.method = {
 			console.log(" atseq : " + atseq);
 			console.log(" abseq : " + abseq);
 			console.log(" mseq : " + mseq);
+			var atseq = atseq && atseq * 1;
+			var abseq = abseq && abseq * 1;
+			var mseq = mseq && mseq * 1;
 			var parameter = {
 				atseq : atseq,
 				abseq : abseq,
