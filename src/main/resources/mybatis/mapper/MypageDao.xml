@@ -5,7 +5,7 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.eco.dao.IMypageDao">
-	<select id="getLikeMusic" resultType="com.eco.dto.Music">
+	<select id="getLikeMusic" resultType="com.eco.dto.MusicVO">
 		select * from likemusic_view where id=#{param1} and mseq=#{param2}
 	</select>
 </mapper>

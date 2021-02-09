@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.eco.dto.MemberVO;
-import com.eco.dto.Music;
+import com.eco.dto.MusicVO;
 import com.eco.dto.MusicLike;
 import com.eco.service.MypageService;
 
@@ -46,8 +46,8 @@ public class MypageController {
 		MemberVO mvo = (MemberVO) session.getAttribute("loginUser");
 		if( mvo==null )return "mypage/loginplz";
 		else{
-			Music ms = new Music();
-			List<Music> list = mps.getLikeMusic(mvo.getId(), ms.getMseq() );
+			MusicVO ms = new MusicVO();
+			List<MusicVO> list = mps.getLikeMusic(mvo.getId(), ms.getMseq() );
 			
 			model.addAttribute("likemusiclist", list);
 			return "mypage/likemusic";

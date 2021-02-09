@@ -3,38 +3,38 @@ package com.eco.dao;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.springframework.ui.context.Theme;
 
-import com.eco.dto.Album;
-import com.eco.dto.Artist;
-import com.eco.dto.Chart;
-import com.eco.dto.Genre;
-import com.eco.dto.Music;
+import com.eco.dto.AlbumVO;
+import com.eco.dto.ArtistVO;
+import com.eco.dto.ChartVO;
+import com.eco.dto.GenreVO;
+import com.eco.dto.MusicVO;
+import com.eco.dto.ThemeVO;
 
 @Mapper
 public interface MusicDao {
 
-	List<Theme> themeList();
+	List<ThemeVO> themeList();
 	
-	List<Chart> chartList();
+	List<ChartVO> chartList();
 
-	List<Genre> genreList();
+	List<GenreVO> genreList();
 	
-	List<Music> musicListByAlbum(int abseq);
+	List<MusicVO> musicListByAlbum(int abseq);
 
-	List<Music> musicListByChart(int cseq);
+	List<MusicVO> musicListByChart(int cseq);
 
-	List<Music> musicListByGenre(int gseq);
+	List<MusicVO> musicListByGenre(int gseq);
 
-	List<Music> musicListByTheme(int tseq);
+	List<MusicVO> musicListByTheme(int tseq);
 
-	List<Music> musicListByBundle(int bmseq);
+	List<MusicVO> musicListByBundle(int bmseq);
 
-	Music getMusic(int mseq);
+	MusicVO getMusic(int mseq);
 
-	Album getAlbum(int abseq);
+	AlbumVO getAlbum(int abseq);
 	
-	Artist getArtist(int atseq);
+	ArtistVO getArtist(int atseq);
 
 	void likeMusic(int useq, int mseq);
 

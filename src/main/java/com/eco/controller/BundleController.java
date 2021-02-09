@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.eco.dto.Bundle;
+import com.eco.dto.BundleVO;
 import com.eco.dto.BundleDetailVO;
 import com.eco.dto.MemberVO;
 import com.eco.service.BundleService;
@@ -31,8 +31,8 @@ public class BundleController {
 		return "music/bundle";
 	}
 	@RequestMapping(value = "/addBundleMaster", method = RequestMethod.POST)
-	public @ResponseBody Bundle addBundleMaster(Model model, HttpServletRequest request
-			, @RequestBody @Valid Bundle bundle
+	public @ResponseBody BundleVO addBundleMaster(Model model, HttpServletRequest request
+			, @RequestBody @Valid BundleVO bundle
 			, BindingResult result
 			) {
 		

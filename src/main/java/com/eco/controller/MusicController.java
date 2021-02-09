@@ -13,12 +13,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.eco.dto.Album;
-import com.eco.dto.Bundle;
-import com.eco.dto.Chart;
-import com.eco.dto.Genre;
+import com.eco.dto.AlbumVO;
+import com.eco.dto.BundleVO;
+import com.eco.dto.ChartVO;
+import com.eco.dto.GenreVO;
 import com.eco.dto.MemberVO;
-import com.eco.dto.Music;
+import com.eco.dto.MusicVO;
 import com.eco.service.BundleService;
 import com.eco.service.MusicService;
 
@@ -43,11 +43,11 @@ public class MusicController {
 
 		
 		/** 차트 리스트 */
-		List<Chart> chartList = ms.chartList();
+		List<ChartVO> chartList = ms.chartList();
 		model.addAttribute("chartList", chartList);
 		
 		/** 장르 리스트 */
-		List<Genre> genreList = ms.genreList();
+		List<GenreVO> genreList = ms.genreList();
 		model.addAttribute("genreList", genreList);
 
 		// 뮤직차트
@@ -57,7 +57,7 @@ public class MusicController {
 			// 미선택시 차트의 1번으로 진행
 
 		// 2. 선택한 타입과 선택한 시퀀스값으로 music_view 조회
-		List<Music> musicList = null;
+		List<MusicVO> musicList = null;
 		if ("chart".equals(selectedType)) {
 			musicList = ms.musicListByChart(selectedSeq);
 		} else if ("genre".equals(selectedType)){
@@ -67,9 +67,9 @@ public class MusicController {
 		MemberVO loginUser = (MemberVO) request.getSession().getAttribute("loginUser");
 		
 		if (loginUser != null) {
-			List<Bundle> bundleList = bundleService.listBundle(loginUser.getUseq());
-			for (Bundle b : bundleList) {
-				List<Music> musicListByBundle = ms.musicListByBundle(b.getBmseq());
+			List<BundleVO> bundleList = bundleService.listBundle(loginUser.getUseq());
+			for (BundleVO b : bundleList) {
+				List<MusicVO> musicListByBundle = ms.musicListByBundle(b.getBmseq());
 				b.setMusicList(musicListByBundle);
 			}
 			model.addAttribute("bundleList", bundleList);
@@ -89,15 +89,15 @@ public class MusicController {
 	@RequestMapping(value = "/albumView", method = RequestMethod.GET)
 	public String albumView(Model model, HttpServletRequest request
 			, @RequestParam("abseq") int abseq) {
-		Album album = ms.getAlbum(abseq);
-		List<Music> musicListByAlbum = ms.musicListByAlbum(abseq);
+		AlbumVO album = ms.getAlbum(abseq);
+		List<MusicVO> musicListByAlbum = ms.musicListByAlbum(abseq);
 		
 		MemberVO loginUser = (MemberVO) request.getSession().getAttribute("loginUser");
 		
 		if (loginUser != null) {
-			List<Bundle> bundleList = bundleService.listBundle(loginUser.getUseq());
-			for (Bundle b : bundleList) {
-				List<Music> musicListByBundle = ms.musicListByBundle(b.getBmseq());
+			List<BundleVO> bundleList = bundleService.listBundle(loginUser.getUseq());
+			for (BundleVO b : bundleList) {
+				List<MusicVO> musicListByBundle = ms.musicListByBundle(b.getBmseq());
 				b.setMusicList(musicListByBundle);
 			}
 			model.addAttribute("bundleList", bundleList);
@@ -135,7 +135,7 @@ public class MusicController {
 	
 	@RequestMapping(value = "/like", method = RequestMethod.POST)
 	public @ResponseBody boolean like(Model model, HttpServletRequest request
-			, @RequestBody Music music
+			, @RequestBody MusicVO music
 		) {
 		// 세션에서 유저값
 		MemberVO loginUser = (MemberVO) request.getSession().getAttribute("loginUser");
@@ -144,8 +144,6 @@ public class MusicController {
 
 			return false;
 		} else {
-			System.out.println("music #########################################");
-			System.out.println(music);
 			// 넘어온 값에 따라 like에 insert 다만, mseq일경우 ban에서 제거하고 insert
 			if (music.getAtseq() != 0) {
 				ms.likeArtist(loginUser.getUseq(), music.getAtseq());
@@ -161,7 +159,7 @@ public class MusicController {
 	
 	@RequestMapping(value = "/unlike", method = RequestMethod.POST)
 	public @ResponseBody boolean unlike(Model model, HttpServletRequest request
-			, @RequestBody Music music
+			, @RequestBody MusicVO music
 		) {
 		// 세션에서 유저값
 		MemberVO loginUser = (MemberVO) request.getSession().getAttribute("loginUser");

@@ -7,10 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.eco.dao.IMusicDao;
-import com.eco.dto.Album;
-import com.eco.dto.Chart;
-import com.eco.dto.Genre;
-import com.eco.dto.Music;
+import com.eco.dto.AlbumVO;
+import com.eco.dto.ChartVO;
+import com.eco.dto.GenreVO;
+import com.eco.dto.MusicVO;
 
 @Service
 public class MusicService {
@@ -18,39 +18,39 @@ public class MusicService {
 	@Autowired
 	IMusicDao md;
 
-	public List<Chart> chartList() {
+	public List<ChartVO> chartList() {
 		return md.chartList();
 	}
 	
-	public List<Genre> genreList() {
+	public List<GenreVO> genreList() {
 		return md.genreList();
 	}
 
-	public List<Music> musicListByAlbum(int abseq) {
+	public List<MusicVO> musicListByAlbum(int abseq) {
 		return md.musicListByAlbum(abseq);
 	}
 
-	public List<Music> musicListByChart(int cseq) {
+	public List<MusicVO> musicListByChart(int cseq) {
 		return md.musicListByChart(cseq);
 	}
 
-	public List<Music> musicListByGenre(int gseq) {
+	public List<MusicVO> musicListByGenre(int gseq) {
 		return md.musicListByGenre(gseq);
 	}
 	
-	public List<Music> musicListByTheme(int tseq) {
+	public List<MusicVO> musicListByTheme(int tseq) {
 		return md.musicListByTheme(tseq);
 	}
 
-	public List<Music> musicListByBundle(int bmseq) {
+	public List<MusicVO> musicListByBundle(int bmseq) {
 		return md.musicListByBundle(bmseq);
 	}
 
-	public Music getMusic(int mseq) {
+	public MusicVO getMusic(int mseq) {
 		return md.getMusic(mseq);
 	}
 
-	public Album getAlbum(int abseq) {
+	public AlbumVO getAlbum(int abseq) {
 		return md.getAlbum(abseq);
 	}
 
@@ -88,7 +88,7 @@ public class MusicService {
 		md.unbanMusic(useq, mseq);
 	}
 
-	public List<Music> ignoreBanList(List<Music> musicList, int useq) {
+	public List<MusicVO> ignoreBanList(List<MusicVO> musicList, int useq) {
 		// 유저의 ban 목록
 		List<Integer> banMseqList = md.banListByUseq(useq);
 		

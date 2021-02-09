@@ -4,10 +4,10 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.eco.dto.Music;
+import com.eco.dto.MusicVO;
 
 @Mapper
 public interface IMypageDao {
 	
-	public List<Music> getLikeMusic(String id, int mseq);
+	public List<MusicVO> getLikeMusic(String id, int mseq);
 }

@@ -4,12 +4,12 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.eco.dto.Bundle;
+import com.eco.dto.BundleVO;
 
 @Mapper
 public interface BundleDao {
 	
-	List<Bundle> listBundleForMain();
+	List<BundleVO> listBundleForMain();
 
-	List<Bundle> listBundleByUser(int useq);
+	List<BundleVO> listBundleByUser(int useq);
 }
