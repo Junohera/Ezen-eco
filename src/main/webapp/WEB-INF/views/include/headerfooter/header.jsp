@@ -11,6 +11,19 @@
 <!-- fontawesome: image대신 아이콘을 활용할 수 있음. + 색깔변경 가능 -->
 <script src="https://kit.fontawesome.com/aeb6e503f2.js" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="css/main.css">
+<c:if test="${
+	!fn:contains(pageContext.request.requestURI,'music/browse')
+	and !fn:contains(pageContext.request.requestURI,'music/musicView')
+	and !fn:contains(pageContext.request.requestURI,'music/albumView')
+	and !fn:contains(pageContext.request.requestURI,'music/artistView')
+}">
+	<link rel="stylesheet" href="css/member.css"> <!-- 멤버 -->
+</c:if>
+
+<link rel="stylesheet" href="css/music.css"> <!-- 둘러보기 및 음악관련 -->
+<link rel="stylesheet" href="css/mypage.css"> <!-- 내보관함 -->
+<link rel="stylesheet" href="css/board.css"> <!-- 공지사항, qna, 게시판 -->
+
 <script src="js/jquery-3.5.1-min.js"></script>
 <script src="js/member.js"></script>
 
