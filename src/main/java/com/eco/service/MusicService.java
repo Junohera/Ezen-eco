@@ -114,5 +114,9 @@ public class MusicService {
 	public List<Integer> likeAlbumListByUseq(int useq) {
 		return md.likeAlbumListByUseq(useq);
 	}
+
+	public List<Integer> likeArtistListByUseq(int useq) {
+		return md.likeArtistListByUseq(useq);
+	}
 	
 }
