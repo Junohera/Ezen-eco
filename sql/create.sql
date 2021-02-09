@@ -178,19 +178,22 @@ create table taste_detail(
 create table music_like(
 	useq number(5) references member(useq),
 	mseq number(5) references music(mseq),
-	cdate date default sysdate
+	cdate date default sysdate,
+	constraint music_like_pk primary key (useq, mseq) -- primary key(member.useq와 music.mseq를 조합한 복합키)
 );
 
 create table album_like(
 	useq number(5) references member(useq),
 	abseq number(5) references album(abseq),
-	cdate date default sysdate
+	cdate date default sysdate,
+	constraint album_like_pk primary key (useq, abseq) -- primary key(member.useq와 album.abseq를 조합한 복합키)
 );
 
 create table artist_like(
 	useq number(5) references member(useq),
 	atseq number(5) references artist(atseq),
-	cdate date default sysdate
+	cdate date default sysdate,
+	constraint artist_like_pk primary key (useq, atseq) -- primary key(member.useq와 artist.atseq를 조합한 복합키)
 );
 
 create table music_reply(
@@ -203,7 +206,9 @@ create table music_reply(
 
 create table music_ban(
 	useq number(5) references member(useq),
-	mseq number(5) references music(mseq)
+	mseq number(5) references music(mseq),
+	cdate date default sysdate,
+	constraint music_ban_pk primary key (useq, mseq) -- primary key(member.useq와 music.mseq를 조합한 복합키)
 );
 
 create table qna (
