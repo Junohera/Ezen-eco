@@ -6,11 +6,6 @@
     @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap');
     @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@700&display=swap');
 
-    @import url("./board.css"); /* 공지사항, qna, 게시판 */
-    @import url("./member.css"); /* 멤버 */
-    @import url("./music.css"); /* 둘러보기 및 음악관련 */
-    @import url("./mypage.css"); /* 내보관함 */
-
     .headerBox ul {font-family: 'Noto Sans KR', sans-serif; font-weight: 500;}
     .headerFont {color: white; text-decoration: none;}
     body {
@@ -158,16 +153,6 @@
 	.MainMusicContentBox {position: relative; float: left; height: 30px; width: 200px;/*  border: 1px solid red; */}
     
     .MainAlbumImg img {width: 200px; height: 200px;}
-    
-    /* Login Css */
-    
-    form{position:absolute;left:650px;top:100px;margin:0 auto;width:600px;height:460px;border:1px solid black;background:none;padding:50px;padding-top:100px; z-index:20;};
-   #inputInfo{align-content:center;width:100%;height:100%;border:3px dotted red;z-index:3;}
-    .textbox{position:relative;margin-left:auto;margin-right:auto;color:black; border:0px; border-bottom:2px silver;font-size:18px;height:50px;font-weight:bold;}
-    input::placeholder{color: silver;}
-    #buttons{margin-left:75px;margin-top: 20px }
-    #login{width:420px;height:70px;margin-top:30px;border:none;background:#C9C6F7;border-radius:10px;font-size:140%;color:white;font-weight:bold;}
-    .btn{position:relative;width:207px;height:50px;margin-top:20px }
     
     /* footer Css  */
     
