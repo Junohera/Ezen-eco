@@ -15,17 +15,10 @@
     </ul>
 
     <ul class="snsList">
-<<<<<<< HEAD
-        <li><img src="images/facebook.png" alt="facebook"></li>
-        <li><img src="images/instagram.png" alt="instagram"></li>
-        <li><img src="images/youtube.png" alt="youtube"></li>
-        <li><img src="images/twitter.png" alt="twitter"></li>
-=======
         <li><i class="fab fa-facebook"></i></li>
         <li><i class="fab fa-instagram-square"></i></li>
         <li><i class="fab fa-youtube"></i></li>
         <li><i class="fab fa-twitter-square"></i></li>
->>>>>>> c3d37b7c155523a8418335d93061db89524ee26a
     </ul>
 
     <!-- 구분선 -->
