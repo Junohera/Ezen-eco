@@ -1,19 +1,12 @@
 package com.eco.service;
 
 import java.util.List;
-<<<<<<< HEAD
-=======
 import java.util.stream.Collectors;
->>>>>>> c3d37b7c155523a8418335d93061db89524ee26a
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-<<<<<<< HEAD
-import com.eco.dao.MusicDao;
-=======
 import com.eco.dao.IMusicDao;
->>>>>>> c3d37b7c155523a8418335d93061db89524ee26a
 import com.eco.dto.Album;
 import com.eco.dto.Chart;
 import com.eco.dto.Genre;
@@ -23,11 +16,7 @@ import com.eco.dto.Music;
 public class MusicService {
 	
 	@Autowired
-<<<<<<< HEAD
-	MusicDao md;
-=======
 	IMusicDao md;
->>>>>>> c3d37b7c155523a8418335d93061db89524ee26a
 
 	public List<Chart> chartList() {
 		return md.chartList();
@@ -98,8 +87,6 @@ public class MusicService {
 	public void unbanMusic(int useq, int mseq) {
 		md.unbanMusic(useq, mseq);
 	}
-<<<<<<< HEAD
-=======
 
 	public List<Music> ignoreBanList(List<Music> musicList, int useq) {
 		// 유저의 ban 목록
@@ -120,6 +107,5 @@ public class MusicService {
 	public List<Integer> likeAlbumListByUseq(int useq) {
 		return md.likeAlbumListByUseq(useq);
 	}
->>>>>>> c3d37b7c155523a8418335d93061db89524ee26a
 	
 }

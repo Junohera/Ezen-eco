@@ -1,81 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<<<<<<< HEAD
-    <style>
-        footer {
-            position: relative;
-            width: 1050px;
-            background: none;
-            margin: 0 auto;
-            border: 1px solid red;
-            margin-top: 80px;
-        }
-
-        footer ul {
-            margin: 0;
-            padding: 0;
-            margin-bottom: 10px;
-            font-weight: bold;
-        }
-        footer li {
-            list-style: none;
-            display: inline-block;
-        }
-
-        .hr {
-            width: 100%;
-            background: blue;
-            height: 1px;
-            margin-top:20px;
-            margin-bottom: 20px;
-        }
-
-        footer .ul1 {
-            position: absolute;
-            top: 0px;
-            left: 0px;
-            color: #333;
-        }
-
-        footer .snsList {
-            position: absolute;
-            top:0px;
-            right: 0px;
-        }
-
-        footer .ul2 , footer .ul3 , footer .ul4 {
-            color: #909090;
-            font-size: 70%;
-        }
-
-        footer .seperator {
-            font-weight: 100;
-            margin-left: 5px;
-            margin-right: 5px;
-        }
-
-        footer .ul4 .right{
-            position: absolute;
-            bottom: 5px;
-            right: 5px;
-        }
-
-        footer .ul4 .bold {
-            color: #333;
-        }
-    </style>
-
-    </div>
-
-    <%-- 팝업류 include --%>
-    <%@ include file="../popup/popup.jsp" %>
-=======
     </div>
 
     <%-- 팝업류 include --%>
     <%@ include file="../popup/music.jsp" %>
->>>>>>> c3d37b7c155523a8418335d93061db89524ee26a
 
 <footer>
     <ul class="ul1">

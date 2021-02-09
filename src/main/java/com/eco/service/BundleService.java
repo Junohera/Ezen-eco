@@ -6,24 +6,15 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-<<<<<<< HEAD
-import com.eco.dao.BundleDao;
-import com.eco.dto.Bundle;
-=======
 import com.eco.dao.IBundleDao;
 import com.eco.dto.Bundle;
 import com.eco.dto.BundleDetailVO;
->>>>>>> c3d37b7c155523a8418335d93061db89524ee26a
 
 @Service
 public class BundleService {
 	
 	@Autowired
-<<<<<<< HEAD
-	BundleDao bd;
-=======
 	IBundleDao bd;
->>>>>>> c3d37b7c155523a8418335d93061db89524ee26a
 
 	
 	public List<Bundle> listBundle(int useq) {
@@ -36,8 +27,6 @@ public class BundleService {
 		}
 		return result;
 	}
-<<<<<<< HEAD
-=======
 
 
 	public int addBundleMaster(Bundle bundle) {
@@ -48,5 +37,4 @@ public class BundleService {
 		return bd.addBundleDetail(bundleDetail);
 	}
 
->>>>>>> c3d37b7c155523a8418335d93061db89524ee26a
 }

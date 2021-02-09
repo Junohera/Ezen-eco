@@ -125,13 +125,8 @@ create table album (
 	abseq number(5) primary key,
 	atseq number(5) references artist(atseq),
 	title varchar2(50) not null,
-<<<<<<< HEAD
-	img varchar2(100),
-	content varchar2(1000),
-=======
 	img varchar2(200),
 	content varchar2(3000),
->>>>>>> c3d37b7c155523a8418335d93061db89524ee26a
 	pdate date
 );
 
@@ -139,14 +134,12 @@ create table music(
 	mseq number(5) primary key,
 	abseq number(5) references album(abseq),
 	atseq number(5) references artist(atseq),
-<<<<<<< HEAD
 	theme varchar2(1000), -- 테마/태그(복수) 구분자: |
 	chart varchar2(100), -- 차트(복수) 구분자: |
 	gseq number(5) references genre(gseq), -- 장르(단일)
 	title varchar2(30) not null,
 	content varchar2(1000), -- 가사
 	titleyn varchar2(1) -- Y: 타이틀, N: 일반
-=======
 	theme varchar2(1000), 					-- 테마/태그(복수) 구분자: |
 	chart varchar2(100), 					-- 차트(복수) 구분자: |
 	gseq number(5) references genre(gseq), 	-- 장르(단일)
@@ -154,7 +147,6 @@ create table music(
 	content varchar2(1000), 				-- 가사
 	titleyn varchar2(1), 					-- Y: 타이틀, N: 일반
 	src varchar2(200) 						-- 음악 재생경로
->>>>>>> c3d37b7c155523a8418335d93061db89524ee26a
 );
 
 -- 사이트 또는 유저의 리스트
@@ -274,10 +266,7 @@ select
 	, m.chart
 	, m.gseq
     , m.titleyn
-<<<<<<< HEAD
-=======
 	, m.src
->>>>>>> c3d37b7c155523a8418335d93061db89524ee26a
     , ab.abseq
     , ab.title as abtitle
     , ab.img as abimg

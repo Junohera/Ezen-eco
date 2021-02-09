@@ -39,9 +39,6 @@ select * from music_view where theme like '%'||3||'%'
 
 
 select * from BUNDLE_MASTER;
-<<<<<<< HEAD
-select * from BUNDLE_DETAIL;
-=======
 select * from BUNDLE_DETAIL;
 
 select * from music_ban;
@@ -61,4 +58,3 @@ update album set content = '아이유(IU) 정규 5집 선공개 <Celebrity>
 나의 ‘별난 친구’에게 해주고 싶은 말들을 적으며 시작했던 가삿말이었지만 작업을 하다 보니 점점 이건 나의 얘기이기도 하다는 걸 깨달았다. 가사를 완성하고 나니 내 친구나 나뿐만이 아니라 그 누구를 주인공에 대입시켜도 전혀 부자연스럽지 않다는 생각이 들었다. 누구나 살면서 한 번쯤은 내가 남들이 만들어 놓은 기준에 맞지 않는 사람이라는 이유로 소외감을 느껴본 적이 있을 테니까.
 내 친구를 포함해 투박하고도 유일하게 태어난 이들에게 말하고 싶다.
 당신은 별난 사람이 아니라 별 같은 사람이';
->>>>>>> c3d37b7c155523a8418335d93061db89524ee26a

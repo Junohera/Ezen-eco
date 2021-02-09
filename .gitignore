@@ -34,9 +34,5 @@ out/
 /.nb-gradle/
 
 ### VS Code ###
-<<<<<<< HEAD
-.vscode/
-=======
 .vscode/
 **/.DS_Store
->>>>>>> c3d37b7c155523a8418335d93061db89524ee26a
