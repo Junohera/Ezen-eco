@@ -112,10 +112,18 @@ $music.method = {
 			});
 	
 			$(".iconButton").mouseleave(function() {
-				$(this).find("span").css({
-					color:"#333333"
-					, opacity: 1
-				});
+				if ($(this).hasClass("unlike")) {
+					$(this).find("span").css({
+						color:"red"
+						, opacity: 1
+					});
+				} else {
+					$(this).find("span").css({
+						color:"#333333"
+						, opacity: 1
+					});
+				}
+				
 			});
 		});
 	})(),
@@ -491,6 +499,21 @@ $music.method = {
 			on();
 		};
 
+		// 내리스트 띄우는건 동일하나, 앨범상세나 아티스트상세에서 내 리스트에 추가할 경우
+		var on_listByDetail = function() {
+			var musicTrList = $("#listBox .musicTr");
+
+			var musicList = [];
+			$(musicTrList).each(function(index, item){
+				var music = $music.utilMethod.getHiddenData($(item));
+				musicList.push(music);
+			});
+
+			$music.data.myList.items = musicList;
+			
+			on();
+		};
+
 		var addBundleMaster = function(el) {
 			var parameter = {
 				title: el.closest("form").find("input[name=title]").val()
@@ -549,6 +572,7 @@ $music.method = {
 			off: off,
 
 			on_listByCheckBox: on_listByCheckBox,
+			on_listByDetail: on_listByDetail,
 			addBundleMaster: addBundleMaster,
 			addBundleDetail: addBundleDetail,
 		};
@@ -623,6 +647,22 @@ $music.method = {
 				location.reload();
 			});
 		}
+	},
+
+	albumViewPlayButton: function() {
+		// 앨범상세에서 앨범재킷안에 play버튼을 눌렀을 때
+		// 모든 앨범수록곡을 playList에 추가
+
+		// 재생목록 초기화
+		$music.utilMethod.playListClear();
+
+		// 앨범수록곡의 모든 tr에 접근해 초기화된 재생목록에 담고 첫건 재생
+		$("#listBox .musicTr").each(function(index, el) {
+			$(el).closest("tr").find(".listen").trigger("click");
+		});
+
+		// 전부 체크해제
+		uncheck();
 	},
 };
 
@@ -729,7 +769,34 @@ $(function() {
 	});
 
 	/* <div id="myListBox" style="display:none;"> */
-	
+
+	/* albumView, artistView */
+	if ($("input[name=albumlikeyn]").length > 0) {
+		$(".album .info .like").remove();
+	} else {
+		$(".album .info .unlike").remove();
+	}
+
+	if ($("input[name=artistlikeyn]").length > 0) {
+		$(".artist .info .like").remove();
+	} else {
+		$(".artist .info .unlike").remove();
+	}
+
+	$("#infoAndList li").on("click", function() {
+		$(this).siblings().removeClass("selectTab");
+		$(this).addClass("selectTab");
+
+		var index = $(this).index();
+		if (index === 0) {
+			$("#infoBox").show();
+			$("#trackBox").hide();
+		} else {
+			$("#infoBox").hide()
+			$("#trackBox").show();
+		}
+	});
+	/* albumView, artistView */
 
 	})();
 	

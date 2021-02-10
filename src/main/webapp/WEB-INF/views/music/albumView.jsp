@@ -2,123 +2,60 @@
     pageEncoding="UTF-8"%>
 <%@ include file="../include/headerfooter/header.jsp" %>
 
-<style>
-    #music_albumView {
-        margin-top:100px;
-    }
-
-    #music_albumView .contentBox * {
-        position: relative;
-        display:block;
-        width: 100%;
-        height: 100%;
-        margin: 0;
-        padding: 0;
-        transition: 0.3s;
-    }
-
-    #music_albumView .contentBox{
-        width: 100%;
-        height: 254px;
-        margin: 0 auto;
-        padding: 0;
-        position: relative;
-        padding-left:50px;
-    }
-
-    #music_albumView .album{
-        position: relative;
-    }
-
-    #music_albumView .thumbnail{
-        width: 240px;
-        height: 240px;
-        background: silver;
-        position: relative;
-        border-radius: 10px;
-        overflow: hidden;
-        cursor: pointer;
-        display: inline-block;
-        float: left;
-    }
-
-    #music_albumView .thumbnail > span {
-        position: absolute;
-        font-weight: 100;
-        font-size: 30px;
-        color: white;
-        right: 12px;
-        bottom: 12px;
-        width: 30px;
-        height: 30px;
-        z-index: 2;
-    }
-
-    #music_albumView .thumbnail > span:hover {
-        color: #3f3fff;
-    }
-
-    #music_albumView #thumbnail_dim {
-        position: absolute;
-        top: 0px;
-        left: 0px;
-        z-index: 1;
-        background: none;
-    }
-
-    #music_albumView #thumbnail_dim:hover {
-        background:rgba(0, 0, 0, 0.3);
-    }
-
-    #music_albumView .info {
-        width: 672px;
-        height: 226px;
-        background: yellow;
-        display: inline-block;
-        padding-left: 34px;
-        padding-top: 14px;
-        float: left;
-    }
-
-    #music_albumView .info ul {
-        height: 226px;
-        margin: 0;
-        padding: 0;
-    }
-    
-
-    #music_albumView .info ul li {
-        width: 100%;
-        height: 20px;
-    }
-</style>
-
 <article id="music_albumView">
+    <!-- 좋아하는 앨범 시퀀스 목록중 동일하면 isLike 출력 -->
+    <c:forEach var="likeAbseq" items="${likeAlbumList}">
+        <c:if test="${likeAbseq eq album.abseq}">
+            <input type="hidden" name="albumlikeyn" value="y">
+        </c:if>
+    </c:forEach>
+
     <div class="contentBox">
         <div class="album">
             <div class="thumbnail">
                 <img src="${album.img}" alt="">
                 <div id="thumbnail_dim"></div>
-                <span>
+                <span onclick="$('#playListAddAll').trigger('click');">
                     <i class="fas fa-play"></i>
                 </span>
             </div>
             <div class="info">
                 <ul>
-                    <li>${album.title}</li>
-                    <li>${album.name}</li>
-                    <li>
+                    <li style="font-size: 28px;margin-bottom: 10px;height: 40px;">${album.title}</li>
+                    <li style="font-size: 16px;margin-bottom: 25px;font-weight:400;">${album.name}</li>
+                    <li style="font-size: 15px;margin-bottom: 5px;font-weight:400;">
                         <c:choose>
-                            <c:when test="${album.groupyn eq 'y'}">그룹</c:when>
+                            <c:when test="${album.groupyn eq 'Y'}">그룹</c:when>
                             <c:otherwise>싱글</c:otherwise>
                         </c:choose>
-                        |
+                        <span style="display:inline;font-size: 8px;font-weight: 100;color:#969696;">l</span>
                         ${album.atgenre}
                     </li>
-                    <li></li>
+                    <li style="font-size: 15px; color: #969696;font-weight:100;"><fmt:formatDate value="${album.pdate}" pattern="yyyy.MM.dd"></fmt:formatDate></li>
                 </ul>
-                <ul>
-                    <li></li>
+                <ul class="iconList">
+                    <li>
+                        <a class="iconButton playListAdd" onclick="$music.method.musicList.playListAddAll($('#listBox .musicTr'));">
+                            <span style="font-size: 20px; color: #333333;"><i class="fas fa-outdent"></i></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="iconButton myListAdd" onclick="$music.method.myList.on_listByDetail();">
+                            <span style="font-size: 20px; color: #333333;"><i class="fas fa-folder-plus"></i></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="iconButton unlike" onclick="$music.method.unlike(null, '${album.abseq}', null);">
+                            <span style="font-size: 20px; color: red;">
+                                <i class="fas fa-heart"></i>
+                            </span>
+                        </a>
+                        <a class="iconButton like" onclick="$music.method.like(null, '${album.abseq}', null);">
+                            <span style="font-size: 20px; color: #333333;">
+                                <i class="far fa-heart"></i>
+                            </span>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -126,39 +63,36 @@
 
     <ul id="infoAndList">
         <li>
-            <a onclick="$('#infoBox').toggle();">상세정보</a>
+            <a>상세정보</a>
         </li> 
-        <li>
-            <a onclick="$('#trackBox').toggle();">수록곡</a>
+        <li class="selectTab">
+            <a>수록곡</a>
         </li>
     </ul>
-    
-    <div class="waste">
-        <!-- 선택된 타입이 차트면 제목은 차트의 타이틀, 장르면 제목은 장르의 타이틀 (디폴트값이 chart, "1"이기 때문에 otherwise는 구문은 없음)-->
-        <h4 class="selectedTitle">
-            <c:choose>
-                <c:when test="${selectedType eq 'chart'}">
-                    <c:forEach var="chart" items="${chartList}" varStatus="status">
-                        <c:if test="${chart.cseq == selectedSeq}">${chart.title}</c:if>
-                    </c:forEach>        
-                </c:when>
-                <c:when test="${selectedType eq 'genre'}">
-                    <c:forEach var="genre" items="${genreList}" varStatus="status">
-                        <c:if test="${genre.gseq == selectedSeq}">${genre.title}</c:if>
-                    </c:forEach>        
-                </c:when>
-            </c:choose>
-        </h4>
-    
-    </div>
 
     <div id="infoBox" style="display:none;">
-        
+        <ul>
+            <li class="title">앨범명</li>
+            <li class="value">${album.title}</li>
+            <li class="title">아티스트</li>
+            <li class="value">${album.name}</li>
+        </ul>
+        <h3>앨범 소개</h3>
+        <c:choose>
+            <c:when test="${empty album.content}">
+                <h3 style="font-size: 20px;width: 100%;height: 300px;color: #969696;font-weight: 100;text-align: center;line-height: 300px;">
+                    등록된 앨범소개가 없습니다.
+                </h3>
+            </c:when>
+            <c:otherwise>
+                <pre>${album.content}</pre>
+            </c:otherwise>
+        </c:choose>
     </div>
 
     <div id="trackBox">
         <!-- 전체듣기 -->
-        <a class="allListen iconButton" id="playListAddAll" style="cursor: pointer;font-size: 13px;margin-bottom:20px;">
+        <a class="allListen iconButton" id="playListAddAll" style="cursor: pointer;font-size: 13px;margin-bottom:20px;font-weight: 100;margin-left:20px">
             <span style="font-weight: 100; font-size: 10px; color: #333333;">
                 <i class="fas fa-play"></i>
             </span>

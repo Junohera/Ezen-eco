@@ -517,3 +517,180 @@
 #listBox th{padding-left:20px; text-align: left; white-space: nowrap; height: 39px; font-size: 13px; color: #a0a0a0;font-weight: 400; border-top: 1px solid #ebebeb;  border-bottom: 1px solid #ebebeb;}
 #listBox td{padding-left:20px; text-align: left; white-space: nowrap; height: 39px; font-size: 15px; color: #5D5D5D;font-weight: 450; }
 /* music.browse */
+
+
+#music_albumView {
+    margin-top:100px;
+}
+
+#music_albumView .contentBox * {
+    position: relative;
+    display:block;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    transition: 0.3s;
+}
+
+#music_albumView .contentBox{
+    width: 100%;
+    height: 254px;
+    margin: 0 auto;
+    padding: 0;
+    position: relative;
+    padding-left:50px;
+}
+
+#music_albumView .album{
+    position: relative;
+}
+
+#music_albumView .thumbnail{
+    width: 240px;
+    height: 240px;
+    background: silver;
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: pointer;
+    display: inline-block;
+    float: left;
+}
+
+#music_albumView .thumbnail > span {
+    position: absolute;
+    font-weight: 100;
+    font-size: 30px;
+    color: white;
+    right: 12px;
+    bottom: 12px;
+    width: 30px;
+    height: 30px;
+    z-index: 2;
+}
+
+#music_albumView .thumbnail > span:hover {
+    color: #3f3fff;
+}
+
+#music_albumView #thumbnail_dim {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 1;
+    background: none;
+}
+
+#music_albumView #thumbnail_dim:hover {
+    background:rgba(0, 0, 0, 0.3);
+}
+
+#music_albumView .info {
+    width: 672px;
+    height: 211px;
+    display: inline-block;
+    padding-left: 34px;
+    padding-top: 30px;
+}
+
+#music_albumView .info ul {
+    height: 152px;
+    margin: 0;
+    padding: 0;
+}
+
+
+#music_albumView .info ul li {
+    width: 100%;
+    height: 20px;
+    color: #333333;
+}
+
+#music_albumView .info .iconList {
+    width: 160px;
+    height: 20px;
+    margin-top: 10px;
+}
+
+#music_albumView .info .iconList li {
+    float: left;
+    width: 20px;
+    height: 20px;
+    position: relative;
+    margin-right: 20px;
+}
+
+#music_albumView .info .iconList li:nth-of-type(1) {
+    padding-left: 0;
+}
+
+#music_albumView .info .iconList a {
+    cursor: pointer;
+}
+
+#infoAndList {
+    width: 100%;
+    height: 32px;
+    margin: 40px 0px;
+    padding: 0;
+}
+
+#infoAndList li {
+    width: 100px;
+    height: 32px;
+    float: left;
+    margin-right: 20px;
+    border-radius: 16px;
+    line-height: 32px;
+    text-align: center;
+    font-weight: 100;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+#infoAndList li:not(.selectTab):hover {
+    color: #3f3fff;
+}
+
+#infoAndList .selectTab {
+    background-color: #3f3fff;
+    border-radius: 16px;
+    color: white;
+}
+
+#infoBox {
+    width: 100%;
+}
+
+#infoBox ul {
+    margin: 0;
+    padding: 0;
+    height: 80px;
+    margin-top: 40px;
+}
+
+#infoBox li {
+    height: 38px;
+    float: left;
+    font-size: 15px;
+    font-weight: bold;
+    color: #333333;
+}
+
+#infoBox .title{
+    width: 100px;
+}
+
+#infoBox .value {
+    width: 850px;
+    font-weight: 100;
+}
+
+#infoBox h3 {
+    font-weight: bold;
+    font-size: 16px;
+    color: #333333;
+    margin-top: 20px;
+    width: 100%;
+}
