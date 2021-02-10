@@ -267,25 +267,25 @@ comment on table notice is '공지사항';
 
 create or replace view music_view -- 뮤직
 as
-select 
+select
     m.mseq
     , m.title
     , m.content
     , m.theme
-	, m.chart
-	, m.gseq
+    , m.chart
+    , m.gseq
     , m.titleyn
-	, m.src
-	, m.musicby
-	, m.lyricsby
-	, m.producingby
+    , m.src
+    , m.musicby
+    , m.lyricsby
+    , m.producingby
     , ab.abseq
     , ab.title as abtitle
     , ab.img as abimg
     , ab.content as abcontent
     , ab.pdate as pdate
-	, ab.abtype
-	, ab.gseq as abgseq
+    , ab.abtype
+    , ab.gseq as abgseq
     , at.atseq
     , at.name
     , at.groupyn
@@ -293,14 +293,31 @@ select
     , at.gseq as atgseq
     , at.img as atimg
     , at.description
-	, g.title as gtitle
+    , g.title as gtitle
+	, mpopular.rank -- 인기 순위(좋아요 수 > 음악시퀀스)
+    , mpopular.likecount -- 좋아요 수
 from music m
     left join album ab
-    on m.abseq = ab.abseq
+        on m.abseq = ab.abseq
     left join artist at
-    on at.atseq = m.atseq and at.atseq = ab.atseq
-	left join genre g
-	on g.gseq = at.gseq;
+        on at.atseq = m.atseq and at.atseq = ab.atseq
+    left join genre g
+        on g.gseq = at.gseq
+    left join (
+        select
+            m.mseq -- 음악시퀀스
+            , rank() over (
+                order by
+                    nvl(musiclike.likecount, 0) desc -- 순위측정 첫번재 우선순위 : 좋아요 수 내림차순(likecount없으면 0으로 변경 후 순위측정)
+                    , m.mseq desc                   -- 순위측정 두번째 우선순위 : 음악시퀀스 내림차순
+                ) as rank -- 순위
+            , nvl(musiclike.likecount, 0) as likecount -- 좋아요 수(없으면 0)
+        from music m
+            left join (
+                select mseq, count(*) as likecount from music_like group by mseq
+            ) musiclike on musiclike.mseq = m.mseq
+    ) mpopular -- 음악 인기순위 (좋아요 수 > 음악시퀀스)
+        on mpopular.mseq = m.mseq;
 
 create or replace view album_view -- 앨범
 as
@@ -321,15 +338,34 @@ select
     , at.img as atimg
     , at.description
 	, atg.title as atgenre
+    , abpopular.rank -- 인기순위 (좋아요 수 > 발매일 최신순 > 앨범시퀀스)
+    , abpopular.likecount -- 좋아요 수
 from album ab
     left join artist at
     	on at.atseq = ab.atseq
     left join genre abg
         on abg.gseq = ab.gseq
 	left join genre atg
-		on atg.gseq = at.gseq;
+		on atg.gseq = at.gseq
+    left join (
+        select
+            ab.abseq
+            , rank() over (
+                order by
+                    nvl(albumlike.likecount, 0) desc -- 순위측정 첫번째 좋아요수
+                    , ab.pdate desc -- 순위측정 두번째 발매일최신순(null일 경우 순위 겹침)
+                    , ab.abseq desc -- 순위측정 세번째 앨범시퀀스
+                ) as rank
+            , nvl(albumlike.likecount, 0) as likecount
+        from album ab
+            left join (
+                select abseq, count(*) as likecount from album_like group by abseq
+            ) albumlike -- 앨범당 좋아요 수
+                on albumlike.abseq = ab.abseq
+    ) abpopular -- 앨범 인기순위(좋아요수 > 발매일 > 앨범시퀀스)
+        on abpopular.abseq = ab.abseq;
 
-create or replace view artist_view -- 앨범
+create or replace view artist_view -- 아티스트
 as
 select 
     at.atseq
@@ -340,22 +376,27 @@ select
 	, at.img
 	, at.description
 	, g.title as atgenre
+    , atpopular.rank -- 인기순위 (좋아요 수 > 아티스트 시퀀스)
+    , atpopular.likecount -- 좋아요 수
 from artist at
 	left join genre g
-		on g.gseq = at.gseq;
-
-create or replace view likemusic_view
-as
-select 
-    m.mseq
-    , m.title
-    , m.gseq
-    , ab.img
-    , at.atseq
-    , at.name
-    , ml.useq
-	from music_like ml, album ab, artist at, music m
-	where ab.atseq = at.atseq and m.mseq = ml.mseq;
+		on g.gseq = at.gseq
+    left join (
+        select
+            at.atseq
+            , rank() over(
+                order by
+                    nvl(artistlike.likecount, 0) desc -- 순위측정 첫번째 좋아요수
+                    , at.atseq desc -- 아티스트등록 순서
+            ) as rank
+            , nvl(artistlike.likecount, 0) as likecount
+        from artist at
+            left join (
+                select atseq, count(*) as likecount from artist_like group by atseq
+            ) artistlike -- 아티스트 좋아요 수
+                on artistlike.atseq = at.atseq
+    ) atpopular -- 아티스트 인기순위(좋아요 수 > 아티스트 시퀀스)
+        on atpopular.atseq = at.atseq;
 
 select * from likemusic_view;
 
