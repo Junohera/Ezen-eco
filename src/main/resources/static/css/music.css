@@ -694,3 +694,8 @@
     margin-top: 20px;
     width: 100%;
 }
+
+#infoBox pre {
+    width: 100%;
+    white-space:pre-line; /* pre자체의 줄넘김은 유지하되, 좌우폭을 넘기는 글도 줄넘김 */
+}
