@@ -47,7 +47,7 @@ insert into genre(gseq, title, img) values(genre_seq.nextval, 'CCM', null);
 insert into artist(atseq, name, groupyn, gender, gseq, img, description) values(artist_seq.nextval, 'Ed Sheeran', 'N', 'M', 1, 'https://images.indulgexpress.com/uploads/user/imagelibrary/2019/3/26/original/EdSheeran.jpg', '아티스트 소개');
 insert into artist(atseq, name, groupyn, gender, gseq, img, description) values(artist_seq.nextval, '아이유', 'N', 'F', 14, 'https://cdn.music-flo.com/image/artist/875/043/03/04/403043875_5eb4b748.jpg?1588901704962/dims/resize/x500/quality/90', '럭키 신봉선');
 insert into artist(atseq, name, groupyn, gender, gseq, img, description) values(artist_seq.nextval, '이문세', 'N', 'M', 14, 'http://topclass.chosun.com/news_img/1907/1907_026.jpg', '말상이라 팬클럽 이름도 마굿간');
-insert into artist(atseq, name, groupyn, gender, gseq, img, description) values(artist_seq.nextval, '오마이걸', 'Y', 'M', 3, 'https://static.wikia.nocookie.net/ohmygirl8241/images/e/e0/Nonstop_group_promotional.jpg/revision/latest?cb=20200906115829', '7인조 걸그룹');
+insert into artist(atseq, name, groupyn, gender, gseq, img, description) values(artist_seq.nextval, '오마이걸', 'Y', 'M', 3, 'https://pbs.twimg.com/profile_images/1252284630335582208/SJheEDPM_400x400.jpg', '7인조 걸그룹');
 -- album
 insert into album(abseq, atseq, title, img, content, pdate) values(album_seq.nextval, 1, 'First Album', 'https://images-na.ssl-images-amazon.com/images/I/61CDjPeGhhL.jpg', '앨범소개', sysdate);
 insert into album(abseq, atseq, title, img, content, pdate) values(album_seq.nextval, 2, 'Celebrity', 'https://cdn.music-flo.com/image/v2/album/125/777/05/04/405777125_6010e16c_o.jpg?1611719022486/dims/resize/500x500/quality/90', '아이유(IU) 정규 5집 선공개 <Celebrity>

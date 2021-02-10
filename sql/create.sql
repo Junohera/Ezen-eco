@@ -320,6 +320,21 @@ from album ab
 	left join genre g
 		on g.gseq = at.gseq;
 
+create or replace view artist_view -- 앨범
+as
+select 
+    at.atseq
+	, at.name
+	, at.groupyn
+	, at.gender
+	, at.gseq
+	, at.img
+	, at.description
+	, g.title as genre
+from artist at
+	left join genre g
+		on g.gseq = at.gseq;
+
 create or replace view likemusic_view
 as
 select 
