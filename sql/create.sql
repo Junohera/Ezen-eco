@@ -80,7 +80,9 @@ create table member(
 	name varchar2(30) not null,
 	phone varchar2(13) unique not null,
 	gender varchar2(1) not null,
-	membership varchar2(1) default 'N' not null, -- Y, N
+	membership varchar2(1) default 'N' not null, -- 이용권 여부 Y, N 
+	sdate date,	-- 이용권 시작일
+ 	edate date, -- 이용권 만료일
 	indate date default sysdate
 );
 

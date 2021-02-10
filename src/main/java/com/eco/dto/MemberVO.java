@@ -21,6 +21,8 @@ public class MemberVO {
 	@NotEmpty(message="전화번호를 입력하세요")
 	private String phone;
 	private String gender;
-	private String membership;
+	private String membership; // 이용권 여부
+	private Timestamp sdate; // 이용권 시작일
+	private Timestamp edate; // 이용권 만료일
 	private Timestamp indate;
 }
