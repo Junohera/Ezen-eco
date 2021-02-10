@@ -144,6 +144,9 @@ create table music(
 	title varchar2(30) not null,
 	content varchar2(1000), 				-- 가사
 	titleyn varchar2(1), 					-- Y: 타이틀, N: 일반
+	musicby varchar2(30),					-- 작곡
+	lyricsby varchar2(30),					-- 작사
+	producingby varchar2(30),				-- 편곡
 	src varchar2(200) 						-- 음악 재생경로
 );
 
@@ -273,6 +276,9 @@ select
 	, m.gseq
     , m.titleyn
 	, m.src
+	, m.musicby
+	, m.lyricsby
+	, m.producingby
     , ab.abseq
     , ab.title as abtitle
     , ab.img as abimg
