@@ -598,6 +598,23 @@ $music.method = {
 		}
 	},
 
+	/* 무시하기 취소 */
+	unban: function(mseq) {
+		if ($music.utilMethod.loginCheck()) {
+			console.log('mseq =>', JSON.stringify(mseq, undefined, 2));
+			$.ajax({
+				url: 'unban',
+				type: 'post',
+				data: JSON.stringify(mseq),
+				contentType: 'application/json',
+				dataType: 'json'
+			})
+			.always(function() {
+				location.reload();
+			});
+		}
+	},
+
 	/* 좋아요 */
 	like: function(atseq, abseq, mseq) {
 		if ($music.utilMethod.loginCheck()) {
@@ -785,8 +802,9 @@ $(function() {
 
 	/* <div id="myListBox" style="display:none;"> */
 
-	/* albumView, artistView */
+	/* artistView, albumView, musicView  */
 
+	// 아티스트
 	if ($("#music_artistView").length > 0) {
 		if ($("input[name=artistlikeyn]").length > 0) {
 			$(".artist .info .like").remove();
@@ -801,6 +819,30 @@ $(function() {
 				$(el).find(".album .info .unlike").remove();
 			}
 		});
+	}
+	// 앨범
+	else if ($("#music_albumView").length > 0) {
+		if ($("input[name=albumlikeyn]").length > 0) {
+			$(".album .info .like").remove();
+		} else {
+			$(".album .info .unlike").remove();
+		}
+	}
+	// 음악
+	else if ($("#music_musicView").length > 0) {
+
+		if ($("input[name=musiclikeyn]").length > 0) {
+			$(".music .info .like").remove();
+		} else {
+			$(".music .info .unlike").remove();
+		}
+
+		// ban
+		if ($("input[name=musicbanyn]").length > 0) {
+			$(".music .info .ban").remove();
+		} else {
+			$(".music .info .unban").remove();
+		}
 	}
 
 	$("#infoAndTrack li").on("click", function() {

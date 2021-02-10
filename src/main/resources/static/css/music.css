@@ -971,3 +971,121 @@
     padding: 5px;
     margin-right: 6px;
 }
+
+#music_musicView {
+    margin-top:100px;
+}
+
+#music_musicView .contentBox * {
+    position: relative;
+    display:block;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    transition: 0.3s;
+}
+
+#music_musicView .contentBox{
+    width: 100%;
+    height: 254px;
+    margin: 0 auto;
+    padding: 0;
+    position: relative;
+    padding-left:50px;
+}
+
+#music_musicView .music{
+    position: relative;
+}
+
+#music_musicView .thumbnail{
+    width: 240px;
+    height: 240px;
+    background: silver;
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: pointer;
+    display: inline-block;
+    float: left;
+}
+
+#music_musicView .thumbnail > span {
+    position: absolute;
+    font-weight: 100;
+    font-size: 30px;
+    color: white;
+    right: 12px;
+    bottom: 12px;
+    width: 30px;
+    height: 30px;
+    z-index: 2;
+}
+
+#music_musicView .thumbnail > span:hover {
+    color: #3f3fff;
+}
+
+#music_musicView #thumbnail_dim {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 1;
+    background: none;
+}
+
+#music_musicView #thumbnail_dim:hover {
+    background:rgba(0, 0, 0, 0.3);
+}
+
+#music_musicView .info {
+    width: 672px;
+    height: 211px;
+    display: inline-block;
+    padding-left: 34px;
+    padding-top: 30px;
+}
+
+#music_musicView .info ul {
+    height: 152px;
+    margin: 0;
+    padding: 0;
+}
+
+
+#music_musicView .info ul li {
+    width: 100%;
+    height: 20px;
+    color: #333333;
+}
+
+#music_musicView .info a {
+    width: max-content;
+}
+
+#music_musicView .info a:visited {
+    color: #333333;
+}
+
+#music_musicView .info .iconList {
+    width: 160px;
+    height: 20px;
+    margin-top: 10px;
+}
+
+#music_musicView .info .iconList li {
+    float: left;
+    width: 20px;
+    height: 20px;
+    position: relative;
+    margin-right: 20px;
+}
+
+#music_musicView .info .iconList li:nth-of-type(1) {
+    padding-left: 0;
+}
+
+#music_musicView .info .iconList a {
+    cursor: pointer;
+}

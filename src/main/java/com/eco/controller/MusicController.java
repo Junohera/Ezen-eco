@@ -1,6 +1,7 @@
 package com.eco.controller;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -163,7 +164,42 @@ public class MusicController {
 
 
 	@RequestMapping(value = "/musicView", method = RequestMethod.GET)
-	public String musicView(Model model, HttpServletRequest request) {
+	public String musicView(Model model, HttpServletRequest request
+			, @RequestParam("mseq") int mseq) {
+
+		MusicVO music = ms.getMusic(mseq);
+
+		// 유사곡 = 장르가 같은 곡(대신 상세로 들어온 곡과 다른 곡만 취급 -> 자바단에서 해보자...)
+		List<MusicVO> musicListByGenre = ms.musicListByGenre(music.getGseq());
+		musicListByGenre = musicListByGenre.stream().filter(m -> {
+			return m.getMseq() != music.getMseq();
+		}).collect(Collectors.toList());
+		
+		MemberVO loginUser = (MemberVO) request.getSession().getAttribute("loginUser");
+		
+		if (loginUser != null) {
+			List<BundleVO> bundleList = bundleService.listBundle(loginUser.getUseq());
+			for (BundleVO b : bundleList) {
+				List<MusicVO> musicListByBundle = ms.musicListByBundle(b.getBmseq());
+				b.setMusicList(musicListByBundle);
+			}
+
+			model.addAttribute("bundleList", bundleList);
+
+			// 로그인유저의 무시목록건 뺀 뮤직목록으로 
+			musicListByGenre = ms.ignoreBanList(musicListByGenre, loginUser.getUseq());
+
+			// 좋아요한 곡의 시퀀스 목록
+			model.addAttribute("likeMusicList", ms.likeMusicListByUseq(loginUser.getUseq()));
+
+			// 무시한 곡의 시퀀스 목록
+			model.addAttribute("banMusicList", ms.banMusicListByUseq(loginUser.getUseq()));
+		}
+		
+		model.addAttribute("music", music);
+		
+		model.addAttribute("musicList", musicListByGenre);
+		
 		return "music/musicView";
 	}
 	
@@ -202,8 +238,6 @@ public class MusicController {
 
 			return false;
 		} else {
-			System.out.println("music #########################################");
-			System.out.println(music);
 			// 넘어온 값에 따라 like에 insert 다만, mseq일경우 ban에서 제거하고 insert
 			if (music.getAtseq() != 0) {
 				ms.unlikeArtist(loginUser.getUseq(), music.getAtseq());
@@ -227,6 +261,20 @@ public class MusicController {
 			return false;
 		} else {
 			ms.banMusic(loginUser.getUseq(), mseq);
+			return true;
+		}		
+	}
+
+	@RequestMapping(value = "/unban", method = RequestMethod.POST)
+	public @ResponseBody boolean unban(Model model, HttpServletRequest request
+			, @RequestBody int mseq
+			) {
+		// 세션에서 유저값
+		MemberVO loginUser = (MemberVO) request.getSession().getAttribute("loginUser");
+		if (loginUser == null) {
+			return false;
+		} else {
+			ms.unbanMusic(loginUser.getUseq(), mseq);
 			return true;
 		}		
 	}

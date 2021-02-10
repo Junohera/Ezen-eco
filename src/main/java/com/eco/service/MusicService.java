@@ -108,6 +108,10 @@ public class MusicService {
 		md.unbanMusic(useq, mseq);
 	}
 
+	public List<Integer> banMusicListByUseq(int useq) {
+		return md.banListByUseq(useq);
+	}
+
 	public List<MusicVO> ignoreBanList(List<MusicVO> musicList, int useq) {
 		// 유저의 ban 목록
 		List<Integer> banMseqList = md.banListByUseq(useq);
