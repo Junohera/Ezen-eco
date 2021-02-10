@@ -277,6 +277,7 @@ select
     , ab.img as abimg
     , ab.content as abcontent
     , ab.pdate as pdate
+	, ab.abtype
     , at.atseq
     , at.name
     , at.groupyn
@@ -301,6 +302,7 @@ select
     , ab.img
     , ab.content
     , ab.pdate
+	, ab.abtype
     , at.atseq
     , at.name
     , at.groupyn

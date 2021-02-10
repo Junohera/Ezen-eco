@@ -11,6 +11,7 @@ public class AlbumVO {
 	private String title;
 	private String img;
 	private String content;
+	private String abtype;
 	private Timestamp pdate;
 
 	private String name;
