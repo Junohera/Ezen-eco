@@ -68,15 +68,15 @@
     </div>
 
     <ul id="trackAndAlbum">
-        <li class="selectTab">
+        <li <c:if test="${empty search.tab or search.tab eq 'track'}"> class="selectTab"</c:if>>
             <a>곡</a>
         </li> 
-        <li>
+        <li <c:if test="${search.tab eq 'album'}"> class="selectTab"</c:if>>
             <a>앨범</a>
         </li>
     </ul>
 
-    <div id="trackBox">
+    <div id="trackBox" <c:if test="${search.tab ne 'track'}">style="display:none;"</c:if>>
         <ul class="filterList">
             <li style="float:left;">
                 <!-- 전체듣기 -->
@@ -87,21 +87,53 @@
                     전체듣기
                 </a>
             </li>
-            <li><a href="artistView?atseq=${artist.atseq}&tab=track&searchFilter=titleDesc">가나다순</a></li>
-            <li><a href="artistView?atseq=${artist.atseq}&tab=track&searchFilter=pdateDesc">최신순</a></li>
-            <li><a href="artistView?atseq=${artist.atseq}&tab=track&searchFilter=albumLikeDesc">인기순</a></li>
-            <li><a href="artistView?atseq=${artist.atseq}&tab=track" class="selectedFilter">전체</a></li>
+            <li>
+                <a href="artistView?atseq=${artist.atseq}&tab=track&searchFilter=titleAsc"<c:if test="${search.tab eq 'track' and not empty search.searchFilter and search.searchFilter eq 'titleAsc'}">class="selectedFilter"</c:if>>
+                    가나다순
+                </a>
+            </li>
+            <li>
+                <a href="artistView?atseq=${artist.atseq}&tab=track&searchFilter=pdateDesc"<c:if test="${search.tab eq 'track' and not empty search.searchFilter and search.searchFilter eq 'pdateDesc'}">class="selectedFilter"</c:if>>
+                    최신순
+                </a>
+            </li>
+            <li>
+                <a href="artistView?atseq=${artist.atseq}&tab=track&searchFilter=musiclikeDesc"<c:if test="${search.tab eq 'track' and not empty search.searchFilter and search.searchFilter eq 'musiclikeDesc'}">class="selectedFilter"</c:if>>
+                    인기순
+                </a>
+            </li>
+            <li>
+                <a href="artistView?atseq=${artist.atseq}&tab=track"<c:if test="${empty search.searchFilter}">class="selectedFilter"</c:if>>
+                    전체
+                </a>
+            </li>
         </ul>
 
         <%@ include file="../include/musicList.jsp" %>
     </div>
 
-    <div id="albumBox" style="display:none;">
+    <div id="albumBox" <c:if test="${search.tab ne 'album'}">style="display:none;"</c:if>>
         <ul class="filterList">
-            <li><a href="artistView?atseq=${artist.atseq}&tab=album&searchFilter=titleDesc">가나다순</a></li>
-            <li><a href="artistView?atseq=${artist.atseq}&tab=album&searchFilter=pdateDesc">최신순</a></li>
-            <li><a href="artistView?atseq=${artist.atseq}&tab=album&searchFilter=albumLikeDesc">인기순</a></li>
-            <li><a href="artistView?atseq=${artist.atseq}&tab=album" class="selectedFilter">전체</a></li>
+            <li>
+                <a href="artistView?atseq=${artist.atseq}&tab=album&searchFilter=titleAsc" <c:if test="${search.tab eq 'album' and not empty search.searchFilter and search.searchFilter eq 'titleAsc'}">class="selectedFilter"</c:if>>
+                    가나다순
+                </a>
+            </li>
+            <li>
+                <a href="artistView?atseq=${artist.atseq}&tab=album&searchFilter=pdateDesc" <c:if test="${search.tab eq 'album' and not empty search.searchFilter and search.searchFilter eq 'pdateDesc'}">class="selectedFilter"</c:if>>
+                    최신순
+                </a>
+            </li>
+            <li>
+                <a href="artistView?atseq=${artist.atseq}&tab=album&searchFilter=albumLikeDesc" <c:if test="${search.tab eq 'album' and not empty search.searchFilter and search.searchFilter eq 'albumLikeDesc'}">class="selectedFilter"</c:if>>
+                    인기순
+                </a>
+            </li>
+            <li>
+                <a href="artistView?atseq=${artist.atseq}&tab=album" <c:if test="${empty search.searchFilter}">class="selectedFilter"</c:if>>
+                    전체
+                </a>
+            </li>
         </ul>
 
         <%@ include file="../include/albumList.jsp" %>

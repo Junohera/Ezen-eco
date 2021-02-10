@@ -9,6 +9,7 @@ import com.eco.dto.ArtistVO;
 import com.eco.dto.ChartVO;
 import com.eco.dto.GenreVO;
 import com.eco.dto.MusicVO;
+import com.eco.dto.SearchDTO;
 import com.eco.dto.ThemeVO;
 
 @Mapper
@@ -68,5 +69,9 @@ public interface IMusicDao {
 	List<Integer> likeAlbumListByUseq(int useq);
 	
 	List<Integer> likeArtistListByUseq(int useq);
+
+	List<AlbumVO> albumListByArtistUseSearchDTO(SearchDTO searchDTO);
+
+	List<MusicVO> musicListByArtistUseSearchDTO(SearchDTO searchDTO);
 
 }

@@ -44,6 +44,16 @@
 	<select id="musicListByArtist" resultType="com.eco.dto.MusicVO">
 		select * from music_view where atseq = #{param1}
 	</select>
+	<select id="musicListByArtistUseSearchDTO" parameterType="com.eco.dto.SearchDTO" resultType="com.eco.dto.MusicVO">
+		select * from music_view where atseq = #{atseq}
+		ORDER BY
+		<choose>
+				<when test='searchFilter != null and searchFilter == "titleAsc"'>title asc</when>
+				<when test='searchFilter != null and searchFilter == "pdateDesc"'>pdate desc</when>
+				<when test='searchFilter != null and searchFilter == "musiclikeDesc"'>mseq asc</when>
+				<otherwise>mseq desc</otherwise>
+		</choose>
+	</select>
 	<!-- 메인에서 번들마스터에 의한 곡목록  -->
 	<select id="musicListByBundle" resultType="com.eco.dto.MusicVO">
 		select bd.bdseq, m.* from bundle_detail bd
@@ -58,6 +68,10 @@
 	<!-- 아티스트에 의한 앨범목록 -->
 	<select id="albumListByArtist" resultType="com.eco.dto.AlbumVO">
 		select * from album_view where atseq = #{param1}
+	</select>
+	
+	<select id="albumListByArtistUseSearchDTO" parameterType="com.eco.dto.SearchDTO" resultType="com.eco.dto.AlbumVO">
+		select * from album_view where atseq = #{atseq}
 	</select>
 <!-- 어떤것에 의한 앨범목록 -->
 

@@ -12,6 +12,7 @@ import com.eco.dto.ArtistVO;
 import com.eco.dto.ChartVO;
 import com.eco.dto.GenreVO;
 import com.eco.dto.MusicVO;
+import com.eco.dto.SearchDTO;
 
 @Service
 public class MusicService {
@@ -134,6 +135,15 @@ public class MusicService {
 
 	public List<Integer> likeArtistListByUseq(int useq) {
 		return md.likeArtistListByUseq(useq);
+	}
+	
+	/* 검색필터 테스트용 */
+	public List<AlbumVO> albumListByArtist(SearchDTO searchDTO) {
+		return md.albumListByArtistUseSearchDTO(searchDTO);
+	}
+
+	public List<MusicVO> musicListByArtist(SearchDTO searchDTO) {
+		return md.musicListByArtistUseSearchDTO(searchDTO);
 	}
 
 }

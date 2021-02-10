@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,6 +22,7 @@ import com.eco.dto.ChartVO;
 import com.eco.dto.GenreVO;
 import com.eco.dto.MemberVO;
 import com.eco.dto.MusicVO;
+import com.eco.dto.SearchDTO;
 import com.eco.service.BundleService;
 import com.eco.service.MusicService;
 
@@ -125,10 +127,15 @@ public class MusicController {
 
 	@RequestMapping(value = "/artistView", method = RequestMethod.GET)
 	public String artistView(Model model, HttpServletRequest request
-			, @RequestParam("atseq") int atseq) {
+			, @RequestParam("atseq") int atseq
+			, @ModelAttribute("search") SearchDTO searchDTO) {
+		
+		System.out.println("System.out.println(searchDTO);");
+		System.out.println(searchDTO);
+		
 		ArtistVO artist = ms.getArtist(atseq);
-		List<AlbumVO> albumListByArtist = ms.albumListByArtist(atseq);
-		List<MusicVO> musicListByArtist = ms.musicListByArtist(atseq);
+		List<AlbumVO> albumListByArtist = ms.albumListByArtist(searchDTO);
+		List<MusicVO> musicListByArtist = ms.musicListByArtist(searchDTO);
 		
 		MemberVO loginUser = (MemberVO) request.getSession().getAttribute("loginUser");
 		
