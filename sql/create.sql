@@ -130,6 +130,7 @@ create table album (
 	img varchar2(500),
 	content varchar2(3000),
 	abtype varchar2(10), -- 정규, 미니, 싱글, OST, 디지털싱글
+	gseq number(5) references genre(gseq),
 	pdate date not null -- 앨범 발매일 필수
 );
 
@@ -278,6 +279,7 @@ select
     , ab.content as abcontent
     , ab.pdate as pdate
 	, ab.abtype
+	, ab.gseq as abgseq
     , at.atseq
     , at.name
     , at.groupyn
@@ -303,6 +305,7 @@ select
     , ab.content
     , ab.pdate
 	, ab.abtype
+	, ab.gseq
     , at.atseq
     , at.name
     , at.groupyn

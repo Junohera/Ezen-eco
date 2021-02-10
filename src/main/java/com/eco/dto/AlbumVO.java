@@ -12,6 +12,7 @@ public class AlbumVO {
 	private String img;
 	private String content;
 	private String abtype;
+	private int gseq;
 	private Timestamp pdate;
 
 	private String name;

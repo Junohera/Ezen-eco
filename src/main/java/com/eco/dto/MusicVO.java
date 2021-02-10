@@ -19,6 +19,8 @@ public class MusicVO {
 	private String abtitle;
 	private String abimg;
 	private String abcontent;
+	private String abtype;
+	private int abgseq;
 	private Timestamp pdate;
 	private String name;
 	private String groupyn;
