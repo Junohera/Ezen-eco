@@ -1,5 +1,14 @@
 -- member
-insert into member(useq, id, pw, name, phone, gender) values(member_seq.nextval, 'selectjuno@gmail.com', '1234', 'juno', '010-2172-7798', 'M');
+insert into member(useq, id, pw, name, phone, gender) values(member_seq.nextval, 'selectjuno@gmail.com', '1234', 'juno', '010-2172-7790', 'M');
+insert into member(useq, id, pw, name, phone, gender) values(member_seq.nextval, 'selectjuno1@gmail.com', '1234', 'juno', '010-2172-7791', 'M');
+insert into member(useq, id, pw, name, phone, gender) values(member_seq.nextval, 'selectjuno2@gmail.com', '1234', 'juno', '010-2172-7792', 'M');
+insert into member(useq, id, pw, name, phone, gender) values(member_seq.nextval, 'selectjuno3@gmail.com', '1234', 'juno', '010-2172-7793', 'M');
+insert into member(useq, id, pw, name, phone, gender) values(member_seq.nextval, 'selectjuno4@gmail.com', '1234', 'juno', '010-2172-7794', 'M');
+insert into member(useq, id, pw, name, phone, gender) values(member_seq.nextval, 'selectjuno5@gmail.com', '1234', 'juno', '010-2172-7795', 'M');
+insert into member(useq, id, pw, name, phone, gender) values(member_seq.nextval, 'selectjuno6@gmail.com', '1234', 'juno', '010-2172-7796', 'M');
+insert into member(useq, id, pw, name, phone, gender) values(member_seq.nextval, 'selectjuno7@gmail.com', '1234', 'juno', '010-2172-7797', 'M');
+insert into member(useq, id, pw, name, phone, gender) values(member_seq.nextval, 'selectjuno8@gmail.com', '1234', 'juno', '010-2172-7798', 'M');
+insert into member(useq, id, pw, name, phone, gender) values(member_seq.nextval, 'selectjuno9@gmail.com', '1234', 'juno', '010-2172-7799', 'M');
 
 -- admin
 insert into admin(aseq, id, pw) values(admin_seq.nextval, 'admin', 'admin');
@@ -111,12 +120,51 @@ insert into taste_detail(tstdseq, atseq, cseq, gseq) values (taste_detail_seq.ne
 
 -- music_like
 insert into music_like(mseq, useq) values(1, 1);
+insert into music_like(mseq, useq) values(1, 2);
+insert into music_like(mseq, useq) values(1, 3);
+insert into music_like(mseq, useq) values(1, 4);
+insert into music_like(mseq, useq) values(1, 5);
+insert into music_like(mseq, useq) values(1, 6);
+insert into music_like(mseq, useq) values(1, 7);
+insert into music_like(mseq, useq) values(1, 8);
+insert into music_like(mseq, useq) values(1, 9);
+insert into music_like(mseq, useq) values(2, 1);
+insert into music_like(mseq, useq) values(2, 2);
+insert into music_like(mseq, useq) values(2, 3);
+insert into music_like(mseq, useq) values(2, 4);
+insert into music_like(mseq, useq) values(2, 5);
 
 -- album_like
-insert into album_like(useq, abseq) values(1, 1);
+insert into album_like(abseq, useq) values(1, 1);
+insert into album_like(abseq, useq) values(1, 2);
+insert into album_like(abseq, useq) values(1, 3);
+insert into album_like(abseq, useq) values(1, 4);
+insert into album_like(abseq, useq) values(1, 5);
+insert into album_like(abseq, useq) values(1, 6);
+insert into album_like(abseq, useq) values(1, 7);
+insert into album_like(abseq, useq) values(1, 8);
+insert into album_like(abseq, useq) values(1, 9);
+insert into album_like(abseq, useq) values(2, 1);
+insert into album_like(abseq, useq) values(2, 2);
+insert into album_like(abseq, useq) values(2, 3);
+insert into album_like(abseq, useq) values(2, 4);
+insert into album_like(abseq, useq) values(2, 5);
 
 -- artist_like
-insert into artist_like(useq, atseq) values(1, 1);
+insert into artist_like(atseq, useq) values(1, 1);
+insert into artist_like(atseq, useq) values(1, 2);
+insert into artist_like(atseq, useq) values(1, 3);
+insert into artist_like(atseq, useq) values(1, 4);
+insert into artist_like(atseq, useq) values(1, 5);
+insert into artist_like(atseq, useq) values(1, 6);
+insert into artist_like(atseq, useq) values(1, 7);
+insert into artist_like(atseq, useq) values(1, 8);
+insert into artist_like(atseq, useq) values(1, 9);
+insert into artist_like(atseq, useq) values(2, 1);
+insert into artist_like(atseq, useq) values(2, 2);
+insert into artist_like(atseq, useq) values(2, 3);
+insert into artist_like(atseq, useq) values(2, 4);
+insert into artist_like(atseq, useq) values(2, 5);
 
 -- music_reply
 insert into music_reply(rseq, mseq, useq, content) values(music_reply_seq.nextval, 1, 1, '개조아여');
@@ -133,15 +181,3 @@ insert into qReply(qrseq, qseq, aseq, content) values(qReply_seq.nextval, 1, 1, 
 
 -- notice
 insert into notice(nseq, title, content) values(notice_seq.nextval, 'title', 'content');
-
-
-insert into member(useq, id, pw, name, phone, gender) values(member_seq.nextval, 'selectjuno1@gmail.com', '1234', 'juno1', '010-2172-7791', 'M');
-insert into member(useq, id, pw, name, phone, gender) values(member_seq.nextval, 'selectjuno2@gmail.com', '1234', 'juno2', '010-2172-7792', 'M');
-insert into member(useq, id, pw, name, phone, gender) values(member_seq.nextval, 'selectjuno3@gmail.com', '1234', 'juno3', '010-2172-7793', 'M');
-insert into member(useq, id, pw, name, phone, gender) values(member_seq.nextval, 'selectjuno4@gmail.com', '1234', 'juno4', '010-2172-7794', 'M');
-insert into member(useq, id, pw, name, phone, gender) values(member_seq.nextval, 'selectjuno5@gmail.com', '1234', 'juno5', '010-2172-7795', 'M');
-insert into member(useq, id, pw, name, phone, gender) values(member_seq.nextval, 'selectjuno6@gmail.com', '1234', 'juno6', '010-2172-7796', 'M');
-insert into member(useq, id, pw, name, phone, gender) values(member_seq.nextval, 'selectjuno7@gmail.com', '1234', 'juno7', '010-2172-7797', 'M');
-insert into member(useq, id, pw, name, phone, gender) values(member_seq.nextval, 'selectjuno8@gmail.com', '1234', 'juno8', '010-2172-7788', 'M');
-insert into member(useq, id, pw, name, phone, gender) values(member_seq.nextval, 'selectjuno9@gmail.com', '1234', 'juno9', '010-2172-7799', 'M');
-insert into member(useq, id, pw, name, phone, gender) values(member_seq.nextval, 'selectjuno0@gmail.com', '1234', 'juno0', '010-2172-7790', 'M');
