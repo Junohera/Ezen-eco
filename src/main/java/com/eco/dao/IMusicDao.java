@@ -33,6 +33,10 @@ public interface IMusicDao {
 	List<MusicVO> musicListByTheme(int tseq);
 
 	List<MusicVO> musicListByBundle(int bmseq);
+	
+	List<MusicVO> musicListByArtist(int atseq);
+	
+	List<AlbumVO> albumListByArtist(int atseq);
 
 	MusicVO getMusic(int mseq);
 
@@ -64,5 +68,5 @@ public interface IMusicDao {
 	List<Integer> likeAlbumListByUseq(int useq);
 	
 	List<Integer> likeArtistListByUseq(int useq);
-	
+
 }

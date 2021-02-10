@@ -2,7 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eco.dao.IMusicDao">
 
-
 <!-- 210208 추가 (Main 사용) -->
 	<select id="getNewList" resultType="com.eco.dto.MusicVO">
 		select * from music_view order by pdate desc
@@ -42,6 +41,9 @@
 	<select id="musicListByAlbum" resultType="com.eco.dto.MusicVO">
 		select * from music_view where abseq = #{param1}
 	</select>
+	<select id="musicListByArtist" resultType="com.eco.dto.MusicVO">
+		select * from music_view where atseq = #{param1}
+	</select>
 	<!-- 메인에서 번들마스터에 의한 곡목록  -->
 	<select id="musicListByBundle" resultType="com.eco.dto.MusicVO">
 		select bd.bdseq, m.* from bundle_detail bd
@@ -51,6 +53,14 @@
 	</select>
 <!-- 어떤것에 의한 곡목록 -->
 
+<!-- 어떤것에 의한 앨범목록 -->
+
+	<!-- 아티스트에 의한 앨범목록 -->
+	<select id="albumListByArtist" resultType="com.eco.dto.AlbumVO">
+		select * from album_view where atseq = #{param1}
+	</select>
+<!-- 어떤것에 의한 앨범목록 -->
+
 <!-- 단건 -->
 	<select id="getMusic" resultType="com.eco.dto.MusicVO">
 		select * from music_view where mseq = #{param1}
@@ -59,7 +69,7 @@
 		select * from album_view where abseq = #{param1}
 	</select>
 	<select id="getArtist" resultType="com.eco.dto.ArtistVO">
-		select * from artist where atseq = #{param1}
+		select * from artist_view where atseq = #{param1}
 	</select>
 <!-- 단건 -->
 

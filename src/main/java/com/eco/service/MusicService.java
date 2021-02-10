@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.eco.dao.IMusicDao;
 import com.eco.dto.AlbumVO;
+import com.eco.dto.ArtistVO;
 import com.eco.dto.ChartVO;
 import com.eco.dto.GenreVO;
 import com.eco.dto.MusicVO;
@@ -45,6 +46,14 @@ public class MusicService {
 	public List<MusicVO> musicListByBundle(int bmseq) {
 		return md.musicListByBundle(bmseq);
 	}
+	
+	public List<MusicVO> musicListByArtist(int atseq) {
+		return md.musicListByArtist(atseq);
+	}
+	
+	public List<AlbumVO> albumListByArtist(int atseq) {
+		return md.albumListByArtist(atseq);
+	}
 
 	public List<MusicVO> getNewList() {
 		return md.getNewList();
@@ -59,6 +68,10 @@ public class MusicService {
 
 	public AlbumVO getAlbum(int abseq) {
 		return md.getAlbum(abseq);
+	}
+	
+	public ArtistVO getArtist(int atseq) {
+		return md.getArtist(atseq);
 	}
 
 	public void likeArtist(int useq, int mseq) {
@@ -118,5 +131,5 @@ public class MusicService {
 	public List<Integer> likeArtistListByUseq(int useq) {
 		return md.likeArtistListByUseq(useq);
 	}
-	
+
 }

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.eco.dto.AlbumVO;
+import com.eco.dto.ArtistVO;
 import com.eco.dto.BundleVO;
 import com.eco.dto.ChartVO;
 import com.eco.dto.GenreVO;
@@ -122,7 +123,40 @@ public class MusicController {
 	}
 
 	@RequestMapping(value = "/artistView", method = RequestMethod.GET)
-	public String artistView(Model model, HttpServletRequest request) {
+	public String artistView(Model model, HttpServletRequest request
+			, @RequestParam("atseq") int atseq) {
+		ArtistVO artist = ms.getArtist(atseq);
+		List<AlbumVO> albumListByArtist = ms.albumListByArtist(atseq);
+		List<MusicVO> musicListByArtist = ms.musicListByArtist(atseq);
+		
+		MemberVO loginUser = (MemberVO) request.getSession().getAttribute("loginUser");
+		
+		if (loginUser != null) {
+			List<BundleVO> bundleList = bundleService.listBundle(loginUser.getUseq());
+			for (BundleVO b : bundleList) {
+				List<MusicVO> musicListByBundle = ms.musicListByBundle(b.getBmseq());
+				b.setMusicList(musicListByBundle);
+			}
+			
+			// 로그인한 유저의 내 리스트
+			model.addAttribute("bundleList", bundleList);
+
+			// 좋아요한 곡의 시퀀스 목록
+			model.addAttribute("likeMusicList", ms.likeMusicListByUseq(loginUser.getUseq()));
+			
+			// 좋아요한 앨범의 시퀀스 목록
+			model.addAttribute("likeAlbumList", ms.likeAlbumListByUseq(loginUser.getUseq()));
+
+			// 좋아요한 아티스트의 시퀀스 목록
+			model.addAttribute("likeArtistList", ms.likeArtistListByUseq(loginUser.getUseq()));
+		}
+		
+		model.addAttribute("artist", artist);
+		
+		model.addAttribute("albumList", albumListByArtist);
+
+		model.addAttribute("musicList", musicListByArtist);
+		
 		return "music/artistView";
 	}
 	
