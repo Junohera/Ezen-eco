@@ -11,11 +11,18 @@
         <c:otherwise>
             <c:forEach var="album" items="${albumList}" varStatus="status">
                 <li class="albumItem">
+                    <c:forEach var="likeAbseq" items="${likeAlbumList}">
+                        <c:if test="${likeAbseq eq album.abseq}">
+                            <input type="hidden" name="albumlikeyn" value="y">
+                        </c:if>
+                    </c:forEach>
                     <div class="album">
                         <div class="thumbnail">
-                            <img src="${album.img}" style="width: 100%;height: 100%;">
+                            <a href="albumView?abseq=${album.abseq}">
+                                <img src="${album.img}" style="width: 100%;height: 100%;">
+                            </a>
                             <div id="thumbnail_dim"></div>
-                            <span onclick="$('#playListAddAll').trigger('click');">
+                            <span onclick="console.log('앨범 곡 추가는 앨범상세에서 하세요');" style="cursor:pointer;">
                                 <i class="fas fa-play"></i>
                             </span>
                         </div>
@@ -27,7 +34,7 @@
                                     </a>
                                 </li>
                                 <li style="font-size: 14px;font-weight:100;height: max-content;color:#333333;">
-                                    <a style="color:#333333;" href="artistView?atseq=${album.atseq}">
+                                    <a style="color:#333333;cursor: pointer;">
                                         ${album.name}
                                     </a>
                                 </li>
@@ -38,12 +45,12 @@
                             </ul>
                             <ul class="iconList">
                                 <li>
-                                    <a class="iconButton playListAdd" onclick="$music.method.musicList.playListAddAll($('#listBox .musicTr'));">
+                                    <a class="iconButton playListAdd" onclick="">
                                         <span style="font-size: 16px; color: #333333;"><i class="fas fa-outdent"></i></span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="iconButton myListAdd" onclick="$music.method.myList.on_listByDetail();">
+                                    <a class="iconButton myListAdd" onclick="">
                                         <span style="font-size: 16px; color: #333333;"><i class="fas fa-folder-plus"></i></span>
                                     </a>
                                 </li>

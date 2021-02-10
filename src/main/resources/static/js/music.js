@@ -786,16 +786,21 @@ $(function() {
 	/* <div id="myListBox" style="display:none;"> */
 
 	/* albumView, artistView */
-	if ($("input[name=albumlikeyn]").length > 0) {
-		$(".album .info .like").remove();
-	} else {
-		$(".album .info .unlike").remove();
-	}
 
-	if ($("input[name=artistlikeyn]").length > 0) {
-		$(".artist .info .like").remove();
-	} else {
-		$(".artist .info .unlike").remove();
+	if ($("#music_artistView").length > 0) {
+		if ($("input[name=artistlikeyn]").length > 0) {
+			$(".artist .info .like").remove();
+		} else {
+			$(".artist .info .unlike").remove();
+		}
+
+		$("#music_artistView .albumItem").each(function(index, el) {
+			if ($(el).find("input[name=albumlikeyn]").length > 0) {
+				$(el).find(".album .info .like").remove();
+			} else {
+				$(el).find(".album .info .unlike").remove();
+			}
+		});
 	}
 
 	$("#infoAndTrack li").on("click", function() {
