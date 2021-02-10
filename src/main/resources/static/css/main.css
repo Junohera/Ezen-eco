@@ -240,3 +240,10 @@
     top: 0px;
     left: 0px;
 }
+
+/* 한줄 넘침 ...표시 */
+.singleline-ellipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
