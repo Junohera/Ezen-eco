@@ -129,6 +129,7 @@ create table album (
 	title varchar2(50) not null,
 	img varchar2(500),
 	content varchar2(3000),
+	abtype varchar2(10), -- 정규, 미니, 싱글, OST, 디지털싱글
 	pdate date not null -- 앨범 발매일 필수
 );
 
