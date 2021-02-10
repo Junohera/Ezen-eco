@@ -20,7 +20,15 @@
 	<link rel="stylesheet" href="css/member.css"> <!-- 멤버 -->
 </c:if>
 
-<link rel="stylesheet" href="css/music.css"> <!-- 둘러보기 및 음악관련 -->
+<c:if test="${
+	fn:contains(pageContext.request.requestURI,'music/browse')
+	or fn:contains(pageContext.request.requestURI,'music/musicView')
+	or fn:contains(pageContext.request.requestURI,'music/albumView')
+	or fn:contains(pageContext.request.requestURI,'music/artistView')
+}">
+	<link rel="stylesheet" href="css/music.css"> <!-- 둘러보기 및 음악관련 -->
+</c:if>
+
 <link rel="stylesheet" href="css/mypage.css"> <!-- 내보관함 -->
 <link rel="stylesheet" href="css/board.css"> <!-- 공지사항, qna, 게시판 -->
 
