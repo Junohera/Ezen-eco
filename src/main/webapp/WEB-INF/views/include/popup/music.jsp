@@ -104,8 +104,8 @@
                         <div class="textBox">
                             <input type="text" name="title" class="inputText" placeholder="내 리스트 이름을 입력해주세요">
                         </div>
-                        <input class="btn" type="button" value="확인" style="color: #3f3fff;" onclick="$music.method.myList.addBundleMaster($(this));$(this).closest('.form').hide();$(this).closest('.form').prev().show();">
-                        <input class="btn" type="reset" value="취소" onclick="$(this).closest('.form').hide();$(this).closest('.form').prev().show();">
+                        <input class="btn" type="button" value="확인" style="color: #3f3fff;">
+                        <input class="btn" type="reset" value="취소">
                         <a class="close" onclick="document.addBundleMaster.title.value='';">
                             <span style="color: #333333;">
                                 <i class="fas fa-times"></i>

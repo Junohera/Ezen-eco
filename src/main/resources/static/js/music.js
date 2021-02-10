@@ -520,30 +520,33 @@ $music.method = {
 			};
 
 			if (parameter.title.length === 0) {
-				return alert("제목을 입력하세요");
+				alert("제목을 입력하세요");
+				return false;
+			} else {
+				$.ajax({
+					url: 'addBundleMaster',
+					type: 'post',
+					data: JSON.stringify(parameter),
+					contentType: 'application/json',
+					dataType: 'json'
+				  })
+				.done(function(response) {
+					// 성공 시 동작
+	
+					var template = `
+						<div class="bundleList">
+							<input type="hidden" name="bmseq" value="${response.bmseq}">
+							<input type="hidden" name="title" value="${response.title}">
+							<ul>
+								<li><div><span style="color: white;"><i class="fas fa-music"></i></span></div></li>
+								<li><div><ul><li>${response.title}</li><li>0곡</li></ul></div></li>
+							</ul>
+						</div>
+					`;
+					$("#myListBoxBundleBox").prepend(template);
+				});
+				return true;
 			}
-			$.ajax({
-				url: 'addBundleMaster',
-				type: 'post',
-				data: JSON.stringify(parameter),
-				contentType: 'application/json',
-				dataType: 'json'
-			  })
-			.done(function(response) {
-				// 성공 시 동작
-
-				var template = `
-					<div class="bundleList">
-						<input type="hidden" name="bmseq" value="${response.bmseq}">
-						<input type="hidden" name="title" value="${response.title}">
-						<ul>
-							<li><div><span style="color: white;"><i class="fas fa-music"></i></span></div></li>
-							<li><div><ul><li>${response.title}</li><li>0곡</li></ul></div></li>
-						</ul>
-					</div>
-				`;
-				$("#myListBoxBundleBox").prepend(template);
-			});
 		};
 
 		var addBundleDetail = function(bundleMaster) {
@@ -768,6 +771,18 @@ $(function() {
 		$music.method.myList.addBundleDetail(bundleMaster);
 	});
 
+	$("form[name=addBundleMaster]").on("click", "input[type=button]", function() {
+		if ($music.method.myList.addBundleMaster($(this))) {
+			$(this).closest('.form').hide();
+			$(this).closest('.form').prev().show();
+		}
+	});
+
+	$("form[name=addBundleMaster]").on("click", "input[type=reset]", function() {
+		$(this).closest('.form').hide();
+		$(this).closest('.form').prev().show();
+	});
+
 	/* <div id="myListBox" style="display:none;"> */
 
 	/* albumView, artistView */
@@ -795,6 +810,8 @@ $(function() {
 			$("#infoBox").hide()
 			$("#trackBox").show();
 		}
+
+		$("body").scrollTop(0);
 	});
 	/* albumView, artistView */
 
