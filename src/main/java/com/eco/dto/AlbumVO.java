@@ -15,12 +15,13 @@ public class AlbumVO {
 	private int gseq;
 	private Timestamp pdate;
 
+	private String abgenre;
 	private String name;
 	private String groupyn;
 	private String gender;
 	private int atgseq;
-	private String atimg;
 	private String atgenre;
+	private String atimg;
 	private String description;
 	
 	private int useq;

@@ -306,6 +306,7 @@ select
     , ab.pdate
 	, ab.abtype
 	, ab.gseq
+    , abg.title as abgenre
     , at.atseq
     , at.name
     , at.groupyn
@@ -313,12 +314,14 @@ select
     , at.gseq as atgseq
     , at.img as atimg
     , at.description
-	, g.title as atgenre
+	, atg.title as atgenre
 from album ab
     left join artist at
     	on at.atseq = ab.atseq
-	left join genre g
-		on g.gseq = at.gseq;
+    left join genre abg
+        on abg.gseq = ab.gseq
+	left join genre atg
+		on atg.gseq = at.gseq;
 
 create or replace view artist_view -- 앨범
 as
@@ -330,7 +333,7 @@ select
 	, at.gseq
 	, at.img
 	, at.description
-	, g.title as genre
+	, g.title as atgenre
 from artist at
 	left join genre g
 		on g.gseq = at.gseq;

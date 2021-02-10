@@ -14,7 +14,7 @@ public class ArtistVO {
 	private String img;
 	private String description;
 
-	private String genre;
+	private String atgenre;
 
 	private List<AlbumVO> albumList;
 }

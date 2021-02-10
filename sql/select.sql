@@ -68,3 +68,16 @@ update album set pdate = sysdate;
 select * from album_like;
 
 insert into ALBUM_LIKE(useq, abseq) values(1, 3);
+
+select 
+    at.atseq
+	, at.name
+	, at.groupyn
+	, at.gender
+	, at.gseq
+	, at.img
+	, at.description
+	, g.title as genre
+from artist at
+	left join genre g
+		on g.gseq = at.gseq;
