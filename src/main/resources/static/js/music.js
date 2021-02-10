@@ -870,13 +870,11 @@ $(function() {
 			$("#trackBox").show();
 			$("#albumBox").hide();
 
-			location.href=$("#trackBox .filterList li").last().find("a").attr("href");
 		} else {
 			$("#listByCheckBox").hide(); // 탭이동해도 남아있는 경우 있음.
 			$("#trackBox").hide()
 			$("#albumBox").show();
 			
-			location.href=$("#albumBox .filterList li").last().find("a").attr("href");
 		}
 
 		$("body").scrollTop(0);

@@ -133,6 +133,10 @@ public class MusicController {
 		System.out.println("System.out.println(searchDTO);");
 		System.out.println(searchDTO);
 		
+		if (searchDTO.getTab() == null) {
+			searchDTO.setTab("track"); // default 탭은 track
+		}
+		
 		ArtistVO artist = ms.getArtist(atseq);
 		List<AlbumVO> albumListByArtist = ms.albumListByArtist(searchDTO);
 		List<MusicVO> musicListByArtist = ms.musicListByArtist(searchDTO);
