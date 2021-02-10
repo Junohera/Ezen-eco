@@ -18,6 +18,8 @@ public class MusicVO {
 	private String lyricsby;
 	private String producingby;
 	private String src;
+	private int rank;
+	private int likecount;
 
 	private String abtitle;
 	private String abimg;

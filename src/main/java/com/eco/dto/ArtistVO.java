@@ -13,6 +13,8 @@ public class ArtistVO {
 	private int gseq;
 	private String img;
 	private String description;
+	private int rank;
+	private int likecount;
 
 	private String atgenre;
 

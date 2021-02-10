@@ -14,6 +14,8 @@ public class AlbumVO {
 	private String abtype;
 	private int gseq;
 	private Timestamp pdate;
+	private int rank;
+	private int likecount;
 
 	private String abgenre;
 	private String name;
