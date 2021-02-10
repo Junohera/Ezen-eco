@@ -81,3 +81,36 @@ select
 from artist at
 	left join genre g
 		on g.gseq = at.gseq;
+
+-- 인기순 뮤직(좋아요 기록된 음악만)
+select
+    rank() over (order by mlikerank.likecount desc, mlikerank.mseq desc) as likerank
+    , mlikerank.likecount as likecount
+    , mv.*
+from (select mseq, count(*) as likecount from music_like group by mseq) mlikerank
+    left join music_view mv
+        on mv.mseq = mlikerank.mseq
+order by likerank asc;
+
+-- 인기순 앨범(좋아요 기록된 앨범만)
+select
+    rank() over (order by ablikerank.likecount desc, ablikerank.abseq desc) as likerank
+    , ablikerank.likecount as likecount
+    , abv.*
+from (select abseq, count(*) as likecount from album_like group by abseq) ablikerank
+    left join album_view abv
+        on abv.abseq = ablikerank.abseq
+order by likerank asc;
+
+-- 인기순 아티스트(좋아요 기록된 아티스트만)
+select
+    rank() over (order by atlikerank.likecount desc, atlikerank.atseq desc) as likerank
+    , atlikerank.likecount as likecount
+    , atv.*
+from (select atseq, count(*) as likecount from artist_like group by atseq) atlikerank
+    left join artist_view atv
+        on atv.atseq = atlikerank.atseq;
+
+select * from music_view;
+select * from album_view;
+select * from artist_view;
