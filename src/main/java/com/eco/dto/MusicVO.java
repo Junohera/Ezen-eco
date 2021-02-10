@@ -14,6 +14,9 @@ public class MusicVO {
 	private String content;
 	private String theme;
 	private String titleyn;	
+	private String musicby;
+	private String lyricsby;
+	private String producingby;
 	private String src;
 
 	private String abtitle;
