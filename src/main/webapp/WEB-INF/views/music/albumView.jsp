@@ -32,12 +32,9 @@
                         </a>
                     </li>
                     <li style="font-size: 15px;margin-bottom: 5px;font-weight:400;">
-                        <c:choose>
-                            <c:when test="${album.groupyn eq 'Y'}">그룹</c:when>
-                            <c:otherwise>싱글</c:otherwise>
-                        </c:choose>
+                        ${album.abtype}
                         <span style="display:inline;font-size: 8px;font-weight: 100;color:#969696;">l</span>
-                        ${album.atgenre}
+                        ${album.abgenre}
                     </li>
                     <li style="font-size: 15px; color: #969696;font-weight:100;"><fmt:formatDate value="${album.pdate}" pattern="yyyy.MM.dd"></fmt:formatDate></li>
                 </ul>
