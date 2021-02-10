@@ -37,7 +37,7 @@
         </h4>
     
         <!-- 전체듣기 -->
-        <a class="allListen iconButton" id="playListAddAll" style="cursor: pointer;">
+        <a class="allListen iconButton" id="playListAddAll" style="cursor: pointer;font-size: 12px;margin-bottom:20px;font-weight: 100;margin-left:20px">
             <span style="font-weight: 100; font-size: 10px; color: #333333;">
                 <i class="fas fa-play"></i>
             </span>

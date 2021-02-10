@@ -84,7 +84,7 @@
         </c:when>
         <c:otherwise>
             <tr>
-                <td colspan="8" style="text-align: center;">곡이 없습니다.</td>
+                <td colspan="8" style="text-align: center;font-size: 16px;font-weight: 100;height: 200px;">곡이 없습니다.</td>
             </tr>
         </c:otherwise>
     </c:choose>

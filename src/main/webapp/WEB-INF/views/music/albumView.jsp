@@ -21,8 +21,16 @@
             </div>
             <div class="info">
                 <ul>
-                    <li style="font-size: 28px;margin-bottom: 10px;height: 40px;">${album.title}</li>
-                    <li style="font-size: 16px;margin-bottom: 25px;font-weight:400;">${album.name}</li>
+                    <li style="font-size: 28px;margin-bottom: 10px;height: 40px;">
+                        <a href="albumView?abseq=${album.abseq}">
+                            ${album.title}
+                        </a>
+                    </li>
+                    <li style="font-size: 16px;margin-bottom: 25px;font-weight:400;">
+                        <a href="artistView?atseq=${album.atseq}">
+                            ${album.name}
+                        </a>
+                    </li>
                     <li style="font-size: 15px;margin-bottom: 5px;font-weight:400;">
                         <c:choose>
                             <c:when test="${album.groupyn eq 'Y'}">그룹</c:when>
@@ -61,7 +69,7 @@
         </div>
     </div>
 
-    <ul id="infoAndList">
+    <ul id="infoAndTrack">
         <li>
             <a>상세정보</a>
         </li> 
@@ -92,7 +100,7 @@
 
     <div id="trackBox">
         <!-- 전체듣기 -->
-        <a class="allListen iconButton" id="playListAddAll" style="cursor: pointer;font-size: 13px;margin-bottom:20px;font-weight: 100;margin-left:20px">
+        <a class="allListen iconButton" id="playListAddAll" style="cursor: pointer;font-size: 12px;margin-bottom:20px;font-weight: 100;margin-left:20px">
             <span style="font-weight: 100; font-size: 10px; color: #333333;">
                 <i class="fas fa-play"></i>
             </span>
