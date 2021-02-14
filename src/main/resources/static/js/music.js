@@ -62,8 +62,8 @@ $music.data = {
  * 
  */
 $music.utilMethod = {
-	/* 목록중 선택한 음악 DOM으로부터 제이쿼리를 통해 필요한 값들을 객체로 반환 */
-	getHiddenData: function(self) {
+	/* 목록중 선택한 음악 DOM으로부터 제이쿼리를 통해 필요한 값들을 tr기준으로 검색하여 객체로 반환 */
+	getHiddenDataAtTr: function(self) {
 		return {
 			mseq : self.closest("tr").find("input[name=mseq]").val() * 1
 			, abseq : self.closest("tr").find("input[name=abseq]").val() * 1
@@ -72,6 +72,19 @@ $music.utilMethod = {
 			, src : self.closest("tr").find("input[name=src]").val()
 			, abimg : self.closest("tr").find("input[name=abimg]").val()
 			, name : self.closest("tr").find("input[name=name]").val()
+		};
+	},
+
+	/* 목록중 선택한 음악 DOM으로부터 제이쿼리를 통해 필요한 값들을 form기준으로 검색하여 객체로 반환 */
+	getHiddenDataAtForm: function(self) {
+		return {
+			mseq : self.closest("form").find("input[name=mseq]").val() * 1
+			, abseq : self.closest("form").find("input[name=abseq]").val() * 1
+			, atseq : self.closest("form").find("input[name=atseq]").val() * 1
+			, title : self.closest("form").find("input[name=title]").val()
+			, src : self.closest("form").find("input[name=src]").val()
+			, abimg : self.closest("form").find("input[name=abimg]").val()
+			, name : self.closest("form").find("input[name=name]").val()
 		};
 	},
 
@@ -94,6 +107,14 @@ $music.utilMethod = {
 		} else {
 			return true;
 		}
+	},
+
+	onLoading: function() {
+		$("#loading").show();
+	},
+
+	offLoading: function() {
+		$("#loading").hide();
 	},
 }
 
@@ -205,7 +226,7 @@ $music.method = {
 		};
 	
 		var on_musicMoreBox = function(self) {
-			var music = $music.utilMethod.getHiddenData(self);
+			var music = $music.utilMethod.getHiddenDataAtTr(self);
 			if (self.closest("tr").find("input[name=likeyn]").length > 0) {
 				$("#musicMoreBox .textBox").eq(3).closest("li").hide();
 				$("#musicMoreBox .textBox").eq(4).closest("li").show();
@@ -267,7 +288,7 @@ $music.method = {
 			var musicInfoList = [];
 			$("input:checkbox[name=mseq_checkbox]:checked").each(function(index, el) {
 				// tr>td>input:checkbox로 시작해 tr로 올라간다음 input:hidden들의 값을 추출
-				var music = $music.utilMethod.getHiddenData($(el));
+				var music = $music.utilMethod.getHiddenDataAtTr($(el));
 				musicInfoList.push(music);
 			});
 
@@ -407,7 +428,7 @@ $music.method = {
 		// 듣기 - 목록에서(tr)에서 듣기버튼을 누른경우
 		var listen = function(self) {
 			// 기존의 재생목록과 재생중인지 아닌지 상관없이 추가하고 바로 재생
-			var music = $music.utilMethod.getHiddenData(self);
+			var music = $music.utilMethod.getHiddenDataAtTr(self);
 
 			if (alreadyMusic(music)) {
 				console.log("\""+ music.name +"\"의 \"" + music.title + "\"는(은) 이미 존재하는 곡입니다.\n 새로 추가되지않고 바로 재생합니다");
@@ -421,7 +442,7 @@ $music.method = {
 		// 한곡 추가 - 목록에서(tr에서) 재생목록담기버튼을 누른경우
 		var playListAdd = function(self) {
 			// tr로 올라가서 music정보 수집
-			var music = $music.utilMethod.getHiddenData(self);
+			var music = $music.utilMethod.getHiddenDataAtTr(self);
 			add(music);
 			/*
 			if (alreadyMusic(music)) {
@@ -442,7 +463,7 @@ $music.method = {
 
 			var musicDataList = [];
 			$(musicTrList).each(function(index, item){
-				var music = $music.utilMethod.getHiddenData($(item));
+				var music = $music.utilMethod.getHiddenDataAtTr($(item));
 				musicDataList.push(music);
 			});
 
@@ -471,7 +492,7 @@ $music.method = {
 			if ($music.utilMethod.loginCheck()) {
 				// 선택자 있으면 단건, 없으면 여러건
 				if (el) {
-					var music = $music.utilMethod.getHiddenData(el);
+					var music = $music.utilMethod.getHiddenDataAtTr(el);
 					$music.data.myList.items = [];
 					$music.data.myList.items.push(music);
 				}
@@ -491,7 +512,7 @@ $music.method = {
 			var musicList = [];
 
 			$("input:checkbox[name=mseq_checkbox]:checked").each(function(index, el) {
-				var music = $music.utilMethod.getHiddenData($(el));
+				var music = $music.utilMethod.getHiddenDataAtTr($(el));
 				musicList.push(music);
 			});
 			$music.data.myList.items = musicList;
@@ -505,12 +526,26 @@ $music.method = {
 
 			var musicList = [];
 			$(musicTrList).each(function(index, item){
-				var music = $music.utilMethod.getHiddenData($(item));
+				var music = $music.utilMethod.getHiddenDataAtTr($(item));
 				musicList.push(music);
 			});
 
 			$music.data.myList.items = musicList;
 			
+			on();
+		};
+
+		// 내리스트 띄우는건 동일하나, 아티스트상세의 앨범목록을 통해 수록곡들을 추가할 경우
+		var on_albumList = function(el) {
+			// form의 이름이 "musicByAlbum-" 으로 시작하는 것들 ex) musicByAlbum-1, musicByAlbum-2, musicByAlbum-3, ...
+			var musicList = [];
+			el.closest(".albumItem").find(".musicInfoByAlbum").each(function(index, item) {
+				var music = $music.utilMethod.getHiddenDataAtForm($(item));
+				musicList.push(music);
+			});
+
+			$music.data.myList.items = musicList;
+
 			on();
 		};
 
@@ -576,6 +611,9 @@ $music.method = {
 
 			on_listByCheckBox: on_listByCheckBox,
 			on_listByDetail: on_listByDetail,
+
+			on_albumList: on_albumList, 
+
 			addBundleMaster: addBundleMaster,
 			addBundleDetail: addBundleDetail,
 		};
@@ -692,6 +730,16 @@ $music.method = {
 
 $(function() {
 
+	$(window)	
+		.ajaxStart(function(){
+			$music.utilMethod.onLoading();
+		})
+		.ajaxStop(function(){
+			$music.utilMethod.offLoading();
+		});
+
+
+
 	// 음악관련 어느곳에서 동일사용 (단, html구조와 music.js를 import해주어야 동작.)
 	(function all() {
 
@@ -801,6 +849,14 @@ $(function() {
 	});
 
 	/* <div id="myListBox" style="display:none;"> */
+
+	/* <li class="albumItem"> */
+
+	$("#music_artistView .albumItem .myListAdd").on("click", function() {
+		$music.method.myList.on_albumList($(this));
+	});
+
+	/* <li class="albumItem"> */
 
 	/* artistView, albumView, musicView  */
 

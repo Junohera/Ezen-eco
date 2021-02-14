@@ -128,6 +128,9 @@ public class MusicController {
 			model.addAttribute("musicList", musicListByArtist);
 		} else {
 			List<AlbumVO> albumListByArtist = ms.albumListByArtist(search);
+			for (AlbumVO album : albumListByArtist) {
+				album.setMusicList(ms.musicListByAlbum(album.getAbseq()));
+			}
 			model.addAttribute("albumList", albumListByArtist);		
 		}
 		

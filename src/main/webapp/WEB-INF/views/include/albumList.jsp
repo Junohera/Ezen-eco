@@ -11,6 +11,17 @@
         <c:otherwise>
             <c:forEach var="album" items="${albumList}" varStatus="status">
                 <li class="albumItem">
+                    <c:forEach var="music" items="${album.musicList}" varStatus="status">
+                        <form class="musicInfoByAlbum">
+                            <input type="hidden" name="mseq" value="${music.mseq}">
+                            <input type="hidden" name="abseq" value="${music.abseq}">
+                            <input type="hidden" name="atseq" value="${music.atseq}">
+                            <input type="hidden" name="title" value="${music.title}">
+                            <input type="hidden" name="src" value="${music.src}">
+                            <input type="hidden" name="abimg" value="${music.abimg}">
+                            <input type="hidden" name="name" value="${music.name}">
+                        </form>
+                    </c:forEach>
                     <c:forEach var="likeAbseq" items="${likeAlbumList}">
                         <c:if test="${likeAbseq eq album.abseq}">
                             <input type="hidden" name="albumlikeyn" value="y">

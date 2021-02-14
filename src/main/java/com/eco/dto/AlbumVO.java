@@ -1,6 +1,7 @@
 package com.eco.dto;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 import lombok.Data;
 
@@ -27,4 +28,6 @@ public class AlbumVO {
 	private String description;
 	
 	private int useq;
+
+	private List<MusicVO> musicList;
 }
