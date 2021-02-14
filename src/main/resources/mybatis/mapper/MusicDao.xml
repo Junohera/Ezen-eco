@@ -28,15 +28,15 @@
 <!-- 어떤것에 의한 곡목록 -->
 	<select id="musicListByTheme" resultType="com.eco.dto.MusicVO">
 		select * from music_view where theme like '%'||#{param1}||'%'
-		order by mseq desc
+		order by rank asc
 	</select>
 	<select id="musicListByChart" resultType="com.eco.dto.MusicVO">
 		select * from music_view where chart like '%'||#{param1}||'%'
-		order by mseq desc
+		order by rank asc
 	</select>
 	<select id="musicListByGenre" resultType="com.eco.dto.MusicVO">
 		select * from music_view where gseq = #{param1}
-		order by mseq desc
+		order by rank asc
 	</select>
 	<select id="musicListByAlbum" resultType="com.eco.dto.MusicVO">
 		select * from music_view where abseq = #{param1}
