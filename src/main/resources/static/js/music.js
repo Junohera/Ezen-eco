@@ -457,13 +457,31 @@ $music.method = {
 			*/
 		};
 		
-		// 전부 추가 - 목록위의 전제듣기 버튼을 누른 경우
+		// 전부 추가 - 목록위의 전체듣기 버튼을 누른 경우
 		var playListAddAll = function(musicTrList) {
 			$music.utilMethod.playListClear(); // 재생목록 비우기
 
 			var musicDataList = [];
 			$(musicTrList).each(function(index, item){
 				var music = $music.utilMethod.getHiddenDataAtTr($(item));
+				musicDataList.push(music);
+			});
+
+			for(var i = 0; i < musicDataList.length; i++) {
+				var music = musicDataList[i];
+				add(music);
+			}
+
+			play(musicDataList[0].mseq);
+		};
+
+		// 전부 추가 - 아티스트상세의 앨범목록중 재생목록버튼아이콘을 누른경우
+		var playListAddAlbum = function(playListIcon) {
+			$music.utilMethod.playListClear(); // 재생목록 비우기
+
+			var musicDataList = [];
+			playListIcon.closest(".albumItem").find(".musicInfoByAlbum").each(function(index, item) {
+				var music = $music.utilMethod.getHiddenDataAtForm($(item));
 				musicDataList.push(music);
 			});
 
@@ -483,6 +501,7 @@ $music.method = {
 			, listen : listen
 			, playListAdd : playListAdd
 			, playListAddAll : playListAddAll
+			, playListAddAlbum : playListAddAlbum
 		};
 	})(),
 
@@ -852,6 +871,12 @@ $(function() {
 
 	/* <li class="albumItem"> */
 
+	// 아티스트상세의 앨범목록 중 재생목록 추가하기
+	$("#music_artistView .albumItem .playListAdd").on("click", function() {
+		$music.method.musicList.playListAddAlbum($(this));
+	});
+
+	// 아티스트상세의 앨범목록 중 내리스트 추가하기
 	$("#music_artistView .albumItem .myListAdd").on("click", function() {
 		$music.method.myList.on_albumList($(this));
 	});

@@ -56,12 +56,12 @@
                             </ul>
                             <ul class="iconList">
                                 <li>
-                                    <a class="iconButton playListAdd" onclick="">
+                                    <a class="iconButton playListAdd">
                                         <span style="font-size: 16px; color: #333333;"><i class="fas fa-outdent"></i></span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="iconButton myListAdd" onclick="">
+                                    <a class="iconButton myListAdd">
                                         <span style="font-size: 16px; color: #333333;"><i class="fas fa-folder-plus"></i></span>
                                     </a>
                                 </li>
