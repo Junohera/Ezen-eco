@@ -16,13 +16,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.eco.dto.AlbumVO;
+import com.eco.dto.ArtistSearchDTO;
 import com.eco.dto.ArtistVO;
 import com.eco.dto.BundleVO;
 import com.eco.dto.ChartVO;
 import com.eco.dto.GenreVO;
 import com.eco.dto.MemberVO;
 import com.eco.dto.MusicVO;
-import com.eco.dto.SearchDTO;
 import com.eco.service.BundleService;
 import com.eco.service.MusicService;
 
@@ -128,18 +128,18 @@ public class MusicController {
 	@RequestMapping(value = "/artistView", method = RequestMethod.GET)
 	public String artistView(Model model, HttpServletRequest request
 			, @RequestParam("atseq") int atseq
-			, @ModelAttribute("search") SearchDTO searchDTO) {
-		
-		System.out.println("System.out.println(searchDTO);");
-		System.out.println(searchDTO);
-		
-		if (searchDTO.getTab() == null) {
-			searchDTO.setTab("track"); // default 탭은 track
-		}
+			, @ModelAttribute("search") ArtistSearchDTO search) {
 		
 		ArtistVO artist = ms.getArtist(atseq);
-		List<AlbumVO> albumListByArtist = ms.albumListByArtist(searchDTO);
-		List<MusicVO> musicListByArtist = ms.musicListByArtist(searchDTO);
+		
+		if (search.getTab().equals("track")) {
+			List<MusicVO> musicListByArtist = ms.musicListByArtist(search);
+			model.addAttribute("musicList", musicListByArtist);
+		} else {
+			List<AlbumVO> albumListByArtist = ms.albumListByArtist(search);
+			model.addAttribute("albumList", albumListByArtist);		
+		}
+		
 		
 		MemberVO loginUser = (MemberVO) request.getSession().getAttribute("loginUser");
 		
@@ -164,10 +164,6 @@ public class MusicController {
 		}
 		
 		model.addAttribute("artist", artist);
-		
-		model.addAttribute("albumList", albumListByArtist);
-
-		model.addAttribute("musicList", musicListByArtist);
 		
 		return "music/artistView";
 	}

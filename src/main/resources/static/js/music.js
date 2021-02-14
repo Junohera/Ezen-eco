@@ -861,25 +861,6 @@ $(function() {
 		$("body").scrollTop(0);
 	});
 
-	$("#trackAndAlbum li").on("click", function() {
-		$(this).siblings().removeClass("selectTab");
-		$(this).addClass("selectTab");
-
-		var index = $(this).index();
-		if (index === 0) {
-			$("#trackBox").show();
-			$("#albumBox").hide();
-
-		} else {
-			$("#listByCheckBox").hide(); // 탭이동해도 남아있는 경우 있음.
-			$("#trackBox").hide()
-			$("#albumBox").show();
-			
-		}
-
-		$("body").scrollTop(0);
-	});
-
 	/* albumView, artistView */
 
 	})();

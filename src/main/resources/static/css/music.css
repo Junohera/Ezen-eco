@@ -904,16 +904,26 @@
     text-align: center;
     font-weight: 100;
     font-size: 15px;
-    cursor: pointer;
 }
 
-#music_artistView #trackAndAlbum li:not(.selectTab):hover {
+#music_artistView #trackAndAlbum li:not(.selectTab) > a:hover {
     color: #3f3fff;
+}
+
+#music_artistView #trackAndAlbum li > a:visited
+, #music_artistView #trackAndAlbum li > a:active {
+    color: #333333;
 }
 
 #music_artistView #trackAndAlbum .selectTab {
     background-color: #3f3fff;
     border-radius: 16px;
+}
+
+#music_artistView #trackAndAlbum .selectTab a
+, #music_artistView #trackAndAlbum .selectTab a:visited
+, #music_artistView #trackAndAlbum .selectTab a:active
+ {
     color: white;
 }
 

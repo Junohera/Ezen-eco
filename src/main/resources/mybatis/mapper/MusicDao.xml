@@ -46,11 +46,11 @@
 	</select>
 	<select id="musicListByArtistUseSearchDTO" parameterType="com.eco.dto.SearchDTO" resultType="com.eco.dto.MusicVO">
 		select * from music_view where atseq = #{atseq}
-		ORDER BY
+		order by
 		<choose>
 				<when test='searchFilter != null and searchFilter == "titleAsc"'>title asc</when>
 				<when test='searchFilter != null and searchFilter == "pdateDesc"'>pdate desc</when>
-				<when test='searchFilter != null and searchFilter == "musiclikeDesc"'>mseq asc</when>
+				<when test='searchFilter != null and searchFilter == "musiclikeDesc"'>rank asc</when>
 				<otherwise>mseq desc</otherwise>
 		</choose>
 	</select>
@@ -72,6 +72,13 @@
 	
 	<select id="albumListByArtistUseSearchDTO" parameterType="com.eco.dto.SearchDTO" resultType="com.eco.dto.AlbumVO">
 		select * from album_view where atseq = #{atseq}
+		order by
+		<choose>
+				<when test='searchFilter != null and searchFilter == "titleAsc"'>title asc</when>
+				<when test='searchFilter != null and searchFilter == "pdateDesc"'>pdate desc</when>
+				<when test='searchFilter != null and searchFilter == "albumlikeDesc"'>rank asc</when>
+				<otherwise>abseq desc</otherwise>
+		</choose>
 	</select>
 <!-- 어떤것에 의한 앨범목록 -->
 

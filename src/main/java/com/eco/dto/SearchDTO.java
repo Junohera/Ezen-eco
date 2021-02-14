@@ -6,16 +6,8 @@ import lombok.Data;
 
 @Data
 public class SearchDTO implements Serializable {
+	
 	private static final long serialVersionUID = 5427742420093436962L;
-
-	private String tab;
-
-	private int atseq;
-	private int abseq;
-	private int mseq;
-	private int tseq;
-	private int cseq;
-	private int gseq;
 
 // 검색어 관련 
 	
