@@ -4,12 +4,17 @@
 <table id="listBox" width="100%;">
     <tr>
         <th align="center"><input type="checkbox" name="allCheck"></th>
-        <th align="center">
-            <c:choose>
-                <c:when test="${fn:contains(pageContext.request.requestURI,'music/albumView')}">번호</c:when>
-                <c:otherwise>순위</c:otherwise>
-            </c:choose>
-        </th>
+        <c:if test="${
+            fn:contains(pageContext.request.requestURI,'music/browse')
+            or fn:contains(pageContext.request.requestURI,'music/albumView')
+        }">
+            <th align="center">
+                <c:choose>
+                    <c:when test="${fn:contains(pageContext.request.requestURI,'music/albumView')}">번호</c:when>
+                    <c:otherwise>순위</c:otherwise>
+                </c:choose>
+            </th>
+        </c:if>
         <th>곡/앨범</th>
         <th>아티스트</th>
         <th>듣기</th>
@@ -37,7 +42,12 @@
                     </c:forEach>
 
                     <td><input type="checkbox" name="mseq_checkbox" value="${music.mseq}"></td>
-                    <td>${status.count}</td>
+                    <c:if test="${
+                        fn:contains(pageContext.request.requestURI,'music/browse')
+                        or fn:contains(pageContext.request.requestURI,'music/albumView')
+                    }">
+                        <td>${status.count}</td>
+                    </c:if>
                     <td>
                         <div class="justWrap">
                             <div class="contentWrap">
