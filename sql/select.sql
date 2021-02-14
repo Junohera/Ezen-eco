@@ -114,3 +114,8 @@ from (select atseq, count(*) as likecount from artist_like group by atseq) atlik
 select * from music_view;
 select * from album_view;
 select * from artist_view;
+
+select * from music_view where atseq = 4
+order by rank asc;
+
+select * from album_view where atseq = 4;
