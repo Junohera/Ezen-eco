@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.eco.dto.AlbumVO;
 import com.eco.dto.ArtistSearchDTO;
 import com.eco.dto.ArtistVO;
+import com.eco.dto.BrowseSearchDTO;
 import com.eco.dto.BundleVO;
 import com.eco.dto.ChartVO;
 import com.eco.dto.GenreVO;
@@ -38,14 +40,9 @@ public class MusicController {
 
 	@RequestMapping(value = "/browse", method = RequestMethod.GET)
 	public String browse(Model model, HttpServletRequest request
-			, @RequestParam(value = "selectedType", required = false, defaultValue = "chart") String selectedType
-			, @RequestParam(value = "selectedSeq", required = false, defaultValue = "1") int selectedSeq
+			, @ModelAttribute("search") BrowseSearchDTO search
 ) {
-		
-		model.addAttribute("selectedType", selectedType);
-		model.addAttribute("selectedSeq", selectedSeq);
-
-		
+				
 		/** 차트 리스트 */
 		List<ChartVO> chartList = ms.chartList();
 		model.addAttribute("chartList", chartList);
@@ -54,18 +51,12 @@ public class MusicController {
 		List<GenreVO> genreList = ms.genreList();
 		model.addAttribute("genreList", genreList);
 
-		// 뮤직차트
-		// 1. 선택한 타입과 선택한 시퀀스값 추출
-			// @RequestParam(value = "selectedSeq", required = false, defaultValue = "1") int selectedSeq -> 선택안할경우 1
-			// @RequestParam(value = "selectedType", required = false, defaultValue = "chart") String selectedType -> 선택안할경우 차트
-			// 미선택시 차트의 1번으로 진행
-
-		// 2. 선택한 타입과 선택한 시퀀스값으로 music_view 조회
+		// 선택한 타입과 선택한 시퀀스값으로 music_view 조회
 		List<MusicVO> musicList = null;
-		if ("chart".equals(selectedType)) {
-			musicList = ms.musicListByChart(selectedSeq);
-		} else if ("genre".equals(selectedType)){
-			musicList = ms.musicListByGenre(selectedSeq);
+		if ("chart".equals(search.getSelectedType())) { // 차트
+			musicList = ms.musicListByChart(search.getSelectedSeq());
+		} else if ("genre".equals(search.getSelectedType())){ // 장르
+			musicList = ms.musicListByGenre(search.getSelectedSeq());
 		}
 
 		MemberVO loginUser = (MemberVO) request.getSession().getAttribute("loginUser");
@@ -179,7 +170,7 @@ public class MusicController {
 		// 유사곡 = 장르가 같은 곡(대신 상세로 들어온 곡과 다른 곡만 취급 -> 자바단에서 해보자...)
 		List<MusicVO> musicListByGenre = ms.musicListByGenre(music.getGseq());
 		musicListByGenre = musicListByGenre.stream().filter(m -> {
-			return m.getMseq() != music.getMseq();
+			return m.getMseq() != music.getMseq(); // 다른것만 추출
 		}).collect(Collectors.toList());
 		
 		MemberVO loginUser = (MemberVO) request.getSession().getAttribute("loginUser");
