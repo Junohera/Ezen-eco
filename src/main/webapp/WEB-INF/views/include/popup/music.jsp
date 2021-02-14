@@ -154,3 +154,7 @@
     </div>
 
     <div id="dim" style="display: none;"></div>
+
+    <div id="loading" style="display:none;">
+        <img src="pageimages/loading.svg">
+    </div>
