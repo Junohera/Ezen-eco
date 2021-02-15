@@ -12,7 +12,7 @@ scrap['artist'] = function() {
         , get: function() {
             return this.required.map( (v, i) => {
                 return this[v];
-            }).join(", ");
+            }).join("|");
         }
         , name : document.querySelector(".bagde_area .badge_track_info .artist").textContent.trim()
         , groupyn : (function() {
@@ -54,7 +54,7 @@ scrap['album'] = function() {
         , get: function() {
             return this.required.map( (v, i) => {
                 return this[v];
-            }).join(", ");
+            }).join("|");
         }
         , title: (function() {
             return document.querySelector(".badge_track_info .title").textContent;
@@ -63,7 +63,7 @@ scrap['album'] = function() {
             return document.querySelector(".link_thumbnail img").src;
         })()
         , content : (function() {
-            return document.querySelector(".lyrics").textContent;
+            return document.querySelector(".section_content_wrap .lyrics").textContent;
         })()
         , abtype : (function() {
             return document.querySelector(".badge_track_info dl").getElementsByTagName("dd")[0].textContent;
@@ -97,35 +97,48 @@ scrap['music'] = function() {
         , get: function() {
             return this.required.map( (v, i) => {
                 return this[v];
-            }).join(", ");
+            }).join("|");
         }
-        , theme: function() {
+        , theme: (function() {
             return null;
-        }
-        , chart: function() {
+        })()
+        , chart: (function() {
             return null;
-        }
-        , gseq: function() {
+        })()
+        , gseq: (function() {
             return null;
-        }
-        , title: function() {
+        })()
+        , title: (function() {
             return document.querySelector(".badge_track_info .title").textContent.trim();
-        }
-        , content: function() {
+        })()
+        , content: (function() {
             return document.querySelector(".lyrics").innerHTML;
-        }
-        , titleyn: function() {
+        })()
+        , titleyn: (function() {
             return null;
-        }
-        , musicby: function() {
-            return document.querySelector(".ly_explain").getElementsByTagName("dd")[1].textContent;
-        }
-        , lyricsby: function() {
-            return document.querySelector(".ly_explain").getElementsByTagName("dd")[2].textContent;
-        }
-        , producingby: function() {
-            return document.querySelector(".ly_explain").getElementsByTagName("dd")[3].textContent;
-        }
+        })()
+        , musicby: (function() {
+            try {
+                return document.querySelector(".ly_explain").getElementsByTagName("dd")[1].textContent;   
+            } catch (e) {
+               return null;
+            }
+            
+        })()
+        , lyricsby: (function() {
+            try {
+                return document.querySelector(".ly_explain").getElementsByTagName("dd")[2].textContent;   
+            } catch (e) {
+               return null;
+            }
+        })()
+        , producingby: (function() {
+            try {
+                return document.querySelector(".ly_explain").getElementsByTagName("dd")[3].textContent;   
+            } catch (e) {
+               return null;
+            }
+        })()
     }
 }
     

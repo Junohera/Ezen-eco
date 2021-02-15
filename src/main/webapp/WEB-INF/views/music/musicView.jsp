@@ -99,12 +99,18 @@
         <ul>
             <li class="title">곡명</li>
             <li class="value">${music.title}</li>
-            <li class="title">작곡</li>
-            <li class="value">${music.musicby}</li>
-            <li class="title">작사</li>
-            <li class="value">${music.lyricsby}</li>
-            <li class="title">편곡</li>
-            <li class="value">${music.producingby}</li>
+            <c:if test="${not empty music.musicby}">
+                <li class="title">작곡</li>
+                <li class="value">${music.musicby}</li>
+            </c:if>
+            <c:if test="${not empty music.lyricsby}">
+                <li class="title">작사</li>
+                <li class="value">${music.lyricsby}</li>
+            </c:if>
+            <c:if test="${not empty music.producingby}">
+                <li class="title">편곡</li>
+                <li class="value">${music.producingby}</li>
+            </c:if>
         </ul>
         <c:choose>
             <c:when test="${empty music.content}">
@@ -113,7 +119,7 @@
                 </h3>
             </c:when>
             <c:otherwise>
-                <pre>${music.content}</pre>
+                <pre><c:out value="${music.content}" escapeXml="false" /></pre>
             </c:otherwise>
         </c:choose>
     </div>

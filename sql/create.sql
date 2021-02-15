@@ -142,7 +142,7 @@ create table music(
 	chart varchar2(100), 					-- 차트(복수) 구분자: |
 	gseq number(5) references genre(gseq), 	-- 장르(단일)
 	title varchar2(30) not null,
-	content varchar2(1000), 				-- 가사
+	content varchar2(3000), 				-- 가사
 	titleyn varchar2(1), 					-- Y: 타이틀, N: 일반
 	musicby varchar2(30),					-- 작곡
 	lyricsby varchar2(30),					-- 작사
