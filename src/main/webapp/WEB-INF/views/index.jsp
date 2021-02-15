@@ -27,7 +27,7 @@
                             <div class="recommendContent">
                             <c:forEach items="${bundleList }" var="bundle" begin="${status.index}" end="${status.index}">
                             			총 
-                            			<!-- 갯수 자리 -->
+                            			${fn:length(bundle.musicList)}
                             			곡 | <fmt:formatDate value="${bundle.cdate }" type="date" pattern="yyyy.MM.dd"/>
                             </c:forEach>
                             </div>
@@ -42,7 +42,7 @@
 		                            		<tr>
 			                					<td class="albumS">
 			                						<div class="albumImg">
-			                                    		<img src="../images/${music.abimg}">
+			                                    		<img src="${music.abimg}">
 			                                    	</div>
 			                					</td>
 			                					<td class="MusicT">
@@ -98,7 +98,7 @@
 			<c:forEach items="${newMusicList }" var="nlist" begin="0" end="3">
 				<div class="MainAlbum">
 					<div class="MainAlbumImg">
-						<img src="../images/${nlist.abimg}">
+						<img src="${nlist.abimg}">
 					</div>
 					<div class="MainMusicContentBox">
 						${nlist.title }
@@ -115,7 +115,7 @@
 			<c:forEach items="${recommendMusicList }" var="nlist" begin="0" end="3">
 			<div class="MainAlbum">
 				<div class="MainAlbumImg">
-					<img src="../images/${nlist.atimg}">
+					<img src="${nlist.atimg}">
 				</div>
 				<div class="MainMusicContentBox">
 					${nlist.name }
@@ -132,7 +132,7 @@
 			<!-- 반복문 작성 -->
 			<div class="MainAlbum">
 				<div class="MainAlbumImg">
-					<img src="../images/${music.abimg}">
+					<img src="${music.abimg}">
 				</div>
 				<div class="MainMusicContentBox">
 					${music.title }

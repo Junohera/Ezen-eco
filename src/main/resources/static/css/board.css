@@ -1,1 +1,9 @@
 @charset "UTF-8";
+
+.introduceBox {width: 100%; background: #444444; height: 800px;
+						border-radius: 20px 20px 20px 20px;}
+
+.introduceText {position: relative; margin: 0 auto; text-align: center; color: white; top: 400px;
+						font-size: 30px; vertical-align: middle; top: 350px;}
+						
+details > summary::-webkit-details-marker {display: none}

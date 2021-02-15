@@ -10,12 +10,26 @@
 <title>Insert title here</title>
 <!-- fontawesome: image대신 아이콘을 활용할 수 있음. + 색깔변경 가능 -->
 <script src="https://kit.fontawesome.com/aeb6e503f2.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="css/admin.css">
+<link rel="stylesheet" href="css/board.css">
 <link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="css/mypage.css">
 <c:if test="${
-	!fn:contains(pageContext.request.requestURI,'music/browse')
-	and !fn:contains(pageContext.request.requestURI,'music/musicView')
-	and !fn:contains(pageContext.request.requestURI,'music/albumView')
-	and !fn:contains(pageContext.request.requestURI,'music/artistView')
+	fn:contains(pageContext.request.requestURI, 'loginForm')
+	or fn:contains(pageContext.request.requestURI, 'logout')
+	or fn:contains(pageContext.request.requestURI, 'joinForm')
+	or fn:contains(pageContext.request.requestURI, 'contract')
+	or fn:contains(pageContext.request.requestURI, 'pwChecking')
+	or fn:contains(pageContext.request.requestURI, 'memberUpdate')
+	or fn:contains(pageContext.request.requestURI, 'idcheck')
+	or fn:contains(pageContext.request.requestURI, 'findIdPw')
+	or fn:contains(pageContext.request.requestURI, 'findPwForm')
+	or fn:contains(pageContext.request.requestURI, 'findIdForm')
+	or fn:contains(pageContext.request.requestURI, 'lookupIdNamePhone')
+	or fn:contains(pageContext.request.requestURI, 'lookupNamePhone')
+	or fn:contains(pageContext.request.requestURI, 'findPwCertificationNum')
+	or fn:contains(pageContext.request.requestURI, 'findIdCertificationNum')
+	or fn:contains(pageContext.request.requestURI, 'resetPw')
 }">
 	<link rel="stylesheet" href="css/member.css"> <!-- 멤버 -->
 </c:if>
@@ -41,6 +55,9 @@
 	or fn:contains(pageContext.request.requestURI,'music/musicView')
 	or fn:contains(pageContext.request.requestURI,'music/albumView')
 	or fn:contains(pageContext.request.requestURI,'music/artistView')
+
+	or fn:contains(pageContext.request.requestURI,'mypage/likemusic')
+	or fn:contains(pageContext.request.requestURI,'mypage/bundleDetailView')
 }">
 	<script src="js/music.js"></script>
 </c:if>
@@ -71,9 +88,9 @@
 					</ul>	
 					</c:when>
 					<c:otherwise>
-					<ul class="headerText">
+						<ul class="headerTextR">
 						   <li>
-							   <a class="headerFont" id="userNameBox"  href="memberEditForm">
+							   <a class="headerFont" id="userNameBox"  href="pwChecking">
 									   ${loginUser.name} 님
 							   </a>
 						   </li>

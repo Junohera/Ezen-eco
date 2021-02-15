@@ -12,5 +12,6 @@ public interface IMemberDao {
 	public void resetPw(MemberVO membervo);	
 	public MemberVO confirmIdNamePhone(MemberVO membervo);
 	public MemberVO confirmNamePhone(MemberVO membervo);
+	public int updateMember(MemberVO mvo);
 	
 }

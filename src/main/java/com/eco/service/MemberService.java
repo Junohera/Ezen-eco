@@ -1,5 +1,7 @@
 package com.eco.service;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,4 +30,9 @@ public class MemberService {
 	public MemberVO confirmNamePhone(MemberVO membervo) {
 		return mdao.confirmNamePhone(membervo); 
 	}
+
+	public int updateMember(MemberVO mvo) {
+		return mdao.updateMember(mvo);
+	}
+
 }

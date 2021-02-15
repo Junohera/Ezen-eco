@@ -18,9 +18,10 @@
 		parameterType="com.eco.dto.Paging">
 		select * from(
 		select * from(
-			select rownum as rn, b.* from ( (select * from music order by mseq desc) b )
-		) where rn &gt;= #{startNum}
-		) where rn &lt;= #{endNum}
+			select rownum as rn, b.* from 
+			( (select * from music_view where title like '%'||#{param2}||'%' order by mseq desc) b )
+		) where rn &gt;= #{param1.startNum}
+		) where rn &lt;= #{param1.endNum}
 	</select>
 	
 	<select id="listMember" resultType="com.eco.dto.MemberVO">
@@ -35,5 +36,57 @@
 	<select id="getMember" resultType="com.eco.dto.MemberVO">
 		select * from member where useq=#{param1}
 	</select>
+	
+	<select id="listArtist" resultType="com.eco.dto.ArtistVO">
+		select * from(
+		select * from(
+			select rownum as rn, a.* from 
+			( (select * from artist where name like '%'||#{param2}||'%' order by atseq desc) a )
+		) where rn &gt;= #{param1.startNum}
+		) where rn &lt;= #{param1.endNum}
+	</select>
+	
+	<select id="listTheme" resultType="com.eco.dto.ThemeVO">
+		select * from(
+		select * from(
+			select rownum as rn, t.* from 
+			( (select * from theme where title like '%'||#{param2}||'%' order by tseq desc) t )
+		) where rn &gt;= #{param1.startNum}
+		) where rn &lt;= #{param1.endNum}
+	</select>
+	
+	<insert id="themeInsert" parameterType="com.eco.dto.ThemeVO">
+		insert into theme(tseq, title, img)
+		values(theme_seq.nextval, #{title}, #{img})
+	</insert>
+	
+	<select id="listChart" resultType="com.eco.dto.ChartVO">
+		select * from(
+		select * from(
+			select rownum as rn, c.* from 
+			( (select * from chart where title like '%'||#{param2}||'%' order by cseq desc) c )
+		) where rn &gt;= #{param1.startNum}
+		) where rn &lt;= #{param1.endNum}
+	</select>
+	
+	<insert id="chartInsert" parameterType="com.eco.dto.ChartVO">
+		insert into chart(cseq, title, img)
+		values(chart_seq.nextval, #{title}, #{img})
+	</insert>
+	
+	
+	<select id="listGenre" resultType="com.eco.dto.GenreVO">
+		select * from(
+		select * from(
+			select rownum as rn, g.* from 
+			( (select * from genre where title like '%'||#{param2}||'%' order by gseq desc) g )
+		) where rn &gt;= #{param1.startNum}
+		) where rn &lt;= #{param1.endNum}
+	</select>
+	
+	<insert id="genreInsert" parameterType="com.eco.dto.GenreVO">
+		insert into genre(gseq, title)
+		values(genre_seq.nextval, #{title})
+	</insert>
 	
 </mapper>

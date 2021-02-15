@@ -122,8 +122,9 @@
                             padding-left: 10px; overflow:hidden; text-align: center;}
     
     
-    .albumImg {width: 50px; height: 50px; /* border: 1px solid red; */ margin-left: 0px; margin-right: 0px;}
-    .albumImg img {width: 50px; height: 50px;}
+                            .albumImg {width: 50px; height: 50px; /* border: 1px solid red; */ margin-left: 0px; margin-right: 0px;
+                                border-radius: 5px 5px 5px 5px; overflow: hidden;}
+            .albumImg img {width: 50px; height: 50px;}
     
     
     /* Eco 추천 chartList 끝 */

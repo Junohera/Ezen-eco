@@ -141,7 +141,7 @@ public class MemberController {
 	
 	
 	
-	// 아이찾기 인증번호 확인
+	// 아이디찾기 인증번호 확인
 	@RequestMapping("findIdCertificationNum")
 	public String certificationNum(Model model, HttpServletRequest request,
 			@RequestParam("name") String name, @RequestParam("phone") String phone,
@@ -236,5 +236,64 @@ public class MemberController {
 	public String find_id_pw(Model model, HttpServletRequest request) {
 		return "member/findIdPwForm";
 	}
+	
+	@RequestMapping("pwChecking")
+	public String pw_checking(Model model, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		if(session!=null) {
+			session.setAttribute("id", session);
+			session.setAttribute("pw", session);
+			return "member/pwChecking";
+		}else {
+			return "redirect:/";
+		}
+	}
+	
+	// 회원정보 수정 전 비밀번호 recheck
+	@RequestMapping("pwRechecking")
+	public String pw_Rechecking(@RequestParam("pw") String pw,
+			Model model, HttpServletRequest request) {	
+		MemberVO mvo = (MemberVO) request.getSession().getAttribute("loginUser");
+		if(!pw.isEmpty()) {
+			if(pw.equals(mvo.getPw())) {
+				return "member/memberUpdateForm";
+			}else {
+				model.addAttribute("message", "비밀번호가 일치하지 않습니다");
+				return "member/pwChecking";
+			}	
+		}else {
+			model.addAttribute("message", "비밀번호를 입력하세요");
+			return "member/pwChecking";
+		}
+	}
+	
+	@RequestMapping(value="memberUpdate", method=RequestMethod.POST)
+	public String member_update(@ModelAttribute("member") @Valid MemberVO membervo,
+			BindingResult result, Model model, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		MemberVO mvo = (MemberVO) session.getAttribute("loginUser");
+		if(result.getFieldError("pw")!=null) {
+			model.addAttribute("message2", "비밀번호를 입력하세요");
+			return "member/memberUpdateForm";
+		}else if(result.getFieldError("name")!=null) {
+			model.addAttribute("message3", result.getFieldError("name").getDefaultMessage());
+			return "member/memberUpdateForm";
+		}else if(result.getFieldError("phone")!=null) {
+			model.addAttribute("message4", result.getFieldError("phone").getDefaultMessage());
+			return "member/memberUpdateForm";
+		}else if(!request.getParameter("pwCheck").equals(membervo.getPw())){
+			model.addAttribute("message6", "입력하신 비밀번호가 일치하지 않습니다");
+			return "member/memberUpdateForm";
+		}	
+			ms.updateMember(membervo);
+			
+			session.setAttribute("loginUser", membervo);
+			return "redirect:/";
+	}
+		
+	
+	
+	
+	
 	
 }

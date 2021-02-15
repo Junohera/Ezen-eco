@@ -20,6 +20,24 @@ function go_detail(useq){
 	document.frm.action = "adminMemberDetail?useq=" + useq;
 	document.frm.submit();
 }
+function ThemeManage(){
+	var url = "ThemeManage";
+	var opt = "toolbar=no, menubar=no, scrollbars=no, resizable=no, width=800, ";
+	opt = opt + "height=700, top=300, left=300";
+	window.open(url, "ThemeManage", opt);
+}
+function ChartManage(){
+	var url = "ChartManage?first=yes";
+	var opt = "toolbar=no, menubar=no, scrollbars=no, resizable=no, width=800, ";
+	opt = opt + "height=700, top=300, left=300";
+	window.open(url, "ChartManage", opt);
+}
+function GenreManage(){
+	var url = "GenreManage";
+	var opt = "toolbar=no, menubar=no, scrollbars=no, resizable=no, width=800, ";
+	opt = opt + "height=700, top=300, left=300";
+	window.open(url, "GenreManage", opt);
+}
 </script>
 <article>
 <br>
@@ -37,6 +55,12 @@ function go_detail(useq){
   <input class="btn" type="button" name="btn_total" value="전체보기 "
 													onClick="go_total_member()">
 	<input type="hidden" name="all_view" value="y">
+	<input class="btn" type="button" value="테마관리" class="submit"
+				onclick="ThemeManage()">
+	<input class="btn" type="button" value="차트관리" class="submit"
+				onclick="ChartManage()">
+	<input class="btn" type="button" value="장르관리" class="submit"
+				onclick="GenreManage()">
   </td>
   </tr>
 </table>
@@ -63,6 +87,6 @@ function go_detail(useq){
     <jsp:param value="${paging.endPage}" name="endPage"/>
     <jsp:param value="${paging.prev}" name="prev"/>
     <jsp:param value="${paging.next}" name="next"/>
-    <jsp:param value="MemberManage" name="command"/>
+    <jsp:param value="MemberManage" name="action"/>
 </jsp:include>
 </article>

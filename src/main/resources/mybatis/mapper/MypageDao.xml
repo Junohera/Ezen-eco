@@ -17,5 +17,10 @@
 	<select id="getAlbum" resultType="com.eco.dto.AlbumVO">
 		select * from likealbum_view where useq=#{param1}
 	</select>
+	
+	<select id="listBundleDetail" resultType="com.eco.dto.MusicVO">
+          select * from bundledetail_view where bmseq = #{param1}
+          order by bdseq desc
+    </select>
 
 </mapper>

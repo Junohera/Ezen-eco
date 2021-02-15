@@ -8,9 +8,15 @@
 
 <footer>
     <ul class="ul1">
-        <li>ECO 소개</li>
-        <li>공지사항</li>
-        <li>고객센터</li>
+        <li>
+        	<a href="introduce">ECO 소개</a>
+        </li>
+        <li>
+        	<a href="notice">공지사항</a>
+        </li>
+        <li>
+        	<a href="serviceCenter">고객센터</a>
+        </li>
         <!-- <li>ECO 플레이어 다운로드</li> -->
     </ul>
 
