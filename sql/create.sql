@@ -126,10 +126,10 @@ create table artist (
 create table album (
 	abseq number(5) primary key,
 	atseq number(5) references artist(atseq),
-	title varchar2(50) not null,
+	title varchar2(100) not null,
 	img varchar2(500),
-	content varchar2(3000),
-	abtype varchar2(10), -- 정규, 미니, 싱글, OST, 디지털싱글
+	content varchar2(4000),
+	abtype varchar2(20), -- 정규, 미니, 싱글, OST, 디지털싱글
 	gseq number(5) references genre(gseq),
 	pdate date not null -- 앨범 발매일 필수
 );
@@ -141,12 +141,12 @@ create table music(
 	theme varchar2(1000), -- 테마/태그(복수) 구분자: |
 	chart varchar2(100), 					-- 차트(복수) 구분자: |
 	gseq number(5) references genre(gseq), 	-- 장르(단일)
-	title varchar2(30) not null,
-	content varchar2(3000), 				-- 가사
+	title varchar2(300) not null,
+	content varchar2(4000), 				-- 가사
 	titleyn varchar2(1), 					-- Y: 타이틀, N: 일반
-	musicby varchar2(30),					-- 작곡
-	lyricsby varchar2(30),					-- 작사
-	producingby varchar2(30),				-- 편곡
+	musicby varchar2(500),					-- 작곡
+	lyricsby varchar2(500),					-- 작사
+	producingby varchar2(500),				-- 편곡
 	src varchar2(200) 						-- 음악 재생경로
 );
 

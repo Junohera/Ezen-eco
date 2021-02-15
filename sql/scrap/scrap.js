@@ -57,13 +57,17 @@ scrap['album'] = function() {
             }).join("|");
         }
         , title: (function() {
-            return document.querySelector(".badge_track_info .title").textContent;
+            return document.querySelector(".badge_track_info .title").textContent.trim();
         })()
         , img : (function() {
             return document.querySelector(".link_thumbnail img").src;
         })()
         , content : (function() {
-            return document.querySelector(".section_content_wrap .lyrics").textContent;
+            try {
+                return document.querySelector(".section_content_wrap .lyrics").textContent;   
+            } catch (e) {
+                return null;
+            }
         })()
         , abtype : (function() {
             return document.querySelector(".badge_track_info dl").getElementsByTagName("dd")[0].textContent;

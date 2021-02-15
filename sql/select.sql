@@ -119,3 +119,5 @@ select * from music_view where atseq = 4
 order by rank asc;
 
 select * from album_view where atseq = 4;
+
+select * from album;
