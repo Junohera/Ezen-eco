@@ -6,62 +6,42 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<!-- fontawesome: image대신 아이콘을 활용할 수 있음. + 색깔변경 가능 -->
-<script src="https://kit.fontawesome.com/aeb6e503f2.js" crossorigin="anonymous"></script>
-<link rel="stylesheet" href="css/admin.css">
-<link rel="stylesheet" href="css/board.css">
-<link rel="stylesheet" href="css/main.css">
-<link rel="stylesheet" href="css/mypage.css">
-<c:if test="${
-	fn:contains(pageContext.request.requestURI, 'loginForm')
-	or fn:contains(pageContext.request.requestURI, 'logout')
-	or fn:contains(pageContext.request.requestURI, 'joinForm')
-	or fn:contains(pageContext.request.requestURI, 'contract')
-	or fn:contains(pageContext.request.requestURI, 'pwChecking')
-	or fn:contains(pageContext.request.requestURI, 'memberUpdate')
-	or fn:contains(pageContext.request.requestURI, 'idcheck')
-	or fn:contains(pageContext.request.requestURI, 'findIdPw')
-	or fn:contains(pageContext.request.requestURI, 'findPwForm')
-	or fn:contains(pageContext.request.requestURI, 'findIdForm')
-	or fn:contains(pageContext.request.requestURI, 'lookupIdNamePhone')
-	or fn:contains(pageContext.request.requestURI, 'lookupNamePhone')
-	or fn:contains(pageContext.request.requestURI, 'findPwCertificationNum')
-	or fn:contains(pageContext.request.requestURI, 'findIdCertificationNum')
-	or fn:contains(pageContext.request.requestURI, 'resetPw')
-}">
-	<link rel="stylesheet" href="css/member.css"> <!-- 멤버 -->
-</c:if>
 
-<c:if test="${
-	fn:contains(pageContext.request.requestURI,'music/browse')
-	or fn:contains(pageContext.request.requestURI,'music/musicView')
-	or fn:contains(pageContext.request.requestURI,'music/albumView')
-	or fn:contains(pageContext.request.requestURI,'music/artistView')
-}">
-	<link rel="stylesheet" href="css/music.css"> <!-- 둘러보기 및 음악관련 -->
-</c:if>
-
-<link rel="stylesheet" href="css/mypage.css"> <!-- 내보관함 -->
-<link rel="stylesheet" href="css/board.css"> <!-- 공지사항, qna, 게시판 -->
-
-<script src="js/jquery-3.5.1-min.js"></script>
-<script src="js/member.js"></script>
-
-<!-- 페이지별 필요한 스크립트 사용 -->
-<c:if test="${
-	fn:contains(pageContext.request.requestURI,'music/browse')
-	or fn:contains(pageContext.request.requestURI,'music/musicView')
-	or fn:contains(pageContext.request.requestURI,'music/albumView')
-	or fn:contains(pageContext.request.requestURI,'music/artistView')
-
-	or fn:contains(pageContext.request.requestURI,'mypage/likemusic')
-	or fn:contains(pageContext.request.requestURI,'mypage/bundleDetailView')
-}">
-	<script src="js/music.js"></script>
-</c:if>
-
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+	
+	<%-- 모든페이지 --%>
+	<script src="https://kit.fontawesome.com/aeb6e503f2.js" crossorigin="anonymous"><!-- fontawesome: image대신 아이콘을 활용할 수 있음. + 색깔변경 가능 --></script>
+	<script src="js/jquery-3.5.1-min.js"></script>
+	<link rel="stylesheet" href="css/main.css">
+	<%-- 모든페이지 --%>
+	
+	<%-- member --%>
+	<c:if test="${fn:contains(pageContext.request.requestURI, 'member/')}">
+		<link rel="stylesheet" href="css/member.css"> <!-- 멤버 -->
+		<script src="js/member.js"></script>
+	</c:if>
+	<%-- member --%>
+	
+	<%-- music --%>
+	<c:if test="${fn:contains(pageContext.request.requestURI,'music/')}">
+		<link rel="stylesheet" href="css/music.css"> <!-- 둘러보기 및 음악관련 -->
+		<script src="js/music.js"></script>
+	</c:if>
+	<%-- music --%>
+	
+	<%-- mypage --%>
+	<c:if test="${fn:contains(pageContext.request.requestURI,'mypage/')}">
+		<link rel="stylesheet" href="css/mypage.css"> <!-- 내보관함 -->
+		<script src="js/music.js"></script>
+	</c:if>
+	<%-- mypage --%>
+	
+	<%-- board --%>
+	<c:if test="${fn:contains(pageContext.request.requestURI,'board/')}">
+		<link rel="stylesheet" href="css/board.css"> <!-- 공지사항, qna, 게시판 -->
+	</c:if>
+	<%-- board --%>
 
 </head>
 <body>
