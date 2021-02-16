@@ -44,7 +44,7 @@
 	<select id="musicListByArtist" resultType="com.eco.dto.MusicVO">
 		select * from music_view where atseq = #{param1}
 	</select>
-	<select id="musicListByArtistUseSearchDTO" parameterType="com.eco.dto.SearchDTO" resultType="com.eco.dto.MusicVO">
+	<select id="musicListByArtistUseSearchDTO" parameterType="com.eco.dto.search.SearchDTO" resultType="com.eco.dto.MusicVO">
 		select * from music_view where atseq = #{atseq}
 		order by
 		<choose>
@@ -70,7 +70,7 @@
 		select * from album_view where atseq = #{param1}
 	</select>
 	
-	<select id="albumListByArtistUseSearchDTO" parameterType="com.eco.dto.SearchDTO" resultType="com.eco.dto.AlbumVO">
+	<select id="albumListByArtistUseSearchDTO" parameterType="com.eco.dto.search.SearchDTO" resultType="com.eco.dto.AlbumVO">
 		select * from album_view where atseq = #{atseq}
 		order by
 		<choose>

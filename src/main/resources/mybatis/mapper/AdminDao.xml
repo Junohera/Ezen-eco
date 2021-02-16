@@ -14,16 +14,6 @@
 		select count(*) from ${param1}  where ${param2} like '%'||#{param3}||'%'
 	</select>
 	
-	<select id="listMusic" resultType="com.eco.dto.MusicVO"
-		parameterType="com.eco.dto.Paging">
-		select * from(
-		select * from(
-			select rownum as rn, b.* from 
-			( (select * from music_view where title like '%'||#{param2}||'%' order by mseq desc) b )
-		) where rn &gt;= #{param1.startNum}
-		) where rn &lt;= #{param1.endNum}
-	</select>
-	
 	<select id="listMember" resultType="com.eco.dto.MemberVO">
 		select * from(
 		select * from(

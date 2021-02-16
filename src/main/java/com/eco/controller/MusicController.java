@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,14 +16,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.eco.dto.AlbumVO;
-import com.eco.dto.ArtistSearchDTO;
 import com.eco.dto.ArtistVO;
-import com.eco.dto.BrowseSearchDTO;
 import com.eco.dto.BundleVO;
 import com.eco.dto.ChartVO;
 import com.eco.dto.GenreVO;
 import com.eco.dto.MemberVO;
 import com.eco.dto.MusicVO;
+import com.eco.dto.search.ArtistSearchDTO;
+import com.eco.dto.search.BrowseSearchDTO;
 import com.eco.service.BundleService;
 import com.eco.service.MusicService;
 
@@ -41,7 +40,7 @@ public class MusicController {
 	@RequestMapping(value = "/browse", method = RequestMethod.GET)
 	public String browse(Model model, HttpServletRequest request
 			, @ModelAttribute("search") BrowseSearchDTO search
-) {
+			) {
 				
 		/** 차트 리스트 */
 		List<ChartVO> chartList = ms.chartList();

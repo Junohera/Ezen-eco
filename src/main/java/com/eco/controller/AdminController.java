@@ -281,55 +281,6 @@ public class AdminController {
 		return mav;
 	}
 	
-	
-	
-	@RequestMapping("ArtistManage")
-	public ModelAndView ArtistManage(HttpServletRequest request) {
-		ModelAndView mav = new ModelAndView();
-		HttpSession session = request.getSession();
-		String id = (String)session.getAttribute("adminId");
-		int page=1;
-		if(id==null)
-			mav.setViewName("redirect:/admin");
-		else {
-			if( request.getParameter("first")!=null ) {
-				session.removeAttribute("page");
-				session.removeAttribute("key");
-			}
-			String key = "";
-			if( request.getParameter("key") != null ) {
-				key = request.getParameter("key");
-				session.setAttribute("key", key);
-			} else if( session.getAttribute("key")!= null ) {
-				key = (String)session.getAttribute("key");
-			} else {
-				session.removeAttribute("key");
-				key = "";
-			} 
-			if( request.getParameter("page") != null ) {
-				page = Integer.parseInt(request.getParameter("page"));
-				session.setAttribute("page", page);
-			} else if( session.getAttribute("page")!= null  ) {
-				page = (int) session.getAttribute("page");
-			} else {
-				page = 1;
-				session.removeAttribute("page");
-			}
-			Paging paging = new Paging();
-			paging.setPage(page);
-			int count = as.getAllCount("artist", "name", key);
-			paging.setTotalCount(count);
-			paging.paging();
-			List<ArtistVO> artistList = as.listArtist(paging, key);
-			mav.addObject("paging", paging);
-			mav.addObject("key", key);
-			mav.addObject("artistList", artistList);
-			mav.setViewName("admin/ArtistManage");
-		}
-		return mav;
-	}
-	
-	
 	@RequestMapping("adminMemberDetail")
 	public ModelAndView adminMemberDetail(HttpServletRequest request, 
 			@RequestParam("useq") String useq) {
@@ -392,56 +343,17 @@ public class AdminController {
 	}
 	
 	
-	@RequestMapping("MusicManage")
-	public ModelAndView MusicManage(HttpServletRequest request) {
-		ModelAndView mav = new ModelAndView();
-		HttpSession session = request.getSession();
-		String id = (String)session.getAttribute("adminId");
-		int page=1;
-		if(id==null)
-			mav.setViewName("redirect:/admin");
-		else {
-			if( request.getParameter("first")!=null ) {
-				session.removeAttribute("page");
-				session.removeAttribute("key");
-			}
-			String key = "";
-			if( request.getParameter("key") != null ) {
-				key = request.getParameter("key");
-				session.setAttribute("key", key);
-			} else if( session.getAttribute("key")!= null ) {
-				key = (String)session.getAttribute("key");
-			} else {
-				session.removeAttribute("key");
-				key = "";
-			} 
-			if( request.getParameter("page") != null ) {
-				page = Integer.parseInt(request.getParameter("page"));
-				session.setAttribute("page", page);
-			} else if( session.getAttribute("page")!= null  ) {
-				page = (int) session.getAttribute("page");
-			} else {
-				page = 1;
-				session.removeAttribute("page");
-			}
-			Paging paging = new Paging();
-			paging.setPage(page);
-			int count = as.getAllCount("music", "title", key);
-			paging.setTotalCount(count);
-			paging.paging();
-			List<MusicVO> musicList = as.listMusic(paging, key);
-			mav.addObject("paging", paging);
-			mav.addObject("key", key);
-			mav.addObject("musicList", musicList);
-			mav.setViewName("admin/MusicManage");
-		}
-		return mav;
-	}
+	
 	
 	
 	@RequestMapping("/admin")
 	public String adminIndex(Model model, HttpServletRequest request) {
-		return "admin/adminLogin";
+		String adminId = (String) request.getSession().getAttribute("adminId");
+		if (adminId != null && !adminId.equals("")) {
+			return "redirect:/AIndex"; // 이미 어드민의 세션정보가 있는 경우, 굳이 재로그인할 필요없이 메인으로 이동케
+		} else {
+			return "admin/adminLogin";	
+		}
 	}
 	
 	@RequestMapping("/AIndex")

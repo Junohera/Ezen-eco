@@ -1,4 +1,4 @@
-package com.eco.dto;
+package com.eco.dto.search;
 
 import java.io.Serializable;
 
@@ -10,7 +10,8 @@ public class SearchDTO implements Serializable {
 	private static final long serialVersionUID = 5427742420093436962L;
 
 // 검색어 관련 
-	
+	/** 검색조건 select에서 고른 대상테이블 */
+	private String searchTable = "";
 	/** 검색조건 select에서 고른 검색대상컬럼 */
 	private String searchCondition = "";
 	/** 검색Keyword input:text에 입력한 검색어 */
@@ -71,5 +72,9 @@ public class SearchDTO implements Serializable {
 	
 	// 기본 페이지 사이즈(페이징이 아니라 on/off형태의 화면일때(더보기) off상태에 보여줄 최소 목록의 수
 	private int firstSize = 100;
+
+	private int page = 1;
+	
+	private String alert = "";
 	
 }

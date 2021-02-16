@@ -71,20 +71,10 @@ public class AdminService {
 	}
 	
 	
-	public List<MusicVO> listMusic(Paging paging, String key){
-		List<MusicVO> list = adao.listMusic(paging, key);
-		return list;
-	}
-	
-	
 	public int getAllCount(String tablename, String fieldname, String key) {
 		int count = adao.getAllCount(tablename, fieldname, key);
 		return count;
 	}
-	
-	
-	
-	
 	
 	public int adminCheck(String adminId, String adminPw) {
 		String pw = adao.adminCheck(adminId);

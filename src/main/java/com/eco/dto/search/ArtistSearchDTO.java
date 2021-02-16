@@ -1,4 +1,4 @@
-package com.eco.dto;
+package com.eco.dto.search;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

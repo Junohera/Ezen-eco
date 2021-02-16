@@ -8,28 +8,28 @@
     .font th {font-weight: 500; color: white;}
     .font td {font-weight: 300; color: white;
                 text-align: center; padding-top: 6px; padding-bottom: 6px;}
-    
+
+    /* title */
+    #title{width:950px;height:200px;margin: 0 auto;}
+    #titlefont{position:relative; float:left; margin-left:20px;text-decoration:none;color:white;font-weight: 500; font-size:140%;background: #311851;}
     /* header 의 위치*/
-    .headerBox {width: 100%; height: 200px; background: #311851;} 
+    .headerBox {width: 100%; height: 200px; background: #311851;padding:0px;margin:0 auto;margin-top:-10px;} 
     
     /* header 의 content 표시 위치 */
-    .header { position: relative; 
-                width: 1100px; height: 100%; /*border: 1px solid white;*/
-                margin: 0 auto;}
+    #header {position:relative;width:950px;height:65%;/* border: 1px solid orange; */margin: 0 auto;}
     
-    /* title */
-    #title{position:absolute;right:400px;width:1100px;height:200px;}
-    #titlefont{position:relative; float:left; margin-left:20px;top:15px;text-decoration:none;color:white;font-weight: 500; font-size:140%;background: #311851;z-index:50;}
-     
      /* 로고 표시 */
     .logo { position: relative; 
             background-image: url(../pageimages/logo.png);
             background-size: 100%;
             width: 180px; height: 74px;float: left; margin: 5px auto; line-height: 100px;
-            margin-top: 30px; margin-left: 235px;}
+            margin-top: 30px; margin-left: 80px;}
+    
+    /* body 적용 */
+    .adminViewBox{width:950px;margin: 0 auto; margin-top: 30px;border:1px solid red;padding:0px;}
     
     /* adminLogin */
-    form{position:absolute;left:500px;top:200px;width:840px;height:400px;border:3px solid silver;background:none;}
+    #adminForm{position:relative;margin:0 auto;margin-top:300px;width:840px;height:400px;border:3px solid silver;background:none;}
    #inputInfo{position:relative;float:left;margin:50px 20px 20px 15px;width:45%;height:320px;}
    #inputLogo{position:relative;float:left; align-content:center;width:50%;height:400px;background:#311851;}
     .textbox{position:relative;color:black; border:0px;margin-bottom:20px; border-bottom:2px silver;font-size:18px;height:50px;font-weight:bold;}
@@ -46,10 +46,10 @@
     
     
     /* dropbox menu */
-    .menubar {position: relative; float: left;width:100%;height:95px;font-size:20px;list-style:none;z-index:2;}
+    .menubar {position:relative;margin:0 auto;width:950px;height:95px;font-size:20px;list-style:none;/* border:1px solid white; */}
    
     /* dropbox list */
-    .menu{position:relative;float:left;text-align:center; width:150px; height:95px;list-style:none;color:white;font-weight: 500; font-size:140%;margin:0px 100px;}
+    .menu{position:relative;float:left;text-align:center; width:315px; height:95px;list-style:none;color:white;font-weight: 500; font-size:140%;margin:0px auto;line-height:80px;/* border:1px solid yellow; */}
     .drop{position:relative;display:inline-block; }
     
     /* buttons */
@@ -64,6 +64,3 @@
    
     .submenu1:hover{display:block;}
     .submenu2:hover{display:block;}
-    
-    
-      

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.eco.admin.dao.IArtistManageDao">
+
+	<select id="list" resultType="com.eco.dto.ArtistVO" parameterType="HashMap">
+		select * from(
+		select * from(
+			select rownum as rn, b.* from 
+			( (select * from artist_view where name like '%'||#{search.searchKeyword}||'%' order by atseq desc) b )
+		) where rn &gt;= #{paging.startNum}
+		) where rn &lt;= #{paging.endNum}
+	</select>
+	
+	<select id="count" resultType="_int" parameterType="com.eco.dto.search.SearchDTO">
+		select count(*) from ${searchTable}
+		<where>
+			<choose>
+				<when test="searchKeyword != ''">
+					${searchCondition} like '%'||#{searchKeyword}||'%'
+				</when>
+			</choose>
+		</where>
+	</select>
+	
+	<update id="update" parameterType="com.eco.dto.ArtistVO">
+		update artist
+			set
+				name = #{name}
+				, groupyn = #{groupyn}
+				, gender = #{gender}
+				, gseq = #{gseq}
+				, img = #{img}
+				, description = #{description}
+		where atseq = #{atseq}
+	</update>
+	
+	<insert id="insert" parameterType="com.eco.dto.ArtistVO">
+		insert into artist(
+			atseq
+			, name
+			, groupyn
+			, gender
+			, gseq
+			, img
+			, description
+		) values(
+			artist_seq.nextval
+			, #{name}
+			, #{groupyn}
+			, #{gender}
+			, #{gseq}
+			, #{img, jdbcType=VARCHAR}
+			, #{description}
+		)
+		<selectKey keyProperty="atseq" resultType="int">
+			select artist_seq.currval as atseq from dual
+		</selectKey>
+	</insert>
+	
+	<delete id="delete">
+		delete from artist where atseq = #{param1}
+	</delete>
+
+</mapper>

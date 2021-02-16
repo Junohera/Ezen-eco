@@ -9,8 +9,8 @@ import com.eco.dto.ArtistVO;
 import com.eco.dto.ChartVO;
 import com.eco.dto.GenreVO;
 import com.eco.dto.MusicVO;
-import com.eco.dto.SearchDTO;
 import com.eco.dto.ThemeVO;
+import com.eco.dto.search.SearchDTO;
 
 @Mapper
 public interface IMusicDao {
