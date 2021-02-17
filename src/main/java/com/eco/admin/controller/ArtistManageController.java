@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.eco.admin.service.IArtistManageService;
 import com.eco.dao.ICommonDao;
@@ -86,6 +87,7 @@ public class ArtistManageController {
 	@RequestMapping(value = "artistManageInsert", method = RequestMethod.POST)
 	public String artistManageInsert(HttpServletRequest request, Model model
 			, @ModelAttribute("artist") ArtistVO artist
+			, RedirectAttributes redirect
 			) {
 		// 세션 체크
 		HttpSession session = request.getSession();
@@ -144,7 +146,7 @@ public class ArtistManageController {
 		
 		int res = artistManageService.insert(artist);
 		if (res > 0) {
-			model.addAttribute("message", "저장되었습니다.");
+			redirect.addFlashAttribute("message", "저장되었습니다.");
 			return "redirect:/artistManageUpdateForm?atseq=" + artist.getAtseq();
 		} else {
 			return "admin/artistManageInsertForm";

@@ -58,8 +58,6 @@ public class MusicController {
 		
 		// 페이징
 		search.setSearchTable("music_view"); // 검색조건 테이블 저장
-		System.out.println("System.out.println(search.getPage());");
-		System.out.println(search.getPage());
 		int viewCount = search.getPage() * 100;
 		Paging paging = new Paging();
 		paging.setPage(1);
