@@ -21,6 +21,7 @@ public class MusicVO {
 	private int rank;
 	private int likecount;
 
+	private int rn;
 	private String abtitle;
 	private String abimg;
 	private String abcontent;
@@ -36,4 +37,6 @@ public class MusicVO {
 	private String gtitle;
 	
 	private int useq;
+
+	private Paging paging;
 }

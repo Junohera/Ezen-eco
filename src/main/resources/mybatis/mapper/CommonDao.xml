@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.eco.dao.ICommonDao">
+	<select id="count" resultType="_int" parameterType="com.eco.dto.search.SearchDTO">
+		select count(*) from ${searchTable}
+		<where>
+			<choose>
+				<when test="searchKeyword != ''">
+					${searchCondition} like '%'||#{searchKeyword}||'%'
+				</when>
+			</choose>
+		</where>
+	</select>
+</mapper>

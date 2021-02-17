@@ -18,11 +18,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.eco.dto.ArtistVO;
 import com.eco.dto.ChartVO;
 import com.eco.dto.GenreVO;
 import com.eco.dto.MemberVO;
-import com.eco.dto.MusicVO;
 import com.eco.dto.Paging;
 import com.eco.dto.ThemeVO;
 import com.eco.service.AdminService;

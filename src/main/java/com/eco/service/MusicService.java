@@ -1,5 +1,6 @@
 package com.eco.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,7 +20,7 @@ public class MusicService {
 	
 	@Autowired
 	IMusicDao md;
-
+	
 	public List<ChartVO> chartList() {
 		return md.chartList();
 	}
@@ -144,6 +145,14 @@ public class MusicService {
 
 	public List<MusicVO> musicListByArtist(SearchDTO searchDTO) {
 		return md.musicListByArtistUseSearchDTO(searchDTO);
+	}
+
+	public List<MusicVO> musicListByChart(HashMap<String, Object> map) {
+		return md.musicListByChartWithSearch(map);
+	}
+
+	public List<MusicVO> musicListByGenre(HashMap<String, Object> map) {
+		return md.musicListByGenreWithSearch(map);
 	}
 
 }

@@ -15,17 +15,6 @@
 		) where rn &lt;= #{paging.endNum}
 	</select>
 	
-	<select id="count" resultType="_int" parameterType="com.eco.dto.search.SearchDTO">
-		select count(*) from ${searchTable}
-		<where>
-			<choose>
-				<when test="searchKeyword != ''">
-					${searchCondition} like '%'||#{searchKeyword}||'%'
-				</when>
-			</choose>
-		</where>
-	</select>
-	
 	<update id="update" parameterType="com.eco.dto.ArtistVO">
 		update artist
 			set

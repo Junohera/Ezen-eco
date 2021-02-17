@@ -610,6 +610,10 @@
     color: #333333;
 }
 
+#music_albumView .info ul li a {
+    color: #333333;
+}
+
 #music_albumView .info a {
     width: max-content;
 }
@@ -822,6 +826,10 @@
     color: #333333;
 }
 
+#music_artistView .info ul li a {
+    color: #333333;
+}
+
 #music_artistView .info a {
     width: max-content;
 }
@@ -909,7 +917,8 @@
     color: #3f3fff;
 }
 
-#music_artistView #trackAndAlbum li > a:visited
+#music_artistView #trackAndAlbum li > a
+, #music_artistView #trackAndAlbum li > a:visited
 , #music_artistView #trackAndAlbum li > a:active {
     color: #333333;
 }

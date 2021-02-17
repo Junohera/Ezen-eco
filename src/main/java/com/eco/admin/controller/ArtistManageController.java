@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.eco.admin.service.IArtistManageService;
+import com.eco.dao.ICommonDao;
 import com.eco.dao.IMusicDao;
 import com.eco.dto.ArtistVO;
 import com.eco.dto.Paging;
@@ -35,6 +36,9 @@ public class ArtistManageController {
 	@Autowired
 	IMusicDao musicDao;
 	
+	@Autowired
+	ICommonDao common;
+	
 	@RequestMapping("artistManageList")
 	public String artistManageList(HttpServletRequest request, Model model
 		, @ModelAttribute("search") SearchDTO search 
@@ -49,7 +53,7 @@ public class ArtistManageController {
 
 		// 검색조건에 의한 갯수조회
 		search.setSearchTable("artist"); // 검색조건 테이블 저장
-		int count = artistManageService.count(search);
+		int count = common.count(search);
 		
 		// 페이징
 		Paging paging = new Paging();

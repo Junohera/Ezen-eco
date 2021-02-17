@@ -144,4 +144,28 @@
 	</delete>
 <!-- 무시안할래요 -->
 
+	<select id="musicListByChartWithSearch" resultType="com.eco.dto.MusicVO" parameterType="HashMap">
+		select * from(
+		select * from(
+		select rownum as rn, t.* from 
+		((
+			select * from music_view where chart like '%'||#{search.searchKeyword}||'%'
+			order by rank asc
+		)t)
+		) where rn &gt;= #{paging.startNum}
+		) where rn &lt;= #{paging.displayRow}
+	</select>
+	
+	<select id="musicListByGenreWithSearch" resultType="com.eco.dto.MusicVO" parameterType="HashMap">
+		select * from(
+		select * from(
+		select rownum as rn, t.* from 
+		((
+			select * from music_view where gseq = #{param1}
+			order by rank asc
+		)t)
+		) where rn &gt;= #{paging.startNum}
+		) where rn &lt;= #{paging.displayRow}
+	</select>
+
 </mapper>

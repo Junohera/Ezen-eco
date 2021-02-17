@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
 <table id="listBox" width="100%;">
     <tr>
         <th align="center"><input type="checkbox" name="allCheck"></th>
@@ -46,7 +45,7 @@
                         fn:contains(pageContext.request.requestURI,'music/browse')
                         or fn:contains(pageContext.request.requestURI,'music/albumView')
                     }">
-                        <td>${status.count}</td>
+                        <td>${music.rn}</td>
                     </c:if>
                     <td>
                         <div class="justWrap">

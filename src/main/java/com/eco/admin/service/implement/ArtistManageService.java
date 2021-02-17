@@ -9,18 +9,12 @@ import org.springframework.stereotype.Service;
 import com.eco.admin.dao.IArtistManageDao;
 import com.eco.admin.service.IArtistManageService;
 import com.eco.dto.ArtistVO;
-import com.eco.dto.search.SearchDTO;
 
 @Service
 public class ArtistManageService implements IArtistManageService {
 
 	@Autowired
 	IArtistManageDao artistManageDao;
-	
-	@Override
-	public int count(SearchDTO search) {
-		return artistManageDao.count(search);
-	}
 
 	@Override
 	public List<ArtistVO> list(HashMap<String, Object> map) {return artistManageDao.list(map);}

@@ -1,5 +1,6 @@
 package com.eco.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.eco.dao.ICommonDao;
 import com.eco.dto.AlbumVO;
 import com.eco.dto.ArtistVO;
 import com.eco.dto.BundleVO;
@@ -22,6 +24,7 @@ import com.eco.dto.ChartVO;
 import com.eco.dto.GenreVO;
 import com.eco.dto.MemberVO;
 import com.eco.dto.MusicVO;
+import com.eco.dto.Paging;
 import com.eco.dto.search.ArtistSearchDTO;
 import com.eco.dto.search.BrowseSearchDTO;
 import com.eco.service.BundleService;
@@ -36,12 +39,15 @@ public class MusicController {
 	
 	@Autowired
 	BundleService bundleService;
+	
+	@Autowired
+	ICommonDao common;
 
 	@RequestMapping(value = "/browse", method = RequestMethod.GET)
 	public String browse(Model model, HttpServletRequest request
 			, @ModelAttribute("search") BrowseSearchDTO search
 			) {
-				
+		
 		/** 차트 리스트 */
 		List<ChartVO> chartList = ms.chartList();
 		model.addAttribute("chartList", chartList);
@@ -49,13 +55,29 @@ public class MusicController {
 		/** 장르 리스트 */
 		List<GenreVO> genreList = ms.genreList();
 		model.addAttribute("genreList", genreList);
+		
+		// 페이징
+		search.setSearchTable("music_view"); // 검색조건 테이블 저장
+		System.out.println("System.out.println(search.getPage());");
+		System.out.println(search.getPage());
+		int viewCount = search.getPage() * 100;
+		Paging paging = new Paging();
+		paging.setPage(1);
+		paging.setTotalCount(common.count(search));
+		paging.paging();
+		paging.setDisplayRow(viewCount);
+		
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("paging", paging);
+		map.put("search", search);
 
 		// 선택한 타입과 선택한 시퀀스값으로 music_view 조회
 		List<MusicVO> musicList = null;
 		if ("chart".equals(search.getSelectedType())) { // 차트
-			musicList = ms.musicListByChart(search.getSelectedSeq());
+			musicList = ms.musicListByChart(map);
 		} else if ("genre".equals(search.getSelectedType())){ // 장르
-			musicList = ms.musicListByGenre(search.getSelectedSeq());
+			musicList = ms.musicListByGenre(map);
 		}
 
 		MemberVO loginUser = (MemberVO) request.getSession().getAttribute("loginUser");
@@ -74,7 +96,8 @@ public class MusicController {
 			// 좋아요한 곡의 시퀀스 목록
 			model.addAttribute("likeMusicList", ms.likeMusicListByUseq(loginUser.getUseq()));
 		}
-
+		
+		model.addAttribute("paging", paging);
 		model.addAttribute("musicList", musicList);
 
 		return "music/browse";
