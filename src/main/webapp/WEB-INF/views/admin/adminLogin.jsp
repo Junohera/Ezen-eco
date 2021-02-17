@@ -9,7 +9,9 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="css/admin.css">
 </head>
-<form method="post" action="adminLogin" name="adminLogin">
+<body>
+<div class="adminViewBox">
+<form id="adminForm" method="post" action="adminLogin" name="adminLogin">
 		<div id="inputLogo">
 		    <a href="/"><div id="login_logo"></div></a><br>
 		    <div id="adtitle">Administrator<br>관리자모드</div>
@@ -25,8 +27,8 @@
 				style="padding-left: 0px; height: 60px; align-content: center; border-bottom: 2px solid silver;">
             </label><br>${message}<br>
 			<input id="login" type="submit" value="로그인" class="submit">
-		
 	</form>
+	</div>
 </body>
 </html>
 

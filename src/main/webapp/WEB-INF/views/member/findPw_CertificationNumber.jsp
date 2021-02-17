@@ -33,6 +33,8 @@
 				style="padding-left: 0px; height: 60px; align-content: center; border-bottom: 2px solid silver;"
 				></label><br>
 		<input id="login" type="submit" value="인증번호 확인"></td></tr>
+		<br>
+			${msg}
 	</div>
 </form>
 </article>

@@ -145,50 +145,43 @@
 		</div>
 		
 <!-- --------------------------------------botton----------------------------------------------- -->
-		
-		<script type="text/javascript">
-		function $(id){
-		   return document.getElementById(id);
-		}
-		var src='https://docs.google.com/uc?export=open&id=1YWv-0SIQ74_RUSBfPBbVSLBfUUkqMjEf';
-		var audio = new Audio(src);
-		
-		audio.addEventListener(
-		   "timeupdate", function(e){
-		      $("time_info").innerHTML = "진행 : " + audio.currentTime + "/" + audio.duration;   
-		      $("volume_info").innerHTML = "볼륨 : " + audio.volume;         
-		   }
-		);
-		
-		function changeVolume(v){
-		   var new_v = audio.volume + v;
-		   if( 0 <= new_v && new_v <= 1.0){
-		      audio.volume = new_v;   
-		   }
-		}
-		
-		function audio_play(){
-		   audio.play();
-		}
-		
-		function audio_pause(){
-		   audio.pause();
-		}
-		
-		function audio_stop(){
-		   audio.currentTime = 0;
-		   audio.pause();   
-	}
-</script>
-<h2>사운드플레이어</h2>
-   <div id="time_info"></div>
-   <div id="volume_info"></div>
-   <div id="player_div">
-      <input type="button" value="play" onClick="audio_play()" />
-      <input type="button" value="pause" onClick="audio_pause()" />  
-      <input type="button" value="Vol+" onClick="changeVolume(+0.2)" />      
-      <input type="button" value="Vol-" onClick="changeVolume(-0.2)" />          
-   </div>
-		
-
+<script src="js/audioplayer.js"></script>
+<li id="audio-list">
+    <div class="audio-player">
+        <div class="track-title">사운드 플레이어</div>
+        <div id="seekObjContainer">
+            <div id="timeBox">	
+            	<small class="start-time"></small><small class="end-time"></small>
+            </div>	
+            <div id="timeline1">
+                <div id="seekObj1" class="playhead" style="width: 0px;"></div>
+            </div>
+        </div>
+        <div class="player-controls scrubber">
+          <input type="button" value="◀" class="prev">
+          <input type="button" value="play-pause" class="play-pause">
+          <input type="button" value="stop" class="stop" onclick="stop">
+          <input type="button" value="mute" class="mute" onclick="mute()">
+          <input type="button" value="▶" class="next">
+          <input type="button" value="한곡반복" class="oneLoop">
+          <input type="button" value="전체반복" class="wholeLoop">
+          <input id="volumecontrol" type="range" max="1" step="any" onchange="updateVolume()">
+        </div>
+        <div class="controls-box">
+      		<i class="previous-track-btn disabled"><span class="screen-reader-text">Previous track button</span></i>
+      		<i class="next-track-btn"><span class="screen-reader-text">Next track button</span></i>
+    	</div>
+        
+        
+        <div class="audio-wrapper">
+            <audio id="player2" preload="auto">
+            <%-- <c:forEach items="${music}" var="playlist" begin="${music.mseq}" end="${music.mseq}"> --%>
+			      <source src="https://docs.google.com/uc?export=open&id=1YWv-0SIQ74_RUSBfPBbVSLBfUUkqMjEf" type="audio/mp3">
+			<%-- </c:forEach> --%>      
+            </audio>
+        </div>
+    </div>
+ </li>
+   
+              
 <%@ include file="include/headerfooter/footer.jsp" %>

@@ -15,8 +15,8 @@
 					<td>${notice.nseq }</td>
 					<td class="dropTitle">
 						<details>
-    						<summary>${notice.title }</summary>
-    						<p>${notice.content }</p>
+							<summary style="color: black;">${notice.title }</summary>
+    						<p style="color: #5D5D5D;">${notice.content }</p>
 						</details>
 					</td>
 					<td>Eco 관리자</td>
@@ -28,13 +28,13 @@
 			</c:forEach>
 		</table>
 		
-		<%-- <jsp:include page="../../../../static/paging/paging.jsp">
+		<jsp:include page="../admin/paging/paging.jsp">
 		    <jsp:param value="${paging.page}" name="page"/>
 		    <jsp:param value="${paging.beginPage}" name="beginPage"/>
 		    <jsp:param value="${paging.endPage}" name="endPage"/>
 		    <jsp:param value="${paging.prev}" name="prev"/>
 		    <jsp:param value="${paging.next}" name="next"/>
 		    <jsp:param value="notice" name="command"/>
-		</jsp:include> --%>
+		</jsp:include>
 	</article>
 <%@ include file="../include/headerfooter/footer.jsp" %>

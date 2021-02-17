@@ -860,7 +860,7 @@
     cursor: pointer;
 }
 
-#music_artistView #trackBox, #music_artistView #albumBox {
+#music_artistView #trackBox, #music_artistView #albumBox, #likemusicview #trackBox {
     position: relative;
     padding-top: 30px;
 }
@@ -1106,4 +1106,31 @@
 
 #music_musicView .info .iconList a {
     cursor: pointer;
+}
+
+#listMore {
+    background: white;
+    border: 1px solid #dddddd;
+    margin: 0 auto;
+    padding: 10px 20px;
+    border-radius: 30px;
+    cursor: pointer;
+    width: 80px;
+}
+
+#listMore a {
+	width: 100%;
+    display: block;
+    height: 100%;
+    text-align: center;
+    letter-spacing: 5px;
+    font-weight: 100;
+    color: #333333;
+}
+
+#listMore:hover {
+	border-color: #3f3fff;
+}
+#listMore:hover a{
+	color: #3f3fff;
 }

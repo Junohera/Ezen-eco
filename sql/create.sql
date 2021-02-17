@@ -11,8 +11,7 @@ alter table genre drop primary key cascade;
 alter table qna drop primary key cascade;
 alter table taste_master drop primary key cascade;
 alter table taste_detail drop primary key cascade;
-
-
+alter table adminQna drop primary key cascade;
 
 -- drop table
 drop table notice purge;
@@ -35,6 +34,7 @@ drop table bundle_master purge;
 drop table bundle_detail purge;
 drop table admin purge;
 drop table member purge;
+drop table adminQna purge;
 
 -- drop sequence
 drop sequence taste_master_seq;
@@ -53,6 +53,7 @@ drop sequence notice_seq;
 drop sequence qReply_seq;
 drop sequence bundle_master_seq;
 drop sequence bundle_detail_seq;
+drop sequence adminQna_seq;
 
 -- create sequence
 create sequence member_seq start with 1;
@@ -71,6 +72,7 @@ create sequence notice_seq start with 1;
 create sequence qReply_seq start with 1;
 create sequence bundle_master_seq start with 1;
 create sequence bundle_detail_seq start with 1;
+create sequence adminQna_seq start with 1;
 
 -- create table
 create table member(
@@ -221,8 +223,8 @@ create table music_ban(
 create table qna (
 	qseq number(5) primary key,
 	useq number(5) references member(useq),
-	title varchar2(50) not null,
-	content varchar2(1000),
+	title varchar2(200) not null,
+	content varchar2(3000),
 	qna_date date default  sysdate
 );
 
@@ -230,15 +232,22 @@ create table qReply (
 	qrseq number(5) primary key,
 	qseq number(5) references qna(qseq),
 	aseq number(5) references admin(aseq),
-	content varchar2(1000),
+	content varchar2(3000),
 	qreply_date date default  sysdate
 );
 
 create table notice (
 	nseq number(5) primary key,
-	title varchar2(50) not null,
-	content varchar2(1000),
+	title varchar2(200) not null,
+	content varchar2(3000),
 	notice_date date default  sysdate
+);
+
+create table adminQna (
+	adqseq number(5) primary key,
+	title varchar2(200) not null,
+	content varchar2(1000),
+	adQna_date date default  sysdate
 );
 
 -- 테이블설명 
@@ -398,7 +407,25 @@ from artist at
     ) atpopular -- 아티스트 인기순위(좋아요 수 > 아티스트 시퀀스)
         on atpopular.atseq = at.atseq;
 
+create or replace view likemusic_view
+as
+select 
+    m.mseq
+    , m.title
+    , m.gseq
+    , ab.abseq
+    , ab.img as abimg
+    , ab.title as abtitle
+    , at.atseq
+    , at.name
+    , ml.useq
+    , ml.cdate
+from music m, music_like ml, album ab, artist at
+where m.mseq = ml.mseq and ab.abseq = m.abseq and at.atseq = ab.atseq;
+
 select * from likemusic_view;
+
+
 
 create or replace view likeartist_view
 as
@@ -408,10 +435,12 @@ select
 	, at.groupyn
 	, at.gender
 	, at.gseq
+	, g.title as atgenre
 	, at.img
 	, al.useq
-	from artist at, artist_like al
-	where al.atseq = at.atseq;
+	, al.cdate
+	from artist at, artist_like al, genre g
+	where al.atseq = at.atseq and g.gseq = at.gseq;
 
 select * from likeartist_view;
 
@@ -423,8 +452,11 @@ select
     , ab.title
     , ab.img
 	, ab.pdate
+	, ab.abtype
 	, at.name
+	, g.title as abgenre
 	, at.gseq
 	, abl.useq
-	from album ab, album_like abl, artist at
-	where abl.abseq = ab.abseq and ab.atseq = at.atseq;
+	, abl.cdate
+	from album ab, album_like abl, artist at, genre g
+	where abl.abseq = ab.abseq and ab.atseq = at.atseq and g.gseq = ab.gseq;

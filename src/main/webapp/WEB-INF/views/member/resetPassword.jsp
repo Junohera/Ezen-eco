@@ -17,7 +17,12 @@
 </style>
 <script type="text/javascript" >
 function resetPw(){
-	if(document.frm.pw==""){
+	if(document.frm.pw.value==" "){
+		alert("비밀번호를 입력하세요");
+		document.frm.pw.focus();
+		return false;
+	}
+	if(document.frm.pw.value==null){
 		alert("비밀번호를 입력하세요");
 		document.frm.pw.focus();
 		return false;
@@ -32,17 +37,6 @@ function resetPw(){
 </script>
 </head>
 <body>
-<c:if test="${message==1}">
-	<script>
-	alert("비밀번호를 입력하세요");
-	</script>
-</c:if>
-<c:if test="${message==2}">
-	<script>
-	alert("비밀번호가 일치하지 않습니다");
-	</script>
-</c:if>
-
 <article>
 	<form method="post" name="frm"  action="resetPw">
 		<div id="inputInfo" style="margin-left: 80px">
@@ -55,7 +49,9 @@ function resetPw(){
 		placeholder="비밀번호확인" type="password" size="36"
 		style="padding-left: 0px; height: 60px; align-content: center; border-bottom: 2px solid silver;"
 		value="${pwd_chk}"></label><br>
-		<input id="login" type="submit" value="비밀번호 재설정" onClick="return resetPw();">
+		<input id="login" type="submit" value="비밀번호 재설정" onClick="resetPw();">
+		<br>
+			${msg}
 		</div>
 </form>
 </article>

@@ -7,17 +7,44 @@
 <mapper namespace="com.eco.dao.IBoardDao">
 
 	<select id="getAllCount" resultType="_int">
-		select count(*) from notice
+		select count(*) from ${param1}
 	</select>
 
-	<select id="noticeList" resultType="com.eco.dto.BoardVO"
+	<select id="boardList" resultType="com.eco.dto.BoardVO"
 		parameterType="com.eco.dto.Paging">
 		select * from(
 		select * from(
-			select rownum as rn, b.* from ( (select * from notice order by nseq desc) b )
-		) where rn &gt;= #{startNum}
-		) where rn &lt;= #{endNum}
+			select rownum as rn, b.* from ( (select * from ${param1} order by ${param2} desc) b )
+		) where rn &gt;= #{param3}
+		) where rn &lt;= #{param4}
 	</select>
 	
-
+	<insert id="qnaInsert" parameterType="com.eco.dto.BoardVO">
+		insert into qna (qseq, useq, title, content)
+			values (qna_seq.nextval, #{useq},#{title},#{content})
+	</insert>
+	
+	<select id="mygetAllCount" resultType="_int">
+		select count(*) from ${param1} where useq = #{param2}
+	</select>
+	
+	<select id="myboardList" resultType="com.eco.dto.BoardVO"
+		parameterType="com.eco.dto.Paging">
+		select * from(
+		select * from(
+			select rownum as rn, b.* from ( (select * from ${param1} where useq = #{param5} order by ${param2} desc) b )
+		) where rn &gt;= #{param3}
+		) where rn &lt;= #{param4}
+	</select>
+	<select id="myQnaUpdateForm" resultType="com.eco.dto.BoardVO">
+		select * from qna where qseq = #{param1}
+	</select>
+	
+	<update id="myQnaUpdate">
+		update qna set title = #{param2}, content = #{param3} where qseq = #{param1}
+	</update>
+	
+	<delete id="myQnaDelete">
+		delete from qna where qseq = #{param1}
+	</delete>
 </mapper>

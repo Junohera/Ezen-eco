@@ -16,7 +16,7 @@ function go_mov(){
 <br>
 <br>
 <br>
-<h1>상품 상세 보기</h1> 
+<h1>회원 상세 보기</h1> 
 <form name="frm" method="post">
 <table width="500" cellpadding="0" cellspacing="0" border="1">
     <tr><th>회원명</th><td>${memberVO.name}</td></tr>

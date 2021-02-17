@@ -77,7 +77,7 @@ function idcheck(){
 		return;	
 	}
 	var url = "idCheckForm?id=" + document.formm.id.value;
-	var pop = "toolbar=no, menubar=no, scrollbars=no, resizable=no, width=500; height=250";
+	var pop = "toolbar=no, menubar=no, scrollbars=no, resizable=no, width=400; height=300";
 	window.open(url, "IdCheck", pop);
 }
 

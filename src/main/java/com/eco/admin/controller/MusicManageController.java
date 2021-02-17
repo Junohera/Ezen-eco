@@ -11,19 +11,23 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.eco.admin.service.IAdminService;
 import com.eco.admin.service.IMusicManageService;
+import com.eco.dao.ICountDao;
 import com.eco.dto.MusicVO;
 import com.eco.dto.Paging;
-import com.eco.service.AdminService;
 
 @Controller
 public class MusicManageController {
 	
 	@Autowired
-	AdminService adminService;
+	IAdminService adminService;
 	
 	@Autowired
 	IMusicManageService musicManageService;
+	
+	@Autowired
+	ICountDao countDao;
 	
 	@RequestMapping(value = "musicManageList", method = RequestMethod.GET)
 	public String musicManageList(HttpServletRequest request, Model model) {
@@ -69,7 +73,7 @@ public class MusicManageController {
 		// 검색조건 - 페이징
 		Paging paging = new Paging();
 		paging.setPage(page);
-		int count = adminService.getAllCount("music", "title", key);
+		int count = countDao.getAllCount("music", "title", key);
 		paging.setTotalCount(count);
 		paging.paging();
 

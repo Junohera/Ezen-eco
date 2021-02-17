@@ -149,7 +149,7 @@
 		select * from(
 		select rownum as rn, t.* from 
 		((
-			select * from music_view where chart like '%'||#{search.searchKeyword}||'%'
+			select * from music_view where chart like '%'||#{search.selectedSeq}||'%'
 			order by rank asc
 		)t)
 		) where rn &gt;= #{paging.startNum}
@@ -161,7 +161,7 @@
 		select * from(
 		select rownum as rn, t.* from 
 		((
-			select * from music_view where gseq = #{param1}
+			select * from music_view where gseq = #{search.selectedSeq}
 			order by rank asc
 		)t)
 		) where rn &gt;= #{paging.startNum}

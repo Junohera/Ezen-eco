@@ -26,6 +26,8 @@
 				></label><br>
 		<input id="login" type="submit" value="인증번호 확인"></td>
 	</tr>
+	<br>
+			${msg}
 </div>
 </form>
 </article>

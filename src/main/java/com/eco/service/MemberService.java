@@ -21,14 +21,15 @@ public class MemberService {
 	public int insertMember(MemberVO mvo) {
 		return mdao.insertMember(mvo);
 	}
-	public void resetPw(MemberVO mvo) {
-		mdao.resetPw(mvo);
+	public void resetPw(MemberVO membervo) {
+		mdao.resetPw(membervo);
 	}
-	public MemberVO confirmIdNamePhone(MemberVO membervo) {
-		return mdao.confirmIdNamePhone(membervo);
+	
+	public MemberVO confirmIdNamePhone(String id, String name, String phone) {
+		return mdao.confirmIdNamePhone( id, name,  phone);
 	}
-	public MemberVO confirmNamePhone(MemberVO membervo) {
-		return mdao.confirmNamePhone(membervo); 
+	public MemberVO confirmNamePhone(String name, String phone) {
+		return mdao.confirmNamePhone( name,  phone); 
 	}
 
 	public int updateMember(MemberVO mvo) {

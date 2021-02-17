@@ -6,9 +6,16 @@
 	#themeAndGenre li{width:100px; list-style-type: none; margin:10px; float:left;}
 	ul, li, dl{list-style: none;}
 
+	#nop h5{
+		padding: 264px 0;
+	    text-align: center;
+	    color: #bebebe;
+	    font-size: 17px;
+	    font-weight: bold;
+	}
+
 	#artistView{
 		width:100%;
-		height:500px;
 		margin-top: -20px;
 	    padding-top: 57px;
 	}
@@ -95,23 +102,58 @@
 		position: relative;
 	}
 	
+	#artist-img .thumbnailPlayBtn {
+	   position: absolute;
+	    bottom: 1px;
+	    left: 120px;
+	    width: 60px;
+	    height: 60px;
+	    background: white;
+	    box-shadow: 0px 0px 8px 1px rgb(0 0 0 / 30%);
+	    border-radius: 60px;
+	    z-index: 1;
+	    cursor: pointer;
+	}
+	
+	#artist-img .thumbnailPlayBtn > i {
+	    position: absolute;
+	    top: 19px;
+	    left: 23px;
+	    font-size: 24px;
+	    width: 24px;
+	    height: 24px;
+	}
+	#artist-util a{
+		vertical-align: middle;
+	}
+	
 </style>
 
 <div id="themeAndGenre">
 	<ul>
-		<li><a href='storage'>mymusic</a></li>
+		<li ><a href='storage'>mybundle</a></li>
+		<li ><a href='likemusic'>mymusic</a></li>
+		<li ><a href='likealbum'>myalbum</a></li>
 		<li class="selected"><a href='likeartist'>myartist</a></li>
-		<li><a href='likealbum'>myalbum</a></li>
-		<li><a href='mybundle'>mybundle</a></li>
 	</ul>
 </div>
 
 <br><br><br>
 
 <article id="artistView">
+	
 	<c:choose>
 		<c:when  test="${artistList.size() > 0}">
 			<c:forEach var="at" items="${artistList}" varStatus="status">
+			<div id="trackBox">
+				<ul class="filterList">
+			    	<li >
+			        	<a class="editMusic" style="cursor: pointer;font-size: 12px;margin-bottom:20px;font-weight: 100; float:right;">
+			            	편집
+			            </a>
+			        </li>
+			    </ul>
+			</div>
 			<input type="hidden" name="atseq" value="${at.atseq}">
             <input type="hidden" name="atimg" value="${at.img}">
             <input type="hidden" name="name" value="${at.name}">
@@ -122,7 +164,11 @@
 						<a href="artistView?atseq=${at.atseq}">
 							<img class="photo" src="${at.img}">
 						</a>
+						<span class="thumbnailPlayBtn" onclick="$('#playListAddAll').trigger('click');">
+			                <i class="fas fa-play"></i>
+			            </span>
 					</div>
+					
 					<div id="artist-info">
 						<div id="artist-name">
 							<p class="artist"><a href="artistView?atseq=${at.atseq}">${at.name}</a>
@@ -138,30 +184,32 @@
 	                            </c:if>
 							</dd>
 							<dd>
-								<c:if test="${at.gender eq 'F'}">
-	                             	여성
-	                            </c:if>
-								<c:if test="${at.gender eq 'M'}">
-	                             	남성
-	                            </c:if>
+								<c:if test="${at.gender eq 'F'}">여성</c:if>
+								<c:if test="${at.gender eq 'M'}">남성</c:if>
+								<c:if test="${at.gender eq 'A'}">혼성</c:if>
 							</dd>
 							<dd>
 								${at.atgenre}
 							</dd>
 						</dl>
 						<div id="artist-util">
-							<dl>
-					            
-					        </dl>
+							<a class="iconButton unlike" onclick="$music.method.unlike('${at.atseq}', null, null);">
+			                	<span style="font-size: 20px;color: red;opacity: 1;">
+			                    	<i class="fas fa-heart"></i>
+			                    </span>
+			                </a>
+			                <a class="iconButton playListAdd" onclick="$music.method.musicList.playListAddAll($('#listBox .musicTr'));">
+			                	<span style="font-size: 12px;color: rgb(51, 51, 51);opacity: 1; margin-left:8px;"><i class="fas fa-outdent">   인기곡 듣기</i></span>
+			                </a>
 						</div>
 					</div>
 				</div>
 			</c:forEach>
 		</c:when>
 		<c:otherwise>
-	           <tr>
-	               <td colspan="6" style="text-align: center;">좋아하는 가수를 추가해주세요</td>
-	           </tr>
+	        <div id = "nop">
+			 	<h5>좋아하는 앨범을 추가해주세요</h5>
+            </div>
 		</c:otherwise>
 	</c:choose>
 </article>

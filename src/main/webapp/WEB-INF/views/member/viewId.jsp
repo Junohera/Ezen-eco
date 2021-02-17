@@ -14,7 +14,6 @@ function move_login(){
 	self.close();
 }
 </script>
-${member}
 <article>
 	<form method="post" name="frm"  action="findPwForm">
 		<div id="inputInfo" style="margin-left: 80px">
@@ -34,4 +33,7 @@ ${member}
 		<input id="login" type="button"  value="로그인 페이지로"  onClick="move_login();">
 		<input id="login" type="submit" value="비밀번호찾기" ></td>
 	</tr>
+</div>
+</form>
+</article>
 	

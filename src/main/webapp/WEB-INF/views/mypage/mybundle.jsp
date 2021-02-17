@@ -3,20 +3,39 @@
 <%@ include file="../include/headerfooter/header.jsp" %>
 
 <style>
-/* #bundleviewbox{list-style:none;}
-#themeAndGenre ul{position:relative; width:100%; height:40px; list-style-type: none; margin:10px; float:left; border:1px solid red;}
-#themeAndGenre li{width:100px; margin:10px; float:left;}
-.myBundleList{width:100%; height:500px; position:relative;}
-.myBundleList li{position:relative; float:left}
-.bl-img{width:173px; height:173px; border:1px solid red; position:relative; float:left}
-.bl-info{width:217px; height:175px; border:1px solid red; position:relative; float:left} */
-
 	#themeAndGenre li{width:100px; list-style-type: none; margin:10px; float:left;}
 	ul, li, dl{list-style: none;}
 	
+	#nop{
+		padding: 264px 0;
+	    text-align: center;
+	    color: #bebebe;
+	    font-size: 17px;
+	}
+	#nop h5{
+	    font-weight: bold;
+	}
+	#nop p{
+		padding-top: 12px;
+	    padding-bottom: 30px;
+	    color: #bebebe;
+	    font-size: 15px;
+	}
+	#nop .btn_plus{
+		height: 32px;
+	    padding: 0 15px;
+	    font-size: 14px;
+	    line-height: 32px;
+	    text-align: center;
+	    border-radius: 16px;
+	    border: 1px solid rgba(0,0,0,.2);
+	    vertical-align: top;
+	    display: inline-block;
+	}
+
 	#bundleView{
 		width:100%;
-		height:500px;
+		
 		margin-top: -20px;
 	    padding-top: 57px;
 	}
@@ -88,14 +107,15 @@
 	#bundle-info dd{
 		margin:0px;
 	}
+	
 </style>
 
 <div id="themeAndGenre">
 	<ul>
-		<li ><a href='storage'>mymusic</a></li>
-		<li><a href='likeartist'>myartist</a></li>
+		<li class="selected"><a href='storage'>mybundle</a></li>
+		<li ><a href='likemusic'>mymusic</a></li>
 		<li><a href='likealbum'>myalbum</a></li>
-		<li class="selected"><a href='mybundle'>mybundle</a></li>
+		<li><a href='likeartist'>myartist</a></li>
 	</ul>
 </div>
 <br><br><br>
@@ -103,11 +123,21 @@
 	<c:choose>
 		<c:when  test="${bundleList.size() > 0}">
 			<c:forEach var="bl" items="${bundleList}" varStatus="status">
+			<input type="hidden" name="mseq" value="${bl.bmseq}">
 				<div id="bundlelist">
 					<div id="bundle-img">
-						<a href="bundleDetailView?bmseq=${bl.bmseq}">
-							<img class="photo1" src=""><!-- 번들이미지 들어가야함 -->
-						</a>
+                    	<c:choose>
+                        	<c:when test="${bl.musicList.size() eq 0}">
+                            	<span style="color: white;">
+                                	<i class="fas fa-music"></i>
+                                </span>
+                            </c:when>
+                            <c:otherwise>
+                            	<a href="bundleDetailView?bmseq=${bl.bmseq}">
+                                	<img class="photo1" src="${bl.musicList.get(0).abimg}">
+                                </a>
+                        	</c:otherwise>
+                        </c:choose>
 					</div>
 					<div id="bundle-info">
 						<div id="bundle-title">
@@ -115,47 +145,26 @@
 						</div>
 						<dl>
 							<dt class="hidden">번들리스트 정보</dt>
-							<dd>${bl.musicList.size()}</dd>
+							<dd>총 ${bl.musicList.size()}곡</dd>
 							<dd class="date"><fmt:formatDate value="${bl.cdate }" type="date" pattern="yyyy.MM.dd"/></dd>
 						</dl>
 						<div id="bundle-util">
-							<!-- 구조??물어보기 -->
+							<a class="iconButton playListAdd" onclick="$music.method.musicList.playListAddAll($('#listBox .musicTr'));">
+			            		<span style="font-size: 12px;color: rgb(51, 51, 51);opacity: 1; margin-left:8px;"><i class="fas fa-outdent"></i></span>
+			            	</a>
 						</div>
 					</div>
 				</div>
 			</c:forEach>
 		</c:when>
 		<c:otherwise>
-			<tr>
-				<td colspan="6" style="text-align: center;">리스트를 추가해주세요</td>
-	        </tr>
+			<div id = "nop">
+			 	<h5>내 리스트가 없습니다.</h5>
+			 	<p>새로운 리스트를 추가해주세요</p>
+			 	<button type="button" class="btn_plus"><a href="browse">+ 새로운 리스트 만들기</a></button>
+            </div>
 		</c:otherwise>
 	</c:choose>
 </article>
-
-<%-- <div class="myBundleList">
-	<c:choose>
-			<c:when  test="${bundleList.size() > 0}">
-				<c:forEach var="bl" items="${bundleList}" varStatus="status">
-					<li>
-						<div id="bl-img">
-							<img src ="${bl.musicList.abimg}" >${bl.title}
-						</div>
-						<div class="bl-info">
-							<dd><a href="bundleDetailView?bmseq=${bl.bmseq}">${bl.title}</dd>
-							<dd>${bl.musicList.size()}</dd>
-							<dd>${bl.cdate}</dd>
-						</div>
-					</li>
-				</c:forEach>
-			</c:when>
-	        <c:otherwise>
-	            <tr>
-	                <td colspan="6" style="text-align: center;">좋아하는 리스트를 추가해주세요</td>
-	            </tr>
-	        </c:otherwise>
-	    </c:choose>
-</div>
-</article> --%>
 
 <%@ include file="../include/headerfooter/footer.jsp" %>

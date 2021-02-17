@@ -16,4 +16,5 @@ public interface IMypageDao {
 	public List<ArtistVO> getArtist(int useq);
 	public List<AlbumVO> getAlbum(int useq);
 	public List<MusicVO> listBundleDetail(int useq);
+	public List<BundleVO> listBundle(int useq, int bmseq);
 }

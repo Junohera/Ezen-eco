@@ -4,15 +4,20 @@
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	
-<mapper namespace="com.eco.dao.ICommonDao">
+<mapper namespace="com.eco.dao.ICountDao">
+
 	<select id="count" resultType="_int" parameterType="com.eco.dto.search.SearchDTO">
 		select count(*) from ${searchTable}
 		<where>
 			<choose>
-				<when test="searchKeyword != ''">
-					${searchCondition} like '%'||#{searchKeyword}||'%'
-				</when>
+				<when test="selectedType == 'theme'">theme like '%'||#{selectedSeq}||'%'</when>
+				<when test="selectedType == 'chart'">chart like '%'||#{selectedSeq}||'%'</when>
+				<when test="selectedType == 'genre'">gseq = #{selectedSeq}</when>
 			</choose>
 		</where>
+	</select>
+	
+	<select id="getAllCount" resultType="_int">
+		select count(*) from ${param1}  where ${param2} like '%'||#{param3}||'%'
 	</select>
 </mapper>

@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import com.eco.dao.IMypageDao;
 import com.eco.dto.AlbumVO;
 import com.eco.dto.ArtistVO;
-import com.eco.dto.BundleDetailVO;
 import com.eco.dto.BundleVO;
 import com.eco.dto.MusicVO;
 
@@ -16,6 +15,10 @@ import com.eco.dto.MusicVO;
 public class MypageService {
 	@Autowired
 	IMypageDao mpdao;
+
+	public List<BundleVO> listBundle(int useq, int bmseq) {
+		return mpdao.listBundle(useq, bmseq);
+	}
 	
 	public List<MusicVO> listBundleDetail(int useq){
 		return mpdao.listBundleDetail(useq);

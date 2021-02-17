@@ -15,32 +15,33 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.eco.admin.service.IAdminService;
 import com.eco.admin.service.IAlbumManageService;
+import com.eco.dao.ICountDao;
 import com.eco.dto.AlbumVO;
 import com.eco.dto.Paging;
-import com.eco.service.AdminService;
 
 @Controller
 public class AlbumManageController {
-	
-	
+
 	@Autowired
-	AdminService adminService;
+	IAdminService adminService;
 	
 	@Autowired
 	IAlbumManageService albumManageService;
 	
+	@Autowired
+	ICountDao countDao;
+	
 	@RequestMapping("albumManageList")
 	public String albumManageList(HttpServletRequest request, Model model) {
 		
-		// �꽭�뀡 泥댄겕
 		HttpSession session = request.getSession();
 		String adminId = (String) session.getAttribute("adminId");
 		if (adminId == null) {
 			return "redirect:/admin";
 		}
 
-		// 寃��깋議곌굔 泥댄겕
 		int page=1;
 		if( request.getParameter("first")!=null ) {
 			session.removeAttribute("page");
@@ -66,17 +67,14 @@ public class AlbumManageController {
 			session.removeAttribute("page");
 		}
 
-		// 寃��깋議곌굔 - �럹�씠吏�
 		Paging paging = new Paging();
 		paging.setPage(page);
-		int count = adminService.getAllCount("album", "title", key);
+		int count = countDao.getAllCount("album", "title", key);
 		paging.setTotalCount(count);
 		paging.paging();
 
-		// 寃��깋議곌굔湲곕컲 議고쉶
 		List<AlbumVO> albumList = albumManageService.list(paging, key);
 
-		// �럹�씠吏��궡�뿉 �븘�슂媛� ���옣
 		model.addAttribute("paging", paging);
 		model.addAttribute("key", key);
 		model.addAttribute("albumList", albumList);
@@ -98,23 +96,18 @@ public class AlbumManageController {
 			, BindingResult result
 			) {
 
-		// �꽭�뀡 泥댄겕
 		HttpSession session = request.getSession();
 		String adminId = (String) session.getAttribute("adminId");
 		if (adminId == null) {
 			return "redirect:/admin";
 		}
 
-		// �쑀�슚�꽦 泥댄겕
-		if (result.hasErrors()) { // �뼱�뒓 硫ㅻ쾭蹂��닔�씤吏� 紐⑤Ⅴ吏�留�, �뿉�윭�궡�슜�씠 議댁옱�븳�떎硫�
+		if (result.hasErrors()) { 
 			if (result.getFieldError("memberName") != null) { // writer 硫ㅻ쾭蹂��닔�뿉 ���븳 �뿉�윭�궡�슜�씠 議댁옱�븳�떎硫�
 				model.addAttribute("msg", "Writer �엯�젰�� 鍮꾩뼱�엳嫄곕굹 3湲��옄 誘몃쭔�씠硫� �븞�릺�슂~");
 			}
 			return "admin/albumManageInsertForm";
 		}
-
-		// �꽌鍮꾩뒪瑜� �넻�븳 DB�벑濡�
-		// ...
 
 		return "admin/albumManageInsert";
 	}
@@ -131,7 +124,6 @@ public class AlbumManageController {
 			, @ModelAttribute("AlbumVO") @Valid AlbumVO album
 			, BindingResult result
 			) {
-		// �꽭�뀡 泥댄겕
 		HttpSession session = request.getSession();
 		String adminId = (String) session.getAttribute("adminId");
 		if (adminId == null) {
@@ -145,7 +137,6 @@ public class AlbumManageController {
 	public String albumManageDelete(HttpServletRequest request, Model model
 			, @RequestParam("atseq") int atseq
 			) {
-		// �꽭�뀡 泥댄겕
 		HttpSession session = request.getSession();
 		String adminId = (String) session.getAttribute("adminId");
 		if (adminId == null) {

@@ -59,13 +59,8 @@
             margin: 10 auto; margin-top: 28px; margin-left: 10px; margin-right: 40px;}
     .searchBox .searchText {width: 220px; height: 20px; margin-left: 3px;
                         border: 0px;}
-    .searchBox .searchImg {position: relative;
-                    background-image: url(../pageimages/search.png);
-                    width: 25px; height: 25px;
-                    background-size: 100%;
-                    float: left;
-                    margin-top: 8px; margin-left: 8px;
-                    }
+    .searchI {margin-left: 5px; float: left;}
+    .searchI:hover i { color: #AAAAAA; cursor: pointer;}
 /* header Css 끝*/
     
 /* main Css*/
@@ -100,7 +95,7 @@
     /* bundle 플레이 버튼 표시*/
     .recommendPlayBox{position: relative;/* border: 1px solid blue;*/
                      width: 100%; height: 60px; float: left;}
-    .recommendPlayBox i:hover { color: #AAAAAA;}
+    .recommendPlayBox i:hover { color: #AAAAAA; cursor: pointer;}
     
     .recommendThema { position: relative; width: 305px; height: 305px; overflow: hidden;
                         float: left; float: left;}
@@ -131,10 +126,10 @@
     /* 롤링배너 버튼 */
     #re_Lbtn {position: relative;}
     #re_Lbtn i {color: #222222; position: absolute; line-height: 400px; left: 10px;}
-    #re_Lbtn i:hover { color: #AAAAAA;}
+    #re_Lbtn i:hover { color: #AAAAAA; cursor: pointer;}
     #re_Rbtn {position: relative;}
     #re_Rbtn i {color: #222222; position: absolute; line-height: 400px; left: 900px;}
-    #re_Rbtn i:hover { color: #AAAAAA;}
+    #re_Rbtn i:hover { color: #AAAAAA; cursor: pointer;}
     
     .rotateButtonBox {position: relative; /*border: 1px solid black;*/ width: 250px; height: 30px; 
                         margin: 0 auto; margin-top: 5px;}
@@ -232,6 +227,9 @@
         footer .ul4 .bold {
             color: #333;
         }
+
+        footer a:visited {color: black;}
+        footer a:link {color: black;}
 /* footer Css  */
 
 /* dim처리용 */
@@ -274,3 +272,41 @@
     overflow: hidden;
     text-overflow: ellipsis;
   }
+
+  #audio-list{
+	list-style:none;
+}
+
+#timeBox{
+	width:500px;
+	height:20px;
+}
+
+#timeBox .start-time{
+	position:relative;
+	float:left;
+	visibility:visible;
+	font-size:10pt;
+}
+
+#timeBox .end-time{
+	position:relative;
+	float:right;
+	visibility:visible;
+	font-size:10pt;
+}
+			
+div#timeline1 {
+    width: 500px;
+    background: #C9C6F7;
+    display: block;
+    border-radius:50px;
+}
+
+div#seekObj1 {
+    width: 20px;
+    height: 10px;
+    background: #311851;
+    border-radius:50px;
+    
+}

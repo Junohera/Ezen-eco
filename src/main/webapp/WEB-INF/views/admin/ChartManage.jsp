@@ -15,8 +15,8 @@ function go_total_chart() {
 	theForm.action =  "ChartManage?first=yes";
 	theForm.submit();
 }
-function go_detail(atseq){
-	document.frm.action = "adminArtistDetail?atseq=" + atseq;
+function go_detail(cseq){
+	document.frm.action = "adminChartDetail?cseq=" + cseq;
 	document.frm.submit();
 }
 function insertChart(){
@@ -51,7 +51,8 @@ function insertChart(){
   <c:forEach items="${chartList}" var="ChartVO">  
   <tr>
     <td>${ChartVO.cseq}</td>
-    <td> ${ChartVO.title}</td>
+    <td style="text-align:left; padding-left:50px; padding-right:0px;">
+	<a href="#" onClick="go_detail('${ChartVO.cseq}')">${ChartVO.title}</td>
     <td align="center" valign="top">
 				<c:choose>
 					<c:when test="${empty ChartVO.img}">

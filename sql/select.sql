@@ -121,3 +121,6 @@ order by rank asc;
 select * from album_view where atseq = 4;
 
 select * from album;
+select * from member;
+
+select  from music_view;

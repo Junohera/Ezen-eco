@@ -15,20 +15,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.eco.admin.service.IAdminService;
 import com.eco.admin.service.IBundleManageService;
+import com.eco.dao.ICountDao;
 import com.eco.dto.BundleVO;
 import com.eco.dto.Paging;
-import com.eco.service.AdminService;
 
 @Controller
 public class BundleManageController {
 
 	
 	@Autowired
-	AdminService adminService;
+	IAdminService adminService;
 	
 	@Autowired
 	IBundleManageService bundleManageService;
+	
+	@Autowired
+	ICountDao countDao;
 	
 	@RequestMapping("bundleManageList")
 	public String bundleManageList(HttpServletRequest request, Model model) {
@@ -69,7 +73,7 @@ public class BundleManageController {
 		// 검색조건 - 페이징
 		Paging paging = new Paging();
 		paging.setPage(page);
-		int count = adminService.getAllCount("bundle_master", "title", key);
+		int count = countDao.getAllCount("bundle_master", "title", key);
 		paging.setTotalCount(count);
 		paging.paging();
 

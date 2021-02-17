@@ -15,8 +15,8 @@ function go_total_genre() {
 	theForm.action =  "GenreManage";
 	theForm.submit();
 }
-function go_detail(atseq){
-	document.frm.action = "adminArtistDetail?atseq=" + atseq;
+function go_detail(gseq){
+	document.frm.action = "adminGenreDetail?gseq=" + gseq;
 	document.frm.submit();
 }
 function insertGenre(){
@@ -47,11 +47,22 @@ function insertGenre(){
 </table>
 <br>
 <table style="margin-left: auto; margin-right: auto;" width="500" cellpadding="0" cellspacing="0" border="1">
-  <tr><th>장르번호</th><th>장르제목</th>
+  <tr><th>장르번호</th><th>장르제목</th><th>장르이미지</th>
   <c:forEach items="${genreList}" var="GenreVO">  
   <tr>
     <td>${GenreVO.gseq}</td>
-    <td> ${GenreVO.title}</td>
+    <td style="text-align:left; padding-left:50px; padding-right:0px;">
+	<a href="#" onClick="go_detail('${GenreVO.gseq}')">${GenreVO.title}</td>
+	<td align="center" valign="top">
+				<c:choose>
+					<c:when test="${empty GenreVO.img}">
+						<img src="/upload/noimage.jpg" width="20">
+					</c:when>
+					<c:otherwise>
+						<img src="/upload/${GenreVO.img}" width="20">
+					</c:otherwise>
+				</c:choose>
+			</td>
   </tr>
   </c:forEach>
 </table>

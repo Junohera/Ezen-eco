@@ -122,21 +122,30 @@ public class MemberController {
 		return "member/login";
 	}
 	
+	
+	
+	
+	
 	@RequestMapping("resetPw")
 	public String certificationNum(@ModelAttribute("dto") @Valid MemberVO membervo,
 			BindingResult result, Model model, HttpServletRequest request,
 			@RequestParam("pwd_chk") String pwd_chk) {
+		System.out.println("System.out.println(membervo);");
+		System.out.println(membervo);
 		
 		if(result.getFieldError("pw")!=null) {
-			model.addAttribute("message", "1"); //"비밀번호를 입력해주세요"
+			model.addAttribute("msg", "비밀번호를 입력해주세요"); //"비밀번호를 입력해주세요"
 			return "member/resetPassword";
 		}else if(!membervo.getPw().equals(pwd_chk)) {
-			model.addAttribute("message", "2"); // 비밀번호가 일치하지 않습니다
+			model.addAttribute("msg", "비밀번호가 일치하지 않습니다"); // 비밀번호가 일치하지 않습니다
 			return "member/resetPassword";
 		}else {
+			ms.resetPw(membervo);
 			return "member/resetPwComplete";
 		}
 	}
+	
+	
 	
 	
 	
@@ -152,9 +161,10 @@ public class MemberController {
 		mvo.setName(name);
 		mvo.setPhone(phone);
 		model.addAttribute("member", mvo);
-		if(inputNum.equals("0000")) {
+		if(inputNum.equals("0000")) {			
 			return "member/viewId";
 		}else {
+			model.addAttribute("msg", "인증번호를 확인해주세요");
 			return "member/findId_CertificationNumber";
 		}
 	}
@@ -170,53 +180,48 @@ public class MemberController {
 		mvo.setName(name);
 		mvo.setPhone(phone);
 		model.addAttribute("member", mvo);
-		if(inputNum.equals("0000")) {
+		if(inputNum.equals("0000")) 
 			return "member/resetPassword";
-		}else { 
+		else 
+			model.addAttribute("msg", "인증번호를 확인해주세요");
 			return "member/findPw_CertificationNumber";
-		}
 	}
 	
 	//아이디 찾기_이름 전화번호 검색
 	@RequestMapping("lookupNamePhone")
-	public String lookupNamePhone(@ModelAttribute("dto") @Valid MemberVO membervo,
-			BindingResult result, Model model, HttpServletRequest request) {		
-		
-		ms.confirmNamePhone(membervo);
-		if(result.getFieldError("name")!=null) {
-			model.addAttribute("message", "3"); //이름이 일치하지 않습니다
-			return "member/findIdForm";
-		}else if(result.getFieldError("phone")!=null) {
-			model.addAttribute("message", "4"); //전화번호가 일치하지 않습니다
-			model.addAttribute("name", request.getParameter("name"));
+	public String lookupNamePhone(Model model, HttpServletRequest request,
+			@RequestParam("name") String name, @RequestParam("phone") String phone ) {
+		MemberVO mvo = ms.confirmNamePhone(name, phone);
+		if(mvo==null) {
+			model.addAttribute("msg", "이름과 전화번호가 일치하는 회원이 없습니다");
+			model.addAttribute("name", name);
+			model.addAttribute("phone", phone);
 			return "member/findIdForm";
 		}else {
-			model.addAttribute("member", membervo);
+			model.addAttribute("member", mvo);
 			return "member/findId_CertificationNumber";
 		}
+		
 	}
 	//비밀번호 찾기_아이디, 이름 전화번호 검색
 	@RequestMapping("lookupIdNamePhone")
-	public String lookupIdNamePhone(@ModelAttribute("dto") @Valid MemberVO membervo,
-			BindingResult result, Model model, HttpServletRequest request) {
-		ms.confirmIdNamePhone(membervo);
-		if(result.getFieldError("id")!=null) {
-			model.addAttribute("message", "5"); //일치하는 아이디가 없습니다
-			return "member/findPwForm";
-		}else if(result.getFieldError("name")!=null) {
-			model.addAttribute("message", "6"); //이름이 일치하지 않습니다
-			model.addAttribute("id", request.getParameter("id"));
-			return "member/findPwForm";
-		}else if(result.getFieldError("phone")!=null) {
-			model.addAttribute("message", "7"); //전화번호가 일치하지 않습니다
-			model.addAttribute("id", request.getParameter("id"));
-			model.addAttribute("name", request.getParameter("name"));
+	public String lookupIdNamePhone(Model model, HttpServletRequest request,
+			@RequestParam("name") String name, @RequestParam("phone") String phone,
+			@RequestParam("id") String id) {
+		MemberVO mvo = ms.confirmIdNamePhone(id, name, phone);
+		if(mvo==null) {
+			model.addAttribute("msg", "아이디 이름 전화번호가 일치하는 회원이 없습니다");
+			model.addAttribute("id", id);
+			model.addAttribute("name", name);
+			model.addAttribute("phone", phone);
 			return "member/findPwForm";
 		}else {
-			model.addAttribute("member", membervo);
-		return "member/findPw_CertificationNumber";
+			model.addAttribute("member", mvo);
+			return "member/findPw_CertificationNumber";
 		}
 	}
+	
+	
 	
 	// 아이디 찾기_이름, 전화번호 입력창으로 이동
 	@RequestMapping("findIdForm")

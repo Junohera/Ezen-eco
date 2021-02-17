@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.eco.dao.ICommonDao;
+import com.eco.dao.ICountDao;
 import com.eco.dto.AlbumVO;
 import com.eco.dto.ArtistVO;
 import com.eco.dto.BundleVO;
@@ -41,7 +41,7 @@ public class MusicController {
 	BundleService bundleService;
 	
 	@Autowired
-	ICommonDao common;
+	ICountDao common;
 
 	@RequestMapping(value = "/browse", method = RequestMethod.GET)
 	public String browse(Model model, HttpServletRequest request

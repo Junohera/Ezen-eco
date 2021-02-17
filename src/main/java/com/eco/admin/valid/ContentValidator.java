@@ -1,4 +1,4 @@
-package com.eco.controller;
+package com.eco.admin.valid;
 
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;

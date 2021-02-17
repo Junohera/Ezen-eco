@@ -1,16 +1,56 @@
 @charset "UTF-8";
-    #userLoginForm {position:absolute;left:650px;top:100px;margin:0 auto;width:600px;height:460px;border:1px solid black;background:none;padding:50px;padding-top:100px; z-index:20;};
-   #inputInfo{align-content:center;width:100%;height:100%;border:3px dotted red;z-index:3;}
-    .textbox{position:relative;margin-left:auto;margin-right:auto;color:black; border:0px; border-bottom:2px silver;font-size:18px;height:50px;font-weight:bold;}
-    input::placeholder{color: silver;}
-    #buttons{margin-left:75px;margin-top: 20px }
-    #login{width:420px;height:70px;margin-top:30px;border:none;background:#C9C6F7;border-radius:10px;font-size:140%;color:white;font-weight:bold;}
-    .btn{position:relative;width:207px;height:50px;margin-top:20px }
+
+/* member 공통 */
+/************************************************************************************************************************************/
+
+/* 바디 폼 - article에 사용 */
+.memberForm {position:relative;margin:0 auto;width:600px;height:460px;border:3px solid silver;background:none;padding:50px;padding-top:100px;}
+.joinForm{position:relative;margin:0 auto;width:600px;height:800px;border:3px solid silver;background:none;padding:50px;padding-top:100px;text-align:center;}
+
+
+/* 텍스트 박스 */
+.textbox{position:relative;margin-left:auto;margin-right:auto;color:black;font-size:18px;height:50px;font-weight:bold;background:none;border:none;border-bottom:2px solid silver;}
+input::placeholder{color: silver;}
+
+/* 자동완성 선택시 색변경 제거 */
+input:-webkit-autofill,
+    input:-webkit-autofill:hover,
+    input:-webkit-autofill:focus,
+    input:-webkit-autofill:active {
+	 transition: background-color 5000s ease-in-out 0s;
+	 -webkit-transition: background-color 9999s ease-out;
+     -webkit-box-shadow: 0 0 0px 1000px white inset !important;
+     -webkit-text-fill-color: #000000 !important;
+   }
+
+/************************************************************************************************************************************/
+
+ /* Login */ 
+.submit{width:420px;height:70px;margin-top:30px;border:none;background:#C9C6F7;border-radius:10px;font-size:140%;color:white;font-weight:bold;cursor:pointer;}
+.btn{position:relative;float:left;width:200px;height:50px;margin-top:20px;border:none;background:#C9C6F7;border-radius:10px;font-size:90%;color:black;font-weight:bold;cursor:pointer;}
+
+/* pwChecking */
+#pwCheckingSubmit{position:relative;width:380px;height:70px;margin:0px 105px;border:none;background:#C9C6F7;border-radius:10px;font-size:140%;color:white;font-weight:bold;cursor:pointer;}
+
+/* updateMember */
+.other_buttons{position:relative;width:74%;height:90px;margin:0 auto;}
+.infoBox{position:relative;margin:0px auto; width:440px; height:auto;margin-top:10px;text-align:left;}
+
+/* Contract */
+#contract {font-family: 'Noto Sans KR', sans-serif; font-size:10pt; font-weight: 500;resize:none;border:none;}
+#next{position:relative;margin:20px -5px;line-height:30px;width:100px;height:30px;border:none;background:#C9C6F7;border-radius:10px;font-size:100%;color:black;font-weight:bold;}
+#contract::-webkit-scrollbar {width: 15px;}
+#contract::-webkit-scrollbar-thumb {
+  background-color: #311851;
+  border-radius: 10px;
+  background-clip: padding-box;
+  border: 2px solid transparent;
+}
+#contract::-webkit-scrollbar-track {
+  background-color: #C9C6F7;
+  border-radius: 10px;
+  box-shadow: inset 0px 0px 5px white;
+}
     
-/* #joinuserLoginForm  시작 */
-#userLoginForm #join{position:relative;margin:0 auto;width:600px;height:630px;border:3px solid silver;background:none;padding:50px;padding-top:100px; z-index:20;}
-#inputInfo{align-content:center;width:100%;height:100%;z-index:3;}
- #recheck{position:relative;width:100px;height:18px;line-height:18px;margin-left:30px;border:none;background:#C9C6F7;font-size:95%;color:black;font-weight:bold;}
- .join_textbox{position:relative;color:black; border:0px;margin-bottom:5px; border-bottom:2px silver;font-size:18px;height:50px;font-weight:bold;}
- #join_buttons{position:relative;width:397px;height:60px;}
- /* #joinuserLoginForm  끝 */
+/* joinForm 시작 */
+#recheck{position:relative;width:100px;height:18px;line-height:18px;margin-left:30px;border:none;background:#C9C6F7;font-size:85%;color:black;font-weight:bold;border-radius:10px;cursor:pointer;}

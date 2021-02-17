@@ -12,13 +12,11 @@
 function move_pw(){
 	document.frm.action="findPwForm";
 	document.frm.submit();
-	//location.href="findPwForm";
 }
 
 function move_Id(){
 	document.frm.action="findIdForm";
 	document.frm.submit();
-	//location.href="findIdForm";
 }
 </script>
 <article>
@@ -26,6 +24,8 @@ function move_Id(){
 		<div id="inputInfo" style="margin-left: 80px">
 		<input id="login" type="submit" value="아이디 찾기" onClick="move_Id()">
 		<input id="login" type="submit" value="비밀번호 찾기" onClick="move_pw()">
+		<br>
+			${msg}
 		</div>
 	</form>
 </article>

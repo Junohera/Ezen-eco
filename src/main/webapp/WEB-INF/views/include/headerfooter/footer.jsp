@@ -12,10 +12,10 @@
         	<a href="introduce">ECO 소개</a>
         </li>
         <li>
-        	<a href="notice">공지사항</a>
+        	<a href="notice?page=1">공지사항</a>
         </li>
         <li>
-        	<a href="serviceCenter">고객센터</a>
+        	<a href="qnaList?page=1">고객센터</a>
         </li>
         <!-- <li>ECO 플레이어 다운로드</li> -->
     </ul>

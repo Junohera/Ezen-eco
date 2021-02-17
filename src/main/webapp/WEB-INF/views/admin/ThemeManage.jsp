@@ -15,8 +15,8 @@ function go_total_theme() {
 	theForm.action =  "ThemeManage?first=yes";
 	theForm.submit();
 }
-function go_detail(atseq){
-	document.frm.action = "adminArtistDetail?atseq=" + atseq;
+function go_detail(tseq){
+	document.frm.action = "adminThemeDetail?tseq=" + tseq;
 	document.frm.submit();
 }
 function insertTheme(){
@@ -51,7 +51,8 @@ function insertTheme(){
   <c:forEach items="${themeList}" var="ThemeVO">  
   <tr>
     <td>${ThemeVO.tseq}</td>
-    <td> ${ThemeVO.title}</td>
+    <td style="text-align:left; padding-left:50px; padding-right:0px;">
+	<a href="#" onClick="go_detail('${ThemeVO.tseq}')">${ThemeVO.title}</td>
     <td align="center" valign="top">
 				<c:choose>
 					<c:when test="${empty ThemeVO.img}">

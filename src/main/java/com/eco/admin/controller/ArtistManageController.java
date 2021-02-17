@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.eco.admin.service.IArtistManageService;
-import com.eco.dao.ICommonDao;
+import com.eco.dao.ICountDao;
 import com.eco.dao.IMusicDao;
 import com.eco.dto.ArtistVO;
 import com.eco.dto.Paging;
@@ -38,7 +38,7 @@ public class ArtistManageController {
 	IMusicDao musicDao;
 	
 	@Autowired
-	ICommonDao common;
+	ICountDao common;
 	
 	@RequestMapping("artistManageList")
 	public String artistManageList(HttpServletRequest request, Model model
