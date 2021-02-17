@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.eco.admin.service.implement.IAlbumManageService;
+import com.eco.admin.service.IAlbumManageService;
 import com.eco.dto.AlbumVO;
 import com.eco.dto.Paging;
 import com.eco.service.AdminService;
@@ -33,14 +33,14 @@ public class AlbumManageController {
 	@RequestMapping("albumManageList")
 	public String albumManageList(HttpServletRequest request, Model model) {
 		
-		// 세션 체크
+		// �꽭�뀡 泥댄겕
 		HttpSession session = request.getSession();
 		String adminId = (String) session.getAttribute("adminId");
 		if (adminId == null) {
 			return "redirect:/admin";
 		}
 
-		// 검색조건 체크
+		// 寃��깋議곌굔 泥댄겕
 		int page=1;
 		if( request.getParameter("first")!=null ) {
 			session.removeAttribute("page");
@@ -66,17 +66,17 @@ public class AlbumManageController {
 			session.removeAttribute("page");
 		}
 
-		// 검색조건 - 페이징
+		// 寃��깋議곌굔 - �럹�씠吏�
 		Paging paging = new Paging();
 		paging.setPage(page);
 		int count = adminService.getAllCount("album", "title", key);
 		paging.setTotalCount(count);
 		paging.paging();
 
-		// 검색조건기반 조회
+		// 寃��깋議곌굔湲곕컲 議고쉶
 		List<AlbumVO> albumList = albumManageService.list(paging, key);
 
-		// 페이지내에 필요값 저장
+		// �럹�씠吏��궡�뿉 �븘�슂媛� ���옣
 		model.addAttribute("paging", paging);
 		model.addAttribute("key", key);
 		model.addAttribute("albumList", albumList);
@@ -98,22 +98,22 @@ public class AlbumManageController {
 			, BindingResult result
 			) {
 
-		// 세션 체크
+		// �꽭�뀡 泥댄겕
 		HttpSession session = request.getSession();
 		String adminId = (String) session.getAttribute("adminId");
 		if (adminId == null) {
 			return "redirect:/admin";
 		}
 
-		// 유효성 체크
-		if (result.hasErrors()) { // 어느 멤버변수인지 모르지만, 에러내용이 존재한다면
-			if (result.getFieldError("memberName") != null) { // writer 멤버변수에 대한 에러내용이 존재한다면
-				model.addAttribute("msg", "Writer 입력은 비어있거나 3글자 미만이면 안되요~");
+		// �쑀�슚�꽦 泥댄겕
+		if (result.hasErrors()) { // �뼱�뒓 硫ㅻ쾭蹂��닔�씤吏� 紐⑤Ⅴ吏�留�, �뿉�윭�궡�슜�씠 議댁옱�븳�떎硫�
+			if (result.getFieldError("memberName") != null) { // writer 硫ㅻ쾭蹂��닔�뿉 ���븳 �뿉�윭�궡�슜�씠 議댁옱�븳�떎硫�
+				model.addAttribute("msg", "Writer �엯�젰�� 鍮꾩뼱�엳嫄곕굹 3湲��옄 誘몃쭔�씠硫� �븞�릺�슂~");
 			}
 			return "admin/albumManageInsertForm";
 		}
 
-		// 서비스를 통한 DB등록
+		// �꽌鍮꾩뒪瑜� �넻�븳 DB�벑濡�
 		// ...
 
 		return "admin/albumManageInsert";
@@ -131,7 +131,7 @@ public class AlbumManageController {
 			, @ModelAttribute("AlbumVO") @Valid AlbumVO album
 			, BindingResult result
 			) {
-		// 세션 체크
+		// �꽭�뀡 泥댄겕
 		HttpSession session = request.getSession();
 		String adminId = (String) session.getAttribute("adminId");
 		if (adminId == null) {
@@ -145,7 +145,7 @@ public class AlbumManageController {
 	public String albumManageDelete(HttpServletRequest request, Model model
 			, @RequestParam("atseq") int atseq
 			) {
-		// 세션 체크
+		// �꽭�뀡 泥댄겕
 		HttpSession session = request.getSession();
 		String adminId = (String) session.getAttribute("adminId");
 		if (adminId == null) {

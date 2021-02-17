@@ -1,4 +1,4 @@
-package com.eco.admin.service.implement;
+package com.eco.admin.service;
 
 import java.util.HashMap;
 import java.util.List;
@@ -8,9 +8,9 @@ import com.eco.dto.search.SearchDTO;
 
 public interface IArtistManageService {
 
-	List<ArtistVO> list(HashMap<String, Object> map);
-
 	int count(SearchDTO search);
+	
+	List<ArtistVO> list(HashMap<String, Object> map);
 
 	int update(ArtistVO artist);
 

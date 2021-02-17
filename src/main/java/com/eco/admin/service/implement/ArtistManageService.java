@@ -1,4 +1,4 @@
-package com.eco.admin.service;
+package com.eco.admin.service.implement;
 
 import java.util.HashMap;
 import java.util.List;
@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.eco.admin.dao.IArtistManageDao;
-import com.eco.admin.service.implement.IArtistManageService;
+import com.eco.admin.service.IArtistManageService;
 import com.eco.dto.ArtistVO;
 import com.eco.dto.search.SearchDTO;
 
@@ -16,14 +16,14 @@ public class ArtistManageService implements IArtistManageService {
 
 	@Autowired
 	IArtistManageDao artistManageDao;
-
-	@Override
-	public List<ArtistVO> list(HashMap<String, Object> map) {return artistManageDao.list(map);}
-
+	
 	@Override
 	public int count(SearchDTO search) {
 		return artistManageDao.count(search);
 	}
+
+	@Override
+	public List<ArtistVO> list(HashMap<String, Object> map) {return artistManageDao.list(map);}
 
 	@Override
 	public int update(ArtistVO artist) {

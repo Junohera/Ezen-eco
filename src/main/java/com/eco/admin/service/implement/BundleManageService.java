@@ -1,4 +1,4 @@
-package com.eco.admin.service;
+package com.eco.admin.service.implement;
 
 import java.util.List;
 
@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.eco.admin.dao.IBundleManageDao;
-import com.eco.admin.service.implement.IBundleManageService;
+import com.eco.admin.service.IBundleManageService;
 import com.eco.dto.BundleVO;
 import com.eco.dto.Paging;
 

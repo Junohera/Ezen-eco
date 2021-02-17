@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.eco.admin.service.implement.IBundleManageService;
+import com.eco.admin.service.IBundleManageService;
 import com.eco.dto.BundleVO;
 import com.eco.dto.Paging;
 import com.eco.service.AdminService;
