@@ -1,6 +1,6 @@
 package com.eco.admin.controller;
 
-import java.util.List;
+import java.util.Arrays;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -83,13 +83,17 @@ public class MusicManageController {
 	public String musicManageInsertForm(HttpServletRequest request, Model model
 			, @ModelAttribute("music") MusicVO music
 			) {
-
+	
+		model.addAttribute("themeList", musicDao.themeList());
+		model.addAttribute("chartList", musicDao.chartList());
+		model.addAttribute("genreList", musicDao.genreList());
 		return "admin/musicManageInsertForm";
 	}
 
 	@RequestMapping(value = "musicManageInsert", method = RequestMethod.POST)
 	public String musicManageInsert(HttpServletRequest request, Model model
-			, @ModelAttribute("music") MusicVO music
+			, @ModelAttribute("music") @Valid MusicVO music
+			, BindingResult result
 			, RedirectAttributes redirect
 			) {
 		// 세션 체크
@@ -98,11 +102,17 @@ public class MusicManageController {
 		if (adminId == null) {
 			return "redirect:/admin";
 		}
+		
+		if (result.hasErrors()) {
+			String message = result.getAllErrors().get(0).getDefaultMessage();
+			model.addAttribute("message", message);
+			return this.musicManageInsertForm(request, model, music); 
+		}
 
 		int res = musicManageService.insert(music);
 		if (res > 0) {
 			redirect.addFlashAttribute("message", "저장되었습니다.");
-			return "redirect:/musicManageUpdateForm?mseq=" + music.getAtseq();
+			return "redirect:/musicManageUpdateForm?mseq=" + music.getMseq();
 		} else {
 			return "admin/musicManageInsertForm";
 		}
@@ -116,12 +126,10 @@ public class MusicManageController {
 		MusicVO music = musicDao.getMusic(mseq);
 		
 		String theme = music.getTheme() == null ? "" : music.getTheme();
-		String[] tseqs = theme.split("|");
-		music.setTseqs(tseqs);
+		music.setTseqs(Arrays.asList(theme.split("\\|")));
 		
 		String chart = music.getChart() == null ? "" : music.getChart();
-		String[] cseqs = chart.split("|");
-		music.setCseqs(cseqs);
+		music.setCseqs(Arrays.asList(chart.split("\\|")));
 		
 		model.addAttribute("themeList", musicDao.themeList());
 		model.addAttribute("chartList", musicDao.chartList());
@@ -141,14 +149,18 @@ public class MusicManageController {
 		if (adminId == null) {
 			return "redirect:/admin";
 		}
+		
+		if (result.hasErrors()) {
+			String message = result.getAllErrors().get(0).getDefaultMessage();
+			model.addAttribute("message", message);
+			return this.musicManageUpdateForm(request, model, music.getMseq()); 
+		}
 
 		int res = musicManageService.update(music);
-		
 		if (res > 0) {
 			model.addAttribute("message", "저장되었습니다.");
 		}
-		
-		return "admin/musicManageUpdateForm";
+		return this.musicManageUpdateForm(request, model, music.getMseq());
 	}
 
 	@RequestMapping(value = "musicManageDelete", method = RequestMethod.POST)

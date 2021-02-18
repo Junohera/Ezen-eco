@@ -44,10 +44,12 @@
                         var name = $(this).find("input[name=name]").val();
         
                         $(window.opener.document).find("input[name=abseq]").val(abseq);
-                        $(window.opener.document).find("#abimg").attr("src", img);
                         $(window.opener.document).find("#abtitle").text(title);
                         $(window.opener.document).find("input[name=atseq]").val(atseq);
-                        $(window.opener.document).find("#atimg").attr("src", $("#atimg").attr("src"));
+                        $(window.opener.document).find("input[name=atimg]").val($(this).find("#atimg").attr("src"));
+                        $(window.opener.document).find("#atimg").attr("src", $(this).find("#atimg").attr("src"));
+                        $(window.opener.document).find("input[name=abimg]").val($(this).find("#abimg").attr("src"));
+                        $(window.opener.document).find("#abimg").attr("src", img);
                         $(window.opener.document).find("#atname").text(name);
                         
                         self.close();

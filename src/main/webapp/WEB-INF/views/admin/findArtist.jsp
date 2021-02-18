@@ -44,6 +44,7 @@
 
                         $(window.opener.document).find("input[name=atseq]").val(0);
                         $(window.opener.document).find("#atimg").attr("src", img);
+                        $(window.opener.document).find("input[name=atimg").val(img);
                         $(window.opener.document).find("#atname").text(name);
 
                         self.close();

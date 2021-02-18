@@ -1,6 +1,7 @@
 package com.eco.dto;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
@@ -18,15 +19,16 @@ public class MusicVO  extends SearchDTO{
 	private static final long serialVersionUID = -2271523043459441308L;
 	
 	private int mseq;
+	
+	@NotBlank(message="title")
+	private String title;
 	@Positive(message = "album")
 	private int abseq;
 	@Positive(message = "artist")
 	private int atseq;
 	@Positive(message = "genre")
 	private int gseq;
-	
-	@NotBlank(message="title")
-	private String title;
+
 	private String content;
 	private String theme;
 	private String chart;
@@ -56,6 +58,6 @@ public class MusicVO  extends SearchDTO{
 
 	private Paging paging;
 
-	private String[] tseqs;
-	private String[] cseqs;
+	private List<String> tseqs;
+	private List<String> cseqs;
 }

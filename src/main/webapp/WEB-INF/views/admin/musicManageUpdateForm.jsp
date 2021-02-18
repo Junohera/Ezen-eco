@@ -2,11 +2,14 @@
     pageEncoding="UTF-8"%>
 <%@ include file="../include/adminhf/header.jsp" %>
 
-<article style="min-height:500px;margin-top:100px;">
-    <h3>${message}</h3>
+<article style="min-height:500px;margin-top:100px;position: relative;">
+    <h3 style="position: absolute;top:-80px;">${message}</h3>
     <form action="musicManageUpdate" method="POST">
+        <input type="hidden" name="mseq" value="${music.mseq}" readonly>
         <input type="hidden" name="atseq" value="${music.atseq}" readonly>
         <input type="hidden" name="abseq" value="${music.abseq}" readonly>
+        <input type="hidden" name="theme" value="${music.theme}">
+        <input type="hidden" name="chart" value="${music.chart}">
 
         타이틀 여부 : 
         <label for="titleyn_Y">
@@ -100,7 +103,7 @@
         <textarea name="content" cols="30" rows="10">${music.content}</textarea>
         <br>
         <br>
-        <input type="button" value="list" onclick="history.back();">
+        <input type="button" value="list" onclick="location.href='musicManageList';">
         <input type="reset" value="cancel">
         <input type="submit" value="save">
         <input type="button" value="del" onclick="del(this.form, '${music.mseq}');">
@@ -108,23 +111,26 @@
 </article>
 
 <script>
-    //이미지 미리 보기
-	fn_imgReader = function(){
-		$("#file").on({
-			change:function(){
-				// 이미지 초기화
-				$("#img").attr("src", "");
-				
-			    var fileList = this.files;
-			    var reader = new FileReader();
-			    reader.readAsDataURL(fileList[0]);
-			    reader.onload = function(){
-			        $("#img").attr("src", reader.result);
-			    };
-			}
-		});
-	}
-    fn_imgReader();
+    $(function() {
+        $("input:checkbox[name=tseq]").on("click", function() {
+            var checkedList = [];
+            $("input:checkbox[name=tseq]").each(function() {
+                if (this.checked) {
+                    checkedList.push($(this).val());
+                }
+            });
+            $("input[name=theme]").val(checkedList.join("|"));
+        });
+        $("input:checkbox[name=cseq]").on("click", function() {
+            var checkedList = [];
+            $("input:checkbox[name=cseq]").each(function() {
+                if (this.checked) {
+                    checkedList.push($(this).val());
+                }
+            });
+            $("input[name=chart]").val(checkedList.join("|"));
+        });
+    });
     
     function del(form, mseq) {
         if (confirm("삭제하시겠습니까?")) {
