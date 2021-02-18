@@ -349,6 +349,7 @@ select
 	, atg.title as atgenre
     , abpopular.rank -- 인기순위 (좋아요 수 > 발매일 최신순 > 앨범시퀀스)
     , abpopular.likecount -- 좋아요 수
+	, nvl(mucountbyalbum.mucount, 0) as mucount -- 음악수
 from album ab
     left join artist at
     	on at.atseq = ab.atseq
@@ -372,7 +373,11 @@ from album ab
             ) albumlike -- 앨범당 좋아요 수
                 on albumlike.abseq = ab.abseq
     ) abpopular -- 앨범 인기순위(좋아요수 > 발매일 > 앨범시퀀스)
-        on abpopular.abseq = ab.abseq;
+        on abpopular.abseq = ab.abseq
+	left join (
+		select count(*) as mucount, abseq from music group by abseq
+	) mucountbyalbum -- 앨범별 곡수
+		on mucountbyalbum.abseq = ab.abseq;
 
 create or replace view artist_view -- 아티스트
 as
