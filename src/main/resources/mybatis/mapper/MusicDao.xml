@@ -36,6 +36,45 @@
 	<select id="genreList" resultType="com.eco.dto.GenreVO">
 		select * from genre order by gseq asc
 	</select>
+
+	<select id="themeListIncludedMusic" resultType="com.eco.dto.ThemeVO">
+		select t.* from theme t
+			inner join (
+				select distinct regexp_substr(themes.theme, '[^|]+', 1, level) as theme
+				from (select distinct theme as theme from music_view where theme is not null) themes
+				connect by level &lt;= length(regexp_replace(themes.theme, '[^|]+','')) + 1
+			) includedtheme
+				on includedtheme.theme = t.tseq
+	</select>
+
+	<select id="chartListIncludedMusic" resultType="com.eco.dto.ChartVO">
+		select c.* from chart c
+			inner join (
+				select distinct regexp_substr(charts.chart, '[^|]+', 1, level) as  chart
+				from (select distinct chart as chart from music_view where chart is not null) charts
+				connect by level &lt;= length(regexp_replace(charts.chart, '[^|]+','')) + 1
+			) includedchart
+				on includedchart.chart = c.cseq
+	</select>
+
+	<select id="genreListIncludedMusic" resultType="com.eco.dto.GenreVO">
+		select g.* from genre g
+			inner join (
+				select distinct gseq as gseq from music_view
+			) includedgenre
+				on includedgenre.gseq = g.gseq
+	</select>
+	
+	<select id="genreListIncludedArtist" resultType="com.eco.dto.GenreVO">
+		select g.* from genre g
+			inner join (
+				select distinct gseq as gseq from artist_view
+			) includedgenre
+				on includedgenre.gseq = g.gseq
+	</select>
+	
+	
+
 <!-- Theme ChartVO GenreVO 단순목록 -->
 
 <!-- 어떤것에 의한 곡목록 -->

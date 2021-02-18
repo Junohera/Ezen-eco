@@ -32,6 +32,12 @@ public interface IMusicDao {
 	List<ChartVO> chartList();
 
 	List<GenreVO> genreList();
+
+	List<ThemeVO> themeListIncludedMusic();
+
+	List<ChartVO> chartListIncludedMusic();
+
+	List<GenreVO> genreListIncludedMusic();
 	
 	List<MusicVO> musicListByAlbum(int abseq);
 
@@ -82,5 +88,7 @@ public interface IMusicDao {
 	List<MusicVO> musicListByArtistUseSearchDTO(SearchDTO searchDTO);
 
 	List<MusicVO> musicListAtBrowse(SearchDTO search);
+
+	List<GenreVO> genreListIncludedArtist();
 
 }

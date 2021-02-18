@@ -16,8 +16,8 @@
 				<!-- searchkeywordTarget like searchKeyword -->
 				<if test="searchkeywordTarget != ''">
 					<choose>
-						<when test="searchkeywordTarget == 'title'">${searchkeywordTarget} like '%'||#{searchKeyword}||'%'</when>
-						<when test="searchkeywordTarget == 'name'">${searchkeywordTarget} like '%'||#{searchKeyword}||'%'</when>
+						<when test="searchkeywordTarget == 'title'">and ${searchkeywordTarget} like '%'||#{searchKeyword}||'%'</when>
+						<when test="searchkeywordTarget == 'name'">and ${searchkeywordTarget} like '%'||#{searchKeyword}||'%'</when>
 					</choose>
 				</if>
 

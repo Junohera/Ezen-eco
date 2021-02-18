@@ -53,6 +53,10 @@ public class MusicManageController {
 		paging.paging();
 		search.setPaging(paging);
 
+		model.addAttribute("themeListIncludedMusic", musicDao.themeListIncludedMusic()); 
+		model.addAttribute("chartListIncludedMusic", musicDao.chartListIncludedMusic()); 
+		model.addAttribute("genreListIncludedMusic", musicDao.genreListIncludedMusic()); 
+
 		// 페이징과 검색조건에 의한 조회 그리고 저장
 		model.addAttribute("musicList", musicManageService.list(search));
 		

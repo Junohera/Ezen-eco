@@ -38,14 +38,17 @@
             <!-- 모든 페이지별 필요값 저장 -->
             <input type="hidden" name="searchFilter" value="${param.searchFilter}">
             <input type="hidden" name="selectedGenre" value="${param.selectedGenre}">
+            <input type="hidden" name="selectedTheme" value="${param.selectedTheme}">
+            <input type="hidden" name="selectedChart" value="${param.selectedChart}">
             <input type="hidden" name="selectedGroupyn" value="${param.selectedGroupyn}">
             <input type="hidden" name="selectedGender" value="${param.selectedGender}">
             <input type="hidden" name="searchkeywordTarget" value="${param.searchkeywordTarget}">
             <input type="hidden" name="searchKeyword" value="${param.searchKeyword}">
             <input type="hidden" name="selectedAbtype" value="${param.selectedAbtype}">
-            <input type="hidden" name="selectedGseq" value="${param.selectedGseq}">
-            
-            
+            <c:choose>
+                <c:when test="${empty param.selectedGseq}"><input type="hidden" name="selectedGseq" value="0"></c:when>
+                <c:otherwise><input type="hidden" name="selectedGseq" value="${param.selectedGseq}"></c:otherwise>
+            </c:choose>
             
             <!-- 페이징 기본정보에 따른 버튼 출력 -->
             <c:if test="${param.prev}">
