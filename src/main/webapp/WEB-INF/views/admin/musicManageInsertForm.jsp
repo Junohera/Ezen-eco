@@ -114,7 +114,6 @@
         <input type="button" value="list" onclick="location.href='musicManageList';">
         <input type="reset" value="cancel">
         <input type="submit" value="save">
-        <input type="button" value="del" onclick="del(this.form, '${music.mseq}');">
     </form>
 </article>
 
@@ -140,13 +139,6 @@
         });
     });
     
-    function del(form, mseq) {
-        if (confirm("삭제하시겠습니까?")) {
-            form.action = "musicManageDelete?mseq=" + mseq;
-            form.submit();
-        }
-    };
-
     function find(type) {
         var popupWidth = window.screen.width - 400;
         var popupHeight = window.screen.height - 400;
@@ -159,7 +151,6 @@
         else if (type === "album") {
             var url = "findAlbum";
         } else {
-            return false;
         }
 
         window.open(url, url + "popup", opt);
