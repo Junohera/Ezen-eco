@@ -16,10 +16,14 @@
 	</select>
 <!-- 210208 끝 -->
 
+<!-- abtypeList -->
+<select id="abtypeListByAlbum" resultType="String">select distinct abtype from album_view</select>
 <!-- groupynList -->
 <select id="groupynListByArtist" resultType="String">select distinct groupyn from artist_view</select>
-<!-- genreList -->
+<!-- genderList -->
 <select id="genderListByArtist" resultType="String">select distinct gender from artist_view</select>
+<!-- genreList -->
+<select id="genreListByAlbum" resultType="com.eco.dto.GenreVO">select distinct g.gseq, g.title from album_view av left join genre g on g.gseq = av.gseq</select>
 
 
 <!-- Theme Chart Genre 단순목록 -->

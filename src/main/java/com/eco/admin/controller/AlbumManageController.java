@@ -56,6 +56,10 @@ public class AlbumManageController {
 		paging.paging();
 		search.setPaging(paging);
 
+		model.addAttribute("genreListByAlbum", musicDao.genreListByAlbum());
+
+		model.addAttribute("abtypeListByAlbum", musicDao.abtypeListByAlbum());
+
 		// 페이징과 검색조건에 의한 조회 그리고 저장
 		model.addAttribute("albumList", albumManageService.list(search));
 

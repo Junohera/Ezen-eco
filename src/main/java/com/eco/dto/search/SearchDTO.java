@@ -18,9 +18,11 @@ public class SearchDTO implements Serializable {
 	private String selectedTheme = "";
 	private String selectedChart = "";
 	private String selectedGenre = "";
+	private int selectedGseq = 0;
 
 	private String selectedGroupyn = "";
 	private String selectedGender = "";
+	private String selectedAbtype = "";
 
 	
 	private String searchTable = ""; // 검색할 테이블명

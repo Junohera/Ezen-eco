@@ -17,28 +17,36 @@
 				<if test="searchkeywordTarget != ''">
 					<choose>
 						<when test="searchkeywordTarget == 'title'">${searchkeywordTarget} like '%'||#{searchKeyword}||'%'</when>
+						<when test="searchkeywordTarget == 'name'">${searchkeywordTarget} like '%'||#{searchKeyword}||'%'</when>
 					</choose>
 				</if>
+
+				<!-- selectedAbtype like -->
+				<if test="selectedAbtype != ''">and abtype like '%'||#{selectedAbtype}||'%'</if>
+
+				<!-- selectedGseq = -->
+				<if test="selectedGseq != 0">and gseq = #{selectedGseq}</if>
+
 			</where>
 			order by
 				<!-- searchFilter -->
 				<choose>
-					<when test="searchFilter == 'nameDesc'">name desc</when>
-					<when test="searchFilter == 'nameAsc'">name asc</when>
-					<when test="searchFilter == 'groupynDesc'">groupyn desc</when>
-					<when test="searchFilter == 'groupynAsc'">groupyn asc</when>
-					<when test="searchFilter == 'genderDesc'">gender desc</when>
-					<when test="searchFilter == 'genderAsc'">gender asc</when>
-					<when test="searchFilter == 'gseqDesc'">gseq desc</when>
+					<when test="searchFilter == 'atseqAsc'">atseq asc</when>
+					<when test="searchFilter == 'atseqDesc'">atseq desc</when>
+					<when test="searchFilter == 'titleAsc'">title asc</when>
+					<when test="searchFilter == 'titleDesc'">title desc</when>
+					<when test="searchFilter == 'pdateAsc'">pdate asc</when>
+					<when test="searchFilter == 'pdateDesc'">pdate desc</when>
+					<when test="searchFilter == 'abtypeAsc'">abtype asc</when>
+					<when test="searchFilter == 'abtypeDesc'">abtype desc</when>
 					<when test="searchFilter == 'gseqAsc'">gseq asc</when>
-					<when test="searchFilter == 'rankDesc'">rank desc</when>
+					<when test="searchFilter == 'gseqDesc'">gseq desc</when>
 					<when test="searchFilter == 'rankAsc'">rank asc</when>
-					<when test="searchFilter == 'likecountDesc'">likecount desc</when>
+					<when test="searchFilter == 'rankDesc'">rank desc</when>
 					<when test="searchFilter == 'likecountAsc'">likecount asc</when>
-					<when test="searchFilter == 'abcountDesc'">abcount desc</when>
-					<when test="searchFilter == 'abcountAsc'">abcount asc</when>
-					<when test="searchFilter == 'mucountDesc'">mucount desc</when>
+					<when test="searchFilter == 'likecountDesc'">likecount desc</when>
 					<when test="searchFilter == 'mucountAsc'">mucount asc</when>
+					<when test="searchFilter == 'mucountDesc'">mucount desc</when>
 					<otherwise>abseq desc</otherwise>
 				</choose>
 		)t)

@@ -19,7 +19,7 @@
         <label for="selectedGenre">
             장르
             <select id="selectedGenre" name="selectedGenre" onchange="this.form.submit();">
-                <option value="" style="color:silver;">선택안함</option>
+                <option value="">선택안함</option>
                 <c:forEach var="item" items="${genreList}" varStatus="status">
                     <option value="${item.gseq}"
                         <c:if test="${search.selectedGenre eq item.gseq}">selected</c:if>
@@ -30,7 +30,7 @@
         <label for="selectedGroupyn">
             그룹
             <select id="selectedGroupyn" name="selectedGroupyn" onchange="this.form.submit();">
-                <option value="" style="color:silver;">선택안함</option>
+                <option value="">선택안함</option>
                 <c:forEach var="groupyn" items="${groupynList}" varStatus="status">
                     <option value="${groupyn}"
                         <c:if test="${search.selectedGroupyn eq groupyn}">selected</c:if>
@@ -41,7 +41,7 @@
         <label for="selectedGender">
             성별
             <select id="selectedGender" name="selectedGender" onchange="this.form.submit();">
-                <option value="" style="color:silver;">선택안함</option>
+                <option value="">선택안함</option>
                 <c:forEach var="gender" items="${genderList}" varStatus="status">
                     <option value="${gender}"
                         <c:if test="${search.selectedGender eq gender}">selected</c:if>

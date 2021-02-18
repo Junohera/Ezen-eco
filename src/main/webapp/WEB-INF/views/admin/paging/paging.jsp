@@ -42,10 +42,14 @@
             <input type="hidden" name="selectedGender" value="${param.selectedGender}">
             <input type="hidden" name="searchkeywordTarget" value="${param.searchkeywordTarget}">
             <input type="hidden" name="searchKeyword" value="${param.searchKeyword}">
+            <input type="hidden" name="selectedAbtype" value="${param.selectedAbtype}">
+            <input type="hidden" name="selectedGseq" value="${param.selectedGseq}">
+            
+            
             
             <!-- 페이징 기본정보에 따른 버튼 출력 -->
             <c:if test="${param.prev}">
-                <input type="button" value="◀" onclick="this.form.page.value='${index}';paging.submit();">
+                <input type="button" value="◀" onclick="this.form.page.value='${param.beginPage-1}';paging.submit();">
             </c:if>
             <c:forEach begin="${param.beginPage}" end="${param.endPage}" var="index">
                 <c:choose>

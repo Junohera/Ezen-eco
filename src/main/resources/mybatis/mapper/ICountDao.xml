@@ -16,7 +16,8 @@
 			<!-- searchkeywordTarget like searchKeyword -->
 			<if test="searchkeywordTarget != ''">
 				<choose>
-					<when test="searchkeywordTarget == 'name'">and ${searchkeywordTarget} like '%'||#{searchKeyword}||'%'</when>
+					<when test="searchkeywordTarget == 'title'">${searchkeywordTarget} like '%'||#{searchKeyword}||'%'</when>
+					<when test="searchkeywordTarget == 'name'">${searchkeywordTarget} like '%'||#{searchKeyword}||'%'</when>
 				</choose>
 			</if>
 
@@ -28,6 +29,12 @@
 
 			<!-- selectedGender like -->
 			<if test="selectedGender != ''">and gender like '%'||#{selectedGender}||'%'</if>
+
+			<!-- selectedAbtype like -->
+			<if test="selectedAbtype != ''">and abtype like '%'||#{selectedAbtype}||'%'</if>
+
+			<!-- selectedGseq = -->
+			<if test="selectedGseq != 0">and gseq = #{selectedGseq}</if>
 
 		</where>
 	</select>

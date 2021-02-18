@@ -16,6 +16,38 @@
 <article style="min-height:500px;margin-top:100px;">
     <form action="albumManageList" method="GET">
         <input type="hidden" name="searchFilter" value="${search.searchFilter}">
+
+        <label for="selectedAbtype">
+            앨범종류
+            <select id="selectedAbtype" name="selectedAbtype" onchange="this.form.submit();">
+                <option value="">선택안함</option>
+                <c:forEach var="abtype" items="${abtypeListByAlbum}" varStatus="status">
+                    <option value="${abtype}"
+                        <c:if test="${search.selectedAbtype eq abtype}">selected</c:if>
+                    >${abtype}</option>
+                </c:forEach>
+            </select>
+        </label>
+        <label for="selectedGseq">
+            앨범장르
+            <select id="selectedGseq" name="selectedGseq" onchange="this.form.submit();">
+                <option value="0">선택안함</option>
+                <c:forEach var="genre" items="${genreListByAlbum}" varStatus="status">
+                    <option value="${genre.gseq}"
+                        <c:if test="${search.selectedGseq eq genre.gseq}">selected</c:if>
+                    >${genre.title}</option>
+                </c:forEach>
+            </select>
+        </label>
+        <select name="displayRow" onchange="this.form.submit();">
+            <option value="5" <c:if test="${search.paging.displayRow eq 5}">selected</c:if>>5개씩 보기</option>
+            <option value="10" <c:if test="${search.paging.displayRow eq 10}">selected</c:if>>10개씩 보기</option>
+            <option value="15" <c:if test="${search.paging.displayRow eq 15}">selected</c:if>>15개씩 보기</option>
+            <option value="20" <c:if test="${search.paging.displayRow eq 20}">selected</c:if>>20개씩 보기</option>
+            <option value="30" <c:if test="${search.paging.displayRow eq 30}">selected</c:if>>30개씩 보기</option>
+        </select>
+        (${search.paging.totalCount})
+        <br>
         <label for="name">
             <select name="searchkeywordTarget">
                 <option value="title" <c:if test="${empty search.searchkeywordTarget or search.searchkeywordTarget eq 'title'}">selected</c:if>>앨범제목</option>
@@ -25,28 +57,75 @@
             <input type="text" name="searchKeyword" value="${search.searchKeyword}">
         </label>
         <input type="submit" value="search">
-        (${search.paging.totalCount})
-        <select name="displayRow" onchange="this.form.submit();">
-            <option value="5" <c:if test="${search.paging.displayRow eq 5}">selected</c:if>>5개씩 보기</option>
-            <option value="10" <c:if test="${search.paging.displayRow eq 10}">selected</c:if>>10개씩 보기</option>
-            <option value="15" <c:if test="${search.paging.displayRow eq 15}">selected</c:if>>15개씩 보기</option>
-            <option value="20" <c:if test="${search.paging.displayRow eq 20}">selected</c:if>>20개씩 보기</option>
-            <option value="30" <c:if test="${search.paging.displayRow eq 30}">selected</c:if>>30개씩 보기</option>
-        </select>
-        <input type="button" value="add" onclick="location.href='albumManageInsertForm'">
         <table border="1" style="width:950px;margin: 0 auto;" style="table-layout: fixed">
             <thead>
                 <tr>
                     <th width="10px">번호</th>
-                    <th width="10px">아티스트</th>
-                    <th width="10px">앨범제목</th>
+                    <th width="10px"><a href="#"
+                        onclick="
+                            <c:choose>
+                                <c:when test="${search.searchFilter eq 'atseqAsc'}">document.forms[0].searchFilter.value='atseqDesc';</c:when>
+                                <c:otherwise>document.forms[0].searchFilter.value='atseqAsc';</c:otherwise>
+                            </c:choose>
+                            document.forms[0].submit();
+                        ">아티스트</a></th>
+                    <th width="10px"><a href="#"
+                        onclick="
+                            <c:choose>
+                                <c:when test="${search.searchFilter eq 'titleAsc'}">document.forms[0].searchFilter.value='titleDesc';</c:when>
+                                <c:otherwise>document.forms[0].searchFilter.value='titleAsc';</c:otherwise>
+                            </c:choose>
+                            document.forms[0].submit();
+                        ">앨범제목</a></th>
                     <th width="10px">앨범재킷</th>
-                    <th width="10px">발매일</th>
-                    <th width="10px">앨범타입</th>
-                    <th width="10px">장르</th>
-                    <th width="10px">순위</th>
-                    <th width="10px">좋아요</th>
-                    <th width="10px">곡수</th>
+                    <th width="10px"><a href="#"
+                        onclick="
+                            <c:choose>
+                                <c:when test="${search.searchFilter eq 'pdateAsc'}">document.forms[0].searchFilter.value='pdateDesc';</c:when>
+                                <c:otherwise>document.forms[0].searchFilter.value='pdateAsc';</c:otherwise>
+                            </c:choose>
+                            document.forms[0].submit();
+                        ">발매일</a></th>
+                    <th width="10px"><a href="#"
+                        onclick="
+                            <c:choose>
+                                <c:when test="${search.searchFilter eq 'abtypeAsc'}">document.forms[0].searchFilter.value='abtypeDesc';</c:when>
+                                <c:otherwise>document.forms[0].searchFilter.value='abtypeAsc';</c:otherwise>
+                            </c:choose>
+                            document.forms[0].submit();
+                        ">앨범타입</a></th>
+                    <th width="10px"><a href="#"
+                        onclick="
+                            <c:choose>
+                                <c:when test="${search.searchFilter eq 'gseqAsc'}">document.forms[0].searchFilter.value='gseqDesc';</c:when>
+                                <c:otherwise>document.forms[0].searchFilter.value='gseqAsc';</c:otherwise>
+                            </c:choose>
+                            document.forms[0].submit();
+                        ">장르</a></th>
+                    <th width="10px"><a href="#"
+                        onclick="
+                            <c:choose>
+                                <c:when test="${search.searchFilter eq 'rankAsc'}">document.forms[0].searchFilter.value='rankDesc';</c:when>
+                                <c:otherwise>document.forms[0].searchFilter.value='rankAsc';</c:otherwise>
+                            </c:choose>
+                            document.forms[0].submit();
+                        ">순위</a></th>
+                    <th width="10px"><a href="#"
+                        onclick="
+                            <c:choose>
+                                <c:when test="${search.searchFilter eq 'likecountAsc'}">document.forms[0].searchFilter.value='likecountDesc';</c:when>
+                                <c:otherwise>document.forms[0].searchFilter.value='likecountAsc';</c:otherwise>
+                            </c:choose>
+                            document.forms[0].submit();
+                        ">좋아요</a></th>
+                    <th width="10px"><a href="#"
+                        onclick="
+                            <c:choose>
+                                <c:when test="${search.searchFilter eq 'mucountAsc'}">document.forms[0].searchFilter.value='mucountDesc';</c:when>
+                                <c:otherwise>document.forms[0].searchFilter.value='mucountAsc';</c:otherwise>
+                            </c:choose>
+                            document.forms[0].submit();
+                        ">곡수</a></th>
                 </tr>
             </thead>
             <tbody>
@@ -102,6 +181,13 @@
         <jsp:param value="${search.paging.prev}" name="prev"/>
         <jsp:param value="${search.paging.next}" name="next"/>
         <jsp:param value="${search.paging.displayRow}" name="displayRow"/>
-        <jsp:param value="albumManage" name="command"/>
+        <jsp:param value="albumManageList" name="command"/>
+
+        <jsp:param value="${search.searchFilter}" name="searchFilter" />
+        <jsp:param value="${search.selectedAbtype}" name="selectedAbtype" />
+        <jsp:param value="${search.selectedGseq}" name="selectedGseq" />
+        <jsp:param value="${search.searchkeywordTarget}" name="searchkeywordTarget" />
+        <jsp:param value="${search.searchKeyword}" name="searchKeyword" />
     </jsp:include>
+    <input type="button" value="add" onclick="location.href='albumManageInsertForm'">
 </article>
