@@ -16,6 +16,11 @@
 	</select>
 <!-- 210208 끝 -->
 
+<!-- groupynList -->
+<select id="groupynListByArtist" resultType="String">select distinct groupyn from artist_view</select>
+<!-- genreList -->
+<select id="genderListByArtist" resultType="String">select distinct gender from artist_view</select>
+
 
 <!-- Theme Chart Genre 단순목록 -->
 	<select id="themeList" resultType="com.eco.dto.ThemeVO">

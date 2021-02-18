@@ -11,15 +11,28 @@ public class SearchDTO implements Serializable {
 	
 	private static final long serialVersionUID = 5427742420093436962L;
 	
-	private String selectedTab = "";
-	private String selectedType = "";
-	private int selectedSeq;
+	private String selectedTab = ""; // 선택된 탭
+	private String selectedType = ""; // 선택된 타입
+	private int selectedSeq; // 선택된 시퀀스
 	
-	private String searchTable = "";
-	private String searchCondition = "";
-	private String searchKeyword = "";
-	private String searchFilter = "";
+	private String selectedTheme = "";
+	private String selectedChart = "";
+	private String selectedGenre = "";
+
+	private String selectedGroupyn = "";
+	private String selectedGender = "";
+
+	
+	private String searchTable = ""; // 검색할 테이블명
+	
+	private String searchFilter = ""; // ${fieldName}desc || ${fieldName}asc
+
+	private String searchkeywordTarget = ""; // like 할때의 대상 컬럼
+	private String searchKeyword = ""; // like 할때의 비교값
+
 	private int page = 1;
 	
+	
 	private Paging paging;
+	private int rn;
 }

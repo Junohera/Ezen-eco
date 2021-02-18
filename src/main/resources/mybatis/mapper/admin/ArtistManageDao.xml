@@ -13,12 +13,22 @@
 		((
 			select * from artist_view
 			<where>
-				<!-- searchCondition like searchKeyword -->
-				<if test="searchCondition != ''">
+				<!-- searchkeywordTarget like searchKeyword -->
+				<if test="searchkeywordTarget != ''">
 					<choose>
-						<when test="searchCondition == 'name'">${searchCondition} like '%'||#{searchKeyword}||'%'</when>
+						<when test="searchkeywordTarget == 'name'">and ${searchkeywordTarget} like '%'||#{searchKeyword}||'%'</when>
 					</choose>
 				</if>
+
+				<!-- selectedGenre = gseq -->
+				<if test="selectedGenre != ''">and gseq = #{selectedGenre}</if>
+
+				<!-- selectedGroupyn like -->
+				<if test="selectedGroupyn != ''">and groupyn like '%'||#{selectedGroupyn}||'%'</if>
+
+				<!-- selectedGender like -->
+				<if test="selectedGender != ''">and gender like '%'||#{selectedGender}||'%'</if>
+
 			</where>
 			order by
 				<!-- searchFilter -->

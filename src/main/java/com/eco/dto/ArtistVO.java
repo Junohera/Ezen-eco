@@ -43,7 +43,6 @@ public class ArtistVO extends SearchDTO {
 	private int likecount;
 
 	private String atgenre;
-	private int rn;
 
 	private List<AlbumVO> albumList;
 	private int abcount; // 앨범수

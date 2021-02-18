@@ -16,15 +16,39 @@
 <article style="min-height:500px;margin-top:100px;">
     <form action="artistManageList" method="GET">
         <input type="hidden" name="searchFilter" value="${search.searchFilter}">
-        <label for="name">
-            <select name="searchCondition">
-                <option value="name" <c:if test="${empty search.searchCondition or search.searchCondition eq 'name'}">selected</c:if>>이름</option>
+        <label for="selectedGenre">
+            장르
+            <select id="selectedGenre" name="selectedGenre" onchange="this.form.submit();">
+                <option value="" style="color:silver;">선택안함</option>
+                <c:forEach var="item" items="${genreList}" varStatus="status">
+                    <option value="${item.gseq}"
+                        <c:if test="${search.selectedGenre eq item.gseq}">selected</c:if>
+                    >${item.title}</option>
+                </c:forEach>
             </select>
-            검색어 : 
-            <input type="text" name="searchKeyword" value="${search.searchKeyword}">
         </label>
-        <input type="submit" value="search">
-        (${search.paging.totalCount})
+        <label for="selectedGroupyn">
+            그룹
+            <select id="selectedGroupyn" name="selectedGroupyn" onchange="this.form.submit();">
+                <option value="" style="color:silver;">선택안함</option>
+                <c:forEach var="groupyn" items="${groupynList}" varStatus="status">
+                    <option value="${groupyn}"
+                        <c:if test="${search.selectedGroupyn eq groupyn}">selected</c:if>
+                    >${groupyn}</option>
+                </c:forEach>
+            </select>
+        </label>
+        <label for="selectedGender">
+            성별
+            <select id="selectedGender" name="selectedGender" onchange="this.form.submit();">
+                <option value="" style="color:silver;">선택안함</option>
+                <c:forEach var="gender" items="${genderList}" varStatus="status">
+                    <option value="${gender}"
+                        <c:if test="${search.selectedGender eq gender}">selected</c:if>
+                    >${gender}</option>
+                </c:forEach>
+            </select>
+        </label>
         <select name="displayRow" onchange="this.form.submit();">
             <option value="5" <c:if test="${search.paging.displayRow eq 5}">selected</c:if>>5개씩 보기</option>
             <option value="10" <c:if test="${search.paging.displayRow eq 10}">selected</c:if>>10개씩 보기</option>
@@ -32,7 +56,16 @@
             <option value="20" <c:if test="${search.paging.displayRow eq 20}">selected</c:if>>20개씩 보기</option>
             <option value="30" <c:if test="${search.paging.displayRow eq 30}">selected</c:if>>30개씩 보기</option>
         </select>
-        <input type="button" value="add" onclick="location.href='artistManageInsertForm'">
+        (${search.paging.totalCount})
+        <br>
+        <label for="searchKeyword">
+            <select name="searchkeywordTarget">
+                <option value="name" <c:if test="${empty search.searchkeywordTarget or search.searchkeywordTarget eq 'name'}">selected</c:if>>이름</option>
+            </select>
+            검색어 : 
+            <input type="text" id="searchKeyword" name="searchKeyword" value="${search.searchKeyword}">
+        </label>
+        <input type="submit" value="search">
         <table border="1" style="width:950px;margin: 0 auto;" style="table-layout: fixed">
             <thead>
                 <tr>
@@ -117,10 +150,10 @@
                                 <td>
                                     <c:choose>
                                         <c:when test="${not empty artist.img}">
-                                            <img src="${artist.img}" width="50">
+                                            <img src="${artist.img}" width="50" height="50">
                                         </c:when>
                                         <c:otherwise>
-                                            <img src="/upload/noimage.jpg" width="50">
+                                            <img src="/upload/noimage.jpg" width="50" height="50">
                                         </c:otherwise>
                                     </c:choose>
                                 </td>
@@ -146,6 +179,14 @@
         <jsp:param value="${search.paging.prev}" name="prev"/>
         <jsp:param value="${search.paging.next}" name="next"/>
         <jsp:param value="${search.paging.displayRow}" name="displayRow"/>
-        <jsp:param value="ArtistManage" name="command"/>
+        <jsp:param value="artistManageList" name="command"/>
+
+        <jsp:param value="${search.searchFilter}" name="searchFilter"/>
+        <jsp:param value="${search.selectedGenre}" name="selectedGenre"/>
+        <jsp:param value="${search.selectedGroupyn}" name="selectedGroupyn"/>
+        <jsp:param value="${search.selectedGender}" name="selectedGender"/>
+        <jsp:param value="${search.searchkeywordTarget}" name="searchkeywordTarget"/>
+        <jsp:param value="${search.searchKeyword}" name="searchKeyword"/>
     </jsp:include>
+    <input type="button" value="add" onclick="location.href='artistManageInsertForm'">
 </article>

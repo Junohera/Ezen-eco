@@ -18,6 +18,10 @@ public interface IMusicDao {
 	List<MusicVO> getNewList();
 	
 	List<MusicVO> getRecommendMusic();
+
+	List<String> groupynListByArtist();
+
+	List<String> genderListByArtist();
 	
 	List<ThemeVO> themeList();
 	

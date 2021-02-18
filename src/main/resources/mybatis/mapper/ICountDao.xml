@@ -13,19 +13,22 @@
 	<select id="count" resultType="_int" parameterType="com.eco.dto.search.SearchDTO">
 		select count(*) from ${searchTable}
 		<where>
-			<!-- selectedType -->
-			<choose>
-				<when test="selectedType == 'theme'">theme like '%'||#{selectedSeq}||'%'</when>
-				<when test="selectedType == 'chart'">chart like '%'||#{selectedSeq}||'%'</when>
-				<when test="selectedType == 'genre'">gseq = #{selectedSeq}</when>
-			</choose>
-
-			<!-- searchCondition like searchKeyword -->
-			<if test="searchCondition != ''">
+			<!-- searchkeywordTarget like searchKeyword -->
+			<if test="searchkeywordTarget != ''">
 				<choose>
-					<when test="searchCondition == 'name'">${searchCondition} like '%'||#{searchKeyword}||'%'</when>
+					<when test="searchkeywordTarget == 'name'">and ${searchkeywordTarget} like '%'||#{searchKeyword}||'%'</when>
 				</choose>
 			</if>
+
+			<!-- selectedGenre = gseq -->
+			<if test="selectedGenre != ''">and gseq = #{selectedGenre}</if>
+
+			<!-- selectedGroupyn like -->
+			<if test="selectedGroupyn != ''">and groupyn like '%'||#{selectedGroupyn}||'%'</if>
+
+			<!-- selectedGender like -->
+			<if test="selectedGender != ''">and gender like '%'||#{selectedGender}||'%'</if>
+
 		</where>
 	</select>
 </mapper>

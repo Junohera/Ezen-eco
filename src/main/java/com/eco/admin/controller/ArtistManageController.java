@@ -1,7 +1,6 @@
 package com.eco.admin.controller;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -41,8 +40,8 @@ public class ArtistManageController {
 	
 	@RequestMapping("artistManageList")
 	public String artistManageList(HttpServletRequest request, Model model
-		, @ModelAttribute("search") ArtistVO search
-		, Paging searchPaging
+			, @ModelAttribute("search") ArtistVO search
+			, Paging searchPaging
 			) {
 		
 		// 세션 체크
@@ -53,7 +52,7 @@ public class ArtistManageController {
 		}
 
 		// 검색조건에 의한 갯수조회
-		search.setSearchTable("artist"); // 검색조건 테이블 저장
+		search.setSearchTable("artist_view"); // 검색조건 테이블 저장
 		int count = c.count(search);
 		
 		// 페이징
@@ -64,11 +63,14 @@ public class ArtistManageController {
 		paging.paging();
 		search.setPaging(paging);
 
-		// 페이징과 검색조건에 의한 조회
-		List<ArtistVO> artistList = artistManageService.list(search);
+		model.addAttribute("groupynList", musicDao.groupynListByArtist());
 
-		// 페이지내에 필요값 저장
-		model.addAttribute("artistList", artistList);
+		model.addAttribute("genderList", musicDao.genderListByArtist());
+		
+		model.addAttribute("genreList", musicDao.genreList());
+
+		// 페이징과 검색조건에 의한 조회 그리고 저장
+		model.addAttribute("artistList", artistManageService.list(search));
 		
 		return "admin/artistManageList";
 	}
