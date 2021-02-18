@@ -2,16 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ include file="../include/adminhf/header.jsp" %>
 
-<script>
-    $(function() {
-        if ("${message}" !== "") {
-            alert("${message}");
-        }
-    })
-</script>
-
 <article style="min-height:500px;margin-top:100px;">
-    
+    <h1>${message}</h1>    
     <form action="artistManageInsert" method="POST" enctype="multipart/form-data">
         <label for="name">
             이름 <input type="text" name="name" value="${artist.name}">

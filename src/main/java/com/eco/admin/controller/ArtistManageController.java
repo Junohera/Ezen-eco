@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -103,23 +104,23 @@ public class ArtistManageController {
 					, "UTF-8"
 					, new DefaultFileRenamePolicy()
 			);
-			if (multi.getParameter("name") == null) {
+			if (StringUtils.isAnyBlank(multi.getParameter("name"))) {
 				model.addAttribute("message", "name");
 				return "admin/artistManageInsertForm";
 			} else artist.setName(multi.getParameter("name"));
-			if (multi.getParameter("groupyn") == null) {
+			if (StringUtils.isAnyBlank(multi.getParameter("groupyn"))) {
 				model.addAttribute("message", "groupyn");
 				return "admin/artistManageInsertForm";
 			} else artist.setGroupyn(multi.getParameter("groupyn"));
-			if (multi.getParameter("gender") == null) {
+			if (StringUtils.isAnyBlank(multi.getParameter("gender"))) {
 				model.addAttribute("message", "gender");
 				return "admin/artistManageInsertForm";
 			} else artist.setGender(multi.getParameter("gender"));
-			if (multi.getParameter("gseq") == null) {
+			if (StringUtils.isAnyBlank(multi.getParameter("gseq"))) {
 				model.addAttribute("message", "gseq");
 				return "admin/artistManageInsertForm";
 			} else artist.setGseq(Integer.parseInt(multi.getParameter("gseq")));
-			if (multi.getParameter("description") == null) {
+			if (null == multi.getParameter("description")) { // description은 널만 아니면 진행되도록
 				model.addAttribute("message", "description");
 				return "admin/artistManageInsertForm";
 			} else artist.setDescription(multi.getParameter("description"));

@@ -24,7 +24,7 @@
             <input type="text" name="searchKeyword" value="${search.searchKeyword}">
         </label>
         <input type="submit" value="search">
-        <input type="button" value="add" onclick="location.href='artistManageInsertForm'">
+        (${search.paging.totalCount})
         <select name="displayRow" onchange="this.form.submit();">
             <option value="5" <c:if test="${search.paging.displayRow eq 5}">selected</c:if>>5개씩 보기</option>
             <option value="10" <c:if test="${search.paging.displayRow eq 10}">selected</c:if>>10개씩 보기</option>
@@ -32,6 +32,7 @@
             <option value="20" <c:if test="${search.paging.displayRow eq 20}">selected</c:if>>20개씩 보기</option>
             <option value="30" <c:if test="${search.paging.displayRow eq 30}">selected</c:if>>30개씩 보기</option>
         </select>
+        <input type="button" value="add" onclick="location.href='artistManageInsertForm'">
         <table border="1" style="width:950px;margin: 0 auto;" style="table-layout: fixed">
             <thead>
                 <tr>

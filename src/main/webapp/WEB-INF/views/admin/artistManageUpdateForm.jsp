@@ -2,16 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ include file="../include/adminhf/header.jsp" %>
 
-<script>
-    $(function() {
-        if ("${message}" !== "") {
-            alert("${message}");
-        }
-    })
-</script>
-
 <article style="min-height:500px;margin-top:100px;">
-    
+    <h3>${message}</h3>
     <form action="artistManageUpdate" method="POST" enctype="multipart/form-data">
         <input type="hidden" name="oldimg" value="${artist.img}">
         <label for="atseq">
