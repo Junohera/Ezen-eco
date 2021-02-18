@@ -228,7 +228,15 @@ public class ArtistManageController {
 			return "redirect:/admin";
 		}
 		
-		artistManageService.delete(atseq);
+		
+		try {
+			artistManageService.delete(atseq);
+		} catch(Exception e) {
+			model.addAttribute("message", "이미 앨범 또는 곡이 있으므로 해당 아티스트는 삭제가 불가능합니다.");
+			return this.artistManageUpdateForm(request, model, atseq);
+		}
+		
+		
 		return "redirect:/artistManageList";
 	}
 }

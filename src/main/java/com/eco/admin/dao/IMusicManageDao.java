@@ -11,5 +11,11 @@ import com.eco.dto.search.SearchDTO;
 public interface IMusicManageDao {
 
 	List<MusicVO> list(SearchDTO search);
+
+	int insert(MusicVO music);
+
+	int update(MusicVO music);
+
+	void delete(int mseq);
 	
 }

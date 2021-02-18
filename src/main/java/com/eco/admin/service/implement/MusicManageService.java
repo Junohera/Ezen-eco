@@ -20,4 +20,19 @@ public class MusicManageService implements IMusicManageService {
 	public List<MusicVO> list(SearchDTO search) {
 		return musicManageDao.list(search);
 	}
+
+	@Override
+	public int insert(MusicVO music) {
+		return musicManageDao.insert(music);
+	}
+
+	@Override
+	public int update(MusicVO music) {
+		return musicManageDao.update(music);
+	}
+
+	@Override
+	public void delete(int mseq) {
+		musicManageDao.delete(mseq);
+	}
 }

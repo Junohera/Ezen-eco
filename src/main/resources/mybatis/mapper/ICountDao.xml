@@ -42,7 +42,7 @@
 
 			<!-- selectedGenre = -->
 			<if test="selectedGenre != ''">and gseq = #{selectedGenre}</if>
-
+			
 		</where>
 	</select>
 </mapper>

@@ -52,5 +52,63 @@
 		) where rn &gt;= #{paging.startNum}
 		) where rn &lt;= #{paging.endNum}
 	</select>
+
+	<update id="update" parameterType="com.eco.dto.MusicVO">
+		update music
+			set
+				mseq = #{mseq}
+				, abseq = #{abseq}
+				, atseq = #{atseq}
+				, theme = #{theme}
+				, chart = #{chart}
+				, gseq = #{gseq}
+				, title = #{title}
+				, content = #{content}
+				, titleyn = #{titleyn}
+				, musicby = #{musicby}
+				, lyricsby = #{lyricsby}
+				, producingby = #{producingby}
+				, src = #{src}
+		where mseq = #{mseq}
+	</update>
+	
+	<insert id="insert" parameterType="com.eco.dto.MusicVO">
+		insert into music(
+			mseq
+			, abseq
+			, atseq
+			, theme
+			, chart
+			, gseq
+			, title
+			, content
+			, titleyn
+			, musicby
+			, lyricsby
+			, producingby
+			, src
+		) values(
+			music_seq.nextval
+			, #{abseq}
+			, #{atseq}
+			, #{theme}
+			, #{chart}
+			, #{gseq}
+			, #{title}
+			, #{content}
+			, #{titleyn}
+			, #{musicby}
+			, #{lyricsby}
+			, #{producingby}
+			, #{src}
+		)
+		<selectKey keyProperty="mseq" resultType="int">
+			select music_seq.currval as mseq from dual
+		</selectKey>
+	</insert>
+	
+	<delete id="delete">
+		delete from music where mseq = #{param1}
+	</delete>
 	
 </mapper>

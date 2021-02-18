@@ -29,6 +29,7 @@ public class MusicVO  extends SearchDTO{
 	private String title;
 	private String content;
 	private String theme;
+	private String chart;
 	private String titleyn;	
 	private String musicby;
 	private String lyricsby;
@@ -54,4 +55,7 @@ public class MusicVO  extends SearchDTO{
 	private int useq;
 
 	private Paging paging;
+
+	private String[] tseqs;
+	private String[] cseqs;
 }
