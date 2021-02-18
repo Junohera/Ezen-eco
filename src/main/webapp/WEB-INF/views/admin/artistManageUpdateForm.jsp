@@ -55,7 +55,7 @@
         <label for="img">
             이미지 등록
             <input id="file" type="file" name="img" value="${artist.img}">
-            <img style="display:block;" id="img" src="${artist.img}" width="100" onerror="this.src='/upload/noimage.jpg'">
+            <img style="display:block;" id="img" src="${artist.img}" width="100" height="100" onerror="this.src='/upload/noimage.jpg'">
         </label>
         <p>이미지 링크</p>
         <input type="text" name="imglink" value="" placeholder="링크 미사용시 빈칸을 유지하세요." 
