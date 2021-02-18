@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import com.eco.admin.dao.IAlbumManageDao;
 import com.eco.admin.service.IAlbumManageService;
 import com.eco.dto.AlbumVO;
-import com.eco.dto.Paging;
+import com.eco.dto.search.SearchDTO;
 
 @Service
 public class AlbumManageService implements IAlbumManageService {
@@ -17,7 +17,7 @@ public class AlbumManageService implements IAlbumManageService {
 	IAlbumManageDao albumManageDao;
 
 	@Override
-	public List<AlbumVO> list(Paging paging, String key) {
-		return albumManageDao.list(paging, key);
+	public List<AlbumVO> list(SearchDTO search) {
+		return albumManageDao.list(search);
 	}
 }

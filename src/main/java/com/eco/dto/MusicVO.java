@@ -2,14 +2,30 @@ package com.eco.dto;
 
 import java.sql.Timestamp;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Positive;
+
+import com.eco.dto.search.SearchDTO;
+
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 @Data
-public class MusicVO {
+@EqualsAndHashCode(callSuper = false)
+@ToString(callSuper = true) // callSuper를 해야 부모의 값도 같이 출력(=> 좀더 쉬운 디버깅)
+public class MusicVO  extends SearchDTO{
+	private static final long serialVersionUID = -2271523043459441308L;
+	
 	private int mseq;
+	@Positive(message = "album")
 	private int abseq;
+	@Positive(message = "artist")
 	private int atseq;
+	@Positive(message = "genre")
 	private int gseq;
+	
+	@NotBlank(message="title")
 	private String title;
 	private String content;
 	private String theme;
@@ -21,7 +37,6 @@ public class MusicVO {
 	private int rank;
 	private int likecount;
 
-	private int rn;
 	private String abtitle;
 	private String abimg;
 	private String abcontent;

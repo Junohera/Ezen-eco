@@ -5,11 +5,11 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.eco.dto.MusicVO;
-import com.eco.dto.Paging;
+import com.eco.dto.search.SearchDTO;
 
 @Mapper
 public interface IMusicManageDao {
 
-	List<MusicVO> list(Paging paging, String key);
+	List<MusicVO> list(SearchDTO search);
 	
 }

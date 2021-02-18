@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import com.eco.admin.dao.IMusicManageDao;
 import com.eco.admin.service.IMusicManageService;
 import com.eco.dto.MusicVO;
-import com.eco.dto.Paging;
+import com.eco.dto.search.SearchDTO;
 
 @Service
 public class MusicManageService implements IMusicManageService {
@@ -17,7 +17,7 @@ public class MusicManageService implements IMusicManageService {
 	IMusicManageDao musicManageDao;
 
 	@Override
-	public List<MusicVO> list(Paging paging, String key) {
-		return musicManageDao.list(paging, key);
+	public List<MusicVO> list(SearchDTO search) {
+		return musicManageDao.list(search);
 	}
 }
