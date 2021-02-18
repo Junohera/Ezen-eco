@@ -67,7 +67,7 @@ public class ArtistManageController {
 
 		model.addAttribute("genderList", musicDao.genderListByArtist());
 		
-		model.addAttribute("genreList", musicDao.genreList());
+		model.addAttribute("genreListIncludedArtist", musicDao.genreListIncludedArtist());
 
 		// 페이징과 검색조건에 의한 조회 그리고 저장
 		model.addAttribute("artistList", artistManageService.list(search));

@@ -20,7 +20,7 @@
             장르
             <select id="selectedGenre" name="selectedGenre" onchange="this.form.submit();">
                 <option value="">선택안함</option>
-                <c:forEach var="item" items="${genreList}" varStatus="status">
+                <c:forEach var="item" items="${genreListIncludedArtist}" varStatus="status">
                     <option value="${item.gseq}"
                         <c:if test="${search.selectedGenre eq item.gseq}">selected</c:if>
                     >${item.title}</option>
