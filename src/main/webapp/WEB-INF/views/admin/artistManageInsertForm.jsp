@@ -2,6 +2,12 @@
     pageEncoding="UTF-8"%>
 <%@ include file="../include/adminhf/header.jsp" %>
 
+<style>
+    article * {
+        font-size: 95%;
+    }
+</style>
+
 <article style="min-height:500px;margin-top:100px;position: relative;">
     <h3 style="position: absolute;top:-80px;">${message}</h3>
     <form action="artistManageInsert" method="POST" enctype="multipart/form-data">

@@ -47,7 +47,7 @@
                 <li class="menu"><a href="notice?first=yes" style="text-decoration:none;color: white;">게시판관리</a></li>
             </ul>
 
-            <div class="dropMenubar" style="position: absolute;top: 198px;left: 0;width: 100%;height: 100px;display:none;">
+            <div class="dropMenubar" style="position: absolute;top: 190px;left: 0;width: 100%;height: 100px;display:none;background: white;">
                 <ul class="submenu" style="list-style: none;margin: 0;padding: 0;display: flex;justify-content: space-around;height: 100px;line-height: 100px;font-size: 150%;">
 
                 </ul>

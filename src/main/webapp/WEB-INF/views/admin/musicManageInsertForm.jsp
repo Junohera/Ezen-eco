@@ -1,7 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../include/adminhf/header.jsp" %>
-
+<style>
+    article * {
+        font-size: 95%;
+    }
+</style>
 <article style="min-height:500px;margin-top:100px;position: relative;">
     <h3 style="position: absolute;top:-80px;">${message}</h3>
     <form action="musicManageInsert" method="POST">
@@ -103,7 +107,8 @@
         </label>
         <br>
         <br>
-        <textarea name="content" cols="30" rows="10">${music.content}</textarea>
+        <p>가사</p>
+        <textarea name="content" cols="30" rows="10" style="width: 80%;margin: 0 auto;">${music.content}</textarea>
         <br>
         <br>
         <input type="button" value="list" onclick="location.href='musicManageList';">

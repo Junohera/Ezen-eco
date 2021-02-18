@@ -2,10 +2,11 @@
     pageEncoding="UTF-8"%>
 <%@ include file="../include/adminhf/header.jsp" %>    
 <style>
-    * {
+    article * {
         font-size: 95%;
     }
 </style>
+
 <script>
     $(function() {
         if ("${message}" !== "") {
