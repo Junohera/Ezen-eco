@@ -1,6 +1,5 @@
 package com.eco.service;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -138,7 +137,6 @@ public class MusicService {
 		return md.likeArtistListByUseq(useq);
 	}
 	
-	/* 검색필터 테스트용 */
 	public List<AlbumVO> albumListByArtist(SearchDTO searchDTO) {
 		return md.albumListByArtistUseSearchDTO(searchDTO);
 	}
@@ -147,12 +145,8 @@ public class MusicService {
 		return md.musicListByArtistUseSearchDTO(searchDTO);
 	}
 
-	public List<MusicVO> musicListByChart(HashMap<String, Object> map) {
-		return md.musicListByChartWithSearch(map);
-	}
-
-	public List<MusicVO> musicListByGenre(HashMap<String, Object> map) {
-		return md.musicListByGenreWithSearch(map);
+	public List<MusicVO> musicListAtBrowse(SearchDTO search) {
+		return md.musicListAtBrowse(search);
 	}
 
 }

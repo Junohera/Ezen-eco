@@ -387,6 +387,8 @@ select
 	, g.title as atgenre
     , atpopular.rank -- 인기순위 (좋아요 수 > 아티스트 시퀀스)
     , atpopular.likecount -- 좋아요 수
+	, nvl(abcountbyartist.abcount, 0) as abcount -- 앨범수
+	, nvl(mucountbyartist.mucount, 0) as mucount -- 음악수
 from artist at
 	left join genre g
 		on g.gseq = at.gseq
@@ -405,7 +407,15 @@ from artist at
             ) artistlike -- 아티스트 좋아요 수
                 on artistlike.atseq = at.atseq
     ) atpopular -- 아티스트 인기순위(좋아요 수 > 아티스트 시퀀스)
-        on atpopular.atseq = at.atseq;
+        on atpopular.atseq = at.atseq
+	left join (
+		select count(*) as abcount, atseq from album group by atseq
+	) abcountbyartist -- 아티스트별 앨범수
+		on abcountbyartist.atseq = at.atseq
+	left join (
+		select count(*) as mucount, atseq from music group by atseq
+	) mucountbyartist -- 이티스트별 곡수
+		on mucountbyartist.atseq = at.atseq;
 
 create or replace view likemusic_view
 as

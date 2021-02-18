@@ -37,12 +37,12 @@
             <div class="info">
                 <ul>
                     <li style="font-size: 28px;margin-bottom: 10px;height: 40px;">
-                        <a href="albumView?abseq=${music.abseq}">
+                        <a href="albumView?abseq=${music.abseq}" style="color:#333333;">
                             ${music.title}
                         </a>
                     </li>
                     <li style="font-size: 16px;margin-bottom: 25px;font-weight:400;">
-                        <a href="artistView?atseq=${music.atseq}">
+                        <a href="artistView?atseq=${music.atseq}" style="color:#333333;">
                             ${music.name}
                         </a>
                     </li>

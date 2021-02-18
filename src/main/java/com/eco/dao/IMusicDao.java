@@ -1,6 +1,5 @@
 package com.eco.dao;
 
-import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -62,7 +61,6 @@ public interface IMusicDao {
 	
 	void unbanMusic(int useq, int mseq);
 	
-
 	List<Integer> banListByUseq(int useq);
 
 	List<Integer> likeMusicListByUseq(int useq);
@@ -75,8 +73,6 @@ public interface IMusicDao {
 
 	List<MusicVO> musicListByArtistUseSearchDTO(SearchDTO searchDTO);
 
-	List<MusicVO> musicListByChartWithSearch(HashMap<String, Object> map);
-
-	List<MusicVO> musicListByGenreWithSearch(HashMap<String, Object> map);
+	List<MusicVO> musicListAtBrowse(SearchDTO search);
 
 }

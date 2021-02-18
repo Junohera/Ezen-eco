@@ -32,8 +32,6 @@ public class MusicManageController {
 	@RequestMapping(value = "musicManageList", method = RequestMethod.GET)
 	public String musicManageList(HttpServletRequest request, Model model) {
 		
-		System.out.println("testestest");
-		
 		// 세션 체크
 		HttpSession session = request.getSession();
 		String adminId = (String) session.getAttribute("adminId");
@@ -41,9 +39,6 @@ public class MusicManageController {
 			return "redirect:/admin";
 		}
 		
-		System.out.println("System.out.println(adminId);");
-		System.out.println(adminId);
-
 		// 검색조건 체크
 		int page=1;
 		if( request.getParameter("first")!=null ) {

@@ -8,8 +8,8 @@ public class Paging {
     private int totalCount;
     private int beginPage;
     private int endPage;
-    private int displayRow =10;  
-    private int displayPage =10;  
+    private int displayRow = 10;  
+    private int displayPage = 10;  
     boolean prev;
     boolean next;
     private int startNum;
@@ -28,8 +28,5 @@ public class Paging {
 		prev = (beginPage==1)?false:true;
 		startNum = (page-1)*displayRow+1;
 		endNum = page*displayRow;
-		System.out.println("beginPage : " + beginPage + ", endPage : " + endPage);
-		System.out.println("totalPage : " + totalPage + ", prev : " + prev + ", next : " + next);
-		System.out.println("startNum : " + startNum + ", endNum : " + endNum);
-    }    
+    }
 }

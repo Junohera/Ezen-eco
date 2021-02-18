@@ -6,12 +6,18 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
-import org.springframework.web.multipart.MultipartFile;
+import com.eco.dto.search.SearchDTO;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 @Data
-public class ArtistVO {
+@EqualsAndHashCode(callSuper = false)
+@ToString(callSuper = true) // callSuper를 해야 부모의 값도 같이 출력(=> 좀더 쉬운 디버깅)
+public class ArtistVO extends SearchDTO {
+	private static final long serialVersionUID = 4053409233581166283L;
+
 	private int atseq;
 	
 	@NotBlank(message="name")
@@ -40,5 +46,6 @@ public class ArtistVO {
 	private int rn;
 
 	private List<AlbumVO> albumList;
-	private int albumcount;
+	private int abcount; // 앨범수
+	private int mucount; // 곡수
 }

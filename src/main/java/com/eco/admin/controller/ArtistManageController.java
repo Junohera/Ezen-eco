@@ -1,7 +1,6 @@
 package com.eco.admin.controller;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,7 +23,6 @@ import com.eco.dao.ICountDao;
 import com.eco.dao.IMusicDao;
 import com.eco.dto.ArtistVO;
 import com.eco.dto.Paging;
-import com.eco.dto.search.SearchDTO;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
@@ -38,11 +36,12 @@ public class ArtistManageController {
 	IMusicDao musicDao;
 	
 	@Autowired
-	ICountDao common;
+	ICountDao c;
 	
 	@RequestMapping("artistManageList")
 	public String artistManageList(HttpServletRequest request, Model model
-		, @ModelAttribute("search") SearchDTO search 
+		, @ModelAttribute("search") ArtistVO search
+		, Paging searchPaging
 			) {
 		
 		// 세션 체크
@@ -54,22 +53,20 @@ public class ArtistManageController {
 
 		// 검색조건에 의한 갯수조회
 		search.setSearchTable("artist"); // 검색조건 테이블 저장
-		int count = common.count(search);
+		int count = c.count(search);
 		
 		// 페이징
 		Paging paging = new Paging();
 		paging.setPage(search.getPage());
+		paging.setDisplayRow(searchPaging.getDisplayRow());
 		paging.setTotalCount(count);
 		paging.paging();
+		search.setPaging(paging);
 
 		// 페이징과 검색조건에 의한 조회
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("paging", paging);
-		map.put("search", search);
-		List<ArtistVO> artistList = artistManageService.list(map);
+		List<ArtistVO> artistList = artistManageService.list(search);
 
 		// 페이지내에 필요값 저장
-		model.addAttribute("paging", paging);
 		model.addAttribute("artistList", artistList);
 		
 		return "admin/artistManageList";

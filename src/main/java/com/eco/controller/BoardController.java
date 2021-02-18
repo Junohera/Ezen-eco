@@ -53,10 +53,8 @@ public class BoardController {
 		Paging paging = new Paging();
 		paging.setPage(page);
 		int count = boardService.getAllCount(table);
-		System.out.println(count);
 		paging.setTotalCount(count);
 		paging.paging();
-		System.out.println(paging);
 		List<BoardVO> noticeList = boardService.boardList(table, orderName, paging.getStartNum(), paging.getEndNum());
 		
 		mav.addObject("paging", paging);

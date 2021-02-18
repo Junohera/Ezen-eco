@@ -18,5 +18,5 @@
 	<select id="getMember" resultType="com.eco.dto.MemberVO">
 		select * from member where useq=#{param1}
 	</select>
-	
+
 </mapper>

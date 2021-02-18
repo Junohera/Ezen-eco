@@ -47,7 +47,7 @@
     
     <%@ include file="../include/musicList.jsp" %>
 
-    <c:if test="${paging.totalCount gt paging.displayRow}">
+    <c:if test="${search.paging.totalCount gt search.paging.displayRow}">
         <div id="listMore">
             <a href="/browse?selectedType=${search.selectedType}&selectedSeq=${search.selectedSeq}&page=${search.page + 1}">
                 더보기

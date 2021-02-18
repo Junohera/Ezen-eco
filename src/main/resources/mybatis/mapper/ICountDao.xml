@@ -6,18 +6,26 @@
 	
 <mapper namespace="com.eco.dao.ICountDao">
 
+	<select id="getAllCount" resultType="_int">
+		select count(*) from ${param1}  where ${param2} like '%'||#{param3}||'%'
+	</select>
+	
 	<select id="count" resultType="_int" parameterType="com.eco.dto.search.SearchDTO">
 		select count(*) from ${searchTable}
 		<where>
+			<!-- selectedType -->
 			<choose>
 				<when test="selectedType == 'theme'">theme like '%'||#{selectedSeq}||'%'</when>
 				<when test="selectedType == 'chart'">chart like '%'||#{selectedSeq}||'%'</when>
 				<when test="selectedType == 'genre'">gseq = #{selectedSeq}</when>
 			</choose>
+
+			<!-- searchCondition like searchKeyword -->
+			<if test="searchCondition != ''">
+				<choose>
+					<when test="searchCondition == 'name'">${searchCondition} like '%'||#{searchKeyword}||'%'</when>
+				</choose>
+			</if>
 		</where>
-	</select>
-	
-	<select id="getAllCount" resultType="_int">
-		select count(*) from ${param1}  where ${param2} like '%'||#{param3}||'%'
 	</select>
 </mapper>

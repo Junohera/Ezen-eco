@@ -1,6 +1,5 @@
 package com.eco.controller;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,13 +19,10 @@ import com.eco.dao.ICountDao;
 import com.eco.dto.AlbumVO;
 import com.eco.dto.ArtistVO;
 import com.eco.dto.BundleVO;
-import com.eco.dto.ChartVO;
-import com.eco.dto.GenreVO;
 import com.eco.dto.MemberVO;
 import com.eco.dto.MusicVO;
 import com.eco.dto.Paging;
-import com.eco.dto.search.ArtistSearchDTO;
-import com.eco.dto.search.BrowseSearchDTO;
+import com.eco.dto.search.SearchDTO;
 import com.eco.service.BundleService;
 import com.eco.service.MusicService;
 
@@ -41,42 +37,36 @@ public class MusicController {
 	BundleService bundleService;
 	
 	@Autowired
-	ICountDao common;
+	ICountDao c;
 
 	@RequestMapping(value = "/browse", method = RequestMethod.GET)
 	public String browse(Model model, HttpServletRequest request
-			, @ModelAttribute("search") BrowseSearchDTO search
+			, @RequestParam(name = "selectedType", required = false, defaultValue = "chart") String selectedType
+			, @RequestParam(name = "selectedSeq", required = false, defaultValue = "1") int selectedSeq
+			, @ModelAttribute("search") SearchDTO search
+			, Paging searchPaging
 			) {
+		// search에 기본값이 없으면 RequestParam으로 search에 defaultValue값 적용
+		if (search.getSelectedType().equals("")) {
+			search.setSelectedType(selectedType);
+			search.setSelectedSeq(selectedSeq);
+		}
 		
-		/** 차트 리스트 */
-		List<ChartVO> chartList = ms.chartList();
-		model.addAttribute("chartList", chartList);
-		
-		/** 장르 리스트 */
-		List<GenreVO> genreList = ms.genreList();
-		model.addAttribute("genreList", genreList);
+		// 검색조건에 의한 갯수조회
+		search.setSearchTable("music_view"); // 검색조건 테이블 저장
+		int count = c.count(search);
 		
 		// 페이징
-		search.setSearchTable("music_view"); // 검색조건 테이블 저장
-		int viewCount = search.getPage() * 100;
 		Paging paging = new Paging();
-		paging.setPage(1);
-		paging.setTotalCount(common.count(search));
+		paging.setPage(1); // 항상 1페이지부
+		paging.setTotalCount(count);
 		paging.paging();
-		paging.setDisplayRow(viewCount);
-		
-		
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("paging", paging);
-		map.put("search", search);
+		paging.setDisplayRow(search.getPage() * 100); // 행의 갯수 : 페이지 * 100개
+		search.setPaging(paging);
 
 		// 선택한 타입과 선택한 시퀀스값으로 music_view 조회
 		List<MusicVO> musicList = null;
-		if ("chart".equals(search.getSelectedType())) { // 차트
-			musicList = ms.musicListByChart(map);
-		} else if ("genre".equals(search.getSelectedType())){ // 장르
-			musicList = ms.musicListByGenre(map);
-		}
+		musicList = ms.musicListAtBrowse(search);
 
 		MemberVO loginUser = (MemberVO) request.getSession().getAttribute("loginUser");
 		
@@ -95,7 +85,10 @@ public class MusicController {
 			model.addAttribute("likeMusicList", ms.likeMusicListByUseq(loginUser.getUseq()));
 		}
 		
-		model.addAttribute("paging", paging);
+		model.addAttribute("chartList", ms.chartList());
+		
+		model.addAttribute("genreList", ms.genreList());
+		
 		model.addAttribute("musicList", musicList);
 
 		return "music/browse";
@@ -138,12 +131,18 @@ public class MusicController {
 
 	@RequestMapping(value = "/artistView", method = RequestMethod.GET)
 	public String artistView(Model model, HttpServletRequest request
-			, @RequestParam("atseq") int atseq
-			, @ModelAttribute("search") ArtistSearchDTO search) {
+			, @RequestParam(name = "selectedTab", required = false, defaultValue = "track") String selectedTab
+			, @RequestParam(name = "selectedSeq", required = false, defaultValue = "1") int selectedSeq
+			, @ModelAttribute("search") ArtistVO search) {
+		// search에 기본값이 없으면 RequestParam으로 search에 defaultValue값 적용
+		if (search.getSelectedTab().equals("")) {
+			search.setSelectedTab(selectedTab);
+			search.setSelectedSeq(selectedSeq);
+		}
 		
-		ArtistVO artist = ms.getArtist(atseq);
+		ArtistVO artist = ms.getArtist(search.getAtseq());
 		
-		if (search.getTab().equals("track")) {
+		if (search.getSelectedTab().equals("track")) {
 			List<MusicVO> musicListByArtist = ms.musicListByArtist(search);
 			model.addAttribute("musicList", musicListByArtist);
 		} else {
@@ -153,7 +152,6 @@ public class MusicController {
 			}
 			model.addAttribute("albumList", albumListByArtist);		
 		}
-		
 		
 		MemberVO loginUser = (MemberVO) request.getSession().getAttribute("loginUser");
 		

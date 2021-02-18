@@ -68,15 +68,15 @@
     </div>
 
     <ul id="trackAndAlbum">
-        <li <c:if test="${search.tab eq 'track'}"> class="selectTab"</c:if>>
-            <a href="artistView?atseq=${artist.atseq}&tab=track">곡</a>
+        <li <c:if test="${search.selectedTab eq 'track'}"> class="selectTab"</c:if>>
+            <a href="artistView?atseq=${artist.atseq}&selectedTab=track">곡</a>
         </li>
-        <li <c:if test="${search.tab eq 'album'}"> class="selectTab"</c:if>>
-            <a href="artistView?atseq=${artist.atseq}&tab=album">앨범</a>
+        <li <c:if test="${search.selectedTab eq 'album'}"> class="selectTab"</c:if>>
+            <a href="artistView?atseq=${artist.atseq}&selectedTab=album">앨범</a>
         </li>
     </ul>
 
-    <c:if test="${search.tab eq 'track'}">
+    <c:if test="${search.selectedTab eq 'track'}">
         <div id="trackBox">
             <ul class="filterList">
                 <li style="float:left;">
@@ -89,22 +89,22 @@
                     </a>
                 </li>
                 <li>
-                    <a href="artistView?atseq=${artist.atseq}&tab=track&searchFilter=titleAsc"<c:if test="${search.searchFilter eq 'titleAsc'}">class="selectedFilter"</c:if>>
+                    <a href="artistView?atseq=${artist.atseq}&selectedTab=track&searchFilter=titleAsc"<c:if test="${search.searchFilter eq 'titleAsc'}">class="selectedFilter"</c:if>>
                         가나다순
                     </a>
                 </li>
                 <li>
-                    <a href="artistView?atseq=${artist.atseq}&tab=track&searchFilter=pdateDesc"<c:if test="${search.searchFilter eq 'pdateDesc'}">class="selectedFilter"</c:if>>
+                    <a href="artistView?atseq=${artist.atseq}&selectedTab=track&searchFilter=pdateDesc"<c:if test="${search.searchFilter eq 'pdateDesc'}">class="selectedFilter"</c:if>>
                         최신순
                     </a>
                 </li>
                 <li>
-                    <a href="artistView?atseq=${artist.atseq}&tab=track&searchFilter=musiclikeDesc"<c:if test="${search.searchFilter eq 'musiclikeDesc'}">class="selectedFilter"</c:if>>
+                    <a href="artistView?atseq=${artist.atseq}&selectedTab=track&searchFilter=rankAsc"<c:if test="${search.searchFilter eq 'rankAsc'}">class="selectedFilter"</c:if>>
                         인기순
                     </a>
                 </li>
                 <li>
-                    <a href="artistView?atseq=${artist.atseq}&tab=track"<c:if test="${empty search.searchFilter}">class="selectedFilter"</c:if>>
+                    <a href="artistView?atseq=${artist.atseq}&selectedTab=track"<c:if test="${empty search.searchFilter}">class="selectedFilter"</c:if>>
                         전체
                     </a>
                 </li>
@@ -114,26 +114,26 @@
         </div>
     </c:if>
 
-    <c:if test="${search.tab eq 'album'}">
+    <c:if test="${search.selectedTab eq 'album'}">
         <div id="albumBox">
             <ul class="filterList">
                 <li>
-                    <a href="artistView?atseq=${artist.atseq}&tab=album&searchFilter=titleAsc" <c:if test="${search.searchFilter eq 'titleAsc'}">class="selectedFilter"</c:if>>
+                    <a href="artistView?atseq=${artist.atseq}&selectedTab=album&searchFilter=titleAsc" <c:if test="${search.searchFilter eq 'titleAsc'}">class="selectedFilter"</c:if>>
                         가나다순
                     </a>
                 </li>
                 <li>
-                    <a href="artistView?atseq=${artist.atseq}&tab=album&searchFilter=pdateDesc" <c:if test="${search.searchFilter eq 'pdateDesc'}">class="selectedFilter"</c:if>>
+                    <a href="artistView?atseq=${artist.atseq}&selectedTab=album&searchFilter=pdateDesc" <c:if test="${search.searchFilter eq 'pdateDesc'}">class="selectedFilter"</c:if>>
                         최신순
                     </a>
                 </li>
                 <li>
-                    <a href="artistView?atseq=${artist.atseq}&tab=album&searchFilter=albumLikeDesc" <c:if test="${search.searchFilter eq 'albumLikeDesc'}">class="selectedFilter"</c:if>>
+                    <a href="artistView?atseq=${artist.atseq}&selectedTab=album&searchFilter=rankAsc" <c:if test="${search.searchFilter eq 'rankAsc'}">class="selectedFilter"</c:if>>
                         인기순
                     </a>
                 </li>
                 <li>
-                    <a href="artistView?atseq=${artist.atseq}&tab=album" <c:if test="${empty search.searchFilter}">class="selectedFilter"</c:if>>
+                    <a href="artistView?atseq=${artist.atseq}&selectedTab=album" <c:if test="${empty search.searchFilter}">class="selectedFilter"</c:if>>
                         전체
                     </a>
                 </li>
