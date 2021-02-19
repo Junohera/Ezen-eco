@@ -124,3 +124,7 @@ select * from album;
 select * from member;
 
 select  from music_view;
+
+
+UPDATE MEMBER SET MEMBERSHIP = 'N' where useq = 1;
+select * from notice;
