@@ -1,6 +1,7 @@
 package com.eco.admin.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.ResourceUtils;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,6 +24,7 @@ import com.eco.dao.ICountDao;
 import com.eco.dao.IMusicDao;
 import com.eco.dto.ArtistVO;
 import com.eco.dto.Paging;
+import com.eco.util.MultiToObject;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
@@ -107,23 +110,12 @@ public class ArtistManageController {
 					, new DefaultFileRenamePolicy()
 			);
 			
-			// MultipartRequest multi로부터 artist로 차곡차곡 set
-			artist.setName(multi.getParameter("name"));
-			artist.setGroupyn(multi.getParameter("groupyn"));
-			artist.setGender(multi.getParameter("gender"));
-			artist.setImg(multi.getParameter("img"));
-			artist.setImglink(multi.getParameter("imglink"));
-			artist.setGseq(multi.getParameter("gseq") != null ? Integer.parseInt(multi.getParameter("gseq")) : 0);
-			artist.setDescription(multi.getParameter("description"));
-			
-			// artist전용 validator를 호출
-			ArtistValidator validator = new ArtistValidator();
-	        validator.validate(artist, result);
+			MultiToObject.copy(multi, artist); // multi.getParameter("");노가다 대체
+			result = MultiToObject.valid(artist, result, ArtistValidator.class);
 
-	        // 하나라도 걸리면
 	        if (result.hasErrors()) {
 	        	// 해당필드 값 내려주고 다시 화면으로 입력
-	        	model.addAttribute("message", result.getFieldError().getField());
+	        	model.addAttribute("errors", result.getAllErrors());
 	        	return "admin/artistManageInsertForm";
 	        }
 			
@@ -183,25 +175,12 @@ public class ArtistManageController {
 					, new DefaultFileRenamePolicy()
 			);
 
-			// MultipartRequest multi로부터 artist로 차곡차곡 set
-			artist.setAtseq(multi.getParameter("atseq") != null ? Integer.parseInt(multi.getParameter("atseq")) : 0);
-			artist.setName(multi.getParameter("name"));
-			artist.setGroupyn(multi.getParameter("groupyn"));
-			artist.setGender(multi.getParameter("gender"));
-			artist.setImg(multi.getParameter("img") != null ? multi.getParameter("img") : "");
-			artist.setImglink(multi.getParameter("imglink"));
-			artist.setGseq(multi.getParameter("gseq") != null ? Integer.parseInt(multi.getParameter("gseq")) : 0);
-			artist.setDescription(multi.getParameter("description"));
-			artist.setOldimg(multi.getParameter("oldimg"));
-			
-			// artist전용 validator를 호출
-			ArtistValidator validator = new ArtistValidator();
-	        validator.validate(artist, result);
-	        
-	        // 하나라도 걸리면
+			MultiToObject.copy(multi, artist); // multi.getParameter("");노가다 대체
+			MultiToObject.valid(artist, result, ArtistValidator.class);
+
 	        if (result.hasErrors()) {
 	        	// 해당필드 값 내려주고 다시 화면으로 입력
-	        	model.addAttribute("message", result.getFieldError().getField());
+	        	model.addAttribute("errors", result.getAllErrors());
 	        	model.addAttribute("genreList", musicDao.genreList());
 	    		model.addAttribute("artist", musicDao.getArtist(artist.getAtseq()));
 	    		return "admin/artistManageUpdateForm";
