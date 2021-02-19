@@ -6,7 +6,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.eco.admin.service.IArtistManageService;
+import com.eco.admin.valid.ArtistValidator;
 import com.eco.dao.ICountDao;
 import com.eco.dao.IMusicDao;
 import com.eco.dto.ArtistVO;
@@ -87,6 +87,7 @@ public class ArtistManageController {
 	@RequestMapping(value = "artistManageInsert", method = RequestMethod.POST)
 	public String artistManageInsert(HttpServletRequest request, Model model
 			, @ModelAttribute("artist") ArtistVO artist
+			, BindingResult result
 			, RedirectAttributes redirect
 			) {
 		// 세션 체크
@@ -106,28 +107,27 @@ public class ArtistManageController {
 					, "UTF-8"
 					, new DefaultFileRenamePolicy()
 			);
-			if (StringUtils.isAnyBlank(multi.getParameter("name"))) {
-				model.addAttribute("message", "name");
-				return "admin/artistManageInsertForm";
-			} else artist.setName(multi.getParameter("name"));
-			if (StringUtils.isAnyBlank(multi.getParameter("groupyn"))) {
-				model.addAttribute("message", "groupyn");
-				return "admin/artistManageInsertForm";
-			} else artist.setGroupyn(multi.getParameter("groupyn"));
-			if (StringUtils.isAnyBlank(multi.getParameter("gender"))) {
-				model.addAttribute("message", "gender");
-				return "admin/artistManageInsertForm";
-			} else artist.setGender(multi.getParameter("gender"));
-			if (StringUtils.isAnyBlank(multi.getParameter("gseq"))) {
-				model.addAttribute("message", "gseq");
-				return "admin/artistManageInsertForm";
-			} else artist.setGseq(Integer.parseInt(multi.getParameter("gseq")));
-			if (null == multi.getParameter("description")) { // description은 널만 아니면 진행되도록
-				model.addAttribute("message", "description");
-				return "admin/artistManageInsertForm";
-			} else artist.setDescription(multi.getParameter("description"));
 			
-//			artist.setOldimg(multi.getParameter("oldimg"));
+			// MultipartRequest multi로부터 artist로 차곡차곡 set
+			artist.setName(multi.getParameter("name"));
+			artist.setGroupyn(multi.getParameter("groupyn"));
+			artist.setGender(multi.getParameter("gender"));
+			artist.setImg(multi.getParameter("img"));
+			artist.setImglink(multi.getParameter("imglink"));
+			artist.setGseq(multi.getParameter("gseq") != null ? Integer.parseInt(multi.getParameter("gseq")) : 0);
+			artist.setDescription(multi.getParameter("description"));
+			
+			// artist전용 validator를 호출
+			ArtistValidator validator = new ArtistValidator();
+	        validator.validate(artist, result);
+
+	        // 하나라도 걸리면
+	        if (result.hasErrors()) {
+	        	// 해당필드 값 내려주고 다시 화면으로 입력
+	        	model.addAttribute("message", result.getFieldError().getField());
+	        	return "admin/artistManageInsertForm";
+	        }
+			
 			artist.setImglink(multi.getParameter("imglink"));
 			String img = multi.getFilesystemName("img");
 			if (artist.getImglink() != null && !artist.getImglink().equals("")) {
