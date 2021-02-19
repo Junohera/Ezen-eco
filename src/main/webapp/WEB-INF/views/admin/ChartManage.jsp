@@ -46,11 +46,11 @@ function insertChart(){
   </tr>
 </table>
 <br>
-<table style="margin-left: auto; margin-right: auto;" width="500" cellpadding="0" cellspacing="0" border="1">
+<table border="1" style="width:500px;margin: 0 auto;">
   <tr><th>차트번호</th><th>차트제목</th><th>차트이미지</th>
   <c:forEach items="${chartList}" var="ChartVO">  
   <tr>
-    <td>${ChartVO.cseq}</td>
+    <td align="center">${ChartVO.cseq}</td>
     <td style="text-align:left; padding-left:50px; padding-right:0px;">
 	<a href="#" onClick="go_detail('${ChartVO.cseq}')">${ChartVO.title}</td>
     <td align="center" valign="top">

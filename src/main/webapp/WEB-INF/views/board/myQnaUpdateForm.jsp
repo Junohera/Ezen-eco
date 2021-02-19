@@ -6,18 +6,20 @@
 	<div class="qnaWriteBox" style="border: 1px solid black; margin: 0 auto;
 			width: 750px;">
 		<form action="myQnaUpdate" method="post" name="qnaUpdateform">
+			<input type="hidden" value="${bvoList.qseq }" name="qseq"/>
+			<input type="hidden" value="${bvoList.useq }" name="useq"/>
 			<table>
 				<tr>
 					<td style="text-align: center;">아이디</td>
 					<td>&nbsp;${loginUser.id }</td>
-					<input type="hidden" value="${bvoList[0].useq }">
+					
 				</tr>
 				<tr>
 					<td style="width: 200px; text-align: center;">
 						제목
 					</td>
 					<td style="width: 550px; text-align: center;">
-						<input type="text" style="width: 97%;" value="${bvoList[0].title }"
+						<input type="text" style="width: 97%;" value="${bvoList.title }"
 							name="title">
 					</td>
 				</tr>
@@ -27,7 +29,7 @@
 					</td>
 					<td style="width: 75%; text-align: center;">
 						<textarea style="resize: none; width: 97%; height: 450px;"
-							name="content">${bvoList[0].content }</textarea>
+							name="qnacontent">${bvoList.qnacontent }</textarea>
 					</td>
 				</tr>
 				<tr>

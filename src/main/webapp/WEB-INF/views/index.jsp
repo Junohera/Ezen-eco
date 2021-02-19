@@ -1,27 +1,37 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="include/headerfooter/header.jsp" %>
-	<div class="mainTitle"><h1>ECO 추천</h1></div>
+<c:if test="${message==12}">
+	<script>
+			alert("이용권 구매가 완료되었습니다");
+	</script>
+</c:if>
+<div class="mainTitle"><h1>ECO 추천</h1></div>
 	
 	<!-- --------------------------------------Top----------------------------------------------- -->
-	
+	<!-- <a href="test">
+		<div style="width: 100px; height: 100px; background: red; float: left;">
+			테스트 이동
+		</div>
+	</a> -->
 	<!-- recommend 화면 모습 -->
         <div class="recommendBox">
         <!-- 롤링박스 전체 크기 -->
-               <div class="recommendBoxRo">
-               <!-- 롤링 박스 시작 -->
-               <div id="re_Lbtn">
-                           <i class="fas fa-chevron-left fa-4x" ></i>
-                        </div>
-                        <div id="re_Rbtn">
-                           <i class="fas fa-chevron-right fa-4x"></i>
+        		<div id="re_Lbtn" onclick="move(1)" style="z-index: 2;">
+               		<i class="fas fa-chevron-left fa-4x" ></i>
                </div>
+               <div id="re_Rbtn" onclick="move(2)" style="z-index: 2;">
+               		<i class="fas fa-chevron-right fa-4x"></i>
+               </div> 
+               <div id="recommendBoxRo">
+               <!-- 롤링 박스 시작 -->
+               <input type="hidden" value="${fn:length(bundleList)}" id="test">
                <c:forEach items="${bundleList }" var="bundleListALL" varStatus="status">
                    <div class="recommend">
                         <div class="recommendThemaBox">
                             <div class="recommendTitle"> 
                             	<c:forEach items="${bundleList }" var="bundle" begin="${status.index}" end="${status.index}">
-                            			<h1>${bundle.title }</h1>
+                            			<h1>${bundle.title}</h1>
                             	</c:forEach>
                             </div>
                             <div class="recommendContent">
@@ -31,27 +41,38 @@
                             			곡 | <fmt:formatDate value="${bundle.cdate }" type="date" pattern="yyyy.MM.dd"/>
                             </c:forEach>
                             </div>
-                            <div class="recommendPlayBox">
-                                <i class="fas fa-play-circle fa-4x"></i>
-                            </div>
+                            <form action="recommendPlay" method="post">
+                            	<c:forEach items="${bundleList }" var="bundle" begin="${status.index}" end="${status.index}">
+		                            <div class="recommendPlayBox">
+		                                <i class="fas fa-play-circle fa-4x"></i>
+		                            </div>
+	                            	<input type="hidden" value="${bundle.musicList }">
+	                            </c:forEach>
+                            </form>
                         </div>
                     <div class="recommendThemaListBox">
                         <table id="recommendChart">
                         	<c:forEach items="${bundleList }" var="bundle" begin="${status.index}" end="${status.index}">
                             		<c:forEach items="${bundle.musicList }" var="music" begin="0" end="3">
-		                            		<tr>
-			                					<td class="albumS">
-			                						<div class="albumImg">
-			                                    		<img src="${music.abimg}">
-			                                    	</div>
-			                					</td>
-			                					<td class="MusicT">
-			                						${music.title }
-			                					</td>
-			                					<td class="MusicA">
-			                						${music.name }
-			                					</td>
-			                				</tr>
+			                            		<tr>
+				                					<td class="albumS">
+					                					<a href="musicView?mseq=${music.mseq}">
+					                						<div class="albumImg">		
+					                                    			<img src="${music.abimg}">
+					                                    	</div>
+					                                    </a>
+				                					</td>
+					                					<td class="MusicT">
+						                					<a href="musicView?mseq=${music.mseq}">
+						                						${music.title }
+						                					</a>
+					                					</td>
+				                					<td class="MusicA">
+				                						<a href="artistView?atseq=${music.atseq}">
+				                							${music.name }
+				                						</a>
+				                					</td>
+				                				</tr>
 		                			</c:forEach>
                             </c:forEach>
                         </table>
@@ -62,15 +83,21 @@
                             		<c:forEach items="${bundle.musicList }" var="music" begin="4" end="7">
 		                            		<tr>
 			                					<td class="albumS">
-			                						<div class="albumImg">
-			                                    	<!-- 앨범 이미지 자리 -->
-			                                    	</div>
+			                						<a href="musicView?mseq=${music.mseq}">
+					                						<div class="albumImg">		
+					                                    			<img src="${music.abimg}">
+					                                    	</div>
+					                                    </a>
 			                					</td>
 			                					<td class="MusicT">
-			                						${music.title }
+			                						<a href="musicView?mseq=${music.mseq}">
+						                					${music.title }
+						                			</a>
 			                					</td>
 			                					<td class="MusicA">
-			                						${music.name }
+			                						<a href="artistView?atseq=${music.atseq}">
+				                							${music.name }
+				                					</a>
 			                					</td>
 			                				</tr>
 		                			</c:forEach>
@@ -98,13 +125,22 @@
 			<c:forEach items="${newMusicList }" var="nlist" begin="0" end="3">
 				<div class="MainAlbum">
 					<div class="MainAlbumImg">
-						<img src="${nlist.abimg}">
+						<a href="musicView?mseq=${nlist.mseq}">	
+					    	<img src="${nlist.abimg}">
+					   	</a>
+					   <div class="abPlayBtn" >
+					    		<i class="fas fa-play"></i>
+					    </div>
 					</div>
 					<div class="MainMusicContentBox">
-						${nlist.title }
+						<a href="musicView?mseq=${nlist.mseq}">
+							${nlist.title }
+						</a>
 					</div>
 					<div class="MainMusicContentBox">
-						${nlist.name }
+						<a href="artistView?atseq=${nlist.atseq}">
+							${nlist.name }
+						</a>
 					</div>
 				</div>
 			</c:forEach>
@@ -115,13 +151,22 @@
 			<c:forEach items="${recommendMusicList }" var="nlist" begin="0" end="3">
 			<div class="MainAlbum">
 				<div class="MainAlbumImg">
-					<img src="${nlist.atimg}">
+					<a href="musicView?mseq=${nlist.atseq}">	
+					    	<img src="${nlist.atimg}">
+					</a>
+					<div class="abPlayBtn" >
+					    <i class="fas fa-play" aria-hidden="true"></i>
+					</div>
 				</div>
 				<div class="MainMusicContentBox">
-					${nlist.name }
+					<a href="musicView?mseq=${nlist.atseq}">
+						${nlist.name }
+					</a>
 				</div>
 				<div class="MainMusicContentBox">
-					${nlist.gtitle }
+					<a href="/browse?selectedType=genre&selectedSeq=${nlist.gseq}">
+						${nlist.gtitle }
+					</a>
 				</div>
 			</div>
 			</c:forEach>
@@ -145,43 +190,9 @@
 		</div>
 		
 <!-- --------------------------------------botton----------------------------------------------- -->
-<script src="js/audioplayer.js"></script>
-<li id="audio-list">
-    <div class="audio-player">
-        <div class="track-title">사운드 플레이어</div>
-        <div id="seekObjContainer">
-            <div id="timeBox">	
-            	<small class="start-time"></small><small class="end-time"></small>
-            </div>	
-            <div id="timeline1">
-                <div id="seekObj1" class="playhead" style="width: 0px;"></div>
-            </div>
-        </div>
-        <div class="player-controls scrubber">
-          <input type="button" value="◀" class="prev">
-          <input type="button" value="play-pause" class="play-pause">
-          <input type="button" value="stop" class="stop" onclick="stop">
-          <input type="button" value="mute" class="mute" onclick="mute()">
-          <input type="button" value="▶" class="next">
-          <input type="button" value="한곡반복" class="oneLoop">
-          <input type="button" value="전체반복" class="wholeLoop">
-          <input id="volumecontrol" type="range" max="1" step="any" onchange="updateVolume()">
-        </div>
-        <div class="controls-box">
-      		<i class="previous-track-btn disabled"><span class="screen-reader-text">Previous track button</span></i>
-      		<i class="next-track-btn"><span class="screen-reader-text">Next track button</span></i>
-    	</div>
-        
-        
-        <div class="audio-wrapper">
-            <audio id="player2" preload="auto">
-            <%-- <c:forEach items="${music}" var="playlist" begin="${music.mseq}" end="${music.mseq}"> --%>
-			      <source src="https://docs.google.com/uc?export=open&id=1YWv-0SIQ74_RUSBfPBbVSLBfUUkqMjEf" type="audio/mp3">
-			<%-- </c:forEach> --%>      
-            </audio>
-        </div>
-    </div>
- </li>
-   
-              
+ <script type="text/javascript">
+		window.onload = function() {
+			recommendBoxRo.style.width = "950" * document.getElementById("test").value + "px";
+		}
+</script>
 <%@ include file="include/headerfooter/footer.jsp" %>

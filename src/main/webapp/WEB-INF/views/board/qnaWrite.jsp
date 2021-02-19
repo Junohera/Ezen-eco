@@ -26,8 +26,8 @@
 						내용
 					</td>
 					<td style="width: 75%; text-align: center;">
-						<textarea style="resize: none; width: 97%; height: 450px;" value="${bvo.content }"
-							name="content"></textarea>
+						<textarea style="resize: none; width: 97%; height: 450px;" value="${bvo.ncontent }"
+							name="ncontent"></textarea>
 					</td>
 				</tr>
 				<tr>

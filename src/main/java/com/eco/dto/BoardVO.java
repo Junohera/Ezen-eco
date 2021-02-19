@@ -21,9 +21,9 @@ public class BoardVO {
 	// qna 댓글 관련
 	private int qrseq;
 	private int aseq;
-	private String rcontent;
+	private String replycontent;
 	@NotEmpty(message="내용을 입력하세요")
-	private String content;
+	private String qnacontent;
 	// 공지사항 관련
 	private int nseq;
 	@NotEmpty(message="제목을 입력하세요")

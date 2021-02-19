@@ -15,8 +15,8 @@
 					<td>${notice.nseq }</td>
 					<td class="dropTitle">
 						<details>
-							<summary style="color: black;">${notice.title }</summary>
-    						<p style="color: #5D5D5D;">${notice.content }</p>
+							<summary>${notice.title }</summary>
+    						<p>${notice.ncontent }</p>
 						</details>
 					</td>
 					<td>Eco 관리자</td>

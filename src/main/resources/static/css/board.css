@@ -49,5 +49,7 @@
     width: 30px; height: 25px;
 	margin-bottom: 0px; padding: 0px; float: left; cursor: pointer;}
 	.popupMessageBox {animation: scale2 2s infinite alternate;}
+	.dropTitle summary {color: black; cursor: pointer;}
+	.dropTitle p {color: #5D5D5D;}
 						
 details > summary::-webkit-details-marker {display: none}

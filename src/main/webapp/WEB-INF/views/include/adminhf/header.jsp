@@ -56,9 +56,6 @@
                     <li><a href="albumManageList">앨범정보</a></li>
                     <li><a href="artistManageList">아티스트</a></li>
                     <li><a href="bundleManageList?first=yes">리스트</a></li>
-                    <li><a href="ThemeManage?first=yes">테마</a></li>
-                    <li><a href="ChartManage?first=yes">차트</a></li>
-                    <li><a href="GenreManage?first=yes">장르</a></li>
                 </ul>
                 <ul class="submenu" style="list-style: none;margin: 0;padding: 0;display: flex;justify-content: space-around;height: 100px;line-height: 100px;font-size: 150%;">
                     <li><a href="notice?first=yes">공지사항</a></li>

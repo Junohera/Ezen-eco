@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ include file="../include/headerfooter/header.jsp"%>
 
+
 <article >
 	<form class="joinForm" action="memberUpdate" method="post" name="formm" >
 		<div class="infoBox">	
@@ -58,8 +59,8 @@
 		</div>	
 				<input class="submit" type="submit" value="정보수정" class="submit" style="width:74%">
 				<br> 
-				<div id="other_buttons">
-					<input class="btn" type="reset" value="다시작성" style="height:60px;"class="cancel">
+				<div class="other_buttons">
+					<input class="btn" type="reset" value="다시작성" style="height:60px;" class="cancel">
 					<input class="btn" type="button" value="취소" style="margin-left:44px;height:60px;"class="return" onclick="location.href='/'">
 				</div>
 			<div class="clear"></div>

@@ -10,6 +10,14 @@
 		select count(*) from ${param1}  where ${param2} like '%'||#{param3}||'%'
 	</select>
 	
+	<select id="getAllCountAll" resultType="_int">
+		select count(*) from ${param1}
+	</select>
+	
+	<select id="mygetAllCount" resultType="_int">
+		select count(*) from ${param1} where ${param2} = #{param3}
+	</select>
+	
 	<select id="count" resultType="_int" parameterType="com.eco.dto.search.SearchDTO">
 		select count(*) from ${searchTable}
 		<where>
@@ -45,4 +53,5 @@
 			
 		</where>
 	</select>
+
 </mapper>

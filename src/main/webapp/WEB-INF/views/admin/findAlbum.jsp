@@ -47,8 +47,8 @@
                         $(window.opener.document).find("#abtitle").text(title);
                         $(window.opener.document).find("input[name=atseq]").val(atseq);
                         $(window.opener.document).find("input[name=atimg]").val($(this).find("#atimg").attr("src"));
-                        $(window.opener.document).find("#atimg").attr("src", $(this).find("#atimg").attr("src"));
                         $(window.opener.document).find("input[name=abimg]").val($(this).find("#abimg").attr("src"));
+                        $(window.opener.document).find("#atimg").attr("src", $(this).find("#atimg").attr("src"));
                         $(window.opener.document).find("#abimg").attr("src", img);
                         $(window.opener.document).find("#atname").text(name);
                         
@@ -207,7 +207,7 @@
                                         <td>
                                             <c:choose>
                                                 <c:when test="${not empty album.img}">
-                                                    <img src="${album.img}" width="50">
+                                                    <img id="abimg" src="${album.img}" width="50">
                                                 </c:when>
                                                 <c:otherwise>
                                                     <img src="/upload/noimage.jpg" width="50">

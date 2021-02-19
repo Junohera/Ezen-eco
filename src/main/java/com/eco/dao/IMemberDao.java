@@ -13,4 +13,7 @@ public interface IMemberDao {
 	public int updateMember(MemberVO mvo);
 	public MemberVO confirmIdNamePhone(String id, String name, String phone);
 	public MemberVO confirmNamePhone(String name, String phone);
+	public int getMembership30(MemberVO mvo);
+	public int getMembership7(MemberVO mvo);
+	public int getMembership1(MemberVO mvo);
 }

@@ -12,6 +12,7 @@ alter table qna drop primary key cascade;
 alter table taste_master drop primary key cascade;
 alter table taste_detail drop primary key cascade;
 alter table adminQna drop primary key cascade;
+alter table nowplay drop primary key cascade;
 
 -- drop table
 drop table notice purge;
@@ -35,6 +36,7 @@ drop table bundle_detail purge;
 drop table admin purge;
 drop table member purge;
 drop table adminQna purge;
+drop table nowplay purge;
 
 -- drop sequence
 drop sequence taste_master_seq;
@@ -54,6 +56,7 @@ drop sequence qReply_seq;
 drop sequence bundle_master_seq;
 drop sequence bundle_detail_seq;
 drop sequence adminQna_seq;
+drop sequence nowplay_seq;
 
 -- create sequence
 create sequence member_seq start with 1;
@@ -73,6 +76,7 @@ create sequence qReply_seq start with 1;
 create sequence bundle_master_seq start with 1;
 create sequence bundle_detail_seq start with 1;
 create sequence adminQna_seq start with 1;
+create sequence nowplay_seq start with 1;
 
 -- create table
 create table member(
@@ -97,21 +101,21 @@ create table admin(
 -- 관리자가 곡 추가시 테마/태그를 추가하여 번들제작시 효율적으로 관리하기 위함
 create table theme(
 	tseq number(5) primary key,
-	title varchar2(30) unique not null,
+	title varchar2(100) unique not null,
 	img varchar2(100)
 );
 
 --FLO 차트 지금 급상승 중 해외 소셜 차트 ...
 create table chart(
 	cseq number(5) primary key,
-	title varchar2(30) unique not null,
+	title varchar2(100) unique not null,
 	img varchar2(100)
 );
 
 -- 국내 발라드 해외 팝 국내 댄스/일렉 국내 알앤비 국내 힙합 트로트 해외 알앤비 해외 힙합 OST/BGM 키즈 국내 인디 클래식 뉴에이지 국내 팝/어쿠스틱 해외 일렉트로닉 CCM 시원한 감성적인 슬픈 기쁜 댄스 발라드 ...
 create table genre(
 	gseq number(5) primary key,
-	title varchar2(30) unique not null,
+	title varchar2(100) unique not null,
 	img varchar2(100)
 );
 
@@ -232,6 +236,7 @@ create table qReply (
 	qrseq number(5) primary key,
 	qseq number(5) references qna(qseq),
 	aseq number(5) references admin(aseq),
+	useq number(5) references member(useq),
 	content varchar2(3000),
 	qreply_date date default  sysdate
 );
@@ -248,6 +253,19 @@ create table adminQna (
 	title varchar2(200) not null,
 	content varchar2(1000),
 	adQna_date date default  sysdate
+);
+
+create table nowplay(
+	npseq number(5) primary key,
+	mseq number(5) references music(mseq),
+	useq number(5) references member(useq),
+	title varchar2(300) not null,
+	content varchar2(4000),
+	titleyn varchar2(1),
+	musicby varchar2(500),
+	lyricsby varchar2(500),
+	producingby varchar2(500),	
+	src varchar2(200)
 );
 
 -- 테이블설명 
@@ -271,6 +289,7 @@ comment on table music_ban is '곡 차단';
 comment on table qna is '질문';
 comment on table qReply is '답변';
 comment on table notice is '공지사항';
+comment on table nowplay is '현재 재생 목록';
 
 -- 뷰 정의
 
@@ -440,8 +459,6 @@ where m.mseq = ml.mseq and ab.abseq = m.abseq and at.atseq = ab.atseq;
 
 select * from likemusic_view;
 
-
-
 create or replace view likeartist_view
 as
 select 
@@ -475,3 +492,16 @@ select
 	, abl.cdate
 	from album ab, album_like abl, artist at, genre g
 	where abl.abseq = ab.abseq and ab.atseq = at.atseq and g.gseq = ab.gseq;
+
+create or replace view qna_view as
+select 
+    q.qseq
+    , q.useq
+	, q.title
+	, q.content as qnaContent
+	, q.qna_date
+	, qr.qrseq
+	, qr.content as replyContent
+	, qr.qreply_date
+	from qna q left join qReply qr on q.useq = qr.useq and q.qseq = qr.qseq;
+select * from qna_view;

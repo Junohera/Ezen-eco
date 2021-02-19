@@ -31,4 +31,18 @@
 		phone=#{phone} where id=#{id}
 	</update>
 	
+	<!-- membership 관련 -->
+	<update id="getMembership30" parameterType="com.eco.dto.MemberVO">
+		update member set sdate = sysdate, edate = sysdate + 30, membership = 'Y'
+	 where useq = #{useq}
+	</update>
+	<update id="getMembership7" parameterType="com.eco.dto.MemberVO">
+		update member set sdate = sysdate, edate = sysdate+7, membership = 'Y'
+	 where useq = #{useq}
+	</update>
+		<update id="getMembership1" parameterType="com.eco.dto.MemberVO">
+		update member set sdate = sysdate, edate = sysdate+1, membership = 'Y'
+	 where useq = #{useq}
+	</update> 
+	
 </mapper>

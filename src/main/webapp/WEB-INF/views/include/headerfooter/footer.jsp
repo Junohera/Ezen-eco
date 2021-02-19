@@ -6,6 +6,8 @@
     <%-- 팝업류 include --%>
     <%@ include file="../popup/music.jsp" %>
 
+    <%@ include file="../popup/playList.jsp" %>
+
 <footer>
     <ul class="ul1">
         <li>

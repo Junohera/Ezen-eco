@@ -27,7 +27,7 @@ public class MemberController {
 		return "member/login";
 	}
 	
-	@RequestMapping(value="/login", method=RequestMethod.POST)
+	@RequestMapping(value="/login", method= {RequestMethod.GET,RequestMethod.POST})
 	public String login(@ModelAttribute("dto") @Valid MemberVO membervo, 
 			BindingResult result, Model model, HttpServletRequest request) {
 		MemberVO mvo = ms.getMember(membervo.getId());
@@ -123,9 +123,6 @@ public class MemberController {
 	}
 	
 	
-	
-	
-	
 	@RequestMapping("resetPw")
 	public String certificationNum(@ModelAttribute("dto") @Valid MemberVO membervo,
 			BindingResult result, Model model, HttpServletRequest request,
@@ -144,10 +141,6 @@ public class MemberController {
 			return "member/resetPwComplete";
 		}
 	}
-	
-	
-	
-	
 	
 	
 	// 아이디찾기 인증번호 확인
@@ -290,15 +283,55 @@ public class MemberController {
 			model.addAttribute("message6", "입력하신 비밀번호가 일치하지 않습니다");
 			return "member/memberUpdateForm";
 		}	
-			ms.updateMember(membervo);
-			
-			session.setAttribute("loginUser", membervo);
-			return "redirect:/";
+		ms.updateMember(membervo);
+		session.setAttribute("loginUser", membervo);
+		return "redirect:/";
 	}
+	
+	// 멤버쉽 페이지 이동 
+	@RequestMapping("membership")
+	public String membership(Model model, HttpServletRequest request) {
+		return "member/membershipForm";
+	}
+	
+	// 이용권 구매 시 멤버쉽 부여
+	@RequestMapping(value="/buying", method = RequestMethod.POST)
+	public String Buying(@ModelAttribute("member") @Valid MemberVO membervo,
+			BindingResult result, Model model, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		MemberVO mvo = (MemberVO) session.getAttribute("loginUser"); 
+		if( mvo==null ) { 		
+			//System.out.println("1 : "+mvo.getMembership());
+			// membership 상태확인 }
+			model.addAttribute("message", "10");
+			return "member/login"; 
 		
+		}else if(mvo!=null){ 
+			//System.out.println("3-1 : "+mvo.getMembership());
+			//System.out.println("3-2 : "+request.getParameter("membership"));
+			// 이래부터 걸림
+			if(mvo.getMembership().equals("N")) {
+				if( request.getParameter("membership").equals("1")){
+					ms.getMembership30(mvo);
+				}else if(request.getParameter("membership").equals("2")){
+					ms.getMembership7(mvo);
+				}else if( request.getParameter("membership").equals("3")){
+					ms.getMembership1(mvo);
+				}	
+				//System.out.println(mvo.getMembership());
+			}else {
+				model.addAttribute("message", "11");
+				//System.out.println("param2 : "+request.getSession().toString());
+				return "member/membershipForm";
+			}
+			session.setAttribute("membership", "Y");
+			model.addAttribute("message", "12");
+			//System.out.println("param3 : "+request.getSession().toString());
+		}
+		return "index";
+	}
 	
 	
 	
-	
-	
-}
+}	
+

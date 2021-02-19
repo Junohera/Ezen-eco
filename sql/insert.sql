@@ -649,7 +649,7 @@ insert into music_reply(rseq, mseq, useq, content) values(music_reply_seq.nextva
 insert into qna(qseq, useq, title, content) values(qna_seq.nextval, 1, '블루투스 연결은 어떻게 하나요?', '안녕하세요. 해당 웹을 10년간 이용해온 사용자인데요. 혹시 블루투스 연결은 안되나요?');
 
 -- qReply
-insert into qReply(qrseq, qseq, aseq, content) values(qReply_seq.nextval, 1, 1, '컴퓨터에 블루투스 장치가 연결되었는지 확인하여주시고, 연결되었음에도 들리지않는다면 해당 장치의 문제이므로 저희사이트와는 무관한 증상입니다.');
-
+insert into qReply(qrseq, qseq, aseq, useq, content) values(qReply_seq.nextval, 1, 1, 2, '컴퓨터에 블루투스 장치가 연결되었는지 확인하여주시고, 연결되었음에도 들리지않는다면 해당 장치의 문제이므로 저희사이트와는 무관한 증상입니다.');
+insert into qReply(qrseq, qseq, aseq, useq, content) values(qReply_seq.nextval, 1, 1, 2, 'qqqqq');
 -- notice
 insert into notice(nseq, title, content) values(notice_seq.nextval, 'title', 'content');

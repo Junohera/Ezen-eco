@@ -24,26 +24,18 @@ public class BoardService {
 		return bdao.boardList(table, orderName, startNum, endNum);
 	}
 	
-	public int getAllCount(String table) {
-		int count = bdao.getAllCount(table);
-		return count;
-	}
 	public void qnaInsert(BoardVO boardVo) {
 		bdao.qnaInsert(boardVo);
-	}
-	public int mygetAllCount(String table, int useq) {
-		int count = bdao.mygetAllCount(table, useq);
-		return count;
 	}
 	public List<BoardVO> myboardList(String table,String orderName,int startNum, int endNum, int useq) {
 		return bdao.myboardList(table, orderName, startNum, endNum, useq);
 	}
-	public List<BoardVO> myQnaUpdateForm (String qseq) {
+	public BoardVO myQnaUpdateForm (String qseq) {
 		return bdao.myQnaUpdateForm(qseq);
 	}
 	
-	public void myQnaUpdate(int qseq, String title, String content) {
-		bdao.myQnaUpdate(qseq, title, content);
+	public void myQnaUpdate(BoardVO bvoList) {
+		bdao.myQnaUpdate(bvoList);
 	}
 
 	public void myQnaDelete(String useq) {

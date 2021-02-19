@@ -46,11 +46,11 @@ function insertTheme(){
   </tr>
 </table>
 <br>
-<table style="margin-left: auto; margin-right: auto;" width="500" cellpadding="0" cellspacing="0" border="1">
+<table border="1" style="width:500px;margin: 0 auto;">
   <tr><th>테마번호</th><th>테마제목</th><th>테마이미지</th>
   <c:forEach items="${themeList}" var="ThemeVO">  
   <tr>
-    <td>${ThemeVO.tseq}</td>
+    <td align="center">${ThemeVO.tseq}</td>
     <td style="text-align:left; padding-left:50px; padding-right:0px;">
 	<a href="#" onClick="go_detail('${ThemeVO.tseq}')">${ThemeVO.title}</td>
     <td align="center" valign="top">

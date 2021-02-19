@@ -26,19 +26,19 @@
 					<td>${qna.qseq }</td>
 					<td class="dropTitle">
 						<details>
-    						<summary style="color: black;">${qna.title }</summary>
-    						<p style="color: #5D5D5D;">${qna.content }</p>
+    						<summary>${qna.title }</summary>
+    						<p>${qna.qnacontent }</p>
 						</details>
 					</td>
 					<td>
 						<c:choose>
-							<c:when test="${empty qna.rcontent}">
+							<c:when test="${empty qna.replycontent}">
 								답변 중
 							</c:when>
 							<c:otherwise>
 								<details>
-	    							<summary style="color: black;">답변완료</summary>
-	    							<p style="color: #5D5D5D;">${qna.rcontent }</p>
+	    							<summary>답변완료</summary>
+	    							<p>${qna.replycontent }</p>
 								</details>
 							</c:otherwise> 
 						</c:choose>
@@ -48,7 +48,7 @@
 									type="date" pattern="yy.MM.dd"/>
 					</td>
 					<td>
-						<form action="myQnaUpdateForm" method="post">
+						<form action="myQnaUpdateForm2" method="get">
 							<input type="hidden" name="qseq" value="${qna.qseq }">
 							<input type="submit" class="QnaButtonUD"	value="수정">
 						</form>

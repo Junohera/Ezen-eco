@@ -20,8 +20,8 @@
 					<td>${qna.adqseq }</td>
 					<td class="dropTitle">
 						<details>
-    						<summary style="color: black;">${qna.title }</summary>
-    						<p style="color: #5D5D5D;">${qna.content }</p>
+    						<summary>${qna.title }</summary>
+    						<p>${qna.qnacontent }</p>
 						</details>
 					</td>
 					<td>Eco 관리자</td>

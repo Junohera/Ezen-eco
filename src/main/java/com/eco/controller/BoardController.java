@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.eco.dao.ICountDao;
 import com.eco.dto.BoardVO;
 import com.eco.dto.MemberVO;
 import com.eco.dto.Paging;
@@ -25,6 +26,9 @@ public class BoardController {
 	
 	@Autowired
 	BoardService boardService;
+
+	@Autowired
+	ICountDao c;
 	
 	@RequestMapping("introduce")
 	public String introduce(Model model, HttpServletRequest request) {
@@ -52,9 +56,11 @@ public class BoardController {
 		}
 		Paging paging = new Paging();
 		paging.setPage(page);
-		int count = boardService.getAllCount(table);
+		int count = c.getAllCountAll(table);
+		System.out.println(count);
 		paging.setTotalCount(count);
 		paging.paging();
+		System.out.println(paging);
 		List<BoardVO> noticeList = boardService.boardList(table, orderName, paging.getStartNum(), paging.getEndNum());
 		
 		mav.addObject("paging", paging);
@@ -86,7 +92,7 @@ public class BoardController {
 		}
 		Paging paging = new Paging();
 		paging.setPage(page);
-		int count = boardService.getAllCount(table);
+		int count = c.getAllCountAll(table);
 		paging.setTotalCount(count);
 		paging.paging();
 		List<BoardVO> qnaList = boardService.boardList(table, orderName, paging.getStartNum(), paging.getEndNum());
@@ -104,7 +110,7 @@ public class BoardController {
 		MemberVO mvo = (MemberVO) session.getAttribute("loginUser");
 		ModelAndView mav = new ModelAndView();
 		
-		String table = "qna";
+		String table = "qna_view";
 		String orderName = "qseq";
 		if( mvo==null ) {	
 			mav.setViewName("member/login");
@@ -125,7 +131,7 @@ public class BoardController {
 			}
 			Paging paging = new Paging();
 			paging.setPage(page);
-			int count = boardService.mygetAllCount(table, mvo.getUseq());
+			int count = c.mygetAllCount(table, "useq", "" + mvo.getUseq());
 			paging.setTotalCount(count);
 			paging.paging();
 			
@@ -160,24 +166,36 @@ public class BoardController {
 			return "board/qnaWrite";
 		}
 		boardVo.setUseq(mvo.getUseq());
+		System.out.println(boardVo);
 		boardService.qnaInsert(boardVo);
+		
 		return "redirect:myQnaList";
 	}
-	@RequestMapping("myQnaUpdateForm")
-	public String myQnaUpdateFrom(Model model, HttpServletRequest request) {
+	@RequestMapping(value = "myQnaUpdateForm2", method =  RequestMethod.GET)
+	public ModelAndView myQnaUpdateFrom123(ModelAndView modelAndView, HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		MemberVO mvo = (MemberVO) session.getAttribute("loginUser");
-		if( mvo==null ) return "member/login";
+		modelAndView.setViewName("member/login");
+		if( mvo==null ) return  modelAndView;
 		String qseq = request.getParameter("qseq");
+		System.out.println(qseq+"this");
+		BoardVO bvoList = new BoardVO();
+		bvoList.setQseq(Integer.parseInt(qseq));
+		// Integer f6
 		
-		List<BoardVO> bvoList = boardService.myQnaUpdateForm(qseq);
-		model.addAttribute("bvoList", bvoList);
-		return "board/myQnaUpdateForm";
+		bvoList = boardService.myQnaUpdateForm(qseq);
+		modelAndView.addObject("bvoList", bvoList);
+		System.out.println("업뎃폼 : " +bvoList);
+		//return "board/myQnaUpdateForm";
+		modelAndView.setViewName("board/myQnaUpdateForm");
+		return modelAndView;
 	}
 	@RequestMapping(value="myQnaUpdate", method = RequestMethod.POST)
 	public String myQnaUpdate(@ModelAttribute("bvoList") @Valid BoardVO boardVo,
 			BindingResult result, Model model, HttpServletRequest request) {
-		String qseq = request.getParameter("qseq");
+
+		System.out.println("업뎃boardVo : "+boardVo);
+		
 		if(result.getFieldError("title")!=null) {
 			model.addAttribute("message", "제목을 입력하세요");
 			return "board/myQnaUpdateForm";
@@ -185,10 +203,8 @@ public class BoardController {
 			model.addAttribute("message", "내용을 입력하세요");
 			return "board/myQnaUpdateForm";
 		}
-		boardVo.setQseq(Integer.parseInt(request.getParameter("qseq")));
-		boardVo.setTitle(request.getParameter("title"));
-		boardVo.setContent(request.getParameter("content"));
-		boardService.myQnaUpdate(boardVo.getQseq(), boardVo.getTitle(), boardVo.getContent());
+		
+		boardService.myQnaUpdate(boardVo);
 		return "redirect:myQnaList";
 	}
 	@RequestMapping("myQnaDelete")
@@ -196,5 +212,9 @@ public class BoardController {
 		String qseq = request.getParameter("qseq");
 		boardService.myQnaDelete(qseq);
 		return "redirect:myQnaList";
+	}
+	@RequestMapping("allSearch")
+	public String allSearch(Model model, HttpServletRequest request) {
+		return "board/allSearch";
 	}
 }

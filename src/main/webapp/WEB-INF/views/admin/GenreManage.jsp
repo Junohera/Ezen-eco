@@ -46,11 +46,11 @@ function insertGenre(){
   </tr>
 </table>
 <br>
-<table style="margin-left: auto; margin-right: auto;" width="500" cellpadding="0" cellspacing="0" border="1">
+<table border="1" style="width:500px;margin: 0 auto;">
   <tr><th>장르번호</th><th>장르제목</th><th>장르이미지</th>
   <c:forEach items="${genreList}" var="GenreVO">  
   <tr>
-    <td>${GenreVO.gseq}</td>
+    <td align="center">${GenreVO.gseq}</td>
     <td style="text-align:left; padding-left:50px; padding-right:0px;">
 	<a href="#" onClick="go_detail('${GenreVO.gseq}')">${GenreVO.title}</td>
 	<td align="center" valign="top">

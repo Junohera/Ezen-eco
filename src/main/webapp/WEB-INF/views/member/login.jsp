@@ -2,7 +2,11 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="../include/headerfooter/header.jsp"%>
 
-
+<c:if test="${message==10}">
+	<script>
+	alert("이용권을 구입하시려면 로그인을 해 주셔야 합니다");
+	</script>
+</c:if>
 <c:if test="${message==4}">
 	<script>
 		alert("ID를 입력하세요");
@@ -30,7 +34,7 @@
 	</script>
 </c:if>
 <article class="memberForm">
-	<form method="post" action="login" name="loginFrm">
+	<form method="get" action="login" name="loginFrm">
 		<div style="margin-left: 80px">
 			<label><input class="textbox" name="id"
 				placeholder="아이디(이메일)" type="text" size="34"

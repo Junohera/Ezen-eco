@@ -36,6 +36,7 @@ public class AlbumVO extends SearchDTO {
 	@Positive(message = "genre")
 	private int gseq;
 	private Timestamp pdate;
+	private String inputpdate;
 	private int rank;
 	private int likecount;
 
@@ -47,6 +48,8 @@ public class AlbumVO extends SearchDTO {
 	private String atgenre;
 	private String atimg;
 	private String description;
+	
+	private String imglink;
 	
 	private int useq;
 

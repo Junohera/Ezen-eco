@@ -42,6 +42,7 @@
 	<%-- board --%>
 	<c:if test="${fn:contains(pageContext.request.requestURI,'board/')}">
 		<link rel="stylesheet" href="css/board.css"> <!-- 공지사항, qna, 게시판 -->
+		<script src="js/board.js"></script>
 	</c:if>
 	<%-- board --%>
 
@@ -59,18 +60,23 @@
 					<li><a class="headerFont"  href="membership">이용권</a></li>
 				</ul>
 				<div class="searchBox">
-					<!-- <form id="allSearch" action="allSearch" method="post" name="allSearchform"> -->
-						<div class ="searchI" style="margin-left: 5px; float: left;">
+					<form id="allSearch" action="allSearch" method="post" name="allSearchform">
+						<div class ="searchI" onclick="allSearch(this.form)">
 							<i class="fas fa-search fa-lg"></i>
 						</div>
-						<input class="searchText" type="text" onkeypress="if(event.keyCode == 13){alert('아직 구현안됨')}">
-					<!-- </form> -->
+						<input class="searchText" type="text" onkeypress="if(event.keyCode == 13){'allSearch(this.form)'}">
+					</form>
 				</div>
 				<c:choose>
 					<c:when test="${empty loginUser}">
 						<ul class="headerTextR">
 						<li><a class="headerFont"  href="loginForm">로그인</a></li>
 						<li><a class="headerFont"  href="contract">회원가입</a></li>
+						<li>
+							<div id="playListBtn" onclick="pBoxOX()">
+								<i class="fas fa-list-ul fa-lg"></i>
+							</div>
+						</li>
 					</ul>	
 					</c:when>
 					<c:otherwise>
@@ -81,9 +87,52 @@
 							   </a>
 						   </li>
 						<li><a class="headerFont"  href="logout">로그아웃</a></li>
+						<!-- 플레이 리스트 버튼 -->
+						<li>
+							<div id="playListBtn" onclick="pBoxOX()">
+								<i class="fas fa-list-ul fa-lg"></i>
+							</div>
+						</li>
+						<!-- 플레이 리스트 끝 -->
 					</ul>
 					</c:otherwise>
 				</c:choose>
+			</div>
+		</div>
+
+		<div id="playListBox">
+			<div id="pLn">재생목록</div>
+			<div id="playListBoxClose" onclick="pBoxX()">
+				<i class="fas fa-times fa-2x"></i>
+			</div>
+			<div id="audioBox">
+			</div>
+			<div id="playList">
+				<table id="recommendChart">
+					<%-- <c:forEach items="${bundleList }" var="bundle" begin="${status.index}" end="${status.index}">
+							<c:forEach items="${bundle.musicList }" var="music" begin="0" end="3"> --%>
+										<tr>
+											<td class="albumS">
+												<a href="musicView?mseq=${music.mseq}">
+													<div class="albumImg">		
+															img <%-- <img src="${music.abimg}"> --%>
+													</div>
+												</a>
+											</td>
+												<td class="MusicT">
+													<a href="musicView?mseq=${music.mseq}">
+														title (${music.title })
+													</a>
+												</td>
+											<td class="MusicA">
+												<a href="artistView?atseq=${music.atseq}">
+													name (${music.name })
+												</a>
+											</td>
+										</tr>
+							<%-- </c:forEach>
+					</c:forEach> --%>
+				</table>
 			</div>
 		</div>
 	</header>
