@@ -1,6 +1,7 @@
 package com.eco.admin.controller;
 
 import java.util.Arrays;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -104,8 +105,10 @@ public class MusicManageController {
 		}
 		
 		if (result.hasErrors()) {
-			String message = result.getAllErrors().get(0).getDefaultMessage();
-			model.addAttribute("message", message);
+			model.addAttribute("message", result.getAllErrors().stream().map(error -> {
+				return error.getDefaultMessage();
+			}).collect(Collectors.toList()));
+			model.addAttribute("errors", result.getAllErrors());
 			return this.musicManageInsertForm(request, model, music); 
 		}
 
@@ -151,8 +154,10 @@ public class MusicManageController {
 		}
 		
 		if (result.hasErrors()) {
-			String message = result.getAllErrors().get(0).getDefaultMessage();
-			model.addAttribute("message", message);
+			model.addAttribute("message", result.getAllErrors().stream().map(error -> {
+				return error.getDefaultMessage();
+			}).collect(Collectors.toList()));
+			model.addAttribute("errors", result.getAllErrors());
 			return this.musicManageUpdateForm(request, model, music.getMseq()); 
 		}
 

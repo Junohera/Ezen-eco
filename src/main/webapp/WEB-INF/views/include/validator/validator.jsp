@@ -33,6 +33,8 @@
                             .css(errorStyle)
                             .on("change", function() {$("[name=" + $(this).attr("name") + "]").css(oldStyle);})
                             .attr("placeholder", errors[i][key]);
+                    } else {
+                        console.log(key + " : " + errors[i][key]);
                     }
                 }
             } catch (e) {

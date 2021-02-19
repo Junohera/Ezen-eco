@@ -20,18 +20,18 @@ public class ArtistVO extends SearchDTO {
 
 	private int atseq;
 	
-	@NotBlank(message="name")
+	@NotBlank(message="이름은 필수입니다.")
 	private String name;
 	
-	@NotBlank(message = "group")
-	@Size(min=1, max=1, message = "group")
+	@NotBlank(message = "그룹여부를 선택하세요.")
+	@Size(min=1, max=1, message = "그룹여부를 선택하세요.")
 	private String groupyn;
 	
-	@NotBlank(message = "gender")
-	@Size(min=1, max=1, message = "gender")
+	@NotBlank(message = "성별을 선택하세요.")
+	@Size(min=1, max=1, message = "성별을 선택하세요.")
 	private String gender;
 	
-	@Positive(message = "genre")
+	@Positive(message = "장르는 필수입니다.")
 	private int gseq;
 	
 	private String img;

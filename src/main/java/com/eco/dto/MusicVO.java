@@ -20,13 +20,13 @@ public class MusicVO  extends SearchDTO{
 	
 	private int mseq;
 	
-	@NotBlank(message="title")
+	@NotBlank(message="제목은 필수입니다.")
 	private String title;
-	@Positive(message = "album")
+	@Positive(message = "앨범을 선택하세요.")
 	private int abseq;
-	@Positive(message = "artist")
+	@Positive(message = "아티스트를 선택하세요.")
 	private int atseq;
-	@Positive(message = "genre")
+	@Positive(message = "장르를 선택하세요.")
 	private int gseq;
 
 	private String content;

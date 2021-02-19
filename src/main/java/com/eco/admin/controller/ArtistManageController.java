@@ -1,7 +1,7 @@
 package com.eco.admin.controller;
 
 import java.io.IOException;
-import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -11,7 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.ResourceUtils;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -114,7 +113,9 @@ public class ArtistManageController {
 			result = MultiToObject.valid(artist, result, ArtistValidator.class);
 
 	        if (result.hasErrors()) {
-	        	// 해당필드 값 내려주고 다시 화면으로 입력
+				model.addAttribute("message", result.getAllErrors().stream().map(error -> {
+					return error.getDefaultMessage();
+				}).collect(Collectors.toList()));
 	        	model.addAttribute("errors", result.getAllErrors());
 	        	return "admin/artistManageInsertForm";
 	        }
@@ -179,7 +180,9 @@ public class ArtistManageController {
 			MultiToObject.valid(artist, result, ArtistValidator.class);
 
 	        if (result.hasErrors()) {
-	        	// 해당필드 값 내려주고 다시 화면으로 입력
+	        	model.addAttribute("message", result.getAllErrors().stream().map(error -> {
+					return error.getDefaultMessage();
+				}).collect(Collectors.toList()));
 	        	model.addAttribute("errors", result.getAllErrors());
 	        	model.addAttribute("genreList", musicDao.genreList());
 	    		model.addAttribute("artist", musicDao.getArtist(artist.getAtseq()));
