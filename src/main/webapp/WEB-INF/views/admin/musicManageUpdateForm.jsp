@@ -14,6 +14,8 @@
         <input type="hidden" name="abseq" value="${music.abseq}" readonly>
         <input type="hidden" name="theme" value="${music.theme}">
         <input type="hidden" name="chart" value="${music.chart}">
+        <input type="hidden" name="atimg" value="${music.atimg}">
+        <input type="hidden" name="abimg" value="${music.abimg}">
 
         타이틀 여부 : 
         <label for="titleyn_Y">
