@@ -164,7 +164,7 @@ public class ArtistManageController {
 	
 	@RequestMapping(value = "artistManageUpdate", method = RequestMethod.POST)
 	public String artistManageUpdate(HttpServletRequest request, Model model
-			, @ModelAttribute("artist") @Valid ArtistVO artist
+			, @ModelAttribute("artist") ArtistVO artist
 			, BindingResult result
 			) {
 		
@@ -185,13 +185,15 @@ public class ArtistManageController {
 			);
 
 			// MultipartRequest multi로부터 artist로 차곡차곡 set
+			artist.setAtseq(multi.getParameter("atseq") != null ? Integer.parseInt(multi.getParameter("atseq")) : 0);
 			artist.setName(multi.getParameter("name"));
 			artist.setGroupyn(multi.getParameter("groupyn"));
 			artist.setGender(multi.getParameter("gender"));
-			artist.setImg(multi.getParameter("img"));
+			artist.setImg(multi.getParameter("img") != null ? multi.getParameter("img") : "");
 			artist.setImglink(multi.getParameter("imglink"));
 			artist.setGseq(multi.getParameter("gseq") != null ? Integer.parseInt(multi.getParameter("gseq")) : 0);
 			artist.setDescription(multi.getParameter("description"));
+			artist.setOldimg(multi.getParameter("oldimg"));
 			
 			// artist전용 validator를 호출
 			ArtistValidator validator = new ArtistValidator();
@@ -203,7 +205,7 @@ public class ArtistManageController {
 	        	model.addAttribute("message", result.getFieldError().getField());
 	        	model.addAttribute("genreList", musicDao.genreList());
 	    		model.addAttribute("artist", musicDao.getArtist(artist.getAtseq()));
-	        	return this.artistManageUpdateForm(request, model, artist.getAtseq());
+	    		return "admin/artistManageUpdateForm";
 	        } else {
 	        	String img = multi.getFilesystemName("img");
 				if (artist.getImglink() != null && !artist.getImglink().equals("")) {

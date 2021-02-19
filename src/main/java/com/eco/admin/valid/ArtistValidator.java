@@ -10,8 +10,6 @@ public class ArtistValidator implements Validator{
 	@Override
 	public void validate(Object target, Errors errors) {
 		ArtistVO dto = (ArtistVO)target;
-		System.out.println("System.out.println(dto);");
-		System.out.println(dto);
 		
 		if (dto.getName() == null || dto.getName().trim().isEmpty()) errors.rejectValue("name", "name");
 		if (dto.getGroupyn() == null || dto.getGroupyn().isEmpty()) errors.rejectValue("groupyn", "groupyn");
