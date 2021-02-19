@@ -11,12 +11,12 @@ alter table genre drop primary key cascade;
 alter table qna drop primary key cascade;
 alter table taste_master drop primary key cascade;
 alter table taste_detail drop primary key cascade;
-alter table adminQna drop primary key cascade;
+alter table adminqna drop primary key cascade;
 alter table nowplay drop primary key cascade;
 
 -- drop table
 drop table notice purge;
-drop table qReply purge;
+drop table qreply purge;
 drop table qna purge;
 drop table taste_master purge;
 drop table taste_detail purge;
@@ -35,7 +35,7 @@ drop table bundle_master purge;
 drop table bundle_detail purge;
 drop table admin purge;
 drop table member purge;
-drop table adminQna purge;
+drop table adminqna purge;
 drop table nowplay purge;
 
 -- drop sequence
@@ -52,10 +52,10 @@ drop sequence album_seq;
 drop sequence artist_seq;
 drop sequence qna_seq;
 drop sequence notice_seq;
-drop sequence qReply_seq;
+drop sequence qreply_seq;
 drop sequence bundle_master_seq;
 drop sequence bundle_detail_seq;
-drop sequence adminQna_seq;
+drop sequence adminqna_seq;
 drop sequence nowplay_seq;
 
 -- create sequence
@@ -72,10 +72,10 @@ create sequence taste_master_seq start with 1;
 create sequence taste_detail_seq start with 1;
 create sequence qna_seq start with 1;
 create sequence notice_seq start with 1;
-create sequence qReply_seq start with 1;
+create sequence qreply_seq start with 1;
 create sequence bundle_master_seq start with 1;
 create sequence bundle_detail_seq start with 1;
-create sequence adminQna_seq start with 1;
+create sequence adminqna_seq start with 1;
 create sequence nowplay_seq start with 1;
 
 -- create table
@@ -86,7 +86,7 @@ create table member(
 	name varchar2(30) not null,
 	phone varchar2(13) unique not null,
 	gender varchar2(1) not null,
-	membership varchar2(1) default 'N' not null, -- 이용권 여부 Y, N 
+	membership varchar2(1) default 'n' not null, -- 이용권 여부 y, n 
 	sdate date,	-- 이용권 시작일
  	edate date, -- 이용권 만료일
 	indate date default sysdate
@@ -105,14 +105,14 @@ create table theme(
 	img varchar2(100)
 );
 
---FLO 차트 지금 급상승 중 해외 소셜 차트 ...
+--flo 차트 지금 급상승 중 해외 소셜 차트 ...
 create table chart(
 	cseq number(5) primary key,
 	title varchar2(100) unique not null,
 	img varchar2(100)
 );
 
--- 국내 발라드 해외 팝 국내 댄스/일렉 국내 알앤비 국내 힙합 트로트 해외 알앤비 해외 힙합 OST/BGM 키즈 국내 인디 클래식 뉴에이지 국내 팝/어쿠스틱 해외 일렉트로닉 CCM 시원한 감성적인 슬픈 기쁜 댄스 발라드 ...
+-- 국내 발라드 해외 팝 국내 댄스/일렉 국내 알앤비 국내 힙합 트로트 해외 알앤비 해외 힙합 ost/bgm 키즈 국내 인디 클래식 뉴에이지 국내 팝/어쿠스틱 해외 일렉트로닉 ccm 시원한 감성적인 슬픈 기쁜 댄스 발라드 ...
 create table genre(
 	gseq number(5) primary key,
 	title varchar2(100) unique not null,
@@ -122,8 +122,8 @@ create table genre(
 create table artist (
 	atseq number(5) primary key,
 	name varchar2(30) not null,
-	groupyn varchar2(1) not null, -- Y: 그룹, N: 솔로
-	gender varchar2(1) not null, -- M: 남성, F: 여성, A: 혼성
+	groupyn varchar2(1) not null, -- y: 그룹, n: 솔로
+	gender varchar2(1) not null, -- m: 남성, f: 여성, a: 혼성
 	gseq number(5) references genre(gseq),
 	img varchar2(300),
 	description varchar2(1000)
@@ -135,7 +135,7 @@ create table album (
 	title varchar2(100) not null,
 	img varchar2(500),
 	content varchar2(4000),
-	abtype varchar2(20), -- 정규, 미니, 싱글, OST, 디지털싱글
+	abtype varchar2(20), -- 정규, 미니, 싱글, ost, 디지털싱글
 	gseq number(5) references genre(gseq),
 	pdate date not null -- 앨범 발매일 필수
 );
@@ -149,7 +149,7 @@ create table music(
 	gseq number(5) references genre(gseq), 	-- 장르(단일)
 	title varchar2(300) not null,
 	content varchar2(4000), 				-- 가사
-	titleyn varchar2(1), 					-- Y: 타이틀, N: 일반
+	titleyn varchar2(1), 					-- y: 타이틀, n: 일반
 	musicby varchar2(500),					-- 작곡
 	lyricsby varchar2(500),					-- 작사
 	producingby varchar2(500),				-- 편곡
@@ -161,7 +161,7 @@ create table bundle_master (
 	bmseq number(5) primary key,
 	useq number(5) not null, -- 0: 관리자에서 추가한 리스트, 유저시퀀스: 유저의 개인 리스트
 	title varchar2(100),
-	useyn varchar2(1) default 'Y', -- 사용여부 (사이트내의 리스트일 경우에만 핸들링)
+	useyn varchar2(1) default 'y', -- 사용여부 (사이트내의 리스트일 경우에만 핸들링)
 	cdate date default sysdate
 );
 
@@ -232,7 +232,7 @@ create table qna (
 	qna_date date default  sysdate
 );
 
-create table qReply (
+create table qreply (
 	qrseq number(5) primary key,
 	qseq number(5) references qna(qseq),
 	aseq number(5) references admin(aseq),
@@ -248,11 +248,11 @@ create table notice (
 	notice_date date default  sysdate
 );
 
-create table adminQna (
+create table adminqna (
 	adqseq number(5) primary key,
 	title varchar2(200) not null,
 	content varchar2(1000),
-	adQna_date date default  sysdate
+	adqna_date date default  sysdate
 );
 
 create table nowplay(
@@ -287,7 +287,7 @@ comment on table artist_like is '아티스트 좋아요';
 comment on table music_reply is '곡 댓글';
 comment on table music_ban is '곡 차단';
 comment on table qna is '질문';
-comment on table qReply is '답변';
+comment on table qreply is '답변';
 comment on table notice is '공지사항';
 comment on table nowplay is '현재 재생 목록';
 
@@ -498,10 +498,17 @@ select
     q.qseq
     , q.useq
 	, q.title
-	, q.content as qnaContent
+	, q.content as qnacontent
 	, q.qna_date
 	, qr.qrseq
-	, qr.content as replyContent
+	, qr.content as replycontent
 	, qr.qreply_date
-	from qna q left join qReply qr on q.useq = qr.useq and q.qseq = qr.qseq;
+	from qna q left join qreply qr on q.useq = qr.useq and q.qseq = qr.qseq;
 select * from qna_view;
+
+create or replace view bundle_view
+as
+select 
+	bm.*
+	, (select count(*) from bundle_detail where bmseq = bm.bmseq) as mucount
+from bundle_master bm;

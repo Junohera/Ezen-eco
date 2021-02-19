@@ -1,7 +1,5 @@
 package com.eco.admin.controller;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -19,7 +17,6 @@ import com.eco.admin.service.IAdminService;
 import com.eco.admin.service.IBundleManageService;
 import com.eco.dao.ICountDao;
 import com.eco.dto.BundleVO;
-import com.eco.dto.Paging;
 
 @Controller
 public class BundleManageController {
@@ -43,47 +40,6 @@ public class BundleManageController {
 		if (adminId == null) {
 			return "redirect:/admin";
 		}
-
-		// 검색조건 체크
-		int page=1;
-		if( request.getParameter("first")!=null ) {
-			session.removeAttribute("page");
-			session.removeAttribute("key");
-		}
-		String key = "";
-		if( request.getParameter("key") != null ) {
-			key = request.getParameter("key");
-			session.setAttribute("key", key);
-		} else if( session.getAttribute("key")!= null ) {
-			key = (String)session.getAttribute("key");
-		} else {
-			session.removeAttribute("key");
-			key = "";
-		}
-		if( request.getParameter("page") != null ) {
-			page = Integer.parseInt(request.getParameter("page"));
-			session.setAttribute("page", page);
-		} else if( session.getAttribute("page")!= null  ) {
-			page = (int) session.getAttribute("page");
-		} else {
-			page = 1;
-			session.removeAttribute("page");
-		}
-
-		// 검색조건 - 페이징
-		Paging paging = new Paging();
-		paging.setPage(page);
-		int count = countDao.getAllCount("bundle_master", "title", key);
-		paging.setTotalCount(count);
-		paging.paging();
-
-		// 검색조건기반 조회
-		List<BundleVO> bundleList = bundleManageService.list(paging, key);
-
-		// 페이지내에 필요값 저장
-		model.addAttribute("paging", paging);
-		model.addAttribute("key", key);
-		model.addAttribute("bundleList", bundleList);
 		
 		return "admin/bundleManageList";
 	}
