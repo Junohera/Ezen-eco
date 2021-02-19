@@ -183,37 +183,52 @@ public class ArtistManageController {
 					, "UTF-8"
 					, new DefaultFileRenamePolicy()
 			);
-			artist.setAtseq(Integer.parseInt(multi.getParameter("atseq")));
+
+			// MultipartRequest multi로부터 artist로 차곡차곡 set
 			artist.setName(multi.getParameter("name"));
 			artist.setGroupyn(multi.getParameter("groupyn"));
 			artist.setGender(multi.getParameter("gender"));
-			artist.setGseq(Integer.parseInt(multi.getParameter("gseq")));
-			artist.setOldimg(multi.getParameter("oldimg"));
+			artist.setImg(multi.getParameter("img"));
 			artist.setImglink(multi.getParameter("imglink"));
+			artist.setGseq(multi.getParameter("gseq") != null ? Integer.parseInt(multi.getParameter("gseq")) : 0);
 			artist.setDescription(multi.getParameter("description"));
 			
-			String img = multi.getFilesystemName("img");
-			if (artist.getImglink() != null && !artist.getImglink().equals("")) {
-				img = artist.getImglink();
-			} else if (img == null || img.equals("")) {
-				img = artist.getOldimg();
-			} else {
-				img = "/upload/" + img;
-			}
-			artist.setImg(img);
+			// artist전용 validator를 호출
+			ArtistValidator validator = new ArtistValidator();
+	        validator.validate(artist, result);
+	        
+	        // 하나라도 걸리면
+	        if (result.hasErrors()) {
+	        	// 해당필드 값 내려주고 다시 화면으로 입력
+	        	model.addAttribute("message", result.getFieldError().getField());
+	        	model.addAttribute("genreList", musicDao.genreList());
+	    		model.addAttribute("artist", musicDao.getArtist(artist.getAtseq()));
+	        	return this.artistManageUpdateForm(request, model, artist.getAtseq());
+	        } else {
+	        	String img = multi.getFilesystemName("img");
+				if (artist.getImglink() != null && !artist.getImglink().equals("")) {
+					img = artist.getImglink();
+				} else if (img == null || img.equals("")) {
+					img = artist.getOldimg();
+				} else {
+					img = "/upload/" + img;
+				}
+				artist.setImg(img);
+				
+
+				int res = artistManageService.update(artist);
+				
+				if (res > 0) {
+					model.addAttribute("message", "저장되었습니다.");
+				}
+	        }
+	        
+	        model.addAttribute("genreList", musicDao.genreList());
+			model.addAttribute("artist", musicDao.getArtist(artist.getAtseq()));
 			
-			model.addAttribute("message", result.getAllErrors().get(0).getDefaultMessage());
+			return "admin/artistManageUpdateForm";
 			
 		} catch (IOException e) {e.printStackTrace();}
-		
-		int res = artistManageService.update(artist);
-		
-		if (res > 0) {
-			model.addAttribute("message", "저장되었습니다.");
-		}
-		
-		model.addAttribute("genreList", musicDao.genreList());
-		model.addAttribute("artist", musicDao.getArtist(artist.getAtseq()));
 		return "admin/artistManageUpdateForm";
 	}
 	
