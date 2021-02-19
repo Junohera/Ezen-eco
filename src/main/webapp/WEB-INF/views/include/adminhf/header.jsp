@@ -31,8 +31,14 @@
                   $(this).hide();
                });
         });
+
     </script>
+
+    <!-- 서버측 validator와 연결하여 화면에도 표시 (com.eco.util.MultiToObject참고) -->
+    <%@ include file="../validator/validator.jsp" %>
 </head>
+
+
 
 <body>
     <div class="headerBox">
