@@ -15,7 +15,7 @@ public interface IBundleManageDao {
 
 	int update(BundleVO bundle);
 
-	void delete(int mseq);
+	void delete(int bmseq);
 
 	BundleVO getBundle(int bmseq);
 
