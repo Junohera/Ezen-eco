@@ -4,7 +4,7 @@
 
     <!-- 관리자에 의한 번들(메인용) -->
 	<select id="listBundleForMain" resultType="com.eco.dto.BundleVO">
-		select * from bundle_master where useq = 0
+		select * from bundle_master where useq = 0 and useyn = 'Y'
 	</select>
 
     <!-- 사용자에 의한 번들(유저용) -->

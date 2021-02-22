@@ -32,6 +32,8 @@ public class SearchDTO implements Serializable {
 	private String searchkeywordTarget = ""; // like 할때의 대상 컬럼
 	private String searchKeyword = ""; // like 할때의 비교값
 
+	private String searchUseyn = ""; // 사용여부
+
 	private int page = 1;
 	
 	

@@ -19,11 +19,14 @@ public class BundleVO extends SearchDTO {
 	private static final long serialVersionUID = -4830113505738601158L;
 	private int bmseq;
     private int useq;
-    @NotEmpty(message = "title is not empty")
-    @NotBlank(message = "title is not blank")
+    @NotEmpty(message = "제목을 입력하세요.")
+    @NotBlank(message = "제목을 공백없이 입력하세요.")
     private String title;
+    @NotEmpty(message = "사용여부를 체크해주세요")
     private String useyn;
     private Timestamp cdate;
 
     private List<MusicVO> musicList;
+    private int mucount;
+    private String mseqList; // ${mseq}|${mseq}|${mseq}... |로 구분된 mseq
 }

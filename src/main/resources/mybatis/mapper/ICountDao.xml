@@ -50,6 +50,9 @@
 
 			<!-- selectedGenre = -->
 			<if test="selectedGenre != ''">and gseq = #{selectedGenre}</if>
+
+			<!-- searchUseyn -->
+			<if test="searchUseyn != ''">and useyn = #{searchUseyn}</if>
 			
 		</where>
 	</select>

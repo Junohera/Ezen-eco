@@ -160,8 +160,8 @@ create table music(
 create table bundle_master (
 	bmseq number(5) primary key,
 	useq number(5) not null, -- 0: 관리자에서 추가한 리스트, 유저시퀀스: 유저의 개인 리스트
-	title varchar2(100),
-	useyn varchar2(1) default 'y', -- 사용여부 (사이트내의 리스트일 경우에만 핸들링)
+	title varchar2(300),
+	useyn varchar2(1) default 'Y', -- 사용여부 (사이트내의 리스트일 경우에만 핸들링)
 	cdate date default sysdate
 );
 
@@ -511,4 +511,5 @@ as
 select 
 	bm.*
 	, (select count(*) from bundle_detail where bmseq = bm.bmseq) as mucount
-from bundle_master bm;
+from bundle_master bm
+where bm.useq = 0;

@@ -53,6 +53,8 @@ public class MusicVO  extends SearchDTO{
 	private String atimg;
 	private String description;
 	private String gtitle;
+	private int bdseq;
+	private int bmseq;
 	
 	private int useq;
 
