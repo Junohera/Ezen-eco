@@ -21,6 +21,6 @@ public interface IBundleManageDao {
 
 	int detailClear(int bmseq);
 
-	int detailAdd(int bmseq, int m);
+	int detailAdd(int bmseq, int mseq);
 	
 }

@@ -74,7 +74,7 @@
 			, useyn
 		) values (
 			bundle_master_seq.nextval
-			, #{useq}
+			, 0
 			, #{title}
 			, #{useyn}
 		)
