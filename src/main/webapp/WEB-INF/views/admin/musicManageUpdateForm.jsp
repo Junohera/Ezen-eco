@@ -33,7 +33,7 @@
             제목 <input type="text" name="title" value="${music.title}">
         </label>
         <br>
-        <div style="width: 30%;display:inline-block;">
+        <div style="width: 30%;display:inline-block;" name="atseq">
             <label for="atseq">
                 아티스트: 
                 <span id="atname">${music.name}</span>
@@ -41,7 +41,7 @@
             </label>
             <input type="button" value="find" onclick="find('artist');">
         </div>
-        <div style="width: 30%;display:inline-block;">
+        <div style="width: 30%;display:inline-block;" name="abseq">
             <label for="abseq">
                 앨범: 
                 <span id="abtitle">${music.abtitle}</span>
