@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -240,6 +241,8 @@ public class MusicController {
 				ms.likeAlbum(loginUser.getUseq(), music.getAbseq());
 			} else if (music.getMseq() != 0) {
 				ms.likeMusic(loginUser.getUseq(), music.getMseq());
+				loginUser.setLikeList(ms.likeMusicListByUseq(loginUser.getUseq()));
+				request.getSession().setAttribute("loginUser", loginUser);
 			}
 
 			return true;
@@ -264,6 +267,8 @@ public class MusicController {
 				ms.unlikeAlbum(loginUser.getUseq(), music.getAbseq());
 			} else if (music.getMseq() != 0) {
 				ms.unlikeMusic(loginUser.getUseq(), music.getMseq());
+				loginUser.setLikeList(ms.likeMusicListByUseq(loginUser.getUseq()));
+				request.getSession().setAttribute("loginUser", loginUser);
 			}
 
 			return true;

@@ -12,7 +12,6 @@ alter table qna drop primary key cascade;
 alter table taste_master drop primary key cascade;
 alter table taste_detail drop primary key cascade;
 alter table adminqna drop primary key cascade;
-alter table nowplay drop primary key cascade;
 
 -- drop table
 drop table notice purge;
@@ -36,7 +35,6 @@ drop table bundle_detail purge;
 drop table admin purge;
 drop table member purge;
 drop table adminqna purge;
-drop table nowplay purge;
 
 -- drop sequence
 drop sequence taste_master_seq;
@@ -56,7 +54,6 @@ drop sequence qreply_seq;
 drop sequence bundle_master_seq;
 drop sequence bundle_detail_seq;
 drop sequence adminqna_seq;
-drop sequence nowplay_seq;
 
 -- create sequence
 create sequence member_seq start with 1;
@@ -76,7 +73,6 @@ create sequence qreply_seq start with 1;
 create sequence bundle_master_seq start with 1;
 create sequence bundle_detail_seq start with 1;
 create sequence adminqna_seq start with 1;
-create sequence nowplay_seq start with 1;
 
 -- create table
 create table member(
@@ -255,19 +251,6 @@ create table adminqna (
 	adqna_date date default  sysdate
 );
 
-create table nowplay(
-	npseq number(5) primary key,
-	mseq number(5) references music(mseq),
-	useq number(5) references member(useq),
-	title varchar2(300) not null,
-	content varchar2(4000),
-	titleyn varchar2(1),
-	musicby varchar2(500),
-	lyricsby varchar2(500),
-	producingby varchar2(500),	
-	src varchar2(200)
-);
-
 -- 테이블설명 
 comment on table member is '사용자';
 comment on table admin is '관리자';
@@ -289,7 +272,6 @@ comment on table music_ban is '곡 차단';
 comment on table qna is '질문';
 comment on table qreply is '답변';
 comment on table notice is '공지사항';
-comment on table nowplay is '현재 재생 목록';
 
 -- 뷰 정의
 

@@ -20,7 +20,7 @@
             <div style="width: 80%;display:inline-block;float:left">
                 <label for="title">
                     제목 : 
-                    <input type="text" name="title" value="${bundle.title}" >
+                    <textarea name="title" id="" cols="30" rows="2"><c:out value="${bundle.title}"/></textarea>
                 </label>
                 <br>
                 <label for="useyn_Y">

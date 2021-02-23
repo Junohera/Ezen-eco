@@ -15,12 +15,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.eco.dto.MemberVO;
 import com.eco.service.MemberService;
+import com.eco.service.MusicService;
 
 @Controller
 public class MemberController {
 	
 	@Autowired
 	MemberService ms;
+	
+	@Autowired
+	MusicService musicService;
 	
 	@RequestMapping("/loginForm")
 	public String login_form(Model model, HttpServletRequest request) {
@@ -40,6 +44,9 @@ public class MemberController {
 		}else if(mvo!=null) {	// 아이디가 입력된 경우
 			if(mvo.getPw()!=null) {	// 비밀번호가 입력된 경우
 				if(mvo.getPw().equals(membervo.getPw())) {	// 비밀번호가 일치하는 경우
+
+					// audioPlayer의 좋아요표시를 위해 세션등록전 멤버에 죻아하는 곡의 시퀀스 추가
+					mvo.setLikeList(musicService.likeMusicListByUseq(mvo.getUseq()));
 					HttpSession session = request.getSession();
 					session.setAttribute("loginUser", mvo);
 					return "redirect:/";

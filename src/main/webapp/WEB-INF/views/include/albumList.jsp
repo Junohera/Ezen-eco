@@ -33,7 +33,7 @@
                                 <img src="${album.img}" style="width: 100%;height: 100%;">
                             </a>
                             <div id="thumbnail_dim"></div>
-                            <span onclick="console.log('앨범 곡 추가는 앨범상세에서 하세요');" style="cursor:pointer;">
+                            <span onclick="$(this).closest('.album').find('.playListAdd').trigger('click');" style="cursor:pointer;">
                                 <i class="fas fa-play"></i>
                             </span>
                         </div>

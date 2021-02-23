@@ -1,6 +1,7 @@
 package com.eco.dto;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
@@ -25,4 +26,6 @@ public class MemberVO {
 	private Timestamp sdate; // 이용권 시작일
 	private Timestamp edate; // 이용권 만료일
 	private Timestamp indate;
+	
+	private List<Integer> likeList;
 }

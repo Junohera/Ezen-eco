@@ -9,6 +9,7 @@
     <meta charset="UTF-8">
     <title>Insert title here</title>
     <link rel="stylesheet" href="css/admin.css">
+    <link rel="shortcut icon" href="pageimages/logo.png">
     <script src="js/jquery-3.5.1-min.js"></script>
 
     <script>

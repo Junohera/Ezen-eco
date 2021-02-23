@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="include/headerfooter/header.jsp" %>
+<%
+	pageContext.setAttribute("cn", "\n");
+%>
 <c:if test="${message==12}">
 	<script>
 			alert("이용권 구매가 완료되었습니다");
@@ -31,7 +34,7 @@
                         <div class="recommendThemaBox">
                             <div class="recommendTitle"> 
                             	<c:forEach items="${bundleList }" var="bundle" begin="${status.index}" end="${status.index}">
-                            			<h1>${bundle.title}</h1>
+                            			<h1>${fn:replace(bundle.title, cn, "<br>")}</h1>
                             	</c:forEach>
                             </div>
                             <div class="recommendContent">
@@ -43,7 +46,7 @@
                             </div>
                             <form action="recommendPlay" method="post">
                             	<c:forEach items="${bundleList }" var="bundle" begin="${status.index}" end="${status.index}">
-		                            <div class="recommendPlayBox">
+		                            <div class="recommendPlayBox" onclick="$music.method.musicList.playListAddAll($(this).closest('.recommend').find('.mainTr'));">
 		                                <i class="fas fa-play-circle fa-4x"></i>
 		                            </div>
 	                            	<input type="hidden" value="${bundle.musicList }">
@@ -54,7 +57,14 @@
                         <table id="recommendChart">
                         	<c:forEach items="${bundleList }" var="bundle" begin="${status.index}" end="${status.index}">
                             		<c:forEach items="${bundle.musicList }" var="music" begin="0" end="3">
-			                            		<tr>
+			                            		<tr class="mainTr">
+													<input type="hidden" name="mseq" value="${music.mseq}">
+													<input type="hidden" name="abseq" value="${music.abseq}">
+													<input type="hidden" name="atseq" value="${music.atseq}">
+													<input type="hidden" name="title" value="${music.title}">
+													<input type="hidden" name="src" value="${music.src}">
+													<input type="hidden" name="abimg" value="${music.abimg}">
+													<input type="hidden" name="name" value="${music.name}">
 				                					<td class="albumS">
 					                					<a href="musicView?mseq=${music.mseq}">
 					                						<div class="albumImg">		

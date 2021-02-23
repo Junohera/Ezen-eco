@@ -11,10 +11,11 @@
 	<title>Insert title here</title>
 	
 	<%-- 모든페이지 --%>
-	<script src="https://kit.fontawesome.com/aeb6e503f2.js" crossorigin="anonymous"><!-- fontawesome: image대신 아이콘을 활용할 수 있음. + 색깔변경 가능 --></script>
+	<script src="https://kit.fontawesome.com/aeb6e503f2.js" crossorigin="anonymous"></script><!-- fontawesome: image대신 아이콘을 활용할 수 있음. + 색깔변경 가능 -->
 	<script src="js/jquery-3.5.1-min.js"></script>
+	<script src="js/music.js"></script> <!--공통적으로 포함(이유: 오디오)-->
 	<link rel="stylesheet" href="css/main.css">
-	<link rel="shortcut icon" href="#">
+	<link rel="shortcut icon" href="pageimages/logo.png">
 	<%-- 모든페이지 --%>
 	
 	<%-- member --%>
@@ -27,7 +28,6 @@
 	<%-- music --%>
 	<c:if test="${fn:contains(pageContext.request.requestURI,'music/')}">
 		<link rel="stylesheet" href="css/music.css"> <!-- 둘러보기 및 음악관련 -->
-		<script src="js/music.js"></script>
 	</c:if>
 	<%-- music --%>
 	
@@ -35,7 +35,6 @@
 	<c:if test="${fn:contains(pageContext.request.requestURI,'mypage/')}">
 		<link rel="stylesheet" href="css/music.css">
 		<link rel="stylesheet" href="css/mypage.css"> <!-- 내보관함 -->
-		<script src="js/music.js"></script>
 	</c:if>
 	<%-- mypage --%>
 	
@@ -100,41 +99,6 @@
 			</div>
 		</div>
 
-		<div id="playListBox">
-			<div id="pLn">재생목록</div>
-			<div id="playListBoxClose" onclick="pBoxX()">
-				<i class="fas fa-times fa-2x"></i>
-			</div>
-			<div id="audioBox">
-			</div>
-			<div id="playList">
-				<table id="recommendChart">
-					<%-- <c:forEach items="${bundleList }" var="bundle" begin="${status.index}" end="${status.index}">
-							<c:forEach items="${bundle.musicList }" var="music" begin="0" end="3"> --%>
-										<tr>
-											<td class="albumS">
-												<a href="musicView?mseq=${music.mseq}">
-													<div class="albumImg">		
-															img <%-- <img src="${music.abimg}"> --%>
-													</div>
-												</a>
-											</td>
-												<td class="MusicT">
-													<a href="musicView?mseq=${music.mseq}">
-														title (${music.title })
-													</a>
-												</td>
-											<td class="MusicA">
-												<a href="artistView?atseq=${music.atseq}">
-													name (${music.name })
-												</a>
-											</td>
-										</tr>
-							<%-- </c:forEach>
-					</c:forEach> --%>
-				</table>
-			</div>
-		</div>
 	</header>
 
 	<div id="viewBox">

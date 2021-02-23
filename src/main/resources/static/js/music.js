@@ -38,7 +38,9 @@ $music.data = {
 				atseq : null,	아티스트 번호
 				name : null		아티스트 이름
 			}*/
-		]
+		],
+		audio : null, // new Audio
+		timer : null, // interval객체
 	},
 
 	/* input:checkbox조작시 나타나는 팝업 */
@@ -57,6 +59,78 @@ $music.data = {
 	}
 
 };
+
+$music.sync = {
+	set: function(audioInfo) {
+		var audioInfo = audioInfo || {};
+		audioInfo.src = $music.data.playList.audio.src;
+		audioInfo.duration = Math.ceil($music.data.playList.audio.duration);
+		audioInfo.currentTime = Math.ceil($music.data.playList.audio.currentTime);
+		audioInfo.muted = $music.data.playList.audio.muted;
+		audioInfo.loop = $music.data.playList.audio.loop;
+		audioInfo.volume = $music.data.playList.audio.volume;
+		audioInfo.paused = $music.data.playList.audio.paused;
+
+		audioInfo.total = $("#audioBottom").find("#total").text();
+		audioInfo.current = $("#audioBottom").find("#current").text();
+		audioInfo.gageInner = $("#audioBottom #gage > div").css("width");
+		$music.data.playList.audioInfo = audioInfo;
+
+		localStorage.setItem("playList", JSON.stringify($music.data.playList));
+	},
+	apply: function() {
+		var playList = JSON.parse(localStorage.getItem("playList"));
+
+		if (playList) {
+			$music.data.playList = playList;
+
+			var audioInfo = playList.audioInfo;
+			$music.data.playList.audio = new Audio(playList.audioInfo.src);
+			$music.data.playList.audio.duration = audioInfo.duration;
+			$music.data.playList.audio.currentTime = audioInfo.currentTime;
+			$music.data.playList.audio.muted = audioInfo.muted;
+			$music.data.playList.audio.loop = audioInfo.loop;
+			$music.data.playList.audio.volume = audioInfo.volume;
+			$music.data.playList.audio.paused = audioInfo.paused;
+
+			var item = $music.data.playList.items.filter(function(v) {
+				return v.mseq === playList.playingNumber;
+			})[0];
+	
+			var target = $("#audioBottom");
+			target.find("#total").text(audioInfo.total);
+			target.find("#gage").children().css({
+				width: audioInfo.gageInner
+			});
+			target.find("#current").text(audioInfo.current);
+
+			if ($music.data.playList.audio.loop) {
+				$("#audioBottom").find(".loop").css({
+					color: "white"
+				});
+			} else {
+				$("#audioBottom").find(".loop").css({
+					color: "gray"
+				});
+			}
+
+			var duration = audioInfo.duration;
+
+			$music.utilMethod.audio.init(item);
+			if (audioInfo.paused) {
+				$("#audioBottom").find(".play").closest("li").show();
+				$("#audioBottom").find(".pause").closest("li").hide();
+				if (isNaN($music.data.playList.audio.duration)) {
+					$music.sync.set(audioInfo);
+				}
+			} else {
+				$("#audioBottom").find(".pause").closest("li").show();
+				$("#audioBottom").find(".play").closest("li").hide();
+				$music.method.musicList.play(item.mseq);
+			}
+		}
+	},
+}
 
 /**
  * 
@@ -116,6 +190,203 @@ $music.utilMethod = {
 	offLoading: function() {
 		$("#loading").hide();
 	},
+
+	audio : (function() {
+
+		function next() {
+			window.clearInterval($music.data.playList.timer);
+
+			var isNext = (function() {
+				var items = $music.data.playList.items;
+				var playingNumber = $music.data.playList.playingNumber;
+
+				var endedIndex = items.findIndex(function(v) {
+					return v.mseq === (playingNumber*1);
+				});
+
+				if (items[endedIndex + 1]) {
+					return true;
+				} else {
+					return false;
+				}
+			})();
+
+			var target = $("#audioBottom");
+			
+			// 다음곡 존재
+			if (isNext) {
+				var endedIndex = $music.data.playList.items.findIndex(function(v) {
+					return v.mseq === ($music.data.playList.playingNumber*1);
+				});
+
+				var next = $music.data.playList.items[endedIndex + 1];
+				$music.data.playList.playingNumber = next.mseq;
+				$music.data.playList.audio.src = next.src;
+				target.find("#abimg").attr("src", next.abimg);
+				target.find("#title").text(next.title);
+				target.find("#name").text(next.name);
+				target.find("#total").text("00:00");
+				target.find("#current").text("00:00");
+				target.find("#gage").children().css({
+					width: "0%"
+				});
+				$music.data.playList.audio.play()
+				.then(function() {
+					init(next, false);
+					startInterval();
+				});
+			}
+			// 다음곡 미존재
+			else {
+				target.find("#current").text("00:00");
+				target.find("#gage").children().css({
+					width: "0%"
+				});
+				target.find(".play").closest("li").show();
+				target.find(".pause").closest("li").hide();
+			}
+		};
+
+		var init = function(musicInfo, first) {
+			var target = $("#audioBottom");
+			
+			if (musicInfo) {
+				target.find("#abimg").attr("src", musicInfo.abimg).show();
+				target.find("#title").text(musicInfo.title);
+				target.find("#name").text(musicInfo.name);
+				target.find("#mseq").val(musicInfo.mseq);
+			}
+			
+			if ($music.data.playList.audio) {
+				if ($music.data.playList.audio.paused && first) {
+					target.find(".play").closest("li").show();
+					target.find(".pause").closest("li").hide();
+				} else {
+					target.find(".pause").closest("li").show();
+					target.find(".play").closest("li").hide();
+				}
+			}
+
+			$("#audioBottom").show();
+			$("footer").css({
+				marginBottom: "120px"
+			});
+
+			var audiomseq = target.find("#mseq").val();
+			target.find(".like")
+				.css({
+					color: "gray",
+				})
+				.removeClass("likemseq");
+			$("#loginUserLikeList").children().each(function(index, el) {
+				var likemseq = $(el).val();
+				
+				if (likemseq === audiomseq) {
+					target.find(".like")
+					.css({
+						color: "red",
+					})
+					.addClass("likemseq");
+				}
+			});
+
+			$music.sync.set();
+		};
+
+		function startInterval() {
+			var target = $("#audioBottom");
+			$music.data.playList.status = "on";
+			var total = $music.data.playList.audio.duration;
+			var totalMin = Math.ceil(total/60)-1; 
+			var totalSec = Math.ceil(total) % 60;
+			if (totalMin < 10) totalMin = "0" + totalMin;
+			if (totalSec < 10) totalSec = "0" + totalSec;
+			target.find("#total").text(totalMin + ":" + totalSec);
+
+			$music.data.playList.timer = window.setInterval(function() {
+				var current = $music.data.playList.audio.currentTime;
+
+				target.find("#gage").children().css({
+					width: (current / total * 100) + "%"
+				});
+
+				var currentMin = (Math.ceil($music.data.playList.audio.currentTime / 60) - 1) > 0 ? Math.ceil($music.data.playList.audio.currentTime / 60) - 1 : 0;
+				var currentSec = Math.ceil($music.data.playList.audio.currentTime) % 60;
+
+				if (currentMin < 10) currentMin = "0" + currentMin;
+				if (currentSec < 10) currentSec = "0" + currentSec;
+				target.find("#current").text(currentMin + ":" + currentSec);
+
+				// 곡이 끝나면 다음곡 찾아서 재생
+				if ($music.data.playList.audio.ended) {
+					window.clearInterval($music.data.playList.timer);
+					next();
+				}
+
+				$music.sync.set();
+			}, 1000);
+		}
+		
+		var run = function(playItem) {
+			window.clearInterval($music.data.playList.timer);
+			var target = $("#audioBottom");
+
+			if ($music.data.playList.status !== "off") {
+				target.find("#total").text("00:00");
+				target.find("#current").text("00:00");
+				target.find("#gage").children().css({
+					width: "0%"
+				});
+			}
+			if ($music.data.playList.audio) {
+				if (playItem && playItem.src) {
+					$music.data.playList.audio.src = playItem.src;
+				}
+			} else  {
+				if (playItem && playItem.src) {
+					$music.data.playList.audio = new Audio(playItem.src);	
+				} else {
+					return console.log("음악 정보가 없으므로 재생할 수 없습니다");
+				}
+			}
+			$music.data.playList.audio.play()
+			.then(function() {
+				init(playItem);
+				startInterval();
+			})
+		};
+
+		var stop = function() {
+			if ($music.data.playList.audio) {
+				$music.data.playList.audio.pause();
+
+				var target = $("#audioBottom");
+				target.find(".play").closest("li").show();
+				target.find(".pause").closest("li").hide();
+			}
+		};
+
+		var setLoop = function() {
+			if ($music.data.playList.audio) {
+				if ($music.data.playList.audio.loop) {
+					$("#audioBottom").find(".loop").css({
+						color: "white"
+					});
+				} else {
+					$("#audioBottom").find(".loop").css({
+						color: "gray"
+					});
+				}
+			}
+		}
+
+		return {
+			init: init,
+			run: run,
+			stop: stop,
+			setLoop: setLoop,
+		}
+	})(),
 }
 
 /**
@@ -314,7 +585,7 @@ $music.method = {
 
 			// 체크되어있는 값의 tr로 접근해 초기화된 재생목록에 담고 첫건 재생
 			$("input:checkbox[name=mseq_checkbox]:checked").each(function(index, el) {
-				$(el).closest("tr").find(".listen").trigger("click");
+				$(el).closest("tr").find(".playListAdd").trigger("click");
 			});
 
 			// 전부 체크해제
@@ -374,23 +645,30 @@ $music.method = {
 			} else {
 				$music.data.playList.items.push(music); // 기존의 목록의 맨뒤에 넣기
 			}
+			removeDuplicate();
 		};
 
 		var stop = function() {
 			$music.data.playList.status = "off"; // 상태 off로 변경
-			console.log("노래를 중단합니다(미구현)");
+			$music.utilMethod.audio.stop();
 		};
 
 		var play = function(mseq) {
-			var now = getData().items.findIndex(function(music) {
-				return music.mseq === getData().playingNumber; // 재생중인 곡번호가 몇번째 인지 반환
-			});
+			if (mseq) {
+				var now = getData().items.findIndex(function(music) {
+					return music.mseq === getData().playingNumber; // 재생중인 곡번호가 몇번째 인지 반환
+				});
+	
+				$music.data.playList.playingNumber = mseq; 	// 진행중 곡 번호 저장
+				$music.data.playList.status = "on"; 		// 상태 on으로 변경
+	
+				var playItem = $music.data.playList.items.find(function(v){
+					return v.mseq === mseq;
+				});
+			}
 
-			$music.data.playList.playingNumber = mseq; 	// 진행중 곡 번호 저장
-			$music.data.playList.status = "on"; 		// 상태 on으로 변경
-
-			// 전달받은 곡번호로 실행
-			console.log(mseq + "번 노래로 실행합니다(미구현) \n[재생목록 중 "+ (now+1) +"번째 노래입니다.]");
+			$music.utilMethod.audio.run(playItem);
+			
 		};
 
 		var next = function() {
@@ -403,7 +681,8 @@ $music.method = {
 
 			// 마지막 곡이었다면
 			if (isFinal) {
-				play(getData().items[0].mseq); // 첫번째 곡으로 재생실행
+				alert("다음곡이 없습니다");
+				// play(getData().items[0].mseq); // 첫번째 곡으로 재생실행
 			} else {
 				play(getData().items[now + 1].mseq); // 현재 재생중인 곡의 다음곡으로 재생실행
 			}
@@ -419,7 +698,8 @@ $music.method = {
 
 			// 첫번째 곡이었다면
 			if (isFirst) {
-				play(getData().items[items.length - 1].mseq); // 마지막 곡으로 재생실행
+				alert("이전곡이 없습니다");
+				// play(getData().items[getData().items.length - 1].mseq); // 마지막 곡으로 재생실행
 			} else {
 				play(getData().items[now-1].mseq); // 현재 재생중인 곡의 이전곡으로 재생실행
 			}
@@ -444,17 +724,19 @@ $music.method = {
 			// tr로 올라가서 music정보 수집
 			var music = $music.utilMethod.getHiddenDataAtTr(self);
 			add(music);
-			/*
-			if (alreadyMusic(music)) {
-				if (confirm("\""+ music.name +"\"의 \"" + music.title + "\"는(은) 이미 존재하는 곡입니다.\n 그래도 추가하시겠습니까?")) {
-					add(music);
-				} else {
-					// do nothing ...
-				}
-			} else {
-				add(music);
+			if ($music.data.playList.status === "nothing") {
+				$music.utilMethod.audio.init(music);
 			}
-			*/
+		};
+
+		// 한곡 추가 - 음악상세에서 재생목록담기버튼을 누른경우
+		var playListAddForm = function(self) {
+			// tr로 올라가서 music정보 수집
+			var music = $music.utilMethod.getHiddenDataAtForm(self);
+			add(music);
+			if ($music.data.playList.status === "nothing") {
+				$music.utilMethod.audio.init(music);
+			}
 		};
 		
 		// 전부 추가 - 목록위의 전체듣기 버튼을 누른 경우
@@ -473,6 +755,15 @@ $music.method = {
 			}
 
 			play(musicDataList[0].mseq);
+		};
+
+		// 전부 추가 - 음악상세의 재생목록버튼아이콘을 누른경우
+		var playListAddMusic = function(target) {
+			$music.utilMethod.playListClear(); // 재생목록 비우기
+
+			var music = $music.utilMethod.getHiddenDataAtForm(target);
+			add(music);
+			play(music.mseq);
 		};
 
 		// 전부 추가 - 아티스트상세의 앨범목록중 재생목록버튼아이콘을 누른경우
@@ -502,6 +793,8 @@ $music.method = {
 			, playListAdd : playListAdd
 			, playListAddAll : playListAddAll
 			, playListAddAlbum : playListAddAlbum
+			, playListAddForm : playListAddForm
+			, playListAddMusic : playListAddMusic
 		};
 	})(),
 
@@ -831,6 +1124,7 @@ $(function() {
 		// listByCheckBox의 버튼 이벤트 2. 듣기
 		$("#listByCheckBox .listen").on("click", function() {
 			$music.method.listByCheck.listen();
+			$music.method.musicList.play($music.data.playList.items[0].mseq);
 		});
 
 		// listByCheckBox의 버튼 이벤트 3. 재생목록담기
@@ -944,6 +1238,126 @@ $(function() {
 
 	/* albumView, artistView */
 
+	/* audioBottom */
+	$("#audioBottom")
+		.find(".icon").on("click", function() {
+			if ($(this).hasClass("loop")) {
+				if ($music.data.playList.audio.loop) {
+					$music.data.playList.audio.loop = false;
+				} else {
+					$music.data.playList.audio.loop = true;
+				}
+
+				$music.utilMethod.audio.setLoop();
+			}
+
+			if ($(this).hasClass("prev")) {
+				$music.method.musicList.prev();
+			}
+
+			if ($(this).hasClass("play")) {
+				var mseq = null;
+
+				if ($music.data.playList.playingNumber) {
+					$music.method.musicList.play(mseq);	
+				} else {
+					mseq = $music.data.playList.items[0].mseq;
+					$music.method.musicList.play(mseq);
+				}
+			}
+
+			if ($(this).hasClass("pause")) {
+				$music.method.musicList.stop();
+			}
+
+			if ($(this).hasClass("next")) {
+				$music.method.musicList.next();
+			}
+
+			if ($(this).hasClass("shuffle")) {
+
+			}
+
+			if ($(this).hasClass("like")) {
+				if ($(this).hasClass("likemseq")) {
+					// 좋아요 취소 호출
+					$music.method.unlike(null, null, $("#audioBottom").find("#mseq").val());
+				} else {
+					// 좋아요 호출
+					$music.method.like(null, null, $("#audioBottom").find("#mseq").val());
+				}
+			}
+
+			if ($(this).hasClass("volume")) {
+
+			}
+
+			if ($(this).hasClass("list")) {
+
+			}
+
+			$music.sync.set();
+		});
+	$("#audioBottom .icon")
+		.mouseover(function() {
+			$(this).css({
+				opacity: 0.2
+			});
+		})
+		.mouseleave(function() {
+			$(this).css({
+				opacity: 1
+			});
+		});
+	$("#audioBottom")
+		.find("#gage").on("click", function(e) {
+			// at page
+			var xAtPage = e.pageX; // 전체중 x축 좌표
+			var leftAtPage = $(this).offset().left; // x축 범위 중 최소값 = 페이지내부에서의 왼쪽 기준 위치값
+			var rightAtPage = $(this).offset().left + $(this).width(); // x축 범위 중 최대값 = 페이지내부에서의 위치값 + 넓이(width)
+
+			// at gage
+			var rangeAtGage = rightAtPage - leftAtPage; // 전체에서 gage만의 범위
+			var xAtGage = xAtPage - leftAtPage; // gage만의 범위와 비교한 값
+
+			// 필요없는 부분을 뺀 순수 gage만의 영역에서 몇퍼센트지점을 클릭했나
+			var percentage = xAtGage / rangeAtGage * 100;
+
+			// 어디서부터 시작
+			var where = Math.ceil($music.data.playList.audio.duration * percentage / 100);
+
+			// 현재재생시간을 선택한 시점으로
+			$music.data.playList.audio.currentTime = where;
+
+			// 시간 계산해서 화면 적용
+			var target = $("#audioBottom");
+			var total = $music.data.playList.audio.duration;
+			var totalMin = Math.ceil(total/60)-1; 
+			var totalSec = Math.ceil(total) % 60;
+			if (totalMin < 10) totalMin = "0" + totalMin;
+			if (totalSec < 10) totalSec = "0" + totalSec;
+			target.find("#total").text(totalMin + ":" + totalSec);
+
+			var current = $music.data.playList.audio.currentTime;
+
+			target.find("#gage").children().css({
+				width: (current / total * 100) + "%"
+			});
+
+			var currentMin = (Math.ceil($music.data.playList.audio.currentTime / 60) - 1) > 0 ? Math.ceil($music.data.playList.audio.currentTime / 60) - 1 : 0;
+			var currentSec = Math.ceil($music.data.playList.audio.currentTime) % 60;
+
+			if (currentMin < 10) currentMin = "0" + currentMin;
+			if (currentSec < 10) currentSec = "0" + currentSec;
+			target.find("#current").text(currentMin + ":" + currentSec);
+		});
+
+		if ($("body > input[name=useq]").val() === "") {
+			$("#audioBottom").find(".like").remove();
+		}
+	/* audioBottom */
+
 	})();
-	
+
+	$music.sync.apply();
 });

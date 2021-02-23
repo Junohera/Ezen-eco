@@ -4,13 +4,15 @@
 
 <article id="music_musicView">
     <div class="contentBox">
-        <input type="hidden" name="mseq" value="${music.mseq}">
-        <input type="hidden" name="abseq" value="${music.abseq}">
-        <input type="hidden" name="atseq" value="${music.atseq}">
-        <input type="hidden" name="title" value="${music.title}">
-        <input type="hidden" name="src" value="${music.src}">
-        <input type="hidden" name="abimg" value="${music.abimg}">
-        <input type="hidden" name="name" value="${music.name}">
+        <form style="position: absolute;width:0px;height:0px;">
+            <input type="hidden" name="mseq" value="${music.mseq}">
+            <input type="hidden" name="abseq" value="${music.abseq}">
+            <input type="hidden" name="atseq" value="${music.atseq}">
+            <input type="hidden" name="title" value="${music.title}">
+            <input type="hidden" name="src" value="${music.src}">
+            <input type="hidden" name="abimg" value="${music.abimg}">
+            <input type="hidden" name="name" value="${music.name}">
+        </form>
 
         <!-- 좋아하는 음악 시퀀스 목록중 동일하면 isLike 출력 -->
         <c:forEach var="likeMseq" items="${likeMusicList}">
@@ -30,7 +32,7 @@
             <div class="thumbnail">
                 <img src="${music.abimg}" alt="">
                 <div id="thumbnail_dim"></div>
-                <span onclick="$('#playListAddAll').trigger('click');">
+                <span onclick="$music.method.musicList.playListAddMusic($('#music_musicView').find('form'));">
                     <i class="fas fa-play"></i>
                 </span>
             </div>
@@ -52,7 +54,7 @@
                 </ul>
                 <ul class="iconList">
                     <li>
-                        <a class="iconButton playListAdd" onclick="$music.method.musicList.playListAddAll($('#listBox .musicTr'));">
+                        <a class="iconButton playListAdd" onclick="$music.method.musicList.playListAddForm($('#music_musicView').find('form'));">
                             <span style="font-size: 20px; color: #333333;"><i class="fas fa-outdent"></i></span>
                         </a>
                     </li>
