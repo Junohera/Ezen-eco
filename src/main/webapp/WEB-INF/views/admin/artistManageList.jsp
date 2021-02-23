@@ -35,12 +35,9 @@
 </script>
 <article style="min-height:500px;margin-top:100px;">
     <form action="artistManageList" method="GET">
-        <input type="button" value="theme" class="submit"
-				onclick="ThemeManage()">
-		<input type="button" value="chart" class="submit"
-				onclick="ChartManage()">
-		<input type="button" value="genre" class="submit"
-				onclick="GenreManage()">
+        <input type="button" value="theme" class="submit" onclick="ThemeManage()">
+		<input type="button" value="chart" class="submit" onclick="ChartManage()">
+		<input type="button" value="genre" class="submit" onclick="GenreManage()">
         <br>
         <input type="hidden" name="searchFilter" value="${search.searchFilter}">
         <label for="selectedGenre">

@@ -45,6 +45,7 @@
             <input type="hidden" name="searchkeywordTarget" value="${param.searchkeywordTarget}">
             <input type="hidden" name="searchKeyword" value="${param.searchKeyword}">
             <input type="hidden" name="selectedAbtype" value="${param.selectedAbtype}">
+            <input type="hidden" name="searchUseyn" value="${param.searchUseyn}">
             <c:choose>
                 <c:when test="${empty param.selectedGseq}"><input type="hidden" name="selectedGseq" value="0"></c:when>
                 <c:otherwise><input type="hidden" name="selectedGseq" value="${param.selectedGseq}"></c:otherwise>

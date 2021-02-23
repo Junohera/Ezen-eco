@@ -118,6 +118,7 @@
         <jsp:param value="${search.selectedGenre}" name="selectedGenre"/>
         <jsp:param value="${search.searchkeywordTarget}" name="searchkeywordTarget"/>
         <jsp:param value="${search.searchKeyword}" name="searchKeyword"/>
+        <jsp:param value="${search.searchUseyn}" name="searchUseyn"/>
     </jsp:include>
     <input type="button" value="add" onclick="location.href='bundleManageInsertForm'">
 </article>

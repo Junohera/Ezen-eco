@@ -12,11 +12,33 @@
             alert("${message}");
         }
     });
+
+    function ThemeManage(){
+        var url = "ThemeManage?first=yes";
+        var opt = "toolbar=no, menubar=no, scrollbars=no, resizable=no, width=800, ";
+        opt = opt + "height=700, top=300, left=300";
+        window.open(url, "ThemeManage", opt);
+    }
+    function ChartManage(){
+        var url = "ChartManage?first=yes";
+        var opt = "toolbar=no, menubar=no, scrollbars=no, resizable=no, width=800, ";
+        opt = opt + "height=700, top=300, left=300";
+        window.open(url, "ChartManage", opt);
+    }
+    function GenreManage(){
+        var url = "GenreManage?first=yes";
+        var opt = "toolbar=no, menubar=no, scrollbars=no, resizable=no, width=800, ";
+        opt = opt + "height=700, top=300, left=300";
+        window.open(url, "GenreManage", opt);
+    }
 </script>
 <article style="min-height:500px;margin-top:100px;">
     <form action="musicManageList" method="GET">
         <input type="hidden" name="searchFilter" value="${search.searchFilter}">
-
+        <input type="button" value="theme" class="submit" onclick="ThemeManage()">
+        <input type="button" value="chart" class="submit" onclick="ChartManage()">
+        <input type="button" value="genre" class="submit" onclick="GenreManage()">
+        <br>
         <label for="selectedTheme">
             theme
             <select id="selectedTheme" name="selectedTheme" onchange="this.form.submit();">
