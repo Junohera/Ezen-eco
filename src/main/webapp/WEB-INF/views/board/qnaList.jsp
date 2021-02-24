@@ -39,7 +39,7 @@
 		    <jsp:param value="${paging.endPage}" name="endPage"/>
 		    <jsp:param value="${paging.prev}" name="prev"/>
 		    <jsp:param value="${paging.next}" name="next"/>
-		    <jsp:param value="notice" name="command"/>
+		    <jsp:param value="qnaList" name="command"/>
 		</jsp:include>
 	</article>
 <%@ include file="../include/headerfooter/footer.jsp" %>

@@ -117,9 +117,11 @@
             width: 100%;
             background-color: black;
             border-radius: 10px;
-            height: 260px;
             margin-top: 20px;
+            margin-bottom: 20px;
             color: white;
+            height: calc(100vh - 267px);
+            overflow-y: scroll;
         }
 
         #audioRight .list * {
@@ -211,7 +213,7 @@
     <div>
         <h2 style="font-size: 20px;position: relative;color: white;">
             재생목록
-            <div class="close" onclick="$(this).closest('#audioRight').toggle();" style="position: absolute;right: 0;top: -2px;cursor: pointer;">
+            <div class="closeAudioRight" style="position: absolute;right: 0;top: -2px;cursor: pointer;">
                 <span style="color: #333333;">
                     <i class="fas fa-times"></i>
                 </span>
@@ -226,15 +228,12 @@
                     </span>
                     <input type="text" name="title" value="" placeholder="재생목록에서 검색해주세요." onkeydown="console.log($(this).val());"
                         style="width: 300px;height: 34px;padding-left: 26px;border-radius: 22px;background-color: #333333;border: 0;font-size: 12px;color: #fff;">
-                    <a class="close" onclick="document.audioRightSearch.title.value='';" style="cursor: pointer;position: absolute;top: 0px;right: 0px;">
+                    <a class="closeText" style="cursor: pointer;position: absolute;top: 0px;right: 0px;">
                         <span style="cursor: pointer;position: absolute;top: 4px;right: -16px;color:gray;">
                             <i class="fas fa-times"></i>
                         </span>
                     </a>
                 </div>
-                <c:if test="${message}">
-                    <p>${message}</p>
-                </c:if>
             </form>
             <div class="list">
                 <ul>

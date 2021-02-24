@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.eco.dto.ArtistVO;
 import com.eco.dto.BundleVO;
 import com.eco.dto.MusicVO;
 import com.eco.service.BundleService;
@@ -54,11 +55,11 @@ public class MainController {
 		
 		// 추가된 부분 21.02.08
 		List<MusicVO> nmlist = musicService.getNewList();
-		List<MusicVO> rmlist = musicService.getRecommendMusic();
+		List<ArtistVO> rmatlist = null; //TODO:musicService.getRecommendMusic();
 		/* List<Artist> alist = artistService.getRecommendList(); */
 	
 		model.addAttribute("newMusicList", nmlist);
-		model.addAttribute("recommendMusicList", rmlist);
+		model.addAttribute("recommendArtistList", rmatlist);
 		/* model.addAttribute("recommendMusicArtist", alist); */
 		
 		// 추가된 부분 끝

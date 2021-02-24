@@ -209,7 +209,7 @@
 		</c:when>
 		<c:otherwise>
 	        <div id = "nop">
-			 	<h5>좋아하는 앨범을 추가해주세요</h5>
+			 	<h5>좋아하는 아티스트를 추가해주세요</h5>
             </div>
 		</c:otherwise>
 	</c:choose>

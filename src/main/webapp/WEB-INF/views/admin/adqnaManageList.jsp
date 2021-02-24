@@ -114,7 +114,7 @@
 		    <jsp:param value="${paging.endPage}" name="endPage"/>
 		    <jsp:param value="${paging.prev}" name="prev"/>
 		    <jsp:param value="${paging.next}" name="next"/>
-		    <jsp:param value="qnaManageList" name="command"/>
+		    <jsp:param value="adqnaManageList" name="command"/>
 		</jsp:include>
 </article>
 <script type="text/javascript">

@@ -29,7 +29,7 @@
 	</ul>
 </div>
 <br>
-<article id="likemusicview">
+<article id="likemusicview" style="margin-top:30px;">
 	<c:choose>
 		<c:when test="${musicList.size() > 0}">
 			<div id="trackBox">

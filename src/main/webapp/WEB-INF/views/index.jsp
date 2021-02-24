@@ -154,10 +154,10 @@
 		
 		<h1>맞춤 아티스트</h1>
 		<div class="mainRecommedBox">
-			<c:forEach items="${recommendMusicList }" var="nlist" begin="0" end="3">
+			<c:forEach items="${recommendArtistList }" var="nlist" begin="0" end="3">
 			<div class="MainAlbum">
 				<div class="MainAlbumImg">
-					<a href="musicView?mseq=${nlist.atseq}">	
+					<a href="artistView?atseq=${nlist.atseq}">	
 					    	<img src="${nlist.atimg}">
 					</a>
 					<div class="abPlayBtn">
@@ -165,7 +165,7 @@
 					</div>
 				</div>
 				<div class="MainMusicContentBox">
-					<a href="musicView?mseq=${nlist.atseq}">
+					<a href="artistView?atseq=${nlist.atseq}">
 						${nlist.name }
 					</a>
 				</div>

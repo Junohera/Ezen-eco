@@ -292,12 +292,6 @@ $music.utilMethod = {
 				});
 			})();
 
-			(function right() {
-				var target = $("#audioRight");
-
-				
-			})()
-
 			$music.sync.set();
 		};
 
@@ -880,7 +874,7 @@ $music.method = {
 			} else {
 				$.ajax({
 					url: 'addBundleMaster',
-					type: 'post',
+					type: 'POST',
 					data: JSON.stringify(parameter),
 					contentType: 'application/json',
 					dataType: 'json'
@@ -1302,6 +1296,59 @@ $(function() {
 
 			if ($(this).hasClass("list")) {
 				$("#audioRight").toggle();
+
+				var target = $("#audioRight").find(".list").find("ul");
+				target.empty();
+
+				if ($("#audioRight").css("display") === "block") {
+					
+
+					var status = $music.data.playList.status;
+					var playingNumber = $music.data.playList.playingNumber;
+
+					var items = "";
+
+					$music.data.playList.items.forEach(function(item) {
+						var mseq = item.mseq;
+						var title = item.title;
+						var src = item.src;
+						var abseq = item.abseq;
+						var abimg = item.abimg;
+						var atseq = item.atseq;
+						var name = item.name;
+						
+						var item = "";
+						item += "<li id=\"item_"+mseq+"\">";
+						item += "    <input type=\"hidden\" name=\"mseq\" value=\""+mseq+"\">";
+						item += "    <input type=\"hidden\" name=\"title\" value=\""+title+"\">";
+						item += "    <input type=\"hidden\" name=\"src\" value=\""+src+"\">";
+						item += "    <input type=\"hidden\" name=\"abseq\" value=\""+abseq+"\">";
+						item += "    <input type=\"hidden\" name=\"abimg\" value=\""+abimg+"\">";
+						item += "    <input type=\"hidden\" name=\"atseq\" value=\""+atseq+"\">";
+						item += "    <input type=\"hidden\" name=\"name\" value=\""+name+"\">";
+						item += "	<ul>";
+						item += "		<li style=\"position: relative;\">";
+						item += "			<img id=\"abimg\" src=\""+abimg+"\" width=\"40px\" height=\"40px\">";
+						item += "			<div class=\"loading\" style=\"display:none;\">";
+						item += "				<img src=\"pageimages/loading.svg\" width=\"26px\" height=\"26px\" style=\"position: absolute;top: 7px;left: 7px;\">";
+						item += "			</div>";
+						item += "		</li>";
+						item += "		<li style=\"margin-left: 10px;\">";
+						item += "			<p id=\"title\" style=\"font-size: 15px;position: absolute;top: 1px;\">"+title+"</p>";
+						item += "			<p id=\"name\" style=\"font-size: 12px;position: absolute;top: 20px;color: gray;\">"+name+"</p>";
+						item += "		</li>";
+						item += "		<li>";
+						item += "			<span style=\"cursor: pointer;position: absolute;top: 7px;right: 41px;color: gray;font-size: 16px;\"><i class=\"fas fa-folder-plus\"></i></span>";
+						item += "			<span style=\"cursor: pointer;position: absolute;top: 7px;right: 12px;color: gray;font-size: 16px;\"><i class=\"fas fa-ellipsis-v\"></i></span>";
+						item += "		</li>";
+						item += "	</ul>";
+						item += "</li>";
+
+						items += item;
+					});
+					target.append(items);
+				}
+				
 			}
 
 			$music.sync.set();
@@ -1358,6 +1405,15 @@ $(function() {
 			if (currentMin < 10) currentMin = "0" + currentMin;
 			if (currentSec < 10) currentSec = "0" + currentSec;
 			target.find("#current").text(currentMin + ":" + currentSec);
+		});
+
+		$("#audioRight .closeAudioRight").on("click", function() {
+			$("#audioRight").toggle();
+			$("#audioRight").find(".list").find("ul").empty();
+		});
+
+		$("#audioRight .closeText").on("click", function() {
+			document.audioRightSearch.title.value = '';
 		});
 
 		if ($("body > input[name=useq]").val() === "") {

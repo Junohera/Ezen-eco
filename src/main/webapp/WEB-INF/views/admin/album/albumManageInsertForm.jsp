@@ -71,7 +71,7 @@
 	     <br>
         <div style="width: 30%;display:inline-block;">
         	<label for=abtype>
-	            앨범 타이틀 <input type="text" name="abtype" value="${album.abtype}">
+	            앨범타입 <input type="text" name="abtype" value="${album.abtype}">
 	            <input type="button" value="abtype" class="submit" onclick="AbtypeList();">
 	        </label>
 	         <p>이미지</p>

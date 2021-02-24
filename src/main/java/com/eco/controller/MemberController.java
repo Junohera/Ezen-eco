@@ -49,24 +49,15 @@ public class MemberController {
 					session.setAttribute("loginUser", mvo);
 					// 멤버십 검사
 					Timestamp today = new Timestamp(0);
-					if(mvo.getMembership().equals("Y")) {	// 멤버쉽이 Y면
-						if(mvo.getEdate().getTime() - today.getTime() > 0) { // 만료일이 남았을 경우
-							redirect.addFlashAttribute("message", "10"); // 이용권이 이미 구매됨
-							redirect.addFlashAttribute("edate", mvo.getEdate());
-							System.out.println("만료일이 남았을 때 : "+mvo.getMembership());
-							return "redirect:/";
-						}else if(mvo.getEdate().getTime() - today.getTime() <=0) { // 만료일이거나 지날경우
-							ms.membershipExpire(mvo);
-							redirect.addFlashAttribute("message", "13"); // 이용권 구매하세요
-							System.out.println("만료일이 지났을때 : "+mvo.getMembership());
-							return "redirect:/";
-						}
-					} else if(mvo.getMembership().equals("N")) {	// 멤버쉽이 N이면
+					if(mvo.getMembership().equals("N") || today.getTime() - mvo.getEdate().getTime() >= 0) {
+						// 멤버쉽이 N이거나 만료
 						model.addAttribute("message", "12"); // 이용권 구매하세요
 						System.out.println("이용권 구매 안했을때 : "+mvo.getMembership());
 						return "member/membershipForm";
+					} else {
+						redirect.addFlashAttribute("message", "10"); // 이용권이 이미 구매됨
+						return "redirect:/";
 					}
-					return "redirect:/";
 				}else {
 					model.addAttribute("message", "1");
 					return "member/login";
