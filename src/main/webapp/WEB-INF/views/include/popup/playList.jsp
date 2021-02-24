@@ -3,6 +3,7 @@
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <style>
     #audioBottom {
+        user-select: none;
         position: fixed;
         bottom: 0;
         left: 0;
@@ -87,17 +88,41 @@
         background: #3f3fff;
         border-radius: 5px;
     }
+
+    #audioBottom #noti {
+        position: absolute;
+        top: -15px;
+        left: 0px;
+        color: white;
+        font-size: 8px;
+        font-weight: 100;
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.9);
+        margin: 0 auto;
+    }
+
+    #audioBottom #noti {
+        text-align: center;
+        font-size: 10px;
+        color: gray;
+    }
+
+    #audioBottom #noti small {
+        color: white;
+    }
 </style>
 <style>
         #audioRight {
+            user-select: none;
             position: fixed;
             right: 0;
             top: 0;
-            width: 330px;
-            height: calc(100% - 160px);
+            width: 260px;
+            height: calc(100% - 140px);
             background: #222222;
             z-index: 9999;
             padding: 30px;
+            padding-top: 10px;
         }
 
         #audioRight * {
@@ -120,14 +145,30 @@
             margin-top: 20px;
             margin-bottom: 20px;
             color: white;
-            height: calc(100vh - 267px);
+            height: calc(100vh - 244px);
             overflow-y: scroll;
+        }
+
+        #audioRight .list::-webkit-scrollbar {
+            width: 10px;
+        }
+        #audioRight .list::-webkit-scrollbar-thumb {
+            background-color: gray;
+            border-radius: 10px;
+            background-clip: padding-box;
+            border: 2px solid transparent;
+        }
+        #audioRight .list::-webkit-scrollbar-track {
+            background-color: black;
+            border-radius: 10px;
+            /* box-shadow: inset 0px 0px 5px black; */
         }
 
         #audioRight .list * {
             list-style: none;
             margin: 0;
             padding: 0;
+            font-weight: 100;
         }
 
         #audioRight .list > ul > li {
@@ -152,11 +193,24 @@
             position: absolute;
             top: 0px;
             left: 0px;
-            background-color: rgba(0, 0, 0, 0.5);
+            background-color: rgba(0, 0, 0, 0.9);
             width: 40px;
             height: 40px;
         }
-        
+
+        #audioRight #title {
+            font-size: 11px;
+            position: absolute;
+            top: 1px;
+            width: 170px;
+        }
+
+        #audioRight #name {
+            font-size: 8px;
+            position: absolute;
+            top: 20px;
+            color: gray;
+        }
 </style>
 
 <form style="position: absolute;width: 0;height: 0;" id="loginUserLikeList">
@@ -167,6 +221,11 @@
 
 <div id="audioBottom" style="display:none;">
     <input id="mseq" type="hidden" name="mseq" value="">
+    <c:if test="${membership ne 'Y'}">
+        <div id="noti">
+            <p>멤버십 회원이 아니므로 재생시간은 <small>1분</small> 입니다.</p>
+        </div>    
+    </c:if>
     <ul>
         <li style="width:300px;margin-top: 10px;height: 80px;">
             <img id="abimg" style="position: absolute;top: 10px;" src="" onerror="this.style.display='none';" width="63px" height="63px">
@@ -205,7 +264,6 @@
                 </li>
             </ul>
         </li>
-
     </ul>
 </div>
 
@@ -213,6 +271,7 @@
     <div>
         <h2 style="font-size: 20px;position: relative;color: white;">
             재생목록
+            <span id="clear" style="cursor: pointer;position: absolute;top: 6px;left: 82px;color: white;font-size: 11px;opacity: 1;"><i class="fas fa-trash-alt"></i></span>
             <div class="closeAudioRight" style="position: absolute;right: 0;top: -2px;cursor: pointer;">
                 <span style="color: #333333;">
                     <i class="fas fa-times"></i>
@@ -221,14 +280,14 @@
         </h2>
     
         <div class="form">
-            <form name="audioRightSearch">
+            <form name="audioRightSearch" onsubmit="return false">
                 <div class="textBox" style="position: relative;">
                     <span style="position: absolute;top: 8px;left: 9px;font-size: 13px;font-weight: 100;color: gray;">
                         <i class="fas fa-search"></i>
                     </span>
-                    <input type="text" name="title" value="" placeholder="재생목록에서 검색해주세요." onkeydown="console.log($(this).val());"
-                        style="width: 300px;height: 34px;padding-left: 26px;border-radius: 22px;background-color: #333333;border: 0;font-size: 12px;color: #fff;">
-                    <a class="closeText" style="cursor: pointer;position: absolute;top: 0px;right: 0px;">
+                    <input type="text" name="title" value="" placeholder="재생목록에서 검색해주세요." autocomplete="off" onkeyup="$music.method.audioRight.search($(this).val());"
+                        style="width: 230px;height: 34px;padding-left: 26px;border-radius: 22px;background-color: #333333;border: 0;font-size: 12px;color: #fff;">
+                    <a class="closeText" style="cursor: pointer;position: absolute;top: 0px;right: 35px;">
                         <span style="cursor: pointer;position: absolute;top: 4px;right: -16px;color:gray;">
                             <i class="fas fa-times"></i>
                         </span>

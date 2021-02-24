@@ -56,6 +56,7 @@ public class MemberController {
 						return "member/membershipForm";
 					} else {
 						redirect.addFlashAttribute("message", "10"); // 이용권이 이미 구매됨
+						session.setAttribute("membership", "Y");
 						return "redirect:/";
 					}
 				}else {

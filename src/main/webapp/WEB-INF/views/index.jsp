@@ -43,7 +43,7 @@
                             <form action="recommendPlay" method="post">
                             	<c:forEach items="${bundleList }" var="bundle" begin="${status.index}" end="${status.index}">
 		                            <div class="recommendPlayBox">
-		                                <i class="fas fa-play-circle fa-4x"></i>
+		                                <i class="fas fa-play-circle fa-4x" onclick="$music.method.musicList.playListAddAll($(this).closest('.recommend').find('.mainTr'));"></i>
 		                            </div>
 	                            	<input type="hidden" value="${bundle.musicList }">
 	                            </c:forEach>

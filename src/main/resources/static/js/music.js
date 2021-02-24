@@ -41,6 +41,7 @@ $music.data = {
 		],
 		audio : null, // new Audio
 		timer : null, // interval객체
+		audioRight : false, // 우측 재생목록 펼침여부
 	},
 
 	/* input:checkbox조작시 나타나는 팝업 */
@@ -63,13 +64,16 @@ $music.data = {
 $music.sync = {
 	set: function(audioInfo) {
 		var audioInfo = audioInfo || {};
-		audioInfo.src = $music.data.playList.audio.src;
-		audioInfo.duration = Math.ceil($music.data.playList.audio.duration);
-		audioInfo.currentTime = Math.ceil($music.data.playList.audio.currentTime);
-		audioInfo.muted = $music.data.playList.audio.muted;
-		audioInfo.loop = $music.data.playList.audio.loop;
-		audioInfo.volume = $music.data.playList.audio.volume;
-		audioInfo.paused = $music.data.playList.audio.paused;
+
+		if ($music.data.playList.audio !== null) {
+			audioInfo.src = $music.data.playList.audio.src;
+			audioInfo.duration = Math.ceil($music.data.playList.audio.duration);
+			audioInfo.currentTime = Math.ceil($music.data.playList.audio.currentTime);
+			audioInfo.muted = $music.data.playList.audio.muted;
+			audioInfo.loop = $music.data.playList.audio.loop;
+			audioInfo.volume = $music.data.playList.audio.volume;
+			audioInfo.paused = $music.data.playList.audio.paused;
+		}
 
 		audioInfo.total = $("#audioBottom").find("#total").text();
 		audioInfo.current = $("#audioBottom").find("#current").text();
@@ -128,6 +132,11 @@ $music.sync = {
 				$("#audioBottom").find(".play").closest("li").hide();
 				$music.method.musicList.play(item.mseq);
 			}
+
+			if ($music.data.playList.audioRight) {
+				$("#audioBottom").find(".list").trigger("click");
+			}
+
 		}
 	},
 }
@@ -292,14 +301,31 @@ $music.utilMethod = {
 				});
 			})();
 
+			$("#audioRight .loading").hide();
+			$("#audioRight #title").css({color: 'white'});
+			$("#audioRight #name").css({color: 'gray'});
+			var target = $("#audioRight").find("#item_" + $music.data.playList.playingNumber);
+			if (target) {
+				target.find(".loading").show();
+				target.find("#title").css({color: "#3f3fff"});
+				target.find("#name").css({color: "#3f3fff"});
+			}
+
 			$music.sync.set();
+			$music.method.audioRight.scroll(musicInfo.mseq);
 		};
 
 		function startInterval() {
 			var target = $("#audioBottom");
 			$music.data.playList.status = "on";
-			var total = $music.data.playList.audio.duration;
-			var totalMin = Math.ceil(total/60)-1; 
+			var total = (function() {
+				if ($("input[name=membership]").val() !== "Y") {
+					return 60;
+				} else {
+					return $music.data.playList.audio.duration;
+				}
+			})();
+			var totalMin = Math.ceil(total/60)-1 === 0 ? 1 : Math.ceil(total/60)-1; 
 			var totalSec = Math.ceil(total) % 60;
 			if (totalMin < 10) totalMin = "0" + totalMin;
 			if (totalSec < 10) totalSec = "0" + totalSec;
@@ -319,18 +345,28 @@ $music.utilMethod = {
 				if (currentSec < 10) currentSec = "0" + currentSec;
 				target.find("#current").text(currentMin + ":" + currentSec);
 
-				// 곡이 끝나면 다음곡 찾아서 재생
-				if ($music.data.playList.audio.ended) {
-					window.clearInterval($music.data.playList.timer);
-					next();
+				if ($("input[name=membership]").val() !== "Y") {
+					if (($music.data.playList.audio.currentTime >= 60)) {
+						$music.data.playList.audio.pause();
+						window.clearInterval($music.data.playList.timer);
+						next();
+					}
+				} else {
+					// 곡이 끝나면 다음곡 찾아서 재생
+					if ($music.data.playList.audio.ended) {
+						window.clearInterval($music.data.playList.timer);
+						next();
+					}
 				}
 
 				$music.sync.set();
 			}, 1000);
 		}
 		
-		var run = function(playItem) {
+		var run = function(playItem, isDiff) {
 			window.clearInterval($music.data.playList.timer);
+			$music.method.audioRight.set();
+			
 			var target = $("#audioBottom");
 
 			if ($music.data.playList.status !== "off") {
@@ -341,8 +377,12 @@ $music.utilMethod = {
 				});
 			}
 			if ($music.data.playList.audio) {
-				if (playItem && playItem.src) {
-					$music.data.playList.audio.src = playItem.src;
+				if (playItem) {
+					if (isDiff) {
+						$music.data.playList.audio.src = playItem.src;
+					} else if ($music.data.playList.playingNumber !== playItem.mseq) {
+						$music.data.playList.audio.src = playItem.src;
+					}
 				}
 			} else  {
 				if (playItem && playItem.src) {
@@ -360,6 +400,7 @@ $music.utilMethod = {
 
 		var stop = function() {
 			if ($music.data.playList.audio) {
+				window.clearInterval($music.data.playList.timer);
 				$music.data.playList.audio.pause();
 
 				var target = $("#audioBottom");
@@ -539,7 +580,7 @@ $music.method = {
 				off_musicMoreBox();
 			}
 		};
-	
+
 		return {
 			on_musicMoreBox: on_musicMoreBox, // 더보기버튼 on
 			off_musicMoreBox: off_musicMoreBox, // 더보기버튼 off
@@ -656,11 +697,10 @@ $music.method = {
 		};
 
 		var play = function(mseq) {
+
 			if (mseq) {
-				var now = getData().items.findIndex(function(music) {
-					return music.mseq === getData().playingNumber; // 재생중인 곡번호가 몇번째 인지 반환
-				});
-	
+				var isDiff = mseq !== $music.data.playList.playingNumber
+				
 				$music.data.playList.playingNumber = mseq; 	// 진행중 곡 번호 저장
 				$music.data.playList.status = "on"; 		// 상태 on으로 변경
 	
@@ -669,7 +709,7 @@ $music.method = {
 				});
 			}
 
-			$music.utilMethod.audio.run(playItem);
+			$music.utilMethod.audio.run(playItem, isDiff);
 			
 		};
 
@@ -798,6 +838,111 @@ $music.method = {
 			, playListAddForm : playListAddForm
 			, playListAddMusic : playListAddMusic
 		};
+	})(),
+
+	audioRight : (function() {
+		var scroll = function(mseq) {
+			var n = 0;
+
+			try {
+				$("#audioRight .list > ul > li").each(function(index, el) {
+					var id = $(el).attr("id");
+					id = id.split("_")[1];
+		
+					if ((id * 1) === mseq) {
+						n = index;
+					}
+				});
+				$('#audioRight .list').animate({scrollTop : n * 60}, 400);
+			} catch(e) {
+				console.log("html attr id not found");
+			}
+			
+		};
+
+		var search = function(keyword) {
+			$("#audioRight .list > ul > li").css({
+				position : "absolute",
+				top: "-9999px",
+				left: "-9999px",
+			});
+			$("#audioRight .list > ul > li").find("p:containsIN('"+keyword+"')").closest("li").closest("ul").closest("li").css({
+				position : "relative",
+				top: "unset",
+				left: "unset",
+			});
+		};
+
+		var set = function() {
+			var target = $("#audioRight").find(".list").find("ul");
+			target.empty();
+			target.find("#title").val("");
+
+			if ($("#audioRight").css("display") === "block") {
+				
+				var items = "";
+
+				$music.data.playList.items.forEach(function(item) {
+					var mseq = item.mseq;
+					var title = item.title;
+					var src = item.src;
+					var abseq = item.abseq;
+					var abimg = item.abimg;
+					var atseq = item.atseq;
+					var name = item.name;
+					
+					var item = "";
+					item += "<li id=\"item_"+mseq+"\">";
+					item += "    <input type=\"hidden\" name=\"mseq\" value=\""+mseq+"\">";
+					item += "    <input type=\"hidden\" name=\"title\" value=\""+title+"\">";
+					item += "    <input type=\"hidden\" name=\"src\" value=\""+src+"\">";
+					item += "    <input type=\"hidden\" name=\"abseq\" value=\""+abseq+"\">";
+					item += "    <input type=\"hidden\" name=\"abimg\" value=\""+abimg+"\">";
+					item += "    <input type=\"hidden\" name=\"atseq\" value=\""+atseq+"\">";
+					item += "    <input type=\"hidden\" name=\"name\" value=\""+name+"\">";
+					item += "	<ul>";
+					item += "		<li style=\"position: relative;\">";
+					item += "			<img id=\"abimg\" src=\""+abimg+"\" width=\"40px\" height=\"40px\" style=\"cursor:pointer;\" onclick=\"location.href='albumView?abseq="+abseq+"'\">";
+					item += "			<div class=\"loading\" style=\"display:none;cursor:pointer;\" onclick=\"location.href='albumView?abseq="+abseq+"'\">";
+					item += "				<img src=\"pageimages/loading.svg\" width=\"26px\" height=\"26px\" style=\"position: absolute;top: 7px;left: 7px;\">";
+					item += "			</div>";
+					item += "		</li>";
+					item += "		<li style=\"margin-left: 10px;cursor:pointer;\">";
+					item += "			<p id=\"title\" class=\"singleline-ellipsis\">"+title+"</p>";
+					item += "			<p id=\"name\">"+name+"</p>";
+					item += "		</li>";
+					item += "	</ul>";
+					item += "</li>";
+
+					items += item;
+				});
+				target.append(items);
+
+				// var status = $music.data.playList.status;
+				var playingNumber = $music.data.playList.playingNumber;
+
+				if (playingNumber != 0) {
+					$("#audioRight .loading").hide();
+					$("#audioRight #title").css({color: 'white'});
+					$("#audioRight #name").css({color: 'gray'});
+					var target = $("#audioRight").find("#item_" + playingNumber);
+
+					target.find(".loading").show();
+					target.find("#title").css({color: "#3f3fff"});
+					target.find("#name").css({color: "#3f3fff"});
+
+					scroll(playingNumber);
+				}
+
+				$music.data.playList.audioRight = true;
+			}
+		};
+
+		return {
+			scroll: scroll,
+			search: search,
+			set: set,
+		}
 	})(),
 
 	/* 내 리스트 */
@@ -1044,6 +1189,11 @@ $music.method = {
 
 $(function() {
 
+	$.extend($.expr[":"], {
+		"containsIN": function(elem, i, match, array) {
+		return (elem.textContent || elem.innerText || "").toLowerCase().indexOf((match[3] || "").toLowerCase()) >= 0;
+	}});
+
 	$(window)	
 		.ajaxStart(function(){
 			$music.utilMethod.onLoading();
@@ -1077,7 +1227,7 @@ $(function() {
 			$music.method.musicList.playListAdd($(this));
 		});
 
-		// 듣기 기능 연동시작점
+		// 듣기 기능 연동시작점 TODO:
 		$("#listBox .listen").on("click", function() {
 			$music.method.musicList.listen($(this));
 		});
@@ -1261,7 +1411,7 @@ $(function() {
 				var mseq = null;
 
 				if ($music.data.playList.playingNumber) {
-					$music.method.musicList.play(mseq);	
+					$music.method.musicList.play($music.data.playList.playingNumber);	
 				} else {
 					mseq = $music.data.playList.items[0].mseq;
 					$music.method.musicList.play(mseq);
@@ -1277,7 +1427,11 @@ $(function() {
 			}
 
 			if ($(this).hasClass("shuffle")) {
+				$music.data.playList.items = $music.data.playList.items.map(a => ([Math.random(),a]))
+					.sort((a,b) => a[0]-b[0])
+					.map(a => a[1]);
 
+				$music.method.audioRight.set();
 			}
 
 			if ($(this).hasClass("like")) {
@@ -1295,59 +1449,9 @@ $(function() {
 			}
 
 			if ($(this).hasClass("list")) {
-				$("#audioRight").toggle();
-
-				var target = $("#audioRight").find(".list").find("ul");
-				target.empty();
-
-				if ($("#audioRight").css("display") === "block") {
-					
-
-					var status = $music.data.playList.status;
-					var playingNumber = $music.data.playList.playingNumber;
-
-					var items = "";
-
-					$music.data.playList.items.forEach(function(item) {
-						var mseq = item.mseq;
-						var title = item.title;
-						var src = item.src;
-						var abseq = item.abseq;
-						var abimg = item.abimg;
-						var atseq = item.atseq;
-						var name = item.name;
-						
-						var item = "";
-						item += "<li id=\"item_"+mseq+"\">";
-						item += "    <input type=\"hidden\" name=\"mseq\" value=\""+mseq+"\">";
-						item += "    <input type=\"hidden\" name=\"title\" value=\""+title+"\">";
-						item += "    <input type=\"hidden\" name=\"src\" value=\""+src+"\">";
-						item += "    <input type=\"hidden\" name=\"abseq\" value=\""+abseq+"\">";
-						item += "    <input type=\"hidden\" name=\"abimg\" value=\""+abimg+"\">";
-						item += "    <input type=\"hidden\" name=\"atseq\" value=\""+atseq+"\">";
-						item += "    <input type=\"hidden\" name=\"name\" value=\""+name+"\">";
-						item += "	<ul>";
-						item += "		<li style=\"position: relative;\">";
-						item += "			<img id=\"abimg\" src=\""+abimg+"\" width=\"40px\" height=\"40px\">";
-						item += "			<div class=\"loading\" style=\"display:none;\">";
-						item += "				<img src=\"pageimages/loading.svg\" width=\"26px\" height=\"26px\" style=\"position: absolute;top: 7px;left: 7px;\">";
-						item += "			</div>";
-						item += "		</li>";
-						item += "		<li style=\"margin-left: 10px;\">";
-						item += "			<p id=\"title\" style=\"font-size: 15px;position: absolute;top: 1px;\">"+title+"</p>";
-						item += "			<p id=\"name\" style=\"font-size: 12px;position: absolute;top: 20px;color: gray;\">"+name+"</p>";
-						item += "		</li>";
-						item += "		<li>";
-						item += "			<span style=\"cursor: pointer;position: absolute;top: 7px;right: 41px;color: gray;font-size: 16px;\"><i class=\"fas fa-folder-plus\"></i></span>";
-						item += "			<span style=\"cursor: pointer;position: absolute;top: 7px;right: 12px;color: gray;font-size: 16px;\"><i class=\"fas fa-ellipsis-v\"></i></span>";
-						item += "		</li>";
-						item += "	</ul>";
-						item += "</li>";
-
-						items += item;
-					});
-					target.append(items);
-				}
+				$("#audioRight").fadeToggle('fast', function() {
+					$music.method.audioRight.set();
+				});
 				
 			}
 
@@ -1366,6 +1470,16 @@ $(function() {
 		});
 	$("#audioBottom")
 		.find("#gage").on("click", function(e) {
+
+			var total = (function() {
+				if ($("input[name=membership]").val() !== "Y") {
+					return 60;
+				}
+				else {
+					return $music.data.playList.audio.duration;
+				}
+			})()
+
 			// at page
 			var xAtPage = e.pageX; // 전체중 x축 좌표
 			var leftAtPage = $(this).offset().left; // x축 범위 중 최소값 = 페이지내부에서의 왼쪽 기준 위치값
@@ -1379,15 +1493,14 @@ $(function() {
 			var percentage = xAtGage / rangeAtGage * 100;
 
 			// 어디서부터 시작
-			var where = Math.ceil($music.data.playList.audio.duration * percentage / 100);
+			var where = Math.ceil(total * percentage / 100);
 
 			// 현재재생시간을 선택한 시점으로
 			$music.data.playList.audio.currentTime = where;
 
 			// 시간 계산해서 화면 적용
 			var target = $("#audioBottom");
-			var total = $music.data.playList.audio.duration;
-			var totalMin = Math.ceil(total/60)-1; 
+			var totalMin = Math.ceil(total/60)-1 === 0 ? 1 : Math.ceil(total/60)-1; 
 			var totalSec = Math.ceil(total) % 60;
 			if (totalMin < 10) totalMin = "0" + totalMin;
 			if (totalSec < 10) totalSec = "0" + totalSec;
@@ -1410,11 +1523,77 @@ $(function() {
 		$("#audioRight .closeAudioRight").on("click", function() {
 			$("#audioRight").toggle();
 			$("#audioRight").find(".list").find("ul").empty();
+			$music.data.playList.audioRight = false;
 		});
 
 		$("#audioRight .closeText").on("click", function() {
 			document.audioRightSearch.title.value = '';
 		});
+
+		$(document).on("click", "#audioRight #title, #audioRight #name", function() {
+			var id = $(this).closest("ul").closest("li").attr("id");
+			id = id.split("_")[1];
+
+			var mseq = id * 1;
+
+			if ($music.data.playList.playingNumber === mseq) {
+				if ($music.data.playList.status === "on") {
+					$("#audioBottom").find(".pause").trigger("click");
+				} else if ($music.data.playList.status === "off") {
+					$("#audioBottom").find(".play").trigger("click");
+				}
+			} else {
+				$music.method.musicList.play(mseq);
+			}
+
+			$music.method.audioRight.scroll(mseq);
+		});
+
+		$("#audioRight #clear").mouseover(function() {
+			$(this).css({
+				color: "red"
+			});
+		}).mouseleave(function() {
+			$(this).css({
+				color: "white"
+			})
+		});
+
+		$("#audioRight #clear").click(function() {
+			if(confirm("재생목록을 비우시겠습니까?")) {
+				localStorage.removeItem("playList");
+				if ($music.data.playList.audio) {
+					$music.data.playList.audio.pause();
+				}
+				window.clearInterval($music.data.playList.timer);
+				$music.data.playList = {
+					status : "nothing",
+					playingNumber : null,
+					items : [],
+					audio : null,
+					timer : null,
+				};
+
+				$("#audioRight").animate({opacity: 0}, 2000, function() {
+					$(this).hide();
+					$(this).css({opacity: 1});
+					$("#audioRight .list ul").empty();
+				});
+
+				$("#audioBottom").animate({opacity: 0}, 2000, function() {
+					$("#audioBottom").find("#abimg").hide().attr("src", "");
+					$("#audioBottom").find("#title").text("");
+					$("#audioBottom").find("#name").text("");
+					$("#audioBottom").find("#current").text("00:00");
+					$("#audioBottom").find("#total").text("00:00");
+					$(this).hide();
+					$(this).css({opacity: 1});
+				});
+
+				
+				
+			}
+		})
 
 		if ($("body > input[name=useq]").val() === "") {
 			$("#audioBottom").find(".like").remove();
