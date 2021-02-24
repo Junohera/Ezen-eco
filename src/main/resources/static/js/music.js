@@ -5,6 +5,8 @@ var $music = {};
  */
 $music.data = {
 
+	once : 0,
+
 	/* 더보기버튼 */
 	more : {
 		mseq : 0,
@@ -259,46 +261,54 @@ $music.utilMethod = {
 		var init = function(musicInfo, first) {
 			(function bottom() {
 				var target = $("#audioBottom");
-			
-				if (musicInfo) {
-					target.find("#abimg").attr("src", musicInfo.abimg).show();
-					target.find("#title").text(musicInfo.title);
-					target.find("#name").text(musicInfo.name);
-					target.find("#mseq").val(musicInfo.mseq);
-				}
-				
-				if ($music.data.playList.audio) {
-					if ($music.data.playList.audio.paused && first) {
-						target.find(".play").closest("li").show();
-						target.find(".pause").closest("li").hide();
-					} else {
-						target.find(".pause").closest("li").show();
-						target.find(".play").closest("li").hide();
+				$music.data.once++;
+				if ($music.data.once === 1) {
+					if (musicInfo) {
+						target.find("#abimg").attr("src", musicInfo.abimg).show();
+						target.find("#title").text(musicInfo.title);
+						target.find("#name").text(musicInfo.name);
+						target.find("#mseq").val(musicInfo.mseq);
 					}
-				}
-	
-				$("#audioBottom").show();
-				$("footer").css({
-					marginBottom: "120px"
-				});
-	
-				var audiomseq = target.find("#mseq").val();
-				target.find(".like")
-					.css({
-						color: "gray",
-					})
-					.removeClass("likemseq");
-				$("#loginUserLikeList").children().each(function(index, el) {
-					var likemseq = $(el).val();
 					
-					if (likemseq === audiomseq) {
-						target.find(".like")
-						.css({
-							color: "red",
-						})
-						.addClass("likemseq");
+					if ($music.data.playList.audio) {
+						if ($music.data.playList.audio.paused && first) {
+							target.find(".play").closest("li").show();
+							target.find(".pause").closest("li").hide();
+						} else {
+							target.find(".pause").closest("li").show();
+							target.find(".play").closest("li").hide();
+						}
 					}
-				});
+		
+					$("#audioBottom").show();
+					$("footer").css({
+						marginBottom: "120px"
+					});
+		
+					var audiomseq = target.find("#mseq").val();
+					target.find(".like")
+						.css({
+							color: "gray",
+						})
+						.removeClass("likemseq");
+					$("#loginUserLikeList").children().each(function(index, el) {
+						var likemseq = $(el).val();
+						
+						if (likemseq === audiomseq) {
+							target.find(".like")
+							.css({
+								color: "red",
+							})
+							.addClass("likemseq");
+						}
+					});
+				} else {
+					window.setTimeout(function() {
+						$music.data.once = 0;
+					}, 100);
+				}
+			
+				
 			})();
 
 			$("#audioRight .loading").hide();
@@ -842,20 +852,28 @@ $music.method = {
 
 	audioRight : (function() {
 		var scroll = function(mseq) {
-			var n = 0;
+			$music.data.once++;
 
-			try {
-				$("#audioRight .list > ul > li").each(function(index, el) {
-					var id = $(el).attr("id");
-					id = id.split("_")[1];
-		
-					if ((id * 1) === mseq) {
-						n = index;
-					}
-				});
-				$('#audioRight .list').animate({scrollTop : n * 60}, 400);
-			} catch(e) {
-				console.log("html attr id not found");
+			if ($music.data.once === 1) {
+				var n = 0;
+
+				try {
+					$("#audioRight .list > ul > li").each(function(index, el) {
+						var id = $(el).attr("id");
+						id = id.split("_")[1];
+			
+						if ((id * 1) === mseq) {
+							n = index;
+						}
+					});
+					$('#audioRight .list').animate({scrollTop : n * 60}, 400);
+				} catch(e) {
+					console.log("html attr id not found");
+				}
+			} else {
+				window.setTimeout(function() {
+					$music.data.once = 0;
+				}, 100);
 			}
 			
 		};
