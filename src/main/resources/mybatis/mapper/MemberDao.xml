@@ -31,18 +31,27 @@
 		phone=#{phone} where id=#{id}
 	</update>
 	
-	<!-- membership 관련 -->
-	<update id="getMembership30" parameterType="com.eco.dto.MemberVO">
+	<!-- membership 구매 -->
+	<update id="buyMembership30" parameterType="com.eco.dto.MemberVO">
 		update member set sdate = sysdate, edate = sysdate + 30, membership = 'Y'
 	 where useq = #{useq}
 	</update>
-	<update id="getMembership7" parameterType="com.eco.dto.MemberVO">
+	<update id="buyMembership7" parameterType="com.eco.dto.MemberVO">
 		update member set sdate = sysdate, edate = sysdate+7, membership = 'Y'
 	 where useq = #{useq}
 	</update>
-		<update id="getMembership1" parameterType="com.eco.dto.MemberVO">
+	<update id="buyMembership1" parameterType="com.eco.dto.MemberVO">
 		update member set sdate = sysdate, edate = sysdate+1, membership = 'Y'
 	 where useq = #{useq}
+	</update>
+	
+	<!-- membership 구매 내역 조회 -->
+	
+	<!-- 멤버십 기한만료 체크 -->
+	<update id="membershipExpire" parameterType="com.eco.dto.MemberVO">
+		update member set sdate = sysdate, edate = sysdate, membership = 'N'
+	 where useq = #{useq}
 	</update> 
+	 
 	
 </mapper>

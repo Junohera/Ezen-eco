@@ -10,16 +10,25 @@
 		select * from artist_view
 	</select>
 	
-	<select id="list" resultType="com.eco.dto.AlbumVO" parameterType="HashMap">
+	<!-- <select id="list" resultType="com.eco.dto.AlbumVO" parameterType="HashMap">
 		select * from(
 		select * from(
 			select rownum as rn, b.* from 
 			( (select * from album_view where title like '%'||#{search.searchKeyword}||'%' order by abseq desc) b )
 		) where rn &gt;= #{paging.startNum}
 		) where rn &lt;= #{paging.endNum}
+	</select> -->
+	<select id="list" resultType="com.eco.dto.AlbumVO">
+		select * from(
+		select * from(
+			select rownum as rn, g.* from 
+			( (select * from album_view where title like '%'||#{param2}||'%' order by abseq desc) g )
+		) where rn &gt;= #{param1.startNum}
+		) where rn &lt;= #{param1.endNum}
 	</select>
 	
-	<insert id="insert" parameterType="com.eco.dto.ArtistVO">
+	
+	<insert id="insert" parameterType="com.eco.dto.AlbumVO">
 		insert into album(
 			abseq
 			, atseq
@@ -92,4 +101,20 @@
 		) where rn &lt;= #{paging.endNum}
 	</select>
 
+	<update id="update" parameterType="com.eco.dto.AlbumVO">
+		update album
+			set
+				atseq = #{atseq}
+				, title = #{title}
+				, img = #{img}
+				, content = #{content}
+				, abtype = #{abtype}
+				, gseq = #{gseq}
+				, pdate = #{inputpdate}
+		where abseq = #{abseq}
+	</update>
+
+	<delete id="delete">
+		delete from album where abseq = #{param1}
+	</delete>
 </mapper>

@@ -5,7 +5,7 @@
 <style>
 	#themeAndGenre li{width:100px; list-style-type: none; margin:10px; float:left;}
 	ul, li, dl{list-style: none;}
-	
+	html, article{min-height:1000px;}
 	#nop{
 		padding: 264px 0;
 	    text-align: center;
@@ -35,7 +35,6 @@
 
 	#bundleView{
 		width:100%;
-		
 		margin-top: -20px;
 	    padding-top: 57px;
 	}

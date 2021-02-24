@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.eco.dao.IBoardDao;
 import com.eco.dto.BoardVO;
 import com.eco.dto.MemberVO;
+import com.eco.dto.MusicVO;
 import com.eco.dto.Paging;
 
 @Service
@@ -22,6 +23,10 @@ public class BoardService {
 
 	public List<BoardVO> boardList(String table,String orderName,int startNum, int endNum) {
 		return bdao.boardList(table, orderName, startNum, endNum);
+	}
+	public List<BoardVO> boardListSearch(String table,String orderName, String keyward, int startNum, int endNum ) {
+		System.out.println(table + ", " + orderName + ", " + keyward + ", " + startNum + ", " + endNum + ", 끗 ");
+		return bdao.boardListSearch(table, orderName, keyward, startNum, endNum);
 	}
 	
 	public void qnaInsert(BoardVO boardVo) {
@@ -41,4 +46,16 @@ public class BoardService {
 	public void myQnaDelete(String useq) {
 		bdao.myQnaDelete(useq);
 	}
+	
+	public BoardVO updateForm(String table, String field, String key) {
+		return bdao.updateForm(table, field, key);
+	}
+	
+	public void boardDelete(String table, String field, String key) {
+		bdao.boardDelete(table, field, key);
+	}
+	public List<MusicVO> searchSite(String table, String selected, String keyward) {
+		return bdao.searchSite(table, selected, keyward);
+	}
+	
 }

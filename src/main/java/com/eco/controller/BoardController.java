@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.eco.dao.ICountDao;
 import com.eco.dto.BoardVO;
 import com.eco.dto.MemberVO;
+import com.eco.dto.MusicVO;
 import com.eco.dto.Paging;
 import com.eco.service.BoardService;
 
@@ -66,6 +67,7 @@ public class BoardController {
 		mav.addObject("paging", paging);
 			
 		model.addAttribute("noticeList", noticeList);
+		System.out.println(noticeList);
 		mav.setViewName("board/notice");
 		
 		return mav;
@@ -213,8 +215,33 @@ public class BoardController {
 		boardService.myQnaDelete(qseq);
 		return "redirect:myQnaList";
 	}
+	@RequestMapping("boardDelete")
+	public String boardDelete(Model model, HttpServletRequest request) {
+		
+		String table = request.getParameter("tablename");
+		String field = request.getParameter("fieldname");
+		String key = request.getParameter("key");
+		
+		boardService.boardDelete(table, field, key);
+		return "redirect:"+request.getParameter("url");
+	}
 	@RequestMapping("allSearch")
 	public String allSearch(Model model, HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+		
+		String table = request.getParameter("table");
+		String selected = request.getParameter("selected");
+		String keyward = request.getParameter("keyward");
+
+		System.out.println("table : "+table+", selected : "+selected+", keyward : "+keyward+". 끝");
+		List<MusicVO> boardList = boardService.searchSite(table, selected, keyward);
+		
+		model.addAttribute("boardList", boardList);
+		model.addAttribute("keyward", keyward);
+		
+		session.setAttribute("key", keyward);
+		
 		return "board/allSearch";
 	}
 }

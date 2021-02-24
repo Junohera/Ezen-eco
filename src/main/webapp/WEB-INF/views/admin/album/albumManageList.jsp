@@ -1,16 +1,54 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../../include/adminhf/header.jsp" %>
+<script type="text/javascript">
+function go_search_album() {
+	var theForm = document.frm;
+	if( theForm.key.value=="") return;
+	theForm.action =  "albumManageList?first=yes";
+	theForm.submit();
+}
+function go_total_album() {
+	var theForm = document.frm;
+	theForm.key.value="";
+	theForm.action =  "albumManageList?first=yes";
+	theForm.submit();
+}
+function ThemeManage(){
+        var url = "ThemeManage?first=yes";
+        var opt = "toolbar=no, menubar=no, scrollbars=no, resizable=no, width=800, ";
+        opt = opt + "height=700, top=300, left=300";
+        window.open(url, "ThemeManage", opt);
+    }
+    function ChartManage(){
+        var url = "ChartManage?first=yes";
+        var opt = "toolbar=no, menubar=no, scrollbars=no, resizable=no, width=800, ";
+        opt = opt + "height=700, top=300, left=300";
+        window.open(url, "ChartManage", opt);
+    }
+    function GenreManage(){
+        var url = "GenreManage?first=yes";
+        var opt = "toolbar=no, menubar=no, scrollbars=no, resizable=no, width=800, ";
+        opt = opt + "height=700, top=300, left=300";
+        window.open(url, "GenreManage", opt);
+    }
+</script>
 
 <article style="min-height:500px;margin-top:100px;">
     
-    <form action="albumManageList" method="GET">
-        <label for="name">
+    <form action="albumManageList" method="GET" name="frm">
+    	<input type="button" value="theme" class="submit"
+				onclick="ThemeManage()">
+		<input type="button" value="chart" class="submit"
+				onclick="ChartManage()">
+		<input type="button" value="genre" class="submit"
+				onclick="GenreManage()">
+        <br>
             검색어 : 
-            <input type="text" name="searchKeyword" value="${search.searchKeyword}">
-        </label>
-        <input type="hidden" name="searchCondition" value="title">
-        <input type="submit" value="search">
+            <input type="text" name="key" value="${key}">
+ 			<input type="button" class="search_album" value="검색"  onclick="go_search_album()">
+ 			<input type="button" class="total_album" value="전체보기 " onclick="go_total_album()">
+
         <input type="button" value="add" onclick="location.href='albumManageInsertForm'">
     </form>
 
@@ -50,7 +88,7 @@
                             <td>${album.abtype}</td>
                             <td><fmt:formatDate value="${album.pdate}" type="date" pattern="yyyy.MM.dd"/></td>
                             <td>${album.likecount}</td>
-                            <td>${album.musicList.size()}</td>
+                            <td>${album.mucount}</td>
                         </tr>
                     </c:forEach>
                 </c:when>
@@ -60,8 +98,7 @@
             </c:choose>
         </tbody>
     </table>
-</article>
-
+    
 <jsp:include page="../paging/paging.jsp">
     <jsp:param value="${paging.page}" name="page"/>
     <jsp:param value="${paging.beginPage}" name="beginPage"/>
@@ -70,3 +107,5 @@
     <jsp:param value="${paging.next}" name="next"/>
     <jsp:param value="albumManageList" name="command"/>
 </jsp:include>
+</article>
+

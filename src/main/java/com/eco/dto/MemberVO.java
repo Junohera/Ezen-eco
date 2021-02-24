@@ -1,6 +1,6 @@
 package com.eco.dto;
 
-import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 import javax.validation.constraints.Email;
@@ -23,9 +23,9 @@ public class MemberVO {
 	private String phone;
 	private String gender;
 	private String membership; // 이용권 여부
-	private Timestamp sdate; // 이용권 시작일
-	private Timestamp edate; // 이용권 만료일
-	private Timestamp indate;
+	private Date sdate; // 이용권 시작일
+	private Date edate; // 이용권 만료일
+	private Date indate;
 	
 	private List<Integer> likeList;
 }

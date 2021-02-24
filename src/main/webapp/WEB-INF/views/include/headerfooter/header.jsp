@@ -6,6 +6,12 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script type="text/javascript">
+	function allSearch(f) {
+		allSearchform.submit();
+	}
+	
+</script>
 
 	<meta charset="UTF-8">
 	<title>Insert title here</title>
@@ -60,10 +66,13 @@
 				</ul>
 				<div class="searchBox">
 					<form id="allSearch" action="allSearch" method="post" name="allSearchform">
+						<input type="hidden" name="selected" value="title">
+						<input type="hidden" name="table" value="music_view">
 						<div class ="searchI" onclick="allSearch(this.form)">
 							<i class="fas fa-search fa-lg"></i>
 						</div>
-						<input class="searchText" type="text" onkeypress="if(event.keyCode == 13){'allSearch(this.form)'}">
+						<input class="searchText" type="text" onkeypress="if(event.keyCode == 13){'allSearch(this.form)'}"
+							name="keyward">
 					</form>
 				</div>
 				<c:choose>

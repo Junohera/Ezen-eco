@@ -39,7 +39,20 @@ div.button input
     <tr><th>전화번호</th><td>${memberVO.phone}</td></tr>
     <tr><th>성별</th> <td>${memberVO.gender}</td></tr>
     <tr><th>멤버쉽</th><td>${memberVO.membership}</td> </tr>
-    <tr><th>가입일</th><td>${memberVO.indate}</td> </tr>
+    <c:if test="${endDate ne '3'}">
+        <tr>
+            <th>멤버쉽만료일</th>
+            <td>
+                <c:choose>
+                    <c:when test="${endDate eq '1'}"><fmt:formatDate value="${memberVO.edate}" pattern="yyyy.MM.dd"></fmt:formatDate></c:when>
+                    <c:when test="${endDate eq '2'}">만료</c:when>
+                </c:choose>
+            </td>
+        </tr>
+    </c:if>
+    <tr><th>가입일</th><td>
+        <fmt:formatDate value="${memberVO.indate}" pattern="yyyy.MM.dd"></fmt:formatDate>
+    </td> </tr>
 </table>
 <br>
 <div class="button">

@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.eco.dto.ChartVO;
 import com.eco.dto.GenreVO;
+import com.eco.dto.MusicVO;
 import com.eco.dto.Paging;
 import com.eco.dto.ThemeVO;
 
@@ -26,4 +27,6 @@ public interface ITCGDao {
 	public void themeDelete(String tseq);
 	public void genreDelete(String gseq);
 	public void chartDelete(String cseq);
+	public int musicUpdate(MusicVO music);
+	public List<MusicVO> listMusic(String cseq);
 }

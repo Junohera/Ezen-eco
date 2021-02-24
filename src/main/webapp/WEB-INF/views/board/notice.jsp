@@ -16,7 +16,7 @@
 					<td class="dropTitle">
 						<details>
 							<summary>${notice.title }</summary>
-    						<p>${notice.ncontent }</p>
+    						<p>${notice.content }</p>
 						</details>
 					</td>
 					<td>Eco 관리자</td>

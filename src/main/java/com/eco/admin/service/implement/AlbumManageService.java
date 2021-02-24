@@ -1,6 +1,5 @@
 package com.eco.admin.service.implement;
 
-import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +9,7 @@ import com.eco.admin.dao.IAlbumManageDao;
 import com.eco.admin.service.IAlbumManageService;
 import com.eco.dto.AlbumVO;
 import com.eco.dto.ArtistVO;
+import com.eco.dto.Paging;
 import com.eco.dto.search.SearchDTO;
 
 @Service
@@ -19,8 +19,9 @@ public class AlbumManageService implements IAlbumManageService {
 	IAlbumManageDao albumManageDao;
 
     @Override
-	public List<AlbumVO> list(HashMap<String, Object> map) {return albumManageDao.list(map);}
-   
+	//public List<AlbumVO> list(HashMap<String, Object> map) {return albumManageDao.list(map);}
+    public List<AlbumVO> list(Paging paging, String key) {return albumManageDao.list(paging, key);}
+    
     public List<ArtistVO> getArtist() {return albumManageDao.getArtist();}
     
     @Override
@@ -31,5 +32,14 @@ public class AlbumManageService implements IAlbumManageService {
 	@Override
 	public List<AlbumVO> list4find(SearchDTO search) {
 		return albumManageDao.list4find(search);
+	}
+	@Override
+	public int update(AlbumVO album) {
+		int res = albumManageDao.update(album);
+		return res;
+	}
+	@Override
+	public int delete(int abseq) {
+		return albumManageDao.delete(abseq);		
 	}
 }

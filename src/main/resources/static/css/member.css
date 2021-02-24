@@ -52,5 +52,14 @@ input:-webkit-autofill,
   box-shadow: inset 0px 0px 5px white;
 }
     
-/* joinForm 시작 */
+/* joinForm */
 #recheck{position:relative;width:100px;height:18px;line-height:18px;margin-left:30px;border:none;background:#C9C6F7;font-size:85%;color:black;font-weight:bold;border-radius:10px;cursor:pointer;}
+
+/* membershipForm*/
+#title{position:relative; margin:0px; width:100%; height:150px; color:white; background:#311851;
+text-align: left; line-height:150px; font-size:200%;}
+.product{position:relative;width:75%;height:120px;margin:0px auto;margin-top:30px;line-height:100px;}
+#select1{position:relative;margin:0px auto;}
+#select2{position:relative;margin:0px auto;}
+#select3{position:relative;margin:0px auto;}
+.banner{position:relative; float:right;margin:0px auto;width:430px;height:100px;}

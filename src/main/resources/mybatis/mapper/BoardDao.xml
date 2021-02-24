@@ -15,9 +15,18 @@
 		) where rn &lt;= #{param4}
 	</select>
 	
+	<select id="boardListSearch" resultType="com.eco.dto.BoardVO"
+		parameterType="com.eco.dto.Paging">
+		select * from(
+		select * from(
+			select rownum as rn, b.* from ( (select * from ${param1} where title like '%'||#{param3}||'%' order by ${param2} desc) b )
+		) where rn &gt;= #{param4}
+		) where rn &lt;= #{param5}
+	</select>
+	
 	<insert id="qnaInsert" parameterType="com.eco.dto.BoardVO">
 		insert into qna (qseq, useq, title, content)
-			values (qna_seq.nextval, #{useq},#{title},#{ncontent})
+			values (qna_seq.nextval, #{useq},#{title},#{content})
 	</insert>
 	
 	<select id="myboardList" resultType="com.eco.dto.BoardVO"
@@ -33,10 +42,22 @@
 	</select>
 	
 	<update id="myQnaUpdate" parameterType="com.eco.dto.BoardVO">
-		update qna set title = #{title}, content = #{qnacontent} where qseq = #{qseq}
+		update qna set title = #{title}, content = #{content} where qseq = #{qseq}
 	</update>
 	
 	<delete id="myQnaDelete">
 		delete from qna where qseq = #{param1}
 	</delete>
+	
+	<select id="updateForm" resultType="com.eco.dto.BoardVO">
+		select * from ${param1} where ${param2} = #{param3}
+	</select>
+	
+	<delete id="boardDelete">
+		delete from ${param1} where ${param2} = #{param3}
+	</delete>
+	
+	<select id="searchSite" resultType="com.eco.dto.MusicVO">
+		select * from ${param1} where ${param2} like '%' || #{param3} || '%'
+	</select>
 </mapper>

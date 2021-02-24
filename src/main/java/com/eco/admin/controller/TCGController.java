@@ -1,6 +1,7 @@
 package com.eco.admin.controller;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,9 +15,11 @@ import org.springframework.util.ResourceUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.eco.admin.service.IMusicManageService;
 import com.eco.admin.service.implement.TCGService;
 import com.eco.admin.valid.ChartValidator;
 import com.eco.admin.valid.GenreValidator;
@@ -24,6 +27,7 @@ import com.eco.admin.valid.ThemeValidator;
 import com.eco.dao.ICountDao;
 import com.eco.dto.ChartVO;
 import com.eco.dto.GenreVO;
+import com.eco.dto.MusicVO;
 import com.eco.dto.Paging;
 import com.eco.dto.ThemeVO;
 import com.oreilly.servlet.MultipartRequest;
@@ -33,6 +37,9 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 public class TCGController {
 	
 	@Autowired
+	IMusicManageService musicManageService;
+	
+	@Autowired
 	TCGService tcgs;
 
     @Autowired
@@ -40,17 +47,40 @@ public class TCGController {
 
 	@RequestMapping("chartDelete")
 	public String chartDelete(Model model, HttpServletRequest request,
-			@RequestParam("cseq") String cseq) {
+			@RequestParam("cseq") String cseq, @RequestParam("mseq") int mseq){
+		
+		List<MusicVO> musicList = tcgs.listMusic(cseq);
+		for(MusicVO music : musicList){
+			String chartByTable = music.getChart();
+			List<String> chartList = Arrays.asList(chartByTable.split("\\|"));
+			if(chartList.contains(""+mseq)) {
+				chartList.remove(""+mseq);
+				String chart = String.join("|", chartList);
+				music.setChart(chart);
+				tcgs.musicUpdate(music);
+			}
+		}
 		tcgs.chartDelete(cseq);
 		return "redirect:/ChartManage";
 	}
 	
 	
 	
-	@RequestMapping("genreDelete")
+	@RequestMapping(value="genreDelete", method = RequestMethod.POST)
 	public String genreDelete(Model model, HttpServletRequest request,
 			@RequestParam("gseq") String gseq) {
-		tcgs.genreDelete(gseq);
+		HttpSession session = request.getSession();
+		String adminId = (String) session.getAttribute("adminId");
+		if (adminId == null) {
+			return "redirect:/admin";
+		}
+		try {
+			tcgs.genreDelete(gseq);
+		} catch(Exception e) {
+			e.printStackTrace();
+			model.addAttribute("message", "해당 장르와 관련하여 다른 데이터가 존재하므로 삭제가 불가합니다.");
+			return this.adminGenreDetail(request, model, gseq);
+		}
 		return "redirect:/GenreManage";
 	}
 	
@@ -60,6 +90,7 @@ public class TCGController {
 	public String themeDelete(Model model, HttpServletRequest request,
 			@RequestParam("tseq") String tseq) {
 		tcgs.themeDelete(tseq);
+		
 		return "redirect:/ThemeManage";
 	}
 	
@@ -140,14 +171,11 @@ public class TCGController {
 
 
 	@RequestMapping("adminGenreDetail")
-	public ModelAndView adminGenreDetail(HttpServletRequest request, 
-			@RequestParam("gseq") String gseq) {
-		
-		ModelAndView mav = new ModelAndView();
+	public String adminGenreDetail(HttpServletRequest request, 
+			Model model, @RequestParam("gseq") String gseq) {
 		GenreVO gvo = tcgs.getGenre(gseq);
-		mav.addObject("GenreVO", gvo);
-		mav.setViewName("admin/adminGenreDetail");
-		return mav;
+		model.addAttribute("GenreVO", gvo);
+		return "admin/adminGenreDetail";
 	}
 	
 	

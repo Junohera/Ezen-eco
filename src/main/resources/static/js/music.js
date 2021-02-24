@@ -248,47 +248,55 @@ $music.utilMethod = {
 		};
 
 		var init = function(musicInfo, first) {
-			var target = $("#audioBottom");
+			(function bottom() {
+				var target = $("#audioBottom");
 			
-			if (musicInfo) {
-				target.find("#abimg").attr("src", musicInfo.abimg).show();
-				target.find("#title").text(musicInfo.title);
-				target.find("#name").text(musicInfo.name);
-				target.find("#mseq").val(musicInfo.mseq);
-			}
-			
-			if ($music.data.playList.audio) {
-				if ($music.data.playList.audio.paused && first) {
-					target.find(".play").closest("li").show();
-					target.find(".pause").closest("li").hide();
-				} else {
-					target.find(".pause").closest("li").show();
-					target.find(".play").closest("li").hide();
+				if (musicInfo) {
+					target.find("#abimg").attr("src", musicInfo.abimg).show();
+					target.find("#title").text(musicInfo.title);
+					target.find("#name").text(musicInfo.name);
+					target.find("#mseq").val(musicInfo.mseq);
 				}
-			}
-
-			$("#audioBottom").show();
-			$("footer").css({
-				marginBottom: "120px"
-			});
-
-			var audiomseq = target.find("#mseq").val();
-			target.find(".like")
-				.css({
-					color: "gray",
-				})
-				.removeClass("likemseq");
-			$("#loginUserLikeList").children().each(function(index, el) {
-				var likemseq = $(el).val();
 				
-				if (likemseq === audiomseq) {
-					target.find(".like")
-					.css({
-						color: "red",
-					})
-					.addClass("likemseq");
+				if ($music.data.playList.audio) {
+					if ($music.data.playList.audio.paused && first) {
+						target.find(".play").closest("li").show();
+						target.find(".pause").closest("li").hide();
+					} else {
+						target.find(".pause").closest("li").show();
+						target.find(".play").closest("li").hide();
+					}
 				}
-			});
+	
+				$("#audioBottom").show();
+				$("footer").css({
+					marginBottom: "120px"
+				});
+	
+				var audiomseq = target.find("#mseq").val();
+				target.find(".like")
+					.css({
+						color: "gray",
+					})
+					.removeClass("likemseq");
+				$("#loginUserLikeList").children().each(function(index, el) {
+					var likemseq = $(el).val();
+					
+					if (likemseq === audiomseq) {
+						target.find(".like")
+						.css({
+							color: "red",
+						})
+						.addClass("likemseq");
+					}
+				});
+			})();
+
+			(function right() {
+				var target = $("#audioRight");
+
+				
+			})()
 
 			$music.sync.set();
 		};
@@ -1293,7 +1301,7 @@ $(function() {
 			}
 
 			if ($(this).hasClass("list")) {
-
+				$("#audioRight").toggle();
 			}
 
 			$music.sync.set();

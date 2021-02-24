@@ -50,6 +50,7 @@ public class AlbumVO extends SearchDTO {
 	private String description;
 	
 	private String imglink;
+	private String oldimg;
 	
 	private int useq;
 

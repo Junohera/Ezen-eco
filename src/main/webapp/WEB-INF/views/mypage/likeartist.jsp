@@ -5,7 +5,8 @@
 <style type="text/css">
 	#themeAndGenre li{width:100px; list-style-type: none; margin:10px; float:left;}
 	ul, li, dl{list-style: none;}
-
+	#viewBox{height: 100%;}
+	html, body{height:100%;}
 	#nop h5{
 		padding: 264px 0;
 	    text-align: center;
@@ -147,11 +148,11 @@
 			<c:forEach var="at" items="${artistList}" varStatus="status">
 			<div id="trackBox">
 				<ul class="filterList">
-			    	<li >
+			    	<!-- <li >
 			        	<a class="editMusic" style="cursor: pointer;font-size: 12px;margin-bottom:20px;font-weight: 100; float:right;">
 			            	편집
 			            </a>
-			        </li>
+			        </li> -->
 			    </ul>
 			</div>
 			<input type="hidden" name="atseq" value="${at.atseq}">

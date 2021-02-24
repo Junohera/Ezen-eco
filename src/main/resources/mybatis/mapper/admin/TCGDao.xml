@@ -83,5 +83,27 @@
 	<delete id="chartDelete">
 		delete from chart where cseq=#{param1}
 	</delete>
-
+	
+	<update id="update" parameterType="com.eco.dto.MusicVO">
+		update music
+			set
+				mseq = #{mseq}
+				, abseq = #{abseq}
+				, atseq = #{atseq}
+				, theme = #{theme}
+				, chart = #{chart}
+				, gseq = #{gseq}
+				, title = #{title}
+				, content = #{content}
+				, titleyn = #{titleyn}
+				, musicby = #{musicby}
+				, lyricsby = #{lyricsby}
+				, producingby = #{producingby}
+				, src = #{src}
+				where mseq=#{mseq}
+	</update>
+	
+	<select id="listMusic" resultType="com.eco.dto.MusicVO">
+		select * from music where chart like '%'||#{chart}||'%'
+	</select>
 </mapper>

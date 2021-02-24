@@ -10,7 +10,7 @@ function go_mod(gseq){
 function go_mov(){
 	location.href = "GenreManage";
 }
-function go_del(gseq){
+function go_del(form, gseq){
 	document.frm.action = "genreDelete?gseq=" + gseq;
 	document.frm.submit();
 }
@@ -27,7 +27,9 @@ function go_del(gseq){
 </table>
 <input id="login" type="button" value="수정" onClick="go_mod('${GenreVO.gseq}')">
 <input id="login"  type="button" value="목록" onClick="go_mov()">
-<input id="login" type="button" value="삭제" onClick="go_del('${GenreVO.gseq}')">
+<input id="login" type="button" value="삭제" onClick="go_del(this.form, '${GenreVO.gseq}')">
+<br>
+${message }
 </form>
 
 

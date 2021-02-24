@@ -34,16 +34,23 @@ public class MemberService {
 		return mdao.updateMember(membervo);
 	}
 
-	public int getMembership30(MemberVO mvo) {
-		return mdao.getMembership30(mvo);
+	public int buyMembership30(MemberVO membervo) {
+		return mdao.buyMembership30(membervo);
 	}
 	
-	public int getMembership7(MemberVO mvo) {
-		return mdao.getMembership7(mvo);
+	public int buyMembership7(MemberVO membervo) {
+		return mdao.buyMembership7(membervo);
 	}
 	
-	public int getMembership1(MemberVO mvo) {
-		return mdao.getMembership1(mvo);
+	public int buyMembership1(MemberVO membervo) {
+		return mdao.buyMembership1(membervo);
 	}
+
+	public int membershipExpire(MemberVO membervo) {
+		return mdao.membershipExpire(membervo);
+		
+	}
+
+
 
 }

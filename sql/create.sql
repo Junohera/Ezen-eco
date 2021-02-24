@@ -9,16 +9,12 @@ alter table theme drop primary key cascade;
 alter table chart drop primary key cascade;
 alter table genre drop primary key cascade;
 alter table qna drop primary key cascade;
-alter table taste_master drop primary key cascade;
-alter table taste_detail drop primary key cascade;
 alter table adminqna drop primary key cascade;
 
 -- drop table
 drop table notice purge;
 drop table qreply purge;
 drop table qna purge;
-drop table taste_master purge;
-drop table taste_detail purge;
 drop table music_ban purge;
 drop table music_like purge;
 drop table album_like purge;
@@ -37,8 +33,6 @@ drop table member purge;
 drop table adminqna purge;
 
 -- drop sequence
-drop sequence taste_master_seq;
-drop sequence taste_detail_seq;
 drop sequence member_seq;
 drop sequence admin_seq;
 drop sequence music_seq;
@@ -65,8 +59,6 @@ create sequence genre_seq start with 1;
 create sequence music_reply_seq start with 1;
 create sequence album_seq start with 1;
 create sequence artist_seq start with 1;
-create sequence taste_master_seq start with 1;
-create sequence taste_detail_seq start with 1;
 create sequence qna_seq start with 1;
 create sequence notice_seq start with 1;
 create sequence qreply_seq start with 1;
@@ -82,9 +74,9 @@ create table member(
 	name varchar2(30) not null,
 	phone varchar2(13) unique not null,
 	gender varchar2(1) not null,
-	membership varchar2(1) default 'n' not null, -- 이용권 여부 y, n 
-	sdate date,	-- 이용권 시작일
- 	edate date, -- 이용권 만료일
+	membership varchar2(1) default 'N' not null, -- 이용권 여부 Y, N 
+	sdate date default sysdate,	-- 이용권 시작일
+ 	edate date default sysdate, -- 이용권 만료일
 	indate date default sysdate
 );
 
@@ -168,22 +160,6 @@ create table bundle_detail(
 	mseq number(5) references music(mseq)
 );
 
--- 취향 마스터
-create table taste_master(
-	tstmseq number(5) primary key,
-	useq number(5) references member(useq), -- 유저
-	title varchar(50) not null, -- 취향 제목
-	cdate date default sysdate
-);
-
--- 취향 디테일
-create table taste_detail(
-	tstdseq number(5) primary key,
-	atseq number(5), -- 아티스트(이 컬럼이 존재하면 나머지는 null이어야함.)
-	cseq number(5), -- 차트(이 컬럼이 존재하면 나머지는 null이어야함.)
-	gseq number(5) -- 장르(이 컬럼이 존재하면 나머지는 null이어야함.)
-);
-
 create table music_like(
 	useq number(5) references member(useq),
 	mseq number(5) references music(mseq),
@@ -262,8 +238,6 @@ comment on table album is '앨범';
 comment on table music is '곡';
 comment on table bundle_master is '리스트 마스터';
 comment on table bundle_detail is '리스트 상세';
-comment on table taste_master is '취향 마스터';
-comment on table taste_detail is '취향 상세';
 comment on table music_like is '곡 좋아요';
 comment on table album_like is '앨범 좋아요';
 comment on table artist_like is '아티스트 좋아요';

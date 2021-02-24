@@ -577,19 +577,6 @@ insert into bundle_detail(bdseq, bmseq, mseq) values (bundle_detail_seq.nextval,
 insert into bundle_detail(bdseq, bmseq, mseq) values (bundle_detail_seq.nextval, 4, 1);
 insert into bundle_detail(bdseq, bmseq, mseq) values (bundle_detail_seq.nextval, 4, 2);
 
--- taste_master
-insert into taste_master(tstmseq, useq, title) values (taste_master_seq.nextval, 1, '첫번째 취향');
-insert into taste_master(tstmseq, useq, title) values (taste_master_seq.nextval, 1, '두번째 취향');
-
--- taste_detail
-insert into taste_detail(tstdseq, atseq, cseq, gseq) values (taste_detail_seq.nextval, 1, null, null);
-insert into taste_detail(tstdseq, atseq, cseq, gseq) values (taste_detail_seq.nextval, null, 1, null);
-insert into taste_detail(tstdseq, atseq, cseq, gseq) values (taste_detail_seq.nextval, null, 2, null);
-insert into taste_detail(tstdseq, atseq, cseq, gseq) values (taste_detail_seq.nextval, null, 3, null);
-insert into taste_detail(tstdseq, atseq, cseq, gseq) values (taste_detail_seq.nextval, null, null, 7);
-insert into taste_detail(tstdseq, atseq, cseq, gseq) values (taste_detail_seq.nextval, null, null, 8);
-insert into taste_detail(tstdseq, atseq, cseq, gseq) values (taste_detail_seq.nextval, null, null, 9);
-
 -- music_like
 insert into music_like(mseq, useq) values(1, 1);
 insert into music_like(mseq, useq) values(1, 2);

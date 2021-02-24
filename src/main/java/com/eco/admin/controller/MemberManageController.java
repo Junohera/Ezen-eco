@@ -1,5 +1,6 @@
 package com.eco.admin.controller;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,7 +20,7 @@ import com.eco.dto.Paging;
 
 @Controller
 public class MemberManageController {
-
+	
 	@Autowired
 	IAdminService as;
 	
@@ -32,10 +33,23 @@ public class MemberManageController {
 	@RequestMapping("adminMemberDetail")
 	public ModelAndView adminMemberDetail(HttpServletRequest request, 
 			@RequestParam("useq") String useq) {
-		
 		ModelAndView mav = new ModelAndView();
 		MemberVO mvo = memberManageService.getMember(useq);
 		mav.addObject("memberVO", mvo);
+		// 만료일 연산 및 송출
+		Timestamp today = new Timestamp(0);
+		if(mvo.getMembership().equals("Y")) {	// 멤버쉽이 Y면
+			if(mvo.getEdate().getTime() - today.getTime() > 0) { // 만료일이 남았을 경우
+				mav.addObject("endDate", "1"); // 이용권이 이미 구매됨
+				System.out.println("만료일이 남았을 때 : "+mvo.getEdate());
+			}else if(mvo.getEdate().getTime() - today.getTime() <=0) { // 만료일이거나 지날경우
+				mav.addObject("endDate", "2"); // 이용권 구매하세요
+				System.out.println("만료했을 때 : "+mvo.getEdate());
+			}
+		} else if(mvo.getMembership().equals("N")) {	// 멤버쉽이 N이면
+			mav.addObject("endDate", "3"); // 이용권 구매하세요
+			System.out.println("이용권 구매 안했을때 : "+mvo.getEdate());
+		}
 		mav.setViewName("admin/adminMemberDetail");
 		return mav;
 	}
@@ -77,7 +91,7 @@ public class MemberManageController {
 			
 			Paging paging = new Paging();
 			paging.setPage(page);
-			int count = countDao.getAllCount("member", "name", key);
+			int count = countDao.getAllCount("member", "id", key);
 			paging.setTotalCount(count);
 			paging.paging();
 			List<MemberVO> memberList = memberManageService.listMember(paging, key);

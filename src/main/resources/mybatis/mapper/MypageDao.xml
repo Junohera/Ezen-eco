@@ -21,4 +21,9 @@
 	<select id="listBundle" resultType="com.eco.dto.BundleVO">
 		select * from bundle_master where useq=#{param1} and bmseq=#{param2} order by cdate desc
 	</select>
+	
+	<delete id="BDMDelete">
+		delete from bundle_detail where bdseq = #{param1}
+	</delete>
+	
 </mapper>

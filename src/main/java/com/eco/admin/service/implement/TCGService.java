@@ -9,6 +9,7 @@ import com.eco.admin.dao.ITCGDao;
 import com.eco.dao.ICountDao;
 import com.eco.dto.ChartVO;
 import com.eco.dto.GenreVO;
+import com.eco.dto.MusicVO;
 import com.eco.dto.Paging;
 import com.eco.dto.ThemeVO;
 
@@ -20,6 +21,17 @@ public class TCGService {
 	
 	@Autowired
 	ICountDao c;
+	
+	
+	public List<MusicVO> listMusic(String cseq){
+		List<MusicVO> list = tcgdao.listMusic(cseq);
+		return list;
+	}
+	
+	
+	public int musicUpdate(MusicVO music) {
+		return tcgdao.musicUpdate(music);
+	}
 	
 	
 	public void genreDelete(String gseq) {

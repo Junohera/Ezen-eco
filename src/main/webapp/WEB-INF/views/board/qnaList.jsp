@@ -21,7 +21,7 @@
 					<td class="dropTitle">
 						<details>
     						<summary>${qna.title }</summary>
-    						<p>${qna.qnacontent }</p>
+    						<p>${qna.content }</p>
 						</details>
 					</td>
 					<td>Eco 관리자</td>

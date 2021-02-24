@@ -141,4 +141,12 @@ public class MypageController {
 			return "mypage/likemusic";
 		}
 	}
+
+	@RequestMapping("BDMDelete")
+	public String BDMDelete(Model model, @RequestParam("bdseq") String[] bdseqArr) {
+		for( String bdseq : bdseqArr ) {
+			mps.BDMDelete(bdseq);
+		}
+		return "redirect:/bundleDetailView";
+	}
 }

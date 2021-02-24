@@ -37,7 +37,7 @@
 	  </div>
 	  <div class="infoBox">  
 	    <br><label style="font-size:100%;">성별&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;
-		    <input type="radio" name="gender" value="1"
+		    <input type="radio" name="gender" value="M"
 			<c:choose>
 				<c:when test="${empty dto.gender}">checked</c:when>
 				<c:otherwise>
@@ -45,7 +45,7 @@
 				</c:otherwise>
 			</c:choose>
 			> 남성 &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			<input type="radio" name="gender" value="2"
+			<input type="radio" name="gender" value="F"
 			<c:choose>
 				<c:when test="${empty dto.gender}"></c:when>
 				<c:otherwise>

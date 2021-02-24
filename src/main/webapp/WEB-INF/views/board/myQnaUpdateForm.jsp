@@ -29,7 +29,7 @@
 					</td>
 					<td style="width: 75%; text-align: center;">
 						<textarea style="resize: none; width: 97%; height: 450px;"
-							name="qnacontent">${bvoList.qnacontent }</textarea>
+							name="content">${bvoList.qnacontent }</textarea>
 					</td>
 				</tr>
 				<tr>

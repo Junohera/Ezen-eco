@@ -88,6 +88,74 @@
         border-radius: 5px;
     }
 </style>
+<style>
+        #audioRight {
+            position: fixed;
+            right: 0;
+            top: 0;
+            width: 330px;
+            height: calc(100% - 160px);
+            background: #222222;
+            z-index: 9999;
+            padding: 30px;
+        }
+
+        #audioRight * {
+            /* border: 1px solid red; */
+            /* color: white; */
+        }
+
+        #audioRight > div {
+            height: 100%;
+            width: 100%;
+            margin: 0 auto;
+            padding: 0;
+        }
+
+        #audioRight .list {
+            position: relative;
+            width: 100%;
+            background-color: black;
+            border-radius: 10px;
+            height: 260px;
+            margin-top: 20px;
+            color: white;
+        }
+
+        #audioRight .list * {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        #audioRight .list > ul > li {
+            width: calc(100% - 20px);
+            height: 40px;
+            padding: 10px;
+        }
+
+        #audioRight .list > ul > li > ul {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            position: relative;
+        }
+
+        #audioRight .list > ul > li > ul > li {
+            display: inline-block;
+        }
+
+        #audioRight .loading {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            background-color: rgba(0, 0, 0, 0.5);
+            width: 40px;
+            height: 40px;
+        }
+        
+</style>
 
 <form style="position: absolute;width: 0;height: 0;" id="loginUserLikeList">
     <c:forEach var="likeMseq" items="${loginUser.likeList}" varStatus="status">
@@ -137,4 +205,59 @@
         </li>
 
     </ul>
+</div>
+
+<div id="audioRight" style="display:none;">
+    <div>
+        <h2 style="font-size: 20px;position: relative;color: white;">
+            재생목록
+            <div class="close" onclick="$(this).closest('#audioRight').toggle();" style="position: absolute;right: 0;top: -2px;cursor: pointer;">
+                <span style="color: #333333;">
+                    <i class="fas fa-times"></i>
+                </span>
+            </div>
+        </h2>
+    
+        <div class="form">
+            <form name="audioRightSearch">
+                <div class="textBox" style="position: relative;">
+                    <span style="position: absolute;top: 8px;left: 9px;font-size: 13px;font-weight: 100;color: gray;">
+                        <i class="fas fa-search"></i>
+                    </span>
+                    <input type="text" name="title" value="" placeholder="재생목록에서 검색해주세요." onkeydown="console.log($(this).val());"
+                        style="width: 300px;height: 34px;padding-left: 26px;border-radius: 22px;background-color: #333333;border: 0;font-size: 12px;color: #fff;">
+                    <a class="close" onclick="document.audioRightSearch.title.value='';" style="cursor: pointer;position: absolute;top: 0px;right: 0px;">
+                        <span style="cursor: pointer;position: absolute;top: 4px;right: -16px;color:gray;">
+                            <i class="fas fa-times"></i>
+                        </span>
+                    </a>
+                </div>
+                <c:if test="${message}">
+                    <p>${message}</p>
+                </c:if>
+            </form>
+            <div class="list">
+                <ul>
+                    <li>
+                        <ul>
+                            <li style="position: relative;">
+                                <img id="abimg" src="https://cdn.music-flo.com/image/album/206/823/02/04/402823206_5cf3eb30.jpg?1559489315548/dims/resize/500x500/quality/90" width="40px" height="40px">
+                                <div class="loading" style="display:none;">
+                                    <img src="pageimages/loading.svg" width="26px" height="26px" style="position: absolute;top: 7px;left: 7px;">
+                                </div>
+                            </li>
+                            <li style="margin-left: 10px;">
+                                <p id="title" style="font-size: 15px;position: absolute;top: 1px;">Unkiss Me</p>
+                                <p id="name" style="font-size: 12px;position: absolute;top: 20px;color: gray;">Maroon 5</p>
+                            </li>
+                            <li>
+                                <span style="cursor: pointer;position: absolute;top: 7px;right: 41px;color: gray;font-size: 16px;"><i class="fas fa-folder-plus"></i></span>
+                                <span style="cursor: pointer;position: absolute;top: 7px;right: 12px;color: gray;font-size: 16px;"><i class="fas fa-ellipsis-v"></i></span>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
 </div>

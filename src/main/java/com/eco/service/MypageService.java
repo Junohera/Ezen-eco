@@ -36,4 +36,8 @@ public class MypageService {
 	public List<MusicVO> getMusic(int useq){
 		return mpdao.getMusic(useq);
 	}
+	
+	public void BDMDelete(String bdseq) {
+		mpdao.BDMDelete(bdseq);
+	}
 }

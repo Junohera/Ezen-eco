@@ -10,7 +10,7 @@ th{padding-left:20px; text-align: left; white-space: nowrap; height: 39px; font-
 	font-weight: 400; border-top: 1px solid #ebebeb;  border-bottom: 1px solid #ebebeb;}
 td{padding-left:20px; text-align: left; white-space: nowrap; height: 39px; font-size: 15px; color: #5D5D5D;
 	font-weight: 450; }
-#bundleDetailView{width:100%; padding-top:50px;}
+#bundleDetailView{width:100%; height:auto; padding-top:50px;}
 #bundled-inner{width:845px; height:245px; padding-left:50px; position: relative;}
 #bundled-mainImg{width:240px; height:240px; position: relative; float:left; margin:0px;}
 
@@ -69,7 +69,21 @@ td{padding-left:20px; text-align: left; white-space: nowrap; height: 39px; font-
 
 </style>
 <script>
-document.querySelector("#bundleDetailView > div.bundled-inner > div.bundled-area > div.bundled-title > p.bd-title > a.editPen > i")
+function deleteAction(){
+	var count=0;
+	if( document.formm.mseq.length==undefined )
+		if( document.formm.mseq.checked == true )
+			count++;
+	for( var i=0; i<document.formm.mseq.length; i++ )
+		if( document.formm.mseq[i].checked == true )
+			count++;
+	if ( count==0 )
+		alert("삭제할 항목을 선택하세요");
+	else {
+		document.formm.action = "BDMDelete";
+		document.formm.submit();
+	} 
+}
 </script>
 <article id="bundleDetailView">
 <c:choose>
@@ -120,8 +134,8 @@ document.querySelector("#bundleDetailView > div.bundled-inner > div.bundled-area
                         </span>
                         전체듣기
                     </a>
-                    <a class="editMusic" style="cursor: pointer;font-size: 12px;margin-bottom:20px;font-weight: 100; float:right;">
-                        편집
+                    <a href="#" class="delMusic" style="cursor: pointer;font-size: 12px;margin-bottom:20px;font-weight: 100; float:right;" onclick="deleteAction()">
+                        삭제
                     </a>
                 </li>
             </ul>

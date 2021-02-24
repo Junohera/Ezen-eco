@@ -1,5 +1,9 @@
 package com.eco.controller;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -12,19 +16,16 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.eco.dto.MemberVO;
 import com.eco.service.MemberService;
-import com.eco.service.MusicService;
 
 @Controller
 public class MemberController {
 	
 	@Autowired
 	MemberService ms;
-	
-	@Autowired
-	MusicService musicService;
 	
 	@RequestMapping("/loginForm")
 	public String login_form(Model model, HttpServletRequest request) {
@@ -33,7 +34,7 @@ public class MemberController {
 	
 	@RequestMapping(value="/login", method= {RequestMethod.GET,RequestMethod.POST})
 	public String login(@ModelAttribute("dto") @Valid MemberVO membervo, 
-			BindingResult result, Model model, HttpServletRequest request) {
+			BindingResult result, Model model, RedirectAttributes redirect, HttpServletRequest request) {
 		MemberVO mvo = ms.getMember(membervo.getId());
 		if(result.getFieldError("id")!=null) {
 			model.addAttribute("message", result.getFieldError("id").getDefaultMessage());
@@ -44,11 +45,27 @@ public class MemberController {
 		}else if(mvo!=null) {	// 아이디가 입력된 경우
 			if(mvo.getPw()!=null) {	// 비밀번호가 입력된 경우
 				if(mvo.getPw().equals(membervo.getPw())) {	// 비밀번호가 일치하는 경우
-
-					// audioPlayer의 좋아요표시를 위해 세션등록전 멤버에 죻아하는 곡의 시퀀스 추가
-					mvo.setLikeList(musicService.likeMusicListByUseq(mvo.getUseq()));
 					HttpSession session = request.getSession();
 					session.setAttribute("loginUser", mvo);
+					// 멤버십 검사
+					Timestamp today = new Timestamp(0);
+					if(mvo.getMembership().equals("Y")) {	// 멤버쉽이 Y면
+						if(mvo.getEdate().getTime() - today.getTime() > 0) { // 만료일이 남았을 경우
+							redirect.addFlashAttribute("message", "10"); // 이용권이 이미 구매됨
+							redirect.addFlashAttribute("edate", mvo.getEdate());
+							System.out.println("만료일이 남았을 때 : "+mvo.getMembership());
+							return "redirect:/";
+						}else if(mvo.getEdate().getTime() - today.getTime() <=0) { // 만료일이거나 지날경우
+							ms.membershipExpire(mvo);
+							redirect.addFlashAttribute("message", "13"); // 이용권 구매하세요
+							System.out.println("만료일이 지났을때 : "+mvo.getMembership());
+							return "redirect:/";
+						}
+					} else if(mvo.getMembership().equals("N")) {	// 멤버쉽이 N이면
+						model.addAttribute("message", "12"); // 이용권 구매하세요
+						System.out.println("이용권 구매 안했을때 : "+mvo.getMembership());
+						return "member/membershipForm";
+					}
 					return "redirect:/";
 				}else {
 					model.addAttribute("message", "1");
@@ -67,7 +84,7 @@ public class MemberController {
 	@RequestMapping("logout")
 	public String logout(Model model, HttpServletRequest request) {
 		HttpSession session = request.getSession();
-		session.removeAttribute("loginUser");
+		session.invalidate();
 		return "redirect:/";
 	}
 	
@@ -95,7 +112,7 @@ public class MemberController {
 	}
 	
 	
-	@RequestMapping(value="join", method=RequestMethod.POST)
+	@RequestMapping(value="join", method= {RequestMethod.GET,RequestMethod.POST})
 	public String join(@ModelAttribute("dto") @Valid MemberVO membervo,
 			BindingResult result, Model model, HttpServletRequest request) {
 		MemberVO mvo = new MemberVO();
@@ -259,24 +276,39 @@ public class MemberController {
 	public String pw_Rechecking(@RequestParam("pw") String pw,
 			Model model, HttpServletRequest request) {	
 		MemberVO mvo = (MemberVO) request.getSession().getAttribute("loginUser");
-		if(!pw.isEmpty()) {
-			if(pw.equals(mvo.getPw())) {
-				return "member/memberUpdateForm";
+		System.out.println("System.out.println(mvo);");
+		System.out.println(mvo);
+		if (mvo != null) {
+			if(!pw.isEmpty()) {
+				if(pw.equals(mvo.getPw())) {
+					// 멤버쉽 만료일 연산
+					Timestamp today = new Timestamp(0);
+					if(mvo.getEdate().getTime() - today.getTime() >0) {
+						model.addAttribute("endDate", "1");	// 기간표시
+					}else {
+						model.addAttribute("endDate", "2"); // 기간표시 X
+					}
+					return "member/memberUpdateForm";
+				}else {
+					model.addAttribute("message", "비밀번호가 일치하지 않습니다");
+					return "member/pwChecking";
+				}	
 			}else {
-				model.addAttribute("message", "비밀번호가 일치하지 않습니다");
+				model.addAttribute("message", "비밀번호를 입력하세요");
 				return "member/pwChecking";
 			}	
-		}else {
-			model.addAttribute("message", "비밀번호를 입력하세요");
-			return "member/pwChecking";
+		} else {
+			return "redirect:/";
 		}
 	}
 	
-	@RequestMapping(value="memberUpdate", method=RequestMethod.POST)
+	@RequestMapping(value="memberUpdate", method= {RequestMethod.GET,RequestMethod.POST})
 	public String member_update(@ModelAttribute("member") @Valid MemberVO membervo,
 			BindingResult result, Model model, HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		MemberVO mvo = (MemberVO) session.getAttribute("loginUser");
+		// 멤버쉽 기간 표시
+		
 		if(result.getFieldError("pw")!=null) {
 			model.addAttribute("message2", "비밀번호를 입력하세요");
 			return "member/memberUpdateForm";
@@ -290,52 +322,62 @@ public class MemberController {
 			model.addAttribute("message6", "입력하신 비밀번호가 일치하지 않습니다");
 			return "member/memberUpdateForm";
 		}	
+		
 		ms.updateMember(membervo);
-		session.setAttribute("loginUser", membervo);
+		MemberVO modifiedMember = ms.getMember(membervo.getId());
+		session.setAttribute("loginUser", modifiedMember);
 		return "redirect:/";
 	}
 	
 	// 멤버쉽 페이지 이동 
-	@RequestMapping("membership")
+	@RequestMapping("/membership")
 	public String membership(Model model, HttpServletRequest request) {
 		return "member/membershipForm";
 	}
 	
 	// 이용권 구매 시 멤버쉽 부여
-	@RequestMapping(value="/buying", method = RequestMethod.POST)
-	public String Buying(@ModelAttribute("member") @Valid MemberVO membervo,
-			BindingResult result, Model model, HttpServletRequest request) {
+	@RequestMapping(value="/buying", method = {RequestMethod.GET,RequestMethod.POST})
+	public String Buying(@ModelAttribute("dto") @Valid MemberVO membervo,
+			BindingResult result, Model model, RedirectAttributes redirect, HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		MemberVO mvo = (MemberVO) session.getAttribute("loginUser"); 
-		if( mvo==null ) { 		
+		if( mvo==null ) { 		// 로그인되어 있지 않으면
 			//System.out.println("1 : "+mvo.getMembership());
 			// membership 상태확인 }
 			model.addAttribute("message", "10");
+			//System.out.println("구매페이지에서 로그인 안되어있으면 : "+mvo.getMembership());
 			return "member/login"; 
-		
-		}else if(mvo!=null){ 
-			//System.out.println("3-1 : "+mvo.getMembership());
+		}else if(mvo!=null){  // 로그인 되어있으면
+			mvo = ms.getMember(mvo.getId());	// 로그인 후 mvo 내용 재조회
+			System.out.println("구매페이지 로그인되어있을때 : "+mvo.getMembership());
 			//System.out.println("3-2 : "+request.getParameter("membership"));
-			// 이래부터 걸림
-			if(mvo.getMembership().equals("N")) {
-				if( request.getParameter("membership").equals("1")){
-					ms.getMembership30(mvo);
-				}else if(request.getParameter("membership").equals("2")){
-					ms.getMembership7(mvo);
-				}else if( request.getParameter("membership").equals("3")){
-					ms.getMembership1(mvo);
-				}	
-				//System.out.println(mvo.getMembership());
-			}else {
-				model.addAttribute("message", "11");
+			if(mvo.getMembership().equals("Y")) {		//이용권 구매가 되어있으면	
+				System.out.println("이미 구매되어있으면 Y : "+mvo.getMembership());
+				redirect.addFlashAttribute("message", "11");	// 이미 구매되어있음
 				//System.out.println("param2 : "+request.getSession().toString());
-				return "member/membershipForm";
+				return "redirect:/";
+			}else if(mvo.getMembership().equals("N")){		// 이용권 구매가 안되어있으면
+				System.out.println("구매 안되어있으면  N : "+mvo.getMembership());
+				if( request.getParameter("membership").equals("1")){	//30일 구매시
+					ms.buyMembership30(mvo);		// DB에 값변경(getMembership -> buyMembership)
+					System.out.println("30일 구매후 : "+mvo.getEdate());
+				}else if(request.getParameter("membership").equals("2")){	// 7일 구매시
+					ms.buyMembership7(mvo);
+					System.out.println("7일 구매후 : "+mvo.getEdate());
+				}else if( request.getParameter("membership").equals("3")){	// 1일 구매시
+					ms.buyMembership1(mvo);
+					System.out.println("1일 구매후 : "+mvo.getEdate());
+				}	
+				mvo = ms.getMember(mvo.getId()); // DB에서 변경내용 조회
+				session.setAttribute("membership", "Y");
+				System.out.println("구매후 흔적 : "+mvo.getEdate());
 			}
-			session.setAttribute("membership", "Y");
-			model.addAttribute("message", "12");
+			session.setAttribute("loginUser", mvo);
+			redirect.addFlashAttribute("message", "12");
+			System.out.println("구매결과 : "+mvo.getMembership());
 			//System.out.println("param3 : "+request.getSession().toString());
 		}
-		return "index";
+		return "redirect:/";
 	}
 	
 	
