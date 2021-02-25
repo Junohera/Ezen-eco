@@ -165,6 +165,18 @@ $music.utilMethod = {
 			, name : self.closest("form").find("input[name=name]").val()
 		};
 	},
+	
+	getHiddenDataAtLi: function(self) {
+		return {
+			mseq : self.closest("li").find("input[name=mseq]").val() * 1
+			, abseq : self.closest("li").find("input[name=abseq]").val() * 1
+			, atseq : self.closest("li").find("input[name=atseq]").val() * 1
+			, title : self.closest("li").find("input[name=title]").val()
+			, src : self.closest("li").find("input[name=src]").val()
+			, abimg : self.closest("li").find("input[name=abimg]").val()
+			, name : self.closest("li").find("input[name=name]").val()
+		};
+	},
 
 	/* 재생목록 비우기 */
 	playListClear: function() {
@@ -806,6 +818,24 @@ $music.method = {
 
 			play(musicDataList[0].mseq);
 		};
+		
+		// 전부 추가 - 목록위의 전체듣기 버튼을 누른 경우
+		var playListAddAllMain = function(musicLiList) {
+			$music.utilMethod.playListClear(); // 재생목록 비우기
+
+			var musicDataList = [];
+			$(musicLiList).each(function(index, item){
+				var music = $music.utilMethod.getHiddenDataAtLi($(item));
+				musicDataList.push(music);
+			});
+
+			for(var i = 0; i < musicDataList.length; i++) {
+				var music = musicDataList[i];
+				add(music);
+			}
+
+			play(musicDataList[0].mseq);
+		};
 
 		// 전부 추가 - 음악상세의 재생목록버튼아이콘을 누른경우
 		var playListAddMusic = function(target) {
@@ -845,6 +875,7 @@ $music.method = {
 			, playListAddAlbum : playListAddAlbum
 			, playListAddForm : playListAddForm
 			, playListAddMusic : playListAddMusic
+			, playListAddAllMain : playListAddAllMain
 		};
 	})(),
 

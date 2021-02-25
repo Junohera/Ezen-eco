@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.eco.dao.ICountDao;
+import com.eco.dto.AlbumVO;
+import com.eco.dto.ArtistVO;
 import com.eco.dto.BoardVO;
 import com.eco.dto.MemberVO;
 import com.eco.dto.MusicVO;
@@ -230,14 +232,23 @@ public class BoardController {
 		
 		HttpSession session = request.getSession();
 		
-		String table = request.getParameter("table");
-		String selected = request.getParameter("selected");
 		String keyward = request.getParameter("keyward");
 
-		System.out.println("table : "+table+", selected : "+selected+", keyward : "+keyward+". 끝");
-		List<MusicVO> boardList = boardService.searchSite(table, selected, keyward);
+		List<MusicVO> musicList = boardService.msearchSite("music_view", "title", keyward);
+		List<ArtistVO> artistList = boardService.atsearchSite("artist_view", "name", keyward);
+		List<AlbumVO> albumList = boardService.alsearchSite("album_view", "title", keyward);
+		List<MusicVO> lyricsList = boardService.lysearchSite("music_view", "content", keyward);
+		List<BoardVO> adqnaList = boardService.adsearchSite("adminQna", "title", keyward);
+		List<BoardVO> noticeList = boardService.nosearchSite("notice", "title", keyward);
 		
-		model.addAttribute("boardList", boardList);
+		
+		model.addAttribute("musicList", musicList);
+		model.addAttribute("artistList", artistList);
+		model.addAttribute("albumList", albumList);
+		model.addAttribute("lyricsList", lyricsList);
+		model.addAttribute("adqnaList", adqnaList);
+		model.addAttribute("noticeList", noticeList);
+		
 		model.addAttribute("keyward", keyward);
 		
 		session.setAttribute("key", keyward);

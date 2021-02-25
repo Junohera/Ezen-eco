@@ -57,7 +57,22 @@
 		delete from ${param1} where ${param2} = #{param3}
 	</delete>
 	
-	<select id="searchSite" resultType="com.eco.dto.MusicVO">
+	<select id="msearchSite" resultType="com.eco.dto.MusicVO">
+		select * from ${param1} where ${param2} like '%' || #{param3} || '%'
+	</select>
+	<select id="atsearchSite" resultType="com.eco.dto.ArtistVO">
+		select * from ${param1} where ${param2} like '%' || #{param3} || '%'
+	</select>
+	<select id="alsearchSite" resultType="com.eco.dto.AlbumVO">
+		select * from ${param1} where ${param2} like '%' || #{param3} || '%'
+	</select>
+	<select id="lysearchSite" resultType="com.eco.dto.MusicVO">
+		select * from ${param1} where ${param2} like '%' || #{param3} || '%'
+	</select>
+	<select id="adsearchSite" resultType="com.eco.dto.BoardVO">
+		select * from ${param1} where ${param2} like '%' || #{param3} || '%'
+	</select>
+	<select id="nosearchSite" resultType="com.eco.dto.BoardVO">
 		select * from ${param1} where ${param2} like '%' || #{param3} || '%'
 	</select>
 </mapper>

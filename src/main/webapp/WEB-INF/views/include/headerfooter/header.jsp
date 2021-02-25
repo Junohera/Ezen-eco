@@ -47,7 +47,7 @@
 	<%-- board --%>
 	<c:if test="${fn:contains(pageContext.request.requestURI,'board/')}">
 		<link rel="stylesheet" href="css/board.css"> <!-- 공지사항, qna, 게시판 -->
-		<script src="js/board.js"></script>
+		<link rel="stylesheet" href="css/music.css"> <!-- 전체 검색용 -->
 	</c:if>
 	<%-- board --%>
 
@@ -66,14 +66,14 @@
 					<li><a class="headerFont"  href="membership">이용권</a></li>
 				</ul>
 				<div class="searchBox">
-					<form id="allSearch" action="allSearch" method="post" name="allSearchform">
+					<form id="allSearch" action="allSearch" method="post" name="allSearchform" onsubmit="return false">
 						<input type="hidden" name="selected" value="title">
 						<input type="hidden" name="table" value="music_view">
-						<div class ="searchI" onclick="allSearch(this.form)">
+						<div class ="searchI" onclick="allSearch(0)">
 							<i class="fas fa-search fa-lg"></i>
 						</div>
-						<input class="searchText" type="text" onkeypress="if(event.keyCode == 13){'allSearch(this.form)'}"
-							name="keyward">
+						<input class="searchText" type="text" onkeypress="if(event.keyCode == 13){allSearch(1)}"
+							name="keyward" id ="keyward">
 					</form>
 				</div>
 				<c:choose>
@@ -108,7 +108,18 @@
 				</c:choose>
 			</div>
 		</div>
-
+		<script type="text/javascript">
+			function allSearch(x) {
+				if (document.getElementById("keyward").value == "") {
+					alert("검색어를 입력하세요.")
+					return false;
+				}else if (x == 0){
+					document.getElementById("allSearch").submit();
+				}else if (x == 1) {
+					document.getElementById("allSearch").submit();
+				}else return false;
+			}	
+		</script>
 	</header>
 
 	<div id="viewBox">

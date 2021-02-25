@@ -10,6 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.eco.dao.IBoardDao;
+import com.eco.dto.AlbumVO;
+import com.eco.dto.ArtistVO;
 import com.eco.dto.BoardVO;
 import com.eco.dto.MemberVO;
 import com.eco.dto.MusicVO;
@@ -54,8 +56,25 @@ public class BoardService {
 	public void boardDelete(String table, String field, String key) {
 		bdao.boardDelete(table, field, key);
 	}
-	public List<MusicVO> searchSite(String table, String selected, String keyward) {
-		return bdao.searchSite(table, selected, keyward);
+
+	
+	public List<MusicVO> msearchSite(String table, String selected, String keyward) {
+		return bdao.msearchSite(table, selected, keyward);
+	}
+	public List<ArtistVO> atsearchSite(String table, String selected, String keyward) {
+		return bdao.atsearchSite(table, selected, keyward);
+	}
+	public List<AlbumVO> alsearchSite(String table, String selected, String keyward) {
+		return bdao.alsearchSite(table, selected, keyward);
+	}
+	public List<MusicVO> lysearchSite(String table, String selected, String keyward) {
+		return bdao.lysearchSite(table, selected, keyward);
+	}
+	public List<BoardVO> adsearchSite(String table,String orderName, String keyward) {
+		return bdao.adsearchSite(table, orderName, keyward);
+	}
+	public List<BoardVO> nosearchSite(String table, String selected, String keyward) {
+		return bdao.nosearchSite(table, selected, keyward);
 	}
 	
 }
