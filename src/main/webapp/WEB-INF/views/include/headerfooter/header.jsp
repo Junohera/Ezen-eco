@@ -73,7 +73,7 @@
 							<i class="fas fa-search fa-lg"></i>
 						</div>
 						<input class="searchText" type="text" onkeypress="if(event.keyCode == 13){allSearch(1)}"
-							name="keyward" id ="keyward">
+							name="keyward" id ="keyward" value="${keyward}">
 					</form>
 				</div>
 				<c:choose>
@@ -110,7 +110,9 @@
 		</div>
 		<script type="text/javascript">
 			function allSearch(x) {
-				if (document.getElementById("keyward").value == "") {
+				var val = document.getElementById("keyward").value;
+				val = val.trim();
+				if (val === "") {
 					alert("검색어를 입력하세요.")
 					return false;
 				}else if (x == 0){

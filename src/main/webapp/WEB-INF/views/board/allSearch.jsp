@@ -74,58 +74,34 @@
 					<tr>
 						<th>곡/앨범</th>
 						<th>아티스트</th>
-						<th>듣기</th>
-						<th>재생목록</th>
-						<th>내 리스트</th>
-						<th>더 보기</th>
 					</tr>
 						<c:forEach items="${musicList }" var="musicList" varStatus="status">
-						<tr height="84" class="musicTr">
-		                    <input type="hidden" name="mseq" value="${musicList.mseq}">
-		                    <input type="hidden" name="abseq" value="${musicList.abseq}">
-		                    <input type="hidden" name="atseq" value="${musicList.atseq}">
-		                    <input type="hidden" name="title" value="${musicList.title}">
-		                    <input type="hidden" name="src" value="${musicList.src}">
-		                    <input type="hidden" name="abimg" value="${musicList.abimg}">
-		                    <input type="hidden" name="name" value="${musicList.name}">
-		                    <td>
-		                        <div class="justWrap">
-		                            <div class="contentWrap">
-		                                <img src="${musicList.abimg}" alt="" width="60" height="60">
-		                                <a href="musicView?mseq=${musicList.mseq}">
-		                                    <c:if test="${fn:contains(pageContext.request.requestURI,'music/albumView')}">
-		                                        <c:if test="${musicList.titleyn eq 'Y'}">
-		                                            <span style="width:40px;height:16px;border-radius: 2px; color:white; font-weight: bold; background:#3f3fff;font-size:2px;font-weight:600;padding:2px;">TITLE</span>
-		                                        </c:if>
-		                                    </c:if>
-		                                    ${musicList.title}
-		                                </a>
-		                                <a href="albumView?abseq=${musicList.abseq}">${musicList.abtitle}</a>
-		                            </div>
-		                        </div>
-		                    </td>
-		                    <td><a href="artistView?atseq=${musicList.atseq}">${musicList.name}</a></td>
-		                    <td style="text-align: center; padding: 0; margin: 0">
-		                        <a class="iconButton listen">&nbsp;
-		                            <span style="font-size: 20px; color: #333333;"><i class="fas fa-play"></i></span>
-		                        </a>
-		                    </td>
-		                    <td style="text-align: center; padding: 0; margin: 0">
-		                        <a class="iconButton playListAdd">&nbsp;
-		                            <span style="font-size: 20px; color: #333333;"><i class="fas fa-outdent"></i></span>
-		                        </a>
-		                    </td>
-		                    <td style="text-align: center; padding: 0; margin: 0">
-		                        <a class="iconButton myListAdd">&nbsp;
-		                            <span style="font-size: 20px; color: #333333;"><i class="fas fa-folder-plus"></i></span>
-		                        </a>
-		                    </td>
-		                    <td style="text-align: center; padding: 0; margin: 0">
-		                        <a class="iconButton moreDiv">&nbsp;
-		                            <span style="font-size: 20px; color: #333333;"><i class="fas fa-ellipsis-v"></i></span>
-		                        </a>
-		                    </td>
-		                </tr>
+							<tr height="84" class="musicTr">
+								<input type="hidden" name="mseq" value="${musicList.mseq}">
+								<input type="hidden" name="abseq" value="${musicList.abseq}">
+								<input type="hidden" name="atseq" value="${musicList.atseq}">
+								<input type="hidden" name="title" value="${musicList.title}">
+								<input type="hidden" name="src" value="${musicList.src}">
+								<input type="hidden" name="abimg" value="${musicList.abimg}">
+								<input type="hidden" name="name" value="${musicList.name}">
+								<td>
+									<div class="justWrap">
+										<div class="contentWrap">
+											<img src="${musicList.abimg}" alt="" width="60" height="60">
+											<a href="musicView?mseq=${musicList.mseq}">
+												<c:if test="${fn:contains(pageContext.request.requestURI,'music/albumView')}">
+													<c:if test="${musicList.titleyn eq 'Y'}">
+														<span style="width:40px;height:16px;border-radius: 2px; color:white; font-weight: bold; background:#3f3fff;font-size:2px;font-weight:600;padding:2px;">TITLE</span>
+													</c:if>
+												</c:if>
+												${musicList.title}
+											</a>
+											<a href="albumView?abseq=${musicList.abseq}">${musicList.abtitle}</a>
+										</div>
+									</div>
+								</td>
+								<td><a href="artistView?atseq=${musicList.atseq}">${musicList.name}</a></td>
+							</tr>
 						</c:forEach>
 					</table>
 				</c:otherwise>
@@ -150,7 +126,7 @@
 						            <div class="thumbnail">
 						                <img src="${albumList.img}" alt="">
 						                <div id="thumbnail_dim"></div>
-						                <span onclick="$('#playListAddAll').trigger('click');">
+						                <span>
 						                    <i class="fas fa-play"></i>
 						                </span>
 						            </div>
@@ -175,22 +151,17 @@
 						                </ul>
 						                <ul class="iconList">
 						                    <li>
-						                        <a class="iconButton playListAdd" onclick="$music.method.musicList.playListAddAll($('#listBox .musicTr'));">
+						                        <a class="iconButton playListAdd">
 						                            <span style="font-size: 20px; color: #333333;"><i class="fas fa-outdent"></i></span>
 						                        </a>
 						                    </li>
 						                    <li>
-						                        <a class="iconButton myListAdd" onclick="$music.method.myList.on_listByDetail();">
+						                        <a class="iconButton myListAdd">
 						                            <span style="font-size: 20px; color: #333333;"><i class="fas fa-folder-plus"></i></span>
 						                        </a>
 						                    </li>
 						                    <li>
-						                        <a class="iconButton unlike" onclick="$music.method.unlike(null, '${albumList.abseq}', null);">
-						                            <span style="font-size: 20px; color: red;">
-						                                <i class="fas fa-heart"></i>
-						                            </span>
-						                        </a>
-						                        <a class="iconButton like" onclick="$music.method.like(null, '${albumList.abseq}', null);">
+						                        <a class="iconButton like">
 						                            <span style="font-size: 20px; color: #333333;">
 						                                <i class="far fa-heart"></i>
 						                            </span>
@@ -292,55 +263,49 @@
 				</c:when>
 				<c:otherwise>
 					<table id ="listBox" width="100%" style="table-layout: fixed;">
+						<colgroup>
+							<col width="250">
+							<col width="100">
+							<col width="300">
+						</colgroup>
+
 						<tr>
-						<th>곡/앨범</th>
-						<th>아티스트</th>
-						<th>듣기</th>
-						<th>가사</th>
-						<th>더 보기</th>
-					</tr>
+							<th>곡/앨범</th>
+							<th>아티스트</th>
+							<th style="text-align: center;">가사</th>
+						</tr>
 						<c:forEach items="${lyricsList }" var="lyricsList" varStatus="status">
-						<tr height="84" class="musicTr"><col width="300"><col width="100"><col width="80">
-		                    <input type="hidden" name="mseq" value="${lyricsList.mseq}">
-		                    <input type="hidden" name="abseq" value="${lyricsList.abseq}">
-		                    <input type="hidden" name="atseq" value="${lyricsList.atseq}">
-		                    <input type="hidden" name="title" value="${lyricsList.title}">
-		                    <input type="hidden" name="src" value="${lyricsList.src}">
-		                    <input type="hidden" name="abimg" value="${lyricsList.abimg}">
-		                    <input type="hidden" name="name" value="${lyricsList.name}">
-		                    <td>
-		                        <div class="justWrap">
-		                            <div class="contentWrap">
-		                                <img src="${lyricsList.abimg}" alt="" width="60" height="60">
-		                                <a href="musicView?mseq=${lyricsList.mseq}">
-		                                    <c:if test="${fn:contains(pageContext.request.requestURI,'music/albumView')}">
-		                                        <c:if test="${lyricsList.titleyn eq 'Y'}">
-		                                            <span style="width:40px;height:16px;border-radius: 2px; color:white; font-weight: bold; background:#3f3fff;font-size:2px;font-weight:600;padding:2px;">TITLE</span>
-		                                        </c:if>
-		                                    </c:if>
-		                                    ${lyricsList.title}
-		                                </a>
-		                                <a href="albumView?abseq=${lyricsList.abseq}">${lyricsList.abtitle}</a>
-		                            </div>
-		                        </div>
-		                    </td>
-		                    <td><a href="artistView?atseq=${lyricsList.atseq}">${lyricsList.name}</a></td>
-		                    <td style="text-align: center; padding: 0; margin: 0">
-		                        <a class="iconButton listen">&nbsp;
-		                            <span style="font-size: 20px; color: #333333;"><i class="fas fa-play"></i></span>
-		                        </a>
-		                    </td>
-		                    <td style="text-align: center; padding: 0; margin: 0">
-		                    	<div	style="max-height: 80px; text-overflow: ellipsis; overflow: scroll;">
-		                       		${lyricsList.content }
-		                        </div>
-		                    </td>
-		                    <td style="text-align: center; padding: 0; margin: 0">
-		                        <a class="iconButton moreDiv">&nbsp;
-		                            <span style="font-size: 20px; color: #333333;"><i class="fas fa-ellipsis-v"></i></span>
-		                        </a>
-		                    </td>
-		                </tr>
+							<tr height="84" class="musicTr">
+								<input type="hidden" name="mseq" value="${lyricsList.mseq}">
+								<input type="hidden" name="abseq" value="${lyricsList.abseq}">
+								<input type="hidden" name="atseq" value="${lyricsList.atseq}">
+								<input type="hidden" name="title" value="${lyricsList.title}">
+								<input type="hidden" name="src" value="${lyricsList.src}">
+								<input type="hidden" name="abimg" value="${lyricsList.abimg}">
+								<input type="hidden" name="name" value="${lyricsList.name}">
+								<td class="singleline-ellipsis">
+									<div class="justWrap">
+										<div class="contentWrap">
+											<img src="${lyricsList.abimg}" alt="" width="60" height="60">
+											<a href="musicView?mseq=${lyricsList.mseq}">
+												<c:if test="${fn:contains(pageContext.request.requestURI,'music/albumView')}">
+													<c:if test="${lyricsList.titleyn eq 'Y'}">
+														<span style="width:40px;height:16px;border-radius: 2px; color:white; font-weight: bold; background:#3f3fff;font-size:2px;font-weight:600;padding:2px;">TITLE</span>
+													</c:if>
+												</c:if>
+												${lyricsList.title}
+											</a>
+											<a href="albumView?abseq=${lyricsList.abseq}">${lyricsList.abtitle}</a>
+										</div>
+									</div>
+								</td>
+								<td><a href="artistView?atseq=${lyricsList.atseq}">${lyricsList.name}</a></td>
+								<td style="text-align: center; padding: 0; margin: 0">
+									<div	style="max-height: 80px; text-overflow: ellipsis; overflow: scroll;">
+										${lyricsList.content }
+									</div>
+								</td>
+							</tr>
 						</c:forEach>
 					</table>
 				</c:otherwise>
