@@ -110,6 +110,11 @@
     #audioBottom #noti small {
         color: white;
     }
+
+    #audioBottom #current, #audioBottom #total {
+        line-height: 27px;font-size: 7px;
+        color: lightgray;
+    }
 </style>
 <style>
         #audioRight {
@@ -242,13 +247,13 @@
                 <li style="margin-top: 10px;"><span class="icon shuffle" style="cursor:pointer;font-size: 14px; color: gray;"><i class="fas fa-random"></i></span></li>
             </ul>
             <ul style="margin-top:10px;">
-                <li id="current" style="line-height: 27px;font-size: 7px;">00:00</li>
+                <li id="current">00:00</li>
                 <li>
                     <div id="gage">
                         <div></div>
                     </div>
                 </li>
-                <li id="total" style="line-height: 27px;font-size: 7px;">00:00</li>
+                <li id="total">00:00</li>
             </ul>
         </li>
         <li style="width:300px;" class="right">
@@ -273,7 +278,7 @@
             재생목록
             <span id="clear" style="cursor: pointer;position: absolute;top: 6px;left: 82px;color: white;font-size: 11px;opacity: 1;"><i class="fas fa-trash-alt"></i></span>
             <div class="closeAudioRight" style="position: absolute;right: 0;top: -2px;cursor: pointer;">
-                <span style="color: #333333;">
+                <span style="color: white;">
                     <i class="fas fa-times"></i>
                 </span>
             </div>

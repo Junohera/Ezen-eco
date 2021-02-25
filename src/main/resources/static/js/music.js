@@ -43,7 +43,6 @@ $music.data = {
 		],
 		audio : null, // new Audio
 		timer : null, // interval객체
-		audioRight : false, // 우측 재생목록 펼침여부
 	},
 
 	/* input:checkbox조작시 나타나는 팝업 */
@@ -81,7 +80,6 @@ $music.sync = {
 		audioInfo.current = $("#audioBottom").find("#current").text();
 		audioInfo.gageInner = $("#audioBottom #gage > div").css("width");
 		$music.data.playList.audioInfo = audioInfo;
-
 		localStorage.setItem("playList", JSON.stringify($music.data.playList));
 	},
 	apply: function() {
@@ -134,11 +132,6 @@ $music.sync = {
 				$("#audioBottom").find(".play").closest("li").hide();
 				$music.method.musicList.play(item.mseq);
 			}
-
-			if ($music.data.playList.audioRight) {
-				$("#audioBottom").find(".list").trigger("click");
-			}
-
 		}
 	},
 }
@@ -278,6 +271,9 @@ $music.utilMethod = {
 							target.find(".pause").closest("li").show();
 							target.find(".play").closest("li").hide();
 						}
+					} else {
+						target.find(".play").closest("li").show();
+						target.find(".pause").closest("li").hide();
 					}
 		
 					$("#audioBottom").show();
@@ -374,6 +370,7 @@ $music.utilMethod = {
 		}
 		
 		var run = function(playItem, isDiff) {
+			$("#audioBottom .icon .play").hide();
 			window.clearInterval($music.data.playList.timer);
 			$music.method.audioRight.set();
 			
@@ -405,6 +402,7 @@ $music.utilMethod = {
 			.then(function() {
 				init(playItem);
 				startInterval();
+				$("#audioBottom .icon .play").show();
 			})
 		};
 
@@ -952,8 +950,8 @@ $music.method = {
 					scroll(playingNumber);
 				}
 
-				$music.data.playList.audioRight = true;
 			}
+			$music.sync.set();
 		};
 
 		return {
@@ -1541,7 +1539,6 @@ $(function() {
 		$("#audioRight .closeAudioRight").on("click", function() {
 			$("#audioRight").toggle();
 			$("#audioRight").find(".list").find("ul").empty();
-			$music.data.playList.audioRight = false;
 		});
 
 		$("#audioRight .closeText").on("click", function() {
