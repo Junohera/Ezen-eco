@@ -1589,13 +1589,13 @@ $(function() {
 					timer : null,
 				};
 
-				$("#audioRight").animate({opacity: 0}, 2000, function() {
+				$("#audioRight").animate({opacity: 0}, 1000, function() {
 					$(this).hide();
 					$(this).css({opacity: 1});
 					$("#audioRight .list ul").empty();
 				});
 
-				$("#audioBottom").animate({opacity: 0}, 2000, function() {
+				$("#audioBottom").animate({opacity: 0}, 1000, function() {
 					$("#audioBottom").find("#abimg").hide().attr("src", "");
 					$("#audioBottom").find("#title").text("");
 					$("#audioBottom").find("#name").text("");
