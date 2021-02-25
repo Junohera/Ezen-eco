@@ -1636,8 +1636,9 @@ $(function() {
 					$(this).css({opacity: 1});
 				});
 
-				
-				
+				$("footer").css({
+					marginBottom: "20px"
+				});
 			}
 		})
 
