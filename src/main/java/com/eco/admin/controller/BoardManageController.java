@@ -19,7 +19,6 @@ import com.eco.admin.service.IBoardManageService;
 import com.eco.admin.service.implement.BoardManageService;
 import com.eco.dao.ICountDao;
 import com.eco.dto.BoardVO;
-import com.eco.dto.MemberVO;
 import com.eco.dto.Paging;
 import com.eco.service.BoardService;
 

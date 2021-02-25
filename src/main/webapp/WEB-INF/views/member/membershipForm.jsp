@@ -11,7 +11,7 @@
 
 <article>
 <form class="joinForm" action="buying" method="post" name="formm" style="padding:0px;padding-top:0px;">
-	<h2 id="title">&nbsp;&nbsp;&nbsp;&nbsp;ECO 이용권 구매</h2>
+	<h2 id="buying">&nbsp;&nbsp;&nbsp;&nbsp;ECO 이용권 구매</h2>
 	<div class="product" style="margin-top:30px;">
 		<label for="select1">
 		<input id="select1" type="radio" name="membership" value="1" checked>
