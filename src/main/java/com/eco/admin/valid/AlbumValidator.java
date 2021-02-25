@@ -15,8 +15,21 @@ public class AlbumValidator implements Validator{
 		if (dto.getTitle() == null || dto.getTitle().trim().isEmpty()) errors.rejectValue("title", "title");
 		if (dto.getAtseq() == 0) errors.rejectValue("atseq", "atseq");
 		if (dto.getGseq() == 0) errors.rejectValue("gseq", "gseq");
-		if (dto.getAbtype() == null || dto.getAbtype().trim().isEmpty()) errors.rejectValue("abtype", "abtype");
-		if (dto.getInputpdate() == null || dto.getInputpdate().trim().isEmpty()) errors.rejectValue("pdate", "pdate");
+		
+		if (dto.getNewabtype() == null || dto.getNewabtype().trim().isEmpty()) {
+			if (dto.getAbtype() == null || dto.getAbtype().trim().isEmpty()) {
+				errors.rejectValue("abtype", "abtype radio");
+			} else {
+				errors.rejectValue("abtype", "abtype text");
+			}
+		}
+		
+		
+		if (dto.getMode().equals("insert")) {
+			if (dto.getInputpdate() == null || dto.getInputpdate().trim().isEmpty()) errors.rejectValue("pdate", "pdate");	
+		} else {
+			// do nothing...
+		}
 	}
 
 	@Override

@@ -13,11 +13,9 @@ import org.springframework.ui.Model;
 import org.springframework.util.ResourceUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -26,10 +24,7 @@ import com.eco.admin.valid.AlbumValidator;
 import com.eco.dao.ICountDao;
 import com.eco.dao.IMusicDao;
 import com.eco.dto.AlbumVO;
-import com.eco.dto.MemberVO;
-import com.eco.dto.MusicVO;
 import com.eco.dto.Paging;
-import com.eco.dto.ThemeVO;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
@@ -107,7 +102,7 @@ public class AlbumManageController {
 	//-----------------------------------  albumManageInsert  -------------------------------------------------------------------
 	@RequestMapping(value = "albumManageInsert", method = RequestMethod.POST)
 	public String albumManageInsert(HttpServletRequest request, Model model
-			, @ModelAttribute("album") @Valid AlbumVO album
+			, @ModelAttribute("album") AlbumVO album
 			, BindingResult result , RedirectAttributes redirect
 			) {
 
@@ -134,19 +129,23 @@ public class AlbumManageController {
 			album.setAtseq(multi.getParameter("atseq") != null ? Integer.parseInt(multi.getParameter("atseq")) : 0);
 			album.setGseq(multi.getParameter("gseq") != null ? Integer.parseInt(multi.getParameter("gseq")) : 0);
 			album.setAbtype(multi.getParameter("abtype"));
+			album.setNewabtype(multi.getParameter("newabtype"));
 			album.setImg(multi.getParameter("img"));
 			album.setImglink(multi.getParameter("imglink"));
 			album.setContent(multi.getParameter("content"));
 			album.setInputpdate(multi.getParameter("inputpdate"));
+			album.setMode(multi.getParameter("mode"));
 			
 			AlbumValidator validator = new AlbumValidator();
 			validator.validate(album, result);
 	
-			 if (result.hasErrors()) {
+			if (result.hasErrors()) {
 				model.addAttribute("message", result.getFieldError().getField());
 				return "admin/album/albumManageInsertForm";
 			}
-			 album.setImglink(multi.getParameter("imglink"));
+			
+			// img
+			album.setImglink(multi.getParameter("imglink"));
 			String img = multi.getFilesystemName("img");
 			if (album.getImglink() != null && !album.getImglink().equals("")) {
 				img = album.getImglink();
@@ -156,6 +155,15 @@ public class AlbumManageController {
 				img = null;
 			}
 			album.setImg(img);
+			
+			// abtype
+			String abtype = null;
+			if (album.getNewabtype() != null && !album.getNewabtype().equals("")) {
+				abtype = album.getNewabtype();
+			} else {
+				abtype = album.getAbtype();
+			}
+			album.setAbtype(abtype);
 					
 		} catch (IOException e) {e.printStackTrace();}
 		
@@ -185,7 +193,7 @@ public class AlbumManageController {
 	//-----------------------------------  albumManageUpdate  -------------------------------------------------------------------
 	@RequestMapping(value = "albumManageUpdate", method = RequestMethod.POST)
 	public String albumManageUpdate(HttpServletRequest request, Model model
-			, @ModelAttribute("album") @Valid AlbumVO album
+			, @ModelAttribute("album") AlbumVO album
 			, BindingResult result
 			) {
 		// 세션 체크
@@ -208,10 +216,14 @@ public class AlbumManageController {
 					album.setAtseq(multi.getParameter("atseq") != null ? Integer.parseInt(multi.getParameter("atseq")) : 0);
 					album.setGseq(multi.getParameter("gseq") != null ? Integer.parseInt(multi.getParameter("gseq")) : 0);
 					album.setAbtype(multi.getParameter("abtype"));
+					album.setNewabtype(multi.getParameter("newabtype"));
 					album.setImg(multi.getParameter("img"));
 					album.setImglink(multi.getParameter("imglink"));
 					album.setContent(multi.getParameter("content"));
-					album.setInputpdate(multi.getParameter("inputpdate"));
+					album.setMode(multi.getParameter("mode"));
+					album.setAbseq(Integer.parseInt(multi.getParameter("abseq")));
+					
+					
 					
 					AlbumValidator validator = new AlbumValidator();
 					validator.validate(album, result);
@@ -224,6 +236,8 @@ public class AlbumManageController {
 			    		model.addAttribute("album", musicDao.getAlbum(album.getAbseq()));
 			    		return this.albumManageUpdateForm(request, model, album.getAbseq());
 			        } else {
+			        	
+			        	// img
 			        	String img = multi.getFilesystemName("img");
 						if (album.getImglink() != null && !album.getImglink().equals("")) {
 							img = album.getImglink();
@@ -234,7 +248,15 @@ public class AlbumManageController {
 						}
 						album.setImg(img);
 						
-
+						// abtype
+						String abtype = null;
+						if (album.getNewabtype() != null && !album.getNewabtype().equals("")) {
+							abtype = album.getNewabtype();
+						} else {
+							abtype = album.getAbtype();
+						}
+						album.setAbtype(abtype);
+						
 						int res = albumManageService.update(album);
 						
 						if (res > 0) {
@@ -242,7 +264,6 @@ public class AlbumManageController {
 						}
 			        }
 			        
-			        model.addAttribute("message", result.getFieldError().getField());
 		        	model.addAttribute("ArtistList", albumManageService.getArtist());
 		    		model.addAttribute("genreList", musicDao.genreList());
 		    		model.addAttribute("abtypeListByAlbum", musicDao.abtypeListByAlbum());
@@ -281,7 +302,6 @@ public class AlbumManageController {
 	@RequestMapping(value = "AbtypeList", method = RequestMethod.GET)
 	public String AbtypeList(HttpServletRequest request, Model model
 			) {
-
 		model.addAttribute("abtypeListByAlbum", musicDao.abtypeListByAlbum());
 		return "admin/album/AbtypeList";
 	}

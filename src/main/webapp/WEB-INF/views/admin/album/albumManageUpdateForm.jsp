@@ -5,39 +5,22 @@
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-
-<script>
-    $(function() {
-
-    var picker = new Pikaday({ 
-    	 field: document.getElementById('datepicker'),
-    	 format: 'yyyy-MM-dd',
-    	 toString(date, format) {
-    	   let day = ("0" + date.getDate()).slice(-2);
-    	   let month = ("0" + (date.getMonth() + 1)).slice(-2);
-    	   let year = date.getFullYear();
-    	   return `${year}-${month}-${day}`;
-    	 }
-    	});
-			
-</script>
-
 <article style="min-height:500px;margin-top:100px; width:1000px; margin:0 auto;">
     <form action="albumManageUpdate" method="POST" enctype="multipart/form-data">
+		<input type="hidden" name="abseq" value="${album.abseq}">
+		<input type="hidden" name="mode" value="update">
     	${message}<br>
         <label for="title">
             앨범 타이틀 <input type="text" name="title" value="${album.title}">
         </label>
         <br>
-        <%-- 
       	<label for="pdate">  
         	앨범 발매일 : <fmt:formatDate value="${album.pdate}" type="date" pattern="yyyy.MM.dd"/>
         </label>
-         --%>
         <br>
-        <div style="width: 45%;display:inline-block;float:left;">
+        <div style="width: 33%;display:inline-block;float:left;">
 	        <p>가수</p>
-	        <div style="width: 450px;border: 1px solid gray;height: 250px;overflow-y: scroll;">
+	        <div style="width: 300px;border: 1px solid gray;height: 250px;overflow-y: scroll;">
 	            <c:forEach var="artist" items="${ArtistList}" varStatus="status">
 	                <label for="artist_${artist.atseq}" style="width: 100%;margin: 0;padding:0;display:block;">
 	                    <input id="artist_${artist.atseq}" type="radio" name="atseq" value="${artist.atseq}"
@@ -47,9 +30,9 @@
 	            </c:forEach>
 	        </div>
         </div>
-        <div style="width: 45%;display:inline-block;float:left;">
+        <div style="width: 33%;display:inline-block;float:left;">
 	        <p>장르</p>
-	        <div style="width: 450px;border: 1px solid gray;height: 250px;overflow-y: scroll;">
+	        <div style="width: 300px;border: 1px solid gray;height: 250px;overflow-y: scroll;">
 	            <c:forEach var="genre" items="${genreList}" varStatus="status">
 	                <label for="genre_${genre.gseq}" style="width: 100%;margin: 0;padding:0;display:block;">
 	                    <input id="genre_${genre.gseq}" type="radio" name="gseq" value="${genre.gseq}"
@@ -59,27 +42,25 @@
 	            </c:forEach>
 	        </div>
 	     </div>
-	     <%-- 
         <div style="width: 33%;display:inline-block;float:left;">
-        	<p>앨범타입 : <input type="text" name="abtype1"  placeholder="추가할 앨범타입을 입력하세요" style="font-size:11px;">
-        		<input type="button" value="add" onclick="add(this.form, '${album.abtype}');">
-        		<input type="button" value="del" onclick="del(this.form, '${album.abtype}');"></p>
+        	<p>앨범타입 : <input type="text" name="newabtype" value="${album.abtype}"  placeholder="추가할 앨범타입을 입력하세요" style="font-size:11px;">
 	        <div style="width: 300px;border: 1px solid gray;height: 250px;overflow-y: scroll;">
 	            <c:forEach var="abtype" items="${abtypeListByAlbum}" varStatus="status">
 	                <label for="abtype_${abtype}" style="width: 100%;margin: 0;padding:0;display:block;">
 	                    <input id="abtype_${abtype}" type="radio" name="abtype" value="${abtype}"
+							onchange='$("input[name=newabtype]").val($(this).val());'
 	                        <c:if test="${album.abtype eq abtype}">checked</c:if>
 	                    >${abtype}
 	                </label>
 	            </c:forEach>
 	        </div>
 	    </div>
-	     --%>
+	    
 	    <div style="width: 30%;display:inline-block;">
-	    	<label for=abtype>
+	    	<%-- <label for=abtype>
 	            앨범타입 <input type="text" name="abtype" value="${album.abtype}">
 	            <input type="button" value="abtype" class="submit" onclick="AbtypeList();">
-	        </label>
+	        </label> --%>
 	         <p>이미지</p>
 	         <label for="img">
 	         	<img style="display:block;" id="img" src="${album.img}" width="100" height="100" onerror="this.src='../upload/noimage.jpg'">
@@ -89,9 +70,9 @@
 	                style="width: 400px;" 
 	                onchange="document.getElementById('img').src=this.value;">
 	        <br>
-	        <label for="pdate">  앨범 발매일
+	        <!-- <label for="pdate">  앨범 발매일
 	        	<input id="datepicker" type="date" name="inputpdate" placeholder="날짜넣기">
-	        </label>
+	        </label> -->
 	        <p>소개</p>
 	        <textarea name="content" cols="30" rows="10">${album.content}</textarea>
 	        <br>

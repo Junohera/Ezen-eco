@@ -81,11 +81,6 @@
 						<ul class="headerTextR">
 						<li><a class="headerFont"  href="loginForm">로그인</a></li>
 						<li><a class="headerFont"  href="contract">회원가입</a></li>
-						<li>
-							<div id="playListBtn" onclick="pBoxOX()">
-								<i class="fas fa-list-ul fa-lg"></i>
-							</div>
-						</li>
 					</ul>	
 					</c:when>
 					<c:otherwise>
@@ -96,13 +91,6 @@
 							   </a>
 						   </li>
 						<li><a class="headerFont"  href="logout">로그아웃</a></li>
-						<!-- 플레이 리스트 버튼 -->
-						<li>
-							<div id="playListBtn" onclick="pBoxOX()">
-								<i class="fas fa-list-ul fa-lg"></i>
-							</div>
-						</li>
-						<!-- 플레이 리스트 끝 -->
 					</ul>
 					</c:otherwise>
 				</c:choose>

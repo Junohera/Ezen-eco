@@ -106,11 +106,10 @@
 			set
 				atseq = #{atseq}
 				, title = #{title}
-				, img = #{img}
+				, img = #{img, jdbcType=VARCHAR}
 				, content = #{content}
 				, abtype = #{abtype}
 				, gseq = #{gseq}
-				, pdate = #{inputpdate}
 		where abseq = #{abseq}
 	</update>
 
