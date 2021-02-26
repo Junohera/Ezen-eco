@@ -2,6 +2,21 @@
     pageEncoding="UTF-8"%>
 <%@ include file="../include/headerfooter/header.jsp" %>
 
+<script>
+    $(function() {
+        $music.data.myList.items = [];
+        $music.data.myList.items.push({
+            mseq : $("#music_musicView .contentBox").find("input[name=mseq]").val() * 1,
+            abseq : $("#music_musicView .contentBox").find("input[name=abseq]").val() * 1,
+            atseq : $("#music_musicView .contentBox").find("input[name=atseq]").val() * 1,
+            title : $("#music_musicView .contentBox").find("input[name=title]").val(),
+            src : $("#music_musicView .contentBox").find("input[name=src]").val(),
+            abimg : $("#music_musicView .contentBox").find("input[name=abimg]").val(),
+            name : $("#music_musicView .contentBox").find("input[name=name]").val(),
+        });
+    })
+</script>
+
 <article id="music_musicView">
     <div class="contentBox">
         <form style="position: absolute;width:0px;height:0px;">

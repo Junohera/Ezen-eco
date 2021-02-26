@@ -26,15 +26,16 @@
             margin-top: 30px; margin-left: 80px;}
     
     /* body 적용 */
-    .adminViewBox{width:950px;margin: 0 auto; margin-top: 30px;border:1px solid red;padding:0px;}
+    .adminViewBox{width:950px;margin: 0 auto; margin-top: 30px;padding:0px;}
     
     /* adminLogin */
-    #adminForm{position:relative;margin:0 auto;margin-top:300px;width:840px;height:400px;border:3px solid silver;background:none;}
-   #inputInfo{position:relative;float:left;margin:50px 20px 20px 15px;width:45%;height:320px;}
+    #adminForm{position:relative;margin:0 auto;margin-top:240px;width:850px;height:400px;background:none;}
+    #infobox{position:relative;float:left; width:420px; height:400px; }
+   #inputInfo{position:relative;margin:50px 20px 20px 15px;width:45%;height:320px; }
    #inputLogo{position:relative;float:left; align-content:center;width:50%;height:400px;background:#311851;}
-    .textbox{position:relative;color:black; border:0px;margin-bottom:20px; border-bottom:2px silver;font-size:18px;height:50px;font-weight:bold;}
+    .textbox{position:relative;color:pink; border:0px;margin-bottom:20px; border-bottom:2px silver;font-size:18px;height:50px;font-weight:bold; background: none;}
     input::placeholder{color: silver;}
-    #login{width:378px;height:70px;padding:0px;margin:30px 0px;border:none;background:#C9C6F7;border-radius:10px;font-size:140%;color:black;font-weight:bold;}
+    #login{width:378px;height:70px;padding:0px;margin:30px 0px;border:none;background:#593BA0;border-radius:10px;font-size:140%;color:white;font-weight:bold;}
     .btn{position:relative;width:196px;height:50px;border:none;background:#C9C6F7;border-radius:10px;font-size:100%;color:black;font-weight:bold;}
     
     #login_logo { position:relative; background-image: url(../pageimages/logo.png);

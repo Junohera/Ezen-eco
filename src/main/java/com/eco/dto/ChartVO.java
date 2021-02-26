@@ -6,5 +6,5 @@ import lombok.Data;
 public class ChartVO {
     private int cseq;
     private String title;
-    private String img;
+    private String img = "";
 }

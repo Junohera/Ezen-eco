@@ -6,5 +6,5 @@ import lombok.Data;
 public class ThemeVO {
 	private int tseq;
 	private String title;
-	private String img;
+	private String img = "";
 }

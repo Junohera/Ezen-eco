@@ -267,7 +267,7 @@ $music.utilMethod = {
 			(function bottom() {
 				var target = $("#audioBottom");
 				$music.data.once++;
-				if ($music.data.once === 1) {
+				// if ($music.data.once === 1) {
 					if (musicInfo) {
 						target.find("#abimg").attr("src", musicInfo.abimg).show();
 						target.find("#title").text(musicInfo.title);
@@ -310,11 +310,11 @@ $music.utilMethod = {
 							.addClass("likemseq");
 						}
 					});
-				} else {
-					window.setTimeout(function() {
-						$music.data.once = 0;
-					}, 100);
-				}
+				// } else {
+				// 	window.setTimeout(function() {
+				// 		$music.data.once = 0;
+				// 	}, 100);
+				// }
 			
 				
 			})();
@@ -883,7 +883,7 @@ $music.method = {
 		var scroll = function(mseq) {
 			$music.data.once++;
 
-			if ($music.data.once === 1) {
+			// if ($music.data.once === 1) {
 				var n = 0;
 
 				try {
@@ -899,11 +899,11 @@ $music.method = {
 				} catch(e) {
 					console.log("html attr id not found");
 				}
-			} else {
-				window.setTimeout(function() {
-					$music.data.once = 0;
-				}, 100);
-			}
+			// } else {
+			// 	window.setTimeout(function() {
+			// 		$music.data.once = 0;
+			// 	}, 100);
+			// }
 			
 		};
 

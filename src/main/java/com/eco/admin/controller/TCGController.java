@@ -255,7 +255,11 @@ public class TCGController {
 					"UTF-8", new DefaultFileRenamePolicy());
 			genrevo.setTitle(multi.getParameter("title"));
 			String file = multi.getFilesystemName("filename");
-			genrevo.setImg(file);
+			
+			if (file != null) {
+				genrevo.setImg(file);
+			}
+			
 			GenreValidator validator = new GenreValidator();
 			validator.validate(genrevo, result);
 			if(result.hasErrors()) {
@@ -336,7 +340,11 @@ public class TCGController {
 					"UTF-8", new DefaultFileRenamePolicy());
 			chartvo.setTitle(multi.getParameter("title"));
 			String file = multi.getFilesystemName("filename");
-			chartvo.setImg(file);
+			
+			if (file != null) {
+				chartvo.setImg(file);
+			}
+			
 			ChartValidator validator = new ChartValidator();
 			validator.validate(chartvo, result);
 			if(result.hasErrors()) {
@@ -417,7 +425,11 @@ public class TCGController {
 					"UTF-8", new DefaultFileRenamePolicy());
 			themevo.setTitle(multi.getParameter("title"));
 			String file = multi.getFilesystemName("filename");
-			themevo.setImg(file);
+			
+			if (file != null) {
+				themevo.setImg(file);
+			}
+			
 			ThemeValidator validator = new ThemeValidator();
 			validator.validate(themevo, result);
 			if(result.hasErrors()) {
