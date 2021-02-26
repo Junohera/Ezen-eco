@@ -72,5 +72,6 @@
         </div>
         <div id="clientLink">
             <a href="/" style="color:white;font-size: 8px;text-decoration: none;position: absolute;right: 0;top: 0;">사용자화면</a>
+            <a href="/adminLogout" style="color:white;font-size: 8px;text-decoration: none;position: absolute;left: 0;top: 0;">logout</a>
         </div>
     </div>

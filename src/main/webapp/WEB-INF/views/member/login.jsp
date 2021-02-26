@@ -41,7 +41,7 @@
 				style="padding-left: 0px; height: 60px; align-content: center;border:none;border-bottom: 2px solid silver;font-size:20px;font-weight:bold"
 				value="${dto.id}"></label><br>
 			<br> <label><input class="textbox" name="pw"
-				placeholder="비밀번호" type="password" size="34"
+				placeholder="비밀번호" type="password" size="34" autocomplete="off"
 				style="padding-left: 0px; height: 60px; align-content: center;border:none;border-bottom: 2px solid silver;font-size:20px;font-weight:bold"></label><br>
 			<br><br>
 			<input class="submit" type="submit" value="로그인" class="submit">

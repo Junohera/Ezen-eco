@@ -28,6 +28,13 @@ public class AdminController {
 		}
 	}
 	
+	@RequestMapping("/adminLogout")
+	public String adminLogout(Model model, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		session.removeAttribute("adminId");
+		return "admin/adminLogin";	
+	}
+	
 	@RequestMapping("/AIndex")
 	public String AIndex(Model model) {
 		return "admin/AIndex";

@@ -21,12 +21,12 @@
 		</div>
 		<div id="infobox" >
 			<div id="inputInfo">
-				<label><input class="textbox" name="adminId"
+				<label><input class="textbox" name="adminId" autocomplete="off"
 					placeholder="아이디" type="text" size="33"
 					style="padding-left: 0px; height: 60px; align-content: center; border-bottom: 2px solid pink;">
 	            </label><br>
 	            <br>
-				<label><input class="textbox" name="adminPw"
+				<label><input class="textbox" name="adminPw" autocomplete="off"
 					placeholder="비밀번호" type="password" size="33"
 					style="padding-left: 0px; height: 60px; align-content: center; border-bottom: 2px solid pink;">
 	            </label><br>${message}<br>
