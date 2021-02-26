@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.eco.dto.ArtistVO;
 import com.eco.dto.BundleVO;
 import com.eco.dto.MusicVO;
+import com.eco.service.BoardService;
 import com.eco.service.BundleService;
 import com.eco.service.MusicService;
 
@@ -24,6 +25,9 @@ public class MainController {
 	
 	@Autowired
 	MusicService musicService;
+	
+	@Autowired
+	BoardService boardService;
 	
 	
 	/*
@@ -53,10 +57,9 @@ public class MainController {
 		// 	music.setThemeLabel(/*순회하면서 매치된 테마 명*/);
 		// }
 		
-		// 추가된 부분 21.02.08
 		List<MusicVO> nmlist = musicService.getNewList();
-		List<ArtistVO> rmatlist = null; //TODO:musicService.getRecommendMusic();
-		/* List<Artist> alist = artistService.getRecommendList(); */
+		List<ArtistVO> rmatlist = boardService.getRecommendArtistList();
+
 	
 		model.addAttribute("newMusicList", nmlist);
 		model.addAttribute("recommendArtistList", rmatlist);

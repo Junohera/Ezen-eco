@@ -57,6 +57,11 @@
 		delete from ${param1} where ${param2} = #{param3}
 	</delete>
 	
+	<select id="getRecommendArtistList" resultType="com.eco.dto.ArtistVO">
+		select * from artist_view order by likecount desc
+	</select>
+	
+	
 	<select id="msearchSite" resultType="com.eco.dto.MusicVO">
 		select * from ${param1} where ${param2} like '%' || #{param3} || '%'
 	</select>

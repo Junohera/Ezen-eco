@@ -50,6 +50,10 @@ public class MemberService {
 		return mdao.membershipExpire(membervo);
 		
 	}
+	
+	public int getDuplicatedPhoneUserCount(String phone) {
+		return mdao.getDuplicatedPhoneUserCount(phone);
+	}
 
 
 

@@ -51,7 +51,7 @@
             <ul style="width: 1050px;height: 91px;margin: 0 auto;padding: 0;margin-top: 100px;display: flex;justify-content: space-around;">
                 <li class="menu"><a href="MemberManage?first=yes" style="text-decoration:none;color: white;">회원관리</a></li>
                 <li class="menu"><a href="musicManageList" style="text-decoration:none;color: white;">음악관리</a></li>
-                <li class="menu"><a href="notice?first=yes" style="text-decoration:none;color: white;">게시판관리</a></li>
+                <li class="menu"><a href="noticeManageList?first=yes" style="text-decoration:none;color: white;">게시판관리</a></li>
             </ul>
 
             <div class="dropMenubar" style="position: absolute;top: 190px;left: 0;width: 100%;height: 100px;display:none;background: white;">

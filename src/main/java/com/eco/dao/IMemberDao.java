@@ -17,4 +17,5 @@ public interface IMemberDao {
 	public int buyMembership7(MemberVO mvo);
 	public int buyMembership1(MemberVO mvo);
 	public int membershipExpire(MemberVO mvo);
+	int getDuplicatedPhoneUserCount(String phone);
 }

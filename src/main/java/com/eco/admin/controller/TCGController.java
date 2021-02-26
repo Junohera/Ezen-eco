@@ -1,6 +1,7 @@
 package com.eco.admin.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -47,20 +48,26 @@ public class TCGController {
 
 	@RequestMapping("chartDelete")
 	public String chartDelete(Model model, HttpServletRequest request,
-			@RequestParam("cseq") String cseq, @RequestParam("mseq") int mseq){
+			@RequestParam("cseq") String cseq){
 		
-		List<MusicVO> musicList = tcgs.listMusic(cseq);
+		// ex : "3"
+		List<MusicVO> musicList = tcgs.listMusic(cseq); // "1|2|3"
+		
 		for(MusicVO music : musicList){
-			String chartByTable = music.getChart();
-			List<String> chartList = Arrays.asList(chartByTable.split("\\|"));
-			if(chartList.contains(""+mseq)) {
-				chartList.remove(""+mseq);
-				String chart = String.join("|", chartList);
+			String chartByTable = music.getChart(); // "1|2|3";
+			String [] charts = chartByTable.split("\\|");
+			ArrayList<String> chartList = new ArrayList<>(Arrays.asList(charts)); // ["1", "2", "3"] 
+			
+			if(chartList.contains(cseq)) {
+				chartList.remove(cseq); // ["1", "2", "3"] -> ["1", "2"]
+				String chart = String.join("|", chartList); // "1|2"
 				music.setChart(chart);
-				tcgs.musicUpdate(music);
+				tcgs.musicUpdateChart(music);
 			}
 		}
-		tcgs.chartDelete(cseq);
+		
+		tcgs.chartDelete(cseq);	
+		
 		return "redirect:/ChartManage";
 	}
 	
@@ -89,6 +96,21 @@ public class TCGController {
 	@RequestMapping("themeDelete")
 	public String themeDelete(Model model, HttpServletRequest request,
 			@RequestParam("tseq") String tseq) {
+		
+		List<MusicVO> musicList = tcgs.listMusic1(tseq);
+		
+		for(MusicVO music : musicList){
+			String themeByTable = music.getTheme();
+			String [] themes = themeByTable.split("\\|");
+			ArrayList<String> themeList = new ArrayList<>(Arrays.asList(themes));
+			
+			if(themeList.contains(tseq)) {
+				themeList.remove(tseq);
+				String theme = String.join("|", themeList);
+				music.setTheme(theme);
+				tcgs.musicUpdateTheme(music);
+			}
+		}
 		tcgs.themeDelete(tseq);
 		
 		return "redirect:/ThemeManage";

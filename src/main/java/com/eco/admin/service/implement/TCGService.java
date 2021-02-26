@@ -23,14 +23,25 @@ public class TCGService {
 	ICountDao c;
 	
 	
+	public List<MusicVO> listMusic1(String tseq){
+		List<MusicVO> list = tcgdao.listMusic1(tseq);
+		return list;
+	}
+	
+	
+	
 	public List<MusicVO> listMusic(String cseq){
 		List<MusicVO> list = tcgdao.listMusic(cseq);
 		return list;
 	}
 	
 	
-	public int musicUpdate(MusicVO music) {
-		return tcgdao.musicUpdate(music);
+	public int musicUpdateTheme(MusicVO music) {
+		return tcgdao.musicUpdateTheme(music);
+	}
+	
+	public int musicUpdateChart(MusicVO music) {
+		return tcgdao.musicUpdateChart(music);
 	}
 	
 	

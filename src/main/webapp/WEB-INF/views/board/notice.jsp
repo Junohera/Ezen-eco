@@ -4,6 +4,12 @@
 	<article>
 		<h1>Eco 공지사항</h1>
 		<table id="listBox" style="width: 950px; color: black">
+			<colgroup>
+				<col width="50px">
+				<col width="700px">
+				<col width="100px">
+				<col width="100px">
+			</colgroup>
 			<tr>
 				<th width="10%">번호</th>
 				<th width="65%">제목</th>

@@ -51,7 +51,11 @@
 	<update id="membershipExpire" parameterType="com.eco.dto.MemberVO">
 		update member set sdate = sysdate, edate = sysdate, membership = 'N'
 	 where useq = #{useq}
-	</update> 
+	</update>
+	
+	<select id="getDuplicatedPhoneUserCount" resultType="_int">
+		select count(*) from MEMBER where phone = #{param1}
+	</select> 
 	 
 	
 </mapper>

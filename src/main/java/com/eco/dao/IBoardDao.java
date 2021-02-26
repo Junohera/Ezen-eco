@@ -23,6 +23,7 @@ public interface IBoardDao {
 	public BoardVO myQnaUpdateForm (String qseq);
 	public BoardVO updateForm(String table, String field, String key);
 	public void boardDelete(String table, String field, String key);
+	public List<ArtistVO> getRecommendArtistList();
 	
 	public List<MusicVO> msearchSite(String table, String selected, String keyward);
 	public List<ArtistVO> atsearchSite(String table, String selected, String keyward);

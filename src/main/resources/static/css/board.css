@@ -14,7 +14,8 @@
 	}
 	#listBox th{height:80; width:895px;}
 	#listBox th{padding-left:20px; text-align: left; white-space: nowrap; height: 39px; font-size: 13px; color: #a0a0a0;font-weight: 400; border-top: 1px solid #ebebeb;  border-bottom: 1px solid #ebebeb;}
-	#listBox td{padding-left:20px; text-align: left; white-space: nowrap; height: 39px; font-size: 15px; color: black;font-weight: 450; }
+	#listBox td{padding-left: 20px; text-align: left; white-space: normal; height: 39px; font-size: 15px;
+    					color: #5D5D5D; font-weight: 450;}
 	.qna a:visited {color: black;}
    	.qna a:link {color: black;}
    	.QnaButton:hover {
@@ -37,19 +38,26 @@
     width: 80px;
     float: right;
 	}
-	.QnaButtonUD { border-radius: 10px;
+	.QnaButtonUD {border-radius: 10px;
     font-weight: bold;
     font-size: 14px;
-    line-height: 32px;
+    line-height: 30px;
     text-align: center;
     border-radius: 16px;
     border: 1px solid rgba(0,0,0,.2);
     margin-bottom: 15px;
     width: 80px;
-    width: 30px; height: 25px;
-	margin-bottom: 0px; padding: 0px; float: left; cursor: pointer;}
+    width: 54px;
+    height: 25px;
+    margin-bottom: 0px;
+    margin-right: 5px;
+    padding: 0px;
+    float: left;
+    cursor: pointer;
+    background: none;}
+    .QnaButtonUD:hover {color: white; background: black;}
 	.popupMessageBox {animation: scale2 2s infinite alternate;}
 	.dropTitle summary {color: black; cursor: pointer;}
-	.dropTitle p {color: #5D5D5D;}
+	.dropTitle p {color: #5D5D5D; white-space: break-spaces;}
 						
 details > summary::-webkit-details-marker {display: none}

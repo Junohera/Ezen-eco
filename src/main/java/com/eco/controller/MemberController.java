@@ -1,7 +1,6 @@
 package com.eco.controller;
 
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
@@ -48,11 +47,16 @@ public class MemberController {
 					HttpSession session = request.getSession();
 					session.setAttribute("loginUser", mvo);
 					// 멤버십 검사
-					Timestamp today = new Timestamp(0);
+					Date today = new Date();
+					System.out.println(today);
+					System.out.println(today.getTime());
+					System.out.println(mvo.getEdate().getTime());
+					System.out.println(today.getTime() - mvo.getEdate().getTime());
 					if(mvo.getMembership().equals("N") || today.getTime() - mvo.getEdate().getTime() >= 0) {
 						// 멤버쉽이 N이거나 만료
 						model.addAttribute("message", "12"); // 이용권 구매하세요
 						System.out.println("이용권 구매 안했을때 : "+mvo.getMembership());
+						ms.membershipExpire(mvo);
 						return "member/membershipForm";
 					} else {
 						redirect.addFlashAttribute("message", "10"); // 이용권이 이미 구매됨
@@ -107,7 +111,10 @@ public class MemberController {
 	@RequestMapping(value="join", method= {RequestMethod.GET,RequestMethod.POST})
 	public String join(@ModelAttribute("dto") @Valid MemberVO membervo,
 			BindingResult result, Model model, HttpServletRequest request) {
-		MemberVO mvo = new MemberVO();
+		
+		int duplicatedPhoneUserCount = ms.getDuplicatedPhoneUserCount(membervo.getPhone()); 
+		System.out.println("duplicatedPhoneUserCount");
+		System.out.println(duplicatedPhoneUserCount);
 		
 		if(result.getFieldError("id")!=null) {
 			model.addAttribute("message1", result.getFieldError("id").getDefaultMessage());
@@ -133,6 +140,9 @@ public class MemberController {
 			model.addAttribute("message6", "입력하신 비밀번호가 일치하지 않습니다");
 			model.addAttribute("reid", request.getParameter("reid"));
 			return "member/joinForm";
+		}else if(duplicatedPhoneUserCount > 0) {
+			model.addAttribute("message4", "이미 등록된 전화번호가 있습니다");
+			return "member/joinForm";	
 		}
 		ms.insertMember(membervo);
 		return "member/login";

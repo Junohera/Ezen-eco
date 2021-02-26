@@ -157,12 +157,12 @@
     }
 
     .recommendThemaListBox .mainTr{
-        display: block;
-        margin: 0;
-        padding: 0;
-        list-style: none;
-        float: left;
-        width: 250px;
+       	display: block;
+	    margin-bottom: 7px;
+	    padding: 0;
+	    list-style: none;
+	    float: left;
+	    width: 250px;
     }
     .recommendThemaListBox .mainTr * {
         display: inline-block;
@@ -170,14 +170,11 @@
     #recommendChart tr {width: 100px; line-height: 75px; /*border: 1px solid red;*/ text-overflow: ellipsis;
         overflow: hidden; white-space: nowrap; font-weight: 300; color: white;}
     #recommendChart .albumS {width: 50px;}
-    #recommendChart .MusicT {width: 100px; table-layout: fixed; text-overflow: ellipsis; white-space: nowrap;
-                            padding-left: 10px; overflow:hidden; text-align: center;}
-    #recommendChart .MusicA {width: 80px; table-layout: fixed; text-overflow: ellipsis; white-space: nowrap;
-                            padding-left: 10px; overflow:hidden; text-align: center;}
-    
-    
-
-                            .albumImg {width: 50px; height: 50px; /* border: 1px solid red; */ margin-left: 0px; margin-right: 0px;
+    #recommendChart .MusicT {width: 100px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;
+											    text-align: center; line-height: 50px;}
+    #recommendChart .MusicA {width: 80px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;
+    											text-align: center; line-height: 50px;}
+			.albumImg {width: 50px; height: 50px; /* border: 1px solid red; */ margin-left: 0px; margin-right: 0px;
                                 border-radius: 5px 5px 5px 5px; overflow: hidden;}
             .albumImg img {width: 50px; height: 50px;}
     
@@ -208,8 +205,8 @@
 														margin-left: 17.5px; margin-right: 17.5px;}
 	.MainAlbumImg {position: relative; float: left; height: 200px; width: 200px;/*  border: 1px solid blue; */
 								border-radius: 5px 5px 5px 5px; overflow: hidden;}
-	.MainMusicContentBox {position: relative; float: left; height: 30px; width: 200px;/*  border: 1px solid red; */}
-    
+	.MainMusicContentBox {position: relative; float: left; height: 30px; width: 200px; overflow: hidden;
+   										 text-overflow: ellipsis; white-space: nowrap;}
     .MainAlbumImg img {width: 200px; height: 200px;}
     .abPlayBtn  {position: absolute; float: left; cursor: pointer;
         bottom: 15px; right: 15px; color: white; font-size: 36px;}

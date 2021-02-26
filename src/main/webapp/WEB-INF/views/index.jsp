@@ -123,17 +123,14 @@
 			</c:forEach>
 		</div>
 		
-		<h1>맞춤 아티스트</h1>
+		<h1>아티스트 추천</h1>
 		<div class="mainRecommedBox">
 			<c:forEach items="${recommendArtistList }" var="nlist" begin="0" end="3">
 			<div class="MainAlbum">
-				<div class="MainAlbumImg">
+				<div class="MainAlbumImg" style="border-radius: 50%">
 					<a href="artistView?atseq=${nlist.atseq}">	
-					    	<img src="${nlist.atimg}">
+					    	<img src="${nlist.img}">
 					</a>
-					<div class="abPlayBtn">
-					    <i class="fas fa-play" aria-hidden="true"></i>
-					</div>
 				</div>
 				<div class="MainMusicContentBox">
 					<a href="artistView?atseq=${nlist.atseq}">
@@ -142,28 +139,11 @@
 				</div>
 				<div class="MainMusicContentBox">
 					<a href="/browse?selectedType=genre&selectedSeq=${nlist.gseq}">
-						${nlist.gtitle }
+						${nlist.atgenre }
 					</a>
 				</div>
 			</div>
 			</c:forEach>
-		</div>
-		
-		<%-- <h1>맞춤 곡</h1>
-		<div class="mainRecommedBox">
-			<!-- 반복문 작성 -->
-			<div class="MainAlbum">
-				<div class="MainAlbumImg">
-					<img src="${music.abimg}">
-				</div>
-				<div class="MainMusicContentBox">
-					${music.title }
-				</div>
-				<div class="MainMusicContentBox">
-					${music.name }
-				</div>
-			</div> --%>
-			<!-- 반복문 끝 -->
 		</div>
 		
 <!-- --------------------------------------botton----------------------------------------------- -->

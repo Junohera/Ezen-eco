@@ -27,6 +27,8 @@ public interface ITCGDao {
 	public void themeDelete(String tseq);
 	public void genreDelete(String gseq);
 	public void chartDelete(String cseq);
-	public int musicUpdate(MusicVO music);
+	public int musicUpdateTheme(MusicVO music);
+	public int musicUpdateChart(MusicVO music);
 	public List<MusicVO> listMusic(String cseq);
+	public List<MusicVO> listMusic1(String tseq);
 }

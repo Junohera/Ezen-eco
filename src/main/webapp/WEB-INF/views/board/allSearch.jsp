@@ -123,13 +123,10 @@
 						<div id="music_albumView" style="margin-top: 0px;">
 							<div class="contentBox">
 						        <div class="album">
-						            <div class="thumbnail">
-						                <img src="${albumList.img}" alt="">
-						                <div id="thumbnail_dim"></div>
-						                <span>
-						                    <i class="fas fa-play"></i>
-						                </span>
-						            </div>
+							            <div class="thumbnail" onclick="return location.href='albumView?abseq=${albumList.abseq}'">
+							                <img src="${albumList.img}" alt="">
+							                <div id="thumbnail_dim"></div>
+							            </div>
 						            <div class="info">
 						                <ul>
 						                    <li style="font-size: 28px;margin-bottom: 10px;height: 40px;">

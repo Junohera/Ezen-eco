@@ -56,6 +56,10 @@ public class BoardService {
 	public void boardDelete(String table, String field, String key) {
 		bdao.boardDelete(table, field, key);
 	}
+	
+	public List<ArtistVO> getRecommendArtistList() {
+		return bdao.getRecommendArtistList();
+	}
 
 	
 	public List<MusicVO> msearchSite(String table, String selected, String keyward) {
